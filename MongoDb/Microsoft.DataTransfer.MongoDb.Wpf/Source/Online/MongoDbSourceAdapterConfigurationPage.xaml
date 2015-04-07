@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.MongoDb.Wpf.Source.Online.MongoDbSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.MongoDb.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <DockPanel>
+      <shared:MongoDbAdapterConnectionConfigurationControl DockPanel.Dock="Top" Configuration="{Binding}" />
+
+      <Grid DockPanel.Dock="Top">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="4*" />
+          <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+
+        <ebc:StringOrFileConfigurationControl Grid.Row="0" Grid.Column="0" Style="{StaticResource OptionElement}"
+          UseFile="{Binding UseQueryFile}"
+          StringValueLabel="{DynamicResource EnterQuerySelectionKey}" StringValue="{Binding Query}"
+          FileNameLabel="{DynamicResource QueryFileSelectionKey}" FileName="{Binding QueryFile}"
+          FileFilter="{DynamicResource QueryFileFilterKey}" FileDefaultExtension="{DynamicResource QueryFileDefaultExtensionKey}" />
+
+        <ebc:StringOrFileConfigurationControl Grid.Row="1" Grid.Column="0" Style="{StaticResource OptionElement}"
+          UseFile="{Binding UseProjectionFile}"
+          StringValueLabel="{DynamicResource EnterProjectionSelectionKey}" StringValue="{Binding Projection}"
+          FileNameLabel="{DynamicResource ProjectionFileSelectionKey}" FileName="{Binding ProjectionFile}"
+          FileFilter="{DynamicResource ProjectionFileFilterKey}" FileDefaultExtension="{DynamicResource ProjectionFileDefaultExtensionKey}" />
+      </Grid>
+    </DockPanel>
+  </AdornerDecorator>
+
+</UserControl>

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk.DocumentDbBulkSinkAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:sink="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <ScrollViewer Style="{StaticResource ScrollWrapper}">
+      <StackPanel Style="{StaticResource FixScrollViewerAdorner}">
+        <sink:DocumentDbSinkAdapterCommonConfigurationControl DataContext="{Binding}" />
+
+        <Expander Style="{DynamicResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
+          <StackPanel>
+            <StackPanel Style="{StaticResource OptionElement}">
+              <ebc:ToolTipDecorator ToolTip="{DynamicResource StoredProcFileDescriptionKey}">
+                <Label Content="{DynamicResource StoredProcFileKey}" />
+              </ebc:ToolTipDecorator>
+              
+              <ebc:OpenFileControl
+                FileName="{Binding StoredProcFile, UpdateSourceTrigger=PropertyChanged}"
+                Filter="{DynamicResource StoredProcFileFilter}"
+                DefaultExtension="{DynamicResource StoredProcFileDefaultExtension}"/>
+            </StackPanel>
+            
+            <StackPanel Style="{StaticResource OptionElement}">
+              <Label Content="{DynamicResource BatchSizeKey}" />
+              <TextBox Text="{Binding BatchSize, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource OptionElement}">
+              <Label Content="{DynamicResource MaxScriptSizeKey}" />
+              <TextBox Text="{Binding MaxScriptSize, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <sink:DocumentDbSinkAdapterAdvancedConfigurationControl DataContext="{Binding}" />
+          </StackPanel>
+        </Expander>
+      </StackPanel>
+    </ScrollViewer>
+  </AdornerDecorator>
+  
+</UserControl>

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel.DocumentDbParallelSinkAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sink="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink" 
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <ScrollViewer Style="{StaticResource ScrollWrapper}">
+      <StackPanel Style="{StaticResource FixScrollViewerAdorner}">
+        <sink:DocumentDbSinkAdapterCommonConfigurationControl DataContext="{Binding}" />
+
+        <Expander Style="{DynamicResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
+          <StackPanel>
+            <StackPanel Style="{StaticResource OptionElement}">
+              <Label Content="{DynamicResource ParallelRequestsKey}" />
+              <TextBox Text="{Binding ParallelRequests, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            
+            <sink:DocumentDbSinkAdapterAdvancedConfigurationControl DataContext="{Binding}" />
+          </StackPanel>
+        </Expander>
+      </StackPanel>
+    </ScrollViewer>
+  </AdornerDecorator>
+  
+</UserControl>

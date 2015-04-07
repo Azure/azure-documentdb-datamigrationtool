@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.CsvFile.Wpf.Source.CsvFileSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="400">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      
+      <DockPanel Grid.Row="0" Style="{StaticResource OptionElement}">
+        <ebc:FilesPickerControl DockPanel.Dock="Bottom"
+          Files="{Binding EditableFiles}"
+          Filter="{DynamicResource OpenFilesFilterKey}"
+          DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
+      </DockPanel>
+
+      <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+        <ebc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
+          <Label Content="{DynamicResource NestingSeparatorKey}" />
+        </ebc:ToolTipDecorator>
+        <TextBox Text="{Binding NestingSeparator, UpdateSourceTrigger=PropertyChanged}" />
+      </StackPanel>
+    </Grid>
+  </AdornerDecorator>
+  
+</UserControl>

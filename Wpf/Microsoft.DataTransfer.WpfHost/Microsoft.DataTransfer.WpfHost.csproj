@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1527082-8AB7-4DB0-A30C-B0D3416294A6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.DataTransfer.WpfHost</RootNamespace>
+    <AssemblyName>dtui</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="..\..\Solution Items\CommonProperties.proj" />
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Helpers\DataTransferModelProperties.cs" />
+    <Compile Include="Model\ApplicationController.cs" />
+    <Compile Include="Model\CommandLineProvider.cs" />
+    <Compile Include="Model\DataAdapterConfigurationProvidersCollection.cs" />
+    <Compile Include="Model\ErrorHandler.cs" />
+    <Compile Include="Shell\IMainWindowViewModel.cs" />
+    <Compile Include="Shell\Navigation\ActionCommand.cs" />
+    <Compile Include="Shell\Navigation\CancelImportCommand.cs" />
+    <Compile Include="Shell\Navigation\NavigationActionsControl.xaml.cs">
+      <DependentUpon>NavigationActionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\Navigation\NavigationActionsViewModel.cs" />
+    <Compile Include="Shell\Navigation\NavigationStepsListControl.xaml.cs">
+      <DependentUpon>NavigationStepsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NavigationService.cs" />
+    <Compile Include="Shell\Navigation\NavigateStepCommandBase.cs" />
+    <Compile Include="Shell\Navigation\StartNewImportCommand.cs" />
+    <Compile Include="Shell\Navigation\NavigateToNextStepCommand.cs" />
+    <Compile Include="Shell\Navigation\NavigateToPreviousStepCommand.cs" />
+    <Compile Include="Steps\AdapterSetupStepBase.cs" />
+    <Compile Include="Steps\AdapterSetupViewModelBase.cs" />
+    <Compile Include="Steps\Import\ElapsedTimeFormatValueConverter.cs" />
+    <Compile Include="Steps\Import\ExportErrorsCommandBase.cs" />
+    <Compile Include="Steps\Import\ExportErrorsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportErrorsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Import\ExportErrorsToClipboardCommand.cs" />
+    <Compile Include="Steps\Import\ExportErrorsToFileCommand.cs" />
+    <Compile Include="Steps\Import\ImportOperationContext.cs" />
+    <Compile Include="Steps\Import\ImportPage.xaml.cs">
+      <DependentUpon>ImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Import\ImportStep.cs" />
+    <Compile Include="Steps\Import\ImportViewModel.cs" />
+    <Compile Include="Steps\NavigationStepBase.cs" />
+    <Compile Include="Steps\SinkSetup\SinkSetupPage.xaml.cs">
+      <DependentUpon>SinkSetupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\SinkSetup\SinkSetupStep.cs" />
+    <Compile Include="Steps\SinkSetup\SinkSetupViewModel.cs" />
+    <Compile Include="Steps\SourceSetup\SourceSetupPage.xaml.cs">
+      <DependentUpon>SourceSetupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\SourceSetup\SourceSetupStep.cs" />
+    <Compile Include="Steps\SourceSetup\SourceSetupViewModel.cs" />
+    <Compile Include="Steps\Summary\CommandLinePreviewWindow.xaml.cs">
+      <DependentUpon>CommandLinePreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Summary\GenerateCommandLineCommand.cs" />
+    <Compile Include="Steps\Summary\SummaryPageViewModel.cs" />
+    <Compile Include="Steps\Summary\SummaryPage.xaml.cs">
+      <DependentUpon>SummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Summary\SummaryStep.cs" />
+    <Compile Include="Errors.cs" />
+    <Compile Include="Model\DataTransferModel.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\StepsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StepsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Welcome\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\Welcome\WelcomeStep.cs" />
+    <Page Include="Shell\Navigation\NavigationActionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\Navigation\NavigationStepsListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DefaultRuntimeEnvironment.cs" />
+    <Compile Include="Shell\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Steps\Import\ImportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Steps\SinkSetup\SinkSetupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Steps\SourceSetup\SourceSetupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Steps\Summary\CommandLinePreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Steps\Summary\SummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Steps\Welcome\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Shell\MainWindowViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Steps\Import\ExportErrorsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExportErrorsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Steps\StepsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StepsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj">
+      <Project>{01631f6d-813c-47d7-9ca7-3a6e493356f5}</Project>
+      <Name>Microsoft.DataTransfer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
+      <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
+      <Name>Microsoft.DataTransfer.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj">
+      <Project>{b6e28981-4195-4910-b9b9-1cf96674620f}</Project>
+      <Name>Microsoft.DataTransfer.ServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CsvFile\Microsoft.DataTransfer.CsvFile.Wpf\Microsoft.DataTransfer.CsvFile.Wpf.csproj">
+      <Project>{76bc3415-d4a0-43a4-b859-094e7d60f01d}</Project>
+      <Name>Microsoft.DataTransfer.CsvFile.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CsvFile\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj">
+      <Project>{d9cd91fe-b6fd-4c1a-9908-a23c57ad8cac}</Project>
+      <Name>Microsoft.DataTransfer.CsvFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DocumentDb\Microsoft.DataTransfer.DocumentDb.Wpf\Microsoft.DataTransfer.DocumentDb.Wpf.csproj">
+      <Project>{2ae27e76-be49-487b-901f-3d43f36b667b}</Project>
+      <Name>Microsoft.DataTransfer.DocumentDb.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DocumentDb\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj">
+      <Project>{81a18d96-39fc-4165-8c52-4c887dce4a61}</Project>
+      <Name>Microsoft.DataTransfer.DocumentDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\JsonFile\Microsoft.DataTransfer.JsonFile.Wpf\Microsoft.DataTransfer.JsonFile.Wpf.csproj">
+      <Project>{33093ecf-9dcc-4a89-8adb-448a25a711c3}</Project>
+      <Name>Microsoft.DataTransfer.JsonFile.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\JsonFile\Microsoft.DataTransfer.JsonFile\Microsoft.DataTransfer.JsonFile.csproj">
+      <Project>{792b2799-af90-4f15-b042-7f47f4fa1c78}</Project>
+      <Name>Microsoft.DataTransfer.JsonFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb.Wpf\Microsoft.DataTransfer.MongoDb.Wpf.csproj">
+      <Project>{72422fe7-eefd-4f80-9515-80bb362352d3}</Project>
+      <Name>Microsoft.DataTransfer.MongoDb.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj">
+      <Project>{782ce839-40a8-4c47-9998-c3b0b7c3d2a1}</Project>
+      <Name>Microsoft.DataTransfer.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj">
+      <Project>{e31f1956-78be-4960-82e9-e1d8a73fa6d5}</Project>
+      <Name>Microsoft.DataTransfer.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
+      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
+      <Name>Microsoft.DataTransfer.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sql\Microsoft.DataTransfer.Sql.Wpf\Microsoft.DataTransfer.Sql.Wpf.csproj">
+      <Project>{5d6c2e17-9676-4bb1-b047-f15089151cb7}</Project>
+      <Name>Microsoft.DataTransfer.Sql.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sql\Microsoft.DataTransfer.Sql\Microsoft.DataTransfer.Sql.csproj">
+      <Project>{607e5554-c43f-4ce5-ac04-c9ce5ec0773a}</Project>
+      <Name>Microsoft.DataTransfer.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj">
+      <Project>{da8ec2b9-b282-4438-98b2-612d6dfedf73}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj">
+      <Project>{a020fbd4-0f13-4630-acb9-6cdb894e3b82}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.WpfHost.ServiceModel\Microsoft.DataTransfer.WpfHost.ServiceModel.csproj">
+      <Project>{a596c599-4070-493b-85b6-1b3593d92bfb}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

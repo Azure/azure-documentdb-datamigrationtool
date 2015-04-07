@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "53bacf27d1e6f947c094bbbc" }, "name" : "Employee 1", "email" : "email1@email.com", "createddate" : { "$date" : "2014-07-07T09:47:35.902-0700" } }
+{ "_id" : { "$oid" : "53bacf27d1e6f947c094bbbd" }, "name" : "Employee 2", "email" : "email2@email.com", "createddate" : { "$date" : "2014-07-07T09:47:40.903-0700" } }

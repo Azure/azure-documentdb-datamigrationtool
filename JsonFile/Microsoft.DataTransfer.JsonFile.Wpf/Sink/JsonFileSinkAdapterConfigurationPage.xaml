@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.JsonFile.Wpf.Sink.JsonFileSinkAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="100" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <StackPanel>
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource FileNameKey}" />
+        <ebc:SaveFileControl FileName="{Binding File}" Filter="{DynamicResource SaveFileFilterKey}" DefaultExtension="{DynamicResource SaveFileDefaultExtensionKey}" />
+      </StackPanel>
+
+      <CheckBox Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource PrettifyKey}" IsChecked="{Binding Prettify}" />
+    </StackPanel>
+  </AdornerDecorator>
+  
+</UserControl>

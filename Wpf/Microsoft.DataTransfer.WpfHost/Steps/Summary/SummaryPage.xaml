@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Steps.Summary.SummaryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <Style x:Key="ContentScroll" TargetType="ScrollViewer">
+      <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+  </UserControl.Resources>
+  
+  <DockPanel>
+    <Grid DockPanel.Dock="Top">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      
+      <bc:TitleControl Grid.Column="0" Grid.ColumnSpan="2" Text="{DynamicResource SummaryPageTitleKey}" />
+      <Button Grid.Column="1" Style="{StaticResource TitleButton}" Content="{DynamicResource GenerateCommandLineKey}" Command="{Binding GenerateCommandLine}" />
+    </Grid>
+
+    <Grid DockPanel.Dock="Bottom">
+      <ScrollViewer Style="{StaticResource ContentScroll}">
+        <StackPanel>
+          <bc:TitleControl Style="{StaticResource Subtitle}"
+            Text="{Binding SourceAdapterDisplayName}"
+            TextFormat="{DynamicResource SourceSummarySubtitleFormatKey}" />
+          <ContentPresenter Content="{Binding SourceConfigurationProvider.SummaryPresenter}" />
+
+          <bc:TitleControl Style="{StaticResource Subtitle}"
+            Text="{Binding SinkAdapterDisplayName}"
+            TextFormat="{DynamicResource SinkSummarySubtitleFormatKey}" />
+          <ContentPresenter Content="{Binding SinkConfigurationProvider.SummaryPresenter}" />
+        </StackPanel>
+      </ScrollViewer>
+    </Grid>
+  </DockPanel>
+  
+</UserControl>

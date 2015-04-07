@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01631F6D-813C-47D7-9CA7-3A6E493356F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.DataTransfer.Core</RootNamespace>
+    <AssemblyName>Microsoft.DataTransfer.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="..\..\Solution Items\CommonProperties.proj" />
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Autofac\DataAdapterFactoryAdaptersRegistrationSource.cs" />
+    <Compile Include="CoreServiceImplementation.cs" />
+    <Compile Include="Errors.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="FactoryAdapters\DataAdapterFactoryAdapterBase.cs" />
+    <Compile Include="Autofac\TypesHelper.cs" />
+    <Compile Include="FactoryAdapters\DataSinkAdapterFactoryAdapter.cs" />
+    <Compile Include="FactoryAdapters\DataSourceAdapterFactoryAdapter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\DataTransferAction.cs" />
+    <Compile Include="Service\DataTransferContext.cs" />
+    <Compile Include="Service\DataTransferService.cs" />
+    <Compile Include="FactoryAdapters\IDataAdapterFactoryAdapter.cs" />
+    <Compile Include="FactoryAdapters\IDataSinkAdapterFactoryAdapter.cs" />
+    <Compile Include="FactoryAdapters\IDataSourceAdapterFactoryAdapter.cs" />
+    <Compile Include="Statistics\Collections\AppendOnlyConcurrentLinkedList.cs" />
+    <Compile Include="Statistics\Collections\AppendOnlyConcurrentLinkedListEnumerator.cs" />
+    <Compile Include="Statistics\Collections\ConcurrentLinkedListNode.cs" />
+    <Compile Include="Statistics\Collections\AppendOnlyConcurrentLinkedListSnapshot.cs" />
+    <Compile Include="Statistics\ThreadSafeTransferStatistics.cs" />
+    <Compile Include="Statistics\TransferStatisticsFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj">
+      <Project>{e31f1956-78be-4960-82e9-e1d8a73fa6d5}</Project>
+      <Name>Microsoft.DataTransfer.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
+      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
+      <Name>Microsoft.DataTransfer.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
+      <Project>{ACC3B08A-2706-4857-B374-8F6311DB0E6F}</Project>
+      <Name>Microsoft.DataTransfer.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj">
+      <Project>{b6e28981-4195-4910-b9b9-1cf96674620f}</Project>
+      <Name>Microsoft.DataTransfer.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

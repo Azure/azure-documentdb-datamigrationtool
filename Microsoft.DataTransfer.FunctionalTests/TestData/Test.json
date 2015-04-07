@@ -1,0 +1,24 @@
+[
+  {
+    "Name": "Helmet",
+    "Color": "Green",
+    "Sizes": [ "S", "M", "L" ],
+    "Manufacturer": {
+      "Name": "Giro",
+      "Country": "USA"
+    },
+    "Price": 69
+  },
+  {
+    "Name": "Bicycle",
+    "Color": "Black",
+    "Style":  "Comfort",
+    "Manufacturer": {
+      "Name": "K2",
+      "Country": "China"
+    },
+    "Price": 150,
+    "Used": false,
+    "PreviousOwner": null
+  }
+]

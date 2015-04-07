@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Shell.Navigation.NavigationActionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="40">
+  
+  <UserControl.Resources>
+    <Style x:Key="ActionButton" TargetType="Button">
+      <Setter Property="Margin" Value="8,8,0,8" />
+      <Setter Property="Width" Value="75" />
+    </Style>
+
+    <Style x:Key="FirstButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+      <Setter Property="Margin" Value="0,8" />
+    </Style>
+    
+    <Style x:Key="Container" TargetType="StackPanel">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Style.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}" />
+      </Style.Resources>
+    </Style>
+
+    <converters:BooleanToVisibilityValueConverter x:Key="IsVisibleConverter" />
+  </UserControl.Resources>
+
+  <StackPanel Style="{StaticResource Container}">
+    <Button
+      Content="{DynamicResource NavigateToPreviousStepKey}"
+      Command="{Binding NavigateToPreviousStep}"
+      Visibility="{Binding ShowNavigateToPreviousStepButton, Converter={StaticResource IsVisibleConverter}}"
+      Style="{StaticResource FirstButton}" />
+    
+    <Button
+      Content="{DynamicResource NavigateToNextStepKey}"
+      Command="{Binding NavigateToNextStep}"
+      Visibility="{Binding ShowNavigateToNextStepButton, Converter={StaticResource IsVisibleConverter}}" />
+    
+    <Button
+      Content="{DynamicResource StartImportKey}"
+      Command="{Binding StartImport}"
+      Visibility="{Binding ShowStartImportButton, Converter={StaticResource IsVisibleConverter}}" />
+
+    <Button
+      Content="{DynamicResource StartNewImportKey}"
+      Command="{Binding StartNewImport}"
+      Visibility="{Binding ShowStartNewImportButton, Converter={StaticResource IsVisibleConverter}}" />
+    
+    <Button
+      Content="{DynamicResource CancelImportKey}"
+      Command="{Binding CancelImport}"
+      Visibility="{Binding ShowCancelImportButton, Converter={StaticResource IsVisibleConverter}}" />
+  </StackPanel>
+  
+</UserControl>

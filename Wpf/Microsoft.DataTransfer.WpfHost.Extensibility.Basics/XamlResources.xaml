@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+  
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="CommonStyles.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  
+  <!-- String resources-->
+  
+  <System:String x:Key="AddFilesKey">Add Files</System:String>
+  <System:String x:Key="AddFolderKey">Add Folder</System:String>
+  <System:String x:Key="AddSingleFolderKey">Single</System:String>
+  <System:String x:Key="AddRecursiveFolderKey">Recursive</System:String>
+  <System:String x:Key="RemoveFilesKey">Remove</System:String>
+
+  <System:String x:Key="SelectFileKey">Select...</System:String>
+  
+</ResourceDictionary>

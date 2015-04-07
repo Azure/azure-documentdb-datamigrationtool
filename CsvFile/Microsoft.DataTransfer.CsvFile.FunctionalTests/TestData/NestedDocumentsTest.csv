@@ -1,0 +1,6 @@
+FirstName,LastName,Title,Manager.FirstName,Manager.LastName,Birthdate,Description
+Carl,Edburg,Senior Tester,Vinson,Cummings,1940-06-07Z,"first employee"
+Gary,Smith,Retired,Vinson,Cummings,,"second employee"
+Carrie,Clakson,Dancer,Robinson,Morse,"1950-06","third employee"
+Bruce,Anakonda,Assassin,Lesa,Lowe,N/A,"fourth employee"
+

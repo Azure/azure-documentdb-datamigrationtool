@@ -1,0 +1,7 @@
+FirstName,LastName,Title,ReportsTo.Email,Birthdate,Description
+Carl,Edburg,Senior Tester,buyer@salesforcesample.com,1940-06-07Z,"good record"
+Ian,Dury,Chief Imagineer,"missing fields"
+Gary,Smith,Retired,hoa@sample.com,,"good record"
+Carrie,Clakson,Dancer,cc@sample.com,1950,06,"too many fields"
+Bruce,Anakonda,Assassin,ba@snake.com,N/A,"good record"
+

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.MongoDb.Wpf.Shared.MongoDbAdapterConnectionConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="150" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="ConnectionStringConfiguration" TargetType="Grid">
+        <Style.Resources>
+          <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="Padding" Value="10,0" />
+          </Style>
+        </Style.Resources>
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <StackPanel x:Name="LayoutRoot">
+    <StackPanel Style="{StaticResource OptionElement}">
+      <ebc:ToolTipDecorator ToolTip="{DynamicResource ConnectionStringDescriptionKey}">
+        <Label Content="{DynamicResource ConnectionStringKey}" />
+      </ebc:ToolTipDecorator>
+      
+      <Grid Style="{StaticResource ConnectionStringConfiguration}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.Column="0" Text="{Binding Configuration.ConnectionString, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Column="1"
+          Validation.ErrorTemplate="{x:Null}"
+          Content="{DynamicResource TestConnectionKey}"
+          Command="{Binding TestConnection}" CommandParameter="{Binding Configuration.ConnectionString}" />
+      </Grid>
+    </StackPanel>
+
+    <StackPanel Style="{StaticResource OptionElement}">
+      <Label Content="{DynamicResource CollectionNameKey}" />
+      <TextBox Text="{Binding Configuration.Collection, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+  </StackPanel>
+  
+</UserControl>

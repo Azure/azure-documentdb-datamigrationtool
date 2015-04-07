@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Extensibility.Basics;component/CommonStyles.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- String resources -->
+  
+  <System:String x:Key="FilesSummaryKey">Files:</System:String>
+  <System:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|All Files|*.*</System:String>
+  <System:String x:Key="OpenFilesDefaultExtensionKey">*.json</System:String>
+
+  <System:String x:Key="FileNameKey">File</System:String>
+  <System:String x:Key="FileNameSummaryKey">File:</System:String>
+  <System:String x:Key="SaveFileFilterKey">JSON Documents|*.json</System:String>
+  <System:String x:Key="SaveFileDefaultExtensionKey">*.json</System:String>
+  
+  <System:String x:Key="PrettifyKey">Prettify JSON</System:String>
+  <System:String x:Key="PrettifySummaryKey">Prettify JSON:</System:String>
+
+</ResourceDictionary>

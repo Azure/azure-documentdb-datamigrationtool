@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Steps.Welcome.WelcomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <Style x:Key="Content" TargetType="TextBlock">
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Margin" Value="5" />
+    </Style>
+  </UserControl.Resources>
+  
+  <StackPanel>
+    <bc:TitleControl Text="{DynamicResource WelcomePageTitleKey}" />
+    <TextBlock Style="{StaticResource Content}">
+      <StaticResource ResourceKey="WelcomePageContentKey" />
+    </TextBlock>
+  </StackPanel>
+  
+</UserControl>

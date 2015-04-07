@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{33093ECF-9DCC-4A89-8ADB-448A25A711C3}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.DataTransfer.JsonFile.Wpf</RootNamespace>
+    <AssemblyName>Microsoft.DataTransfer.JsonFile.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="..\..\Solution Items\CommonProperties.proj" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Sink\JsonFileSinkAdapterConfigurationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sink\JsonFileSinkAdapterConfigurationSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Source\JsonFileSourceAdapterConfigurationSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Source\JsonFileSourceAdapterConfigurationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Sink\JsonFileSinkAdapterConfiguration.cs" />
+    <Compile Include="Sink\JsonFileSinkAdapterConfigurationPage.xaml.cs">
+      <DependentUpon>JsonFileSinkAdapterConfigurationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sink\JsonFileSinkAdapterInternalConfigurationProvider.cs" />
+    <Compile Include="Sink\JsonFileSinkAdapterConfigurationProvider.cs" />
+    <Compile Include="Sink\JsonFileSinkAdapterConfigurationSummaryPage.xaml.cs">
+      <DependentUpon>JsonFileSinkAdapterConfigurationSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Source\JsonFileSourceAdapterConfigurationProvider.cs" />
+    <Compile Include="Source\JsonFileSourceAdapterConfigurationSummaryPage.xaml.cs">
+      <DependentUpon>JsonFileSourceAdapterConfigurationSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Source\JsonFileSourceAdapterConfiguration.cs" />
+    <Compile Include="Source\JsonFileSourceAdapterInternalConfigurationProvider.cs" />
+    <Compile Include="Source\JsonFileSourceAdapterConfigurationPage.xaml.cs">
+      <DependentUpon>JsonFileSourceAdapterConfigurationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="XamlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
+      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
+      <Name>Microsoft.DataTransfer.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj">
+      <Project>{da8ec2b9-b282-4438-98b2-612d6dfedf73}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj">
+      <Project>{1f2070f3-bd45-45b3-a143-7ce4073d3a69}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Extensibility.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj">
+      <Project>{a020fbd4-0f13-4630-acb9-6cdb894e3b82}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.JsonFile\Microsoft.DataTransfer.JsonFile.csproj">
+      <Project>{792b2799-af90-4f15-b042-7f47f4fa1c78}</Project>
+      <Name>Microsoft.DataTransfer.JsonFile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

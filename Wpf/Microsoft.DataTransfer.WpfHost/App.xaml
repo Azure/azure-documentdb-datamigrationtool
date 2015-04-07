@@ -1,0 +1,98 @@
+﻿<Application
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Microsoft.DataTransfer.WpfHost.App"
+             xmlns:basics="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             Startup="ApplicationStartup">
+  <Application.Resources>
+    <ResourceDictionary>
+      
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <ObjectDataProvider x:Key="NavigateUri" ObjectType="{x:Type basics:NavigateUriCommand}" />
+
+      <!-- String resources -->
+
+      <System:String x:Key="CopyKey">Copy</System:String>
+      <System:String x:Key="CloseKey">Close</System:String>
+      
+      <!-- Main window -->
+      <System:String x:Key="MainWindowTitleKey">DocumentDB Data Migration Tool</System:String>
+    
+      <!-- Navigation -->
+      <System:String x:Key="NavigateToPreviousStepKey">Previous</System:String>
+      <System:String x:Key="NavigateToNextStepKey">Next</System:String>
+      <System:String x:Key="StartImportKey">Import</System:String>
+      <System:String x:Key="CancelImportKey">Cancel</System:String>
+      <System:String x:Key="StartNewImportKey">New Import</System:String>
+    
+      <!-- Step: Welcome -->
+      <System:String x:Key="WelcomePageTitleKey">DocumentDB Data Migration Tool</System:String>
+      <Span x:Key="WelcomePageContentKey">
+        <Span>
+          Use the DocumentDB data migration tool to import data to DocumentDB from a variety of sources.
+          The tool can not only help scope certain source data via queries (e.g. SQL Server, MongoDB),
+          but can also transform tabular data (e.g. CSV file, SQL Server) into hierarchical structures.
+        </Span>
+        <LineBreak /><LineBreak />
+        <Span>
+          For help using the tool, please see the online documentation located
+          <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/">here</Hyperlink>.
+        </Span>
+        <LineBreak /><LineBreak />
+        <Span>
+          Feel free to suggest and vote for new features by posting
+          <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://feedback.azure.com/forums/263030-documentdb">here</Hyperlink>.
+        </Span>
+      </Span>
+
+      <!-- Step: Source Setup -->
+      <System:String x:Key="SourceSetupPageTitleKey">Specify source information</System:String>
+      <System:String x:Key="SourceSelectorKey">Import from:</System:String>
+
+      <!-- Step: Sink Setup -->
+      <System:String x:Key="SinkSetupPageTitleKey">Specify target information</System:String>
+      <System:String x:Key="SinkSelectorKey">Export to:</System:String>
+
+      <!-- Step: Summary -->
+      <System:String x:Key="SummaryPageTitleKey">Confirm import settings</System:String>
+      <System:String x:Key="GenerateCommandLineKey">View Command</System:String>
+      <System:String x:Key="CommandLinePreviewWindowTitle">Command Line Preview</System:String>
+      <System:String x:Key="SourceSummarySubtitleFormatKey">Source ({0})</System:String>
+      <System:String x:Key="SinkSummarySubtitleFormatKey">Sink ({0})</System:String>
+      
+      <!-- Step: Import -->
+      <System:String x:Key="ImportPageTitleKey">Import results</System:String>
+      <System:String x:Key="ExportErrorsKey">Export</System:String>
+      <System:String x:Key="ExportErrorsToClipboardKey">To Clipboard</System:String>
+      <System:String x:Key="ExportErrorsToFileKey">To File</System:String>
+
+      <System:String x:Key="ElapsedTimeLabelKey">Elapsed time:</System:String>
+      <System:String x:Key="TransferredLabelKey">Transferred:</System:String>
+      <System:String x:Key="ErrorsLabelKey">Failed:</System:String>
+
+      <System:String x:Key="ErrorsSectionHeaderKey">Failure Information</System:String>
+      <System:String x:Key="RecordIdColumnHeaderKey">Record</System:String>
+      <System:String x:Key="ErrorColumnHeaderKey">Error</System:String>
+
+      <!-- Styles -->
+
+      <Style x:Key="TitleButton" TargetType="Button">
+        <Setter Property="Margin" Value="0,3,5,10" />
+        <Setter Property="Padding" Value="5,0" />
+      </Style>
+
+      <!-- Control Templates -->
+
+      <ControlTemplate x:Key="ValidationError">
+        <Grid>
+          <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
+          <TextBlock Text="!" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+        </Grid>
+      </ControlTemplate>
+
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

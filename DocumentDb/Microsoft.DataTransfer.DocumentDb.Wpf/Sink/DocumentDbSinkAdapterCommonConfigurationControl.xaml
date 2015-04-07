@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.DocumentDb.Wpf.Sink.DocumentDbSinkAdapterCommonConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink"
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="200" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <ObjectDataProvider x:Key="CollectionTierValues" ObjectType="{x:Type local:CollectionPricingTierValueConverter}" MethodName="GetDisplayNames" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+  
+  <StackPanel>
+    <shared:DocumentDbAdapterConnectionConfigurationControl Configuration="{Binding}" />
+
+    <StackPanel Style="{StaticResource OptionElement}">
+      <ebc:ToolTipDecorator ToolTip="{DynamicResource CollectionTierDescriptionKey}">
+        <Label Content="{DynamicResource CollectionTierKey}" />
+      </ebc:ToolTipDecorator>
+      <ComboBox
+        ItemsSource="{Binding Source={StaticResource CollectionTierValues}}"
+        SelectedValue="{Binding CollectionTier}" SelectedValuePath="Key"
+        DisplayMemberPath="Value" />
+    </StackPanel>
+    
+    <StackPanel Style="{StaticResource OptionElement}">
+      <Label Content="{DynamicResource IdFieldKey}" />
+      <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+  </StackPanel>
+  
+</UserControl>
