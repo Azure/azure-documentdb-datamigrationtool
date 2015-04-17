@@ -213,7 +213,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj">
@@ -259,6 +261,14 @@
     <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj">
       <Project>{782ce839-40a8-4c47-9998-c3b0b7c3d2a1}</Project>
       <Name>Microsoft.DataTransfer.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb.Wpf\Microsoft.DataTransfer.RavenDb.Wpf.csproj">
+      <Project>{2b60178f-68d1-4190-9042-9c68cc273a61}</Project>
+      <Name>Microsoft.DataTransfer.RavenDb.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj">
+      <Project>{0586523c-b015-4b18-9d28-9667831a97d2}</Project>
+      <Name>Microsoft.DataTransfer.RavenDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj">
       <Project>{e31f1956-78be-4960-82e9-e1d8a73fa6d5}</Project>
