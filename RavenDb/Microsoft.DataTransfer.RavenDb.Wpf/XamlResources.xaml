@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+  
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Extensibility.Basics;component/CommonStyles.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- String resources -->
+
+    <System:String x:Key="ConnectionStringKey">Connection String</System:String>
+    <System:String x:Key="ConnectionStringSummaryKey">Connection String:</System:String>
+    <System:String x:Key="TestConnectionKey">Verify</System:String>
+
+    
+    <System:String x:Key="CollectionsSummaryKey">Collections:</System:String>
+
+  <System:String x:Key="NestingSeparatorKey">Nesting Separator</System:String>
+  <System:String x:Key="NestingSeparatorDescriptionKey">Specify the delimiter to split column names into sub-documents</System:String>
+  <System:String x:Key="NestingSeparatorSummaryKey">Nesting Separator:</System:String>
+
+</ResourceDictionary>
