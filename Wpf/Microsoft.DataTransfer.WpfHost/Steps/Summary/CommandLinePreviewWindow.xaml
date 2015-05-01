@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:basics="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
         x:ClassModifier="internal"
-        Title="{DynamicResource CommandLinePreviewWindowTitle}" Height="200" Width="450"
+        Title="{DynamicResource CommandLinePreviewWindowTitleKey}" Height="200" MinHeight="90" Width="450" MinWidth="250"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-  
+
   <Window.Resources>
     <Style x:Key="Container" TargetType="Grid">
       <Setter Property="Margin" Value="5" />
     </Style>
-    
+
     <Style x:Key="CommandLineText" TargetType="TextBox">
       <Setter Property="IsReadOnly" Value="True" />
       <Setter Property="IsReadOnlyCaretVisible" Value="True" />
@@ -44,18 +44,18 @@
       <ColumnDefinition />
       <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
-    
+
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CommandLineText}" Text="{Binding Mode=OneWay}" />
-    
+
     <StackPanel Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonsPane}">
       <Button Content="{DynamicResource CopyKey}" Command="{Binding Source={StaticResource CopyToClipboard}}" CommandParameter="{Binding}" />
       <Button Style="{DynamicResource CloseButton}" Content="{DynamicResource CloseKey}" />
     </StackPanel>
   </Grid>
-  
+
 </Window>

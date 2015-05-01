@@ -23,11 +23,30 @@ namespace Autofac
         public static IRegistrationBuilder<TService, SimpleActivatorData, SingleRegistrationStyle> RegisterAggregationDecorator<TService>(
             this ContainerBuilder builder, Func<IComponentContext, IEnumerable<TService>, TService> decoratorFactory)
         {
+            return RegisterDecorator<IEnumerable<TService>, TService>(builder, decoratorFactory);
+        }
+
+        /// <summary>
+        /// Registers default decorator for the services of type <typeparamref name="TService" />.
+        /// </summary>
+        /// <typeparam name="TService">Type of the decorated services.</typeparam>
+        /// <param name="builder">Container builder.</param>
+        /// <param name="decoratorFactory">Factory delegate that can create new instances of the decorator.</param>
+        /// <returns>Registration builder to continue the registration.</returns>
+        public static IRegistrationBuilder<TService, SimpleActivatorData, SingleRegistrationStyle> RegisterDecorator<TService>(
+            this ContainerBuilder builder, Func<IComponentContext, TService, TService> decoratorFactory)
+        {
+            return RegisterDecorator<TService, TService>(builder, decoratorFactory);
+        }
+
+        private static IRegistrationBuilder<TService, SimpleActivatorData, SingleRegistrationStyle> RegisterDecorator<TDecorationTarget, TService>(
+            ContainerBuilder builder, Func<IComponentContext, TDecorationTarget, TService> decoratorFactory)
+        {
             Guard.NotNull("builder", builder);
             Guard.NotNull("decoratorFactory", decoratorFactory);
 
             var originalKey = Guid.NewGuid();
-            var registrationBuilder = RegistrationBuilder.ForDelegate((c, p) => decoratorFactory(c, c.ResolveKeyed<IEnumerable<TService>>(originalKey))).As<TService>();
+            var registrationBuilder = RegistrationBuilder.ForDelegate((c, p) => decoratorFactory(c, c.ResolveKeyed<TDecorationTarget>(originalKey))).As<TService>();
 
             builder.RegisterCallback(cr =>
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using MongoDB.Bson;
 using System;
 using System.Globalization;
@@ -11,24 +12,24 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
 {
     sealed class MongoexportFileSourceAdapter : IDataSourceAdapter
     {
-        private string fileName;
+        private ISourceStreamProvider sourceStreamProvider;
         private StreamReader file;
         private int lineNumber;
 
-        public MongoexportFileSourceAdapter(string fileName)
+        public MongoexportFileSourceAdapter(ISourceStreamProvider sourceStreamProvider)
         {
-            this.fileName = fileName;
+            this.sourceStreamProvider = sourceStreamProvider;
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             if (file == null)
             {
-                file = File.OpenText(fileName);
+                file = await sourceStreamProvider.CreateReader();
             }
 
             readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture,
-                Resources.DataItemIdFormat, fileName, ++lineNumber);
+                Resources.DataItemIdFormat, sourceStreamProvider.Id, ++lineNumber);
 
             string jsonData = null;
             while (!file.EndOfStream &&

@@ -37,7 +37,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             var surrogate = (LengthCappedEnumerableSurrogate)value;
 
             writer.WriteStartArray();
-            
+
+            var hasDocuments = false;
+            var persistedDocuments = 0;
             var jsonText = new StringBuilder(surrogate.MaxSerializedLength);
             using (var stringWriter = new StringWriter(jsonText, CultureInfo.InvariantCulture))
             {
@@ -45,6 +47,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
                 foreach (var item in surrogate)
                 {
+                    hasDocuments = true;
+
                     serializer.Serialize(stringWriter, item);
 
                     totalLength += stringWriter.Encoding.GetMaxByteCount(jsonText.Length + 1); // Add one for comma separator or array end element
@@ -52,9 +56,13 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                         break;
 
                     writer.WriteRawValue(jsonText.ToString());
+                    ++persistedDocuments;
                     jsonText.Clear();
                 }
             }
+
+            if (hasDocuments && persistedDocuments <= 0)
+                throw Errors.DocumentSizeExceedsBulkScriptSize();
 
             writer.WriteEndArray();
         }

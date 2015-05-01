@@ -13,6 +13,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,6 +73,8 @@
     <Compile Include="Model\CommandLineProvider.cs" />
     <Compile Include="Model\DataAdapterConfigurationProvidersCollection.cs" />
     <Compile Include="Model\ErrorHandler.cs" />
+    <Compile Include="Model\Statistics\ObservableTransferStatistics.cs" />
+    <Compile Include="Model\Statistics\ObservableTransferStatisticsFactory.cs" />
     <Compile Include="Shell\IMainWindowViewModel.cs" />
     <Compile Include="Shell\Navigation\ActionCommand.cs" />
     <Compile Include="Shell\Navigation\CancelImportCommand.cs" />
@@ -216,6 +222,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AzureTable\Microsoft.DataTransfer.AzureTable.Wpf\Microsoft.DataTransfer.AzureTable.Wpf.csproj">
+      <Project>{8a191b07-775f-43c8-acb6-f742073612ea}</Project>
+      <Name>Microsoft.DataTransfer.AzureTable.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AzureTable\Microsoft.DataTransfer.AzureTable\Microsoft.DataTransfer.AzureTable.csproj">
+      <Project>{366ba489-e851-4899-9ba3-2f9c7599d24b}</Project>
+      <Name>Microsoft.DataTransfer.AzureTable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj">
       <Project>{01631f6d-813c-47d7-9ca7-3a6e493356f5}</Project>
       <Name>Microsoft.DataTransfer.Core</Name>

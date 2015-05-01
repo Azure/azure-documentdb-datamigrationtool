@@ -16,6 +16,9 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         [XmlElement]
         public string MongoConnectionString { get; set; }
 
+        [XmlElement]
+        public string AzureStorageConnectionString { get; set; }
+
         public string DocumentDbConnectionString(string databaseName)
         {
             return String.Format(CultureInfo.InvariantCulture, DocumentDbConnectionStringFormat, databaseName);

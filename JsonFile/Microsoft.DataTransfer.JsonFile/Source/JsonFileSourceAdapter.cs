@@ -1,5 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
@@ -11,43 +12,40 @@ namespace Microsoft.DataTransfer.JsonFile.Source
 {
     sealed class JsonFileSourceAdapter : IDataSourceAdapter
     {
+        private ISourceStreamProvider sourceStreamProvider;
         private JsonSerializer serializer;
-        private string fileName;
+
         private StreamReader file;
         private JsonTextReader jsonReader;
 
-        public JsonFileSourceAdapter(string fileName, JsonSerializer serializer)
+        public JsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, JsonSerializer serializer)
         {
-            Guard.NotEmpty("fileName", fileName);
+            Guard.NotNull("sourceStreamProvider", sourceStreamProvider);
             Guard.NotNull("serializer", serializer);
 
-            this.fileName = fileName;
+            this.sourceStreamProvider = sourceStreamProvider;
             this.serializer = serializer;
         }
 
-        public Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
+        public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew<IDataItem>(ReadNext, readOutput);
-        }
-
-        private IDataItem ReadNext(object taskState)
-        {
-            var readOutput = (ReadOutputByRef)taskState;
-
             try
             {
                 if (file == null)
                 {
-                    file = File.OpenText(fileName);
+                    file = await sourceStreamProvider.CreateReader();
                     jsonReader = new JsonTextReader(file) { SupportMultipleContent = true };
                 }
 
-                while (jsonReader.Read() && jsonReader.TokenType != JsonToken.StartObject) ;
+                return await Task.Factory.StartNew(() =>
+                {
+                    while (jsonReader.Read() && jsonReader.TokenType != JsonToken.StartObject) ;
 
-                if (jsonReader.TokenType != JsonToken.StartObject)
-                    return null;
+                    if (jsonReader.TokenType != JsonToken.StartObject)
+                        return null;
 
-                return serializer.Deserialize<IDataItem>(jsonReader);
+                    return serializer.Deserialize<IDataItem>(jsonReader);
+                });
             }
             finally
             {
@@ -58,8 +56,8 @@ namespace Microsoft.DataTransfer.JsonFile.Source
                     linePosition = jsonReader.LinePosition;
                 }
 
-                readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture, 
-                    Resources.DataItemIdFormat, fileName, lineNumber, linePosition);
+                readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture,
+                    Resources.DataItemIdFormat, sourceStreamProvider.Id, lineNumber, linePosition);
             }
         }
 

@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Autofac.Configuration;
 using Microsoft.DataTransfer.Core;
+using Microsoft.DataTransfer.ServiceModel;
 using Microsoft.DataTransfer.WpfHost.Extensibility;
 using Microsoft.DataTransfer.WpfHost.Model;
+using Microsoft.DataTransfer.WpfHost.Model.Statistics;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
 using Microsoft.DataTransfer.WpfHost.ServiceModel.Steps;
 using Microsoft.DataTransfer.WpfHost.Shell;
@@ -38,6 +40,10 @@ namespace Microsoft.DataTransfer.WpfHost
 
         private static void RegisterModel(ContainerBuilder builder)
         {
+            builder
+                .RegisterDecorator<ITransferStatisticsFactory>((c, f) => new ObservableTransferStatisticsFactory(f))
+                .As<ITransferStatisticsFactory>();
+
             builder
                 .RegisterType<DataAdapterConfigurationProvidersCollection>()
                 .As<IDataAdapterConfigurationProvidersCollection>()

@@ -97,10 +97,9 @@ namespace Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration
 
         public PropertyInfo[] GetInterfaceProperties(Type interfaceType)
         {
-            return interfaceType.GetProperties()
-                    .Union(
-                        interfaceType.GetInterfaces()
-                            .SelectMany(i => i.GetProperties()))
+            return interfaceType.GetInterfaces()
+                    .SelectMany(i => i.GetProperties())
+                    .Union(interfaceType.GetProperties())
                     .Distinct(PropertyNameAndTypeEqualityComparer.Instance)
                     .ToArray();
         }

@@ -1,9 +1,12 @@
 ﻿using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.MongoDb.Source.Mongoexport;
 using Microsoft.DataTransfer.TestsCommon;
+using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -48,8 +51,14 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
 
         private static async Task<List<IDataItem>> ReadData(string fileName)
         {
+            var configuration = Mocks
+                    .Of<IMongoexportFileSourceAdapterConfiguration>(c =>
+                        c.Files == new[] { fileName })
+                    .First();
+
             var readResults = new List<IDataItem>();
-            using (var adapter = new MongoexportFileSourceAdapter(fileName))
+            using (var adapter = await (new MongoexportFileSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance)))
             {
                 var readOutput = new ReadOutputByRef();
 

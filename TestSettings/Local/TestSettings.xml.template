@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <DocumentDbConnectionStringFormat><!-- TODO: Insert a valid value --></DocumentDbConnectionStringFormat>
+  <SqlConnectionString><!-- TODO: Insert a valid value --></SqlConnectionString>
+  <MongoConnectionString><!-- TODO: Insert a valid value --></MongoConnectionString>
+  <AzureStorageConnectionString><!-- TODO: Insert a valid value --></AzureStorageConnectionString>
+</Settings>

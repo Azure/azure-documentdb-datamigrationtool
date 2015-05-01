@@ -46,6 +46,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\DictionaryDataItem.cs" />
     <Compile Include="Source\NestedDataItem.cs" />
+    <Compile Include="Source\StreamProviders\ISourceStreamProvider.cs" />
+    <Compile Include="Source\StreamProviders\LocalFileStreamProvider.cs" />
+    <Compile Include="Source\StreamProviders\ResponseStreamReader.cs" />
+    <Compile Include="Source\StreamProviders\SourceStreamProvidersFactory.cs" />
+    <Compile Include="Source\StreamProviders\WebFileStreamProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">

@@ -1,13 +1,17 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.EditableItemsList;
+using Microsoft.Win32;
 
 namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPicker
 {
-    sealed class AddFilesCommand : EditFilesCollectionCommandBase
+    sealed class AddFilesCommand : EditItemsCollectionCommandBase<string>
     {
         private IFileDialogConfiguration configuration;
 
         public AddFilesCommand(IFileDialogConfiguration configuration)
         {
+            Guard.NotNull("configuration", configuration);
+
             this.configuration = configuration;
         }
 
@@ -22,7 +26,7 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPick
 
             if (dialog.ShowDialog() == true)
                 foreach (var filename in dialog.FileNames)
-                    Files.Add(filename);
+                    Items.Add(filename);
         }
     }
 }

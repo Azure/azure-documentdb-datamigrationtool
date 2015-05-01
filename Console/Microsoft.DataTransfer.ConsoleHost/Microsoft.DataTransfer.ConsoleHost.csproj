@@ -86,6 +86,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AzureTable\Microsoft.DataTransfer.AzureTable\Microsoft.DataTransfer.AzureTable.csproj">
+      <Project>{366ba489-e851-4899-9ba3-2f9c7599d24b}</Project>
+      <Name>Microsoft.DataTransfer.AzureTable</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj">
       <Project>{b6e28981-4195-4910-b9b9-1cf96674620f}</Project>
       <Name>Microsoft.DataTransfer.ServiceModel</Name>

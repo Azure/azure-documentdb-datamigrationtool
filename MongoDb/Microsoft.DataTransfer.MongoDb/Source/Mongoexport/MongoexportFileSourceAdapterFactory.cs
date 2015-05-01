@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics.Source;
+using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,9 +37,9 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
 
             return new AggregateDataSourceAdapter(
                 configuration.Files
-                    .SelectMany(p => DirectoryHelper
-                        .EnumerateFiles(p)
-                        .Select(f => new MongoexportFileSourceAdapter(f))));
+                    .SelectMany(f => SourceStreamProvidersFactory
+                        .Create(f)
+                        .Select(p => new MongoexportFileSourceAdapter(p))));
         }
     }
 }

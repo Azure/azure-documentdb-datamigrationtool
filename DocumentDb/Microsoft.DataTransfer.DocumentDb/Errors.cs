@@ -101,5 +101,10 @@ namespace Microsoft.DataTransfer.DocumentDb
         {
             return new InvalidOperationException(FormatMessage(Resources.DataItemAlreadyContainsField, fieldName));
         }
+
+        public static Exception DocumentSizeExceedsBulkScriptSize()
+        {
+            return new DocumentSizeExceedsScriptSizeLimitException(Resources.DocumentSizeExceedsBulkScriptSize);
+        }
     }
 }

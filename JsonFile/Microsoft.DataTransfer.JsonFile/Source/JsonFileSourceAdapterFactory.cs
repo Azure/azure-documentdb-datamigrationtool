@@ -1,8 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics.Source;
+using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using Microsoft.DataTransfer.JsonFile.Serialization;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,9 +50,9 @@ namespace Microsoft.DataTransfer.JsonFile.Source
 
             return new AggregateDataSourceAdapter(
                 configuration.Files
-                    .SelectMany(p => DirectoryHelper
-                        .EnumerateFiles(p)
-                        .Select(f => new JsonFileSourceAdapter(f, serializer))));
+                    .SelectMany(f => SourceStreamProvidersFactory
+                        .Create(f)
+                        .Select(p => new JsonFileSourceAdapter(p, serializer))));
         }
     }
 }

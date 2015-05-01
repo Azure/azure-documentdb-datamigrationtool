@@ -6,7 +6,7 @@
              Startup="ApplicationStartup">
   <Application.Resources>
     <ResourceDictionary>
-      
+
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
       </ResourceDictionary.MergedDictionaries>
@@ -17,17 +17,17 @@
 
       <System:String x:Key="CopyKey">Copy</System:String>
       <System:String x:Key="CloseKey">Close</System:String>
-      
+
       <!-- Main window -->
       <System:String x:Key="MainWindowTitleKey">DocumentDB Data Migration Tool</System:String>
-    
+
       <!-- Navigation -->
       <System:String x:Key="NavigateToPreviousStepKey">Previous</System:String>
       <System:String x:Key="NavigateToNextStepKey">Next</System:String>
       <System:String x:Key="StartImportKey">Import</System:String>
       <System:String x:Key="CancelImportKey">Cancel</System:String>
       <System:String x:Key="StartNewImportKey">New Import</System:String>
-    
+
       <!-- Step: Welcome -->
       <System:String x:Key="WelcomePageTitleKey">DocumentDB Data Migration Tool</System:String>
       <Span x:Key="WelcomePageContentKey">
@@ -36,12 +36,14 @@
           The tool can not only help scope certain source data via queries (e.g. SQL Server, MongoDB),
           but can also transform tabular data (e.g. CSV file, SQL Server) into hierarchical structures.
         </Span>
-        <LineBreak /><LineBreak />
+        <LineBreak />
+        <LineBreak />
         <Span>
           For help using the tool, please see the online documentation located
           <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/">here</Hyperlink>.
         </Span>
-        <LineBreak /><LineBreak />
+        <LineBreak />
+        <LineBreak />
         <Span>
           Feel free to suggest and vote for new features by posting
           <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://feedback.azure.com/forums/263030-documentdb">here</Hyperlink>.
@@ -59,10 +61,10 @@
       <!-- Step: Summary -->
       <System:String x:Key="SummaryPageTitleKey">Confirm import settings</System:String>
       <System:String x:Key="GenerateCommandLineKey">View Command</System:String>
-      <System:String x:Key="CommandLinePreviewWindowTitle">Command Line Preview</System:String>
+      <System:String x:Key="CommandLinePreviewWindowTitleKey">Command Line Preview</System:String>
       <System:String x:Key="SourceSummarySubtitleFormatKey">Source ({0})</System:String>
       <System:String x:Key="SinkSummarySubtitleFormatKey">Sink ({0})</System:String>
-      
+
       <!-- Step: Import -->
       <System:String x:Key="ImportPageTitleKey">Import results</System:String>
       <System:String x:Key="ExportErrorsKey">Export</System:String>

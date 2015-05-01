@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Settings>
-  <DocumentDbConnectionStringFormat>TODO: Insert valid value</DocumentDbConnectionStringFormat>
-  <SqlConnectionString>TODO: Insert valid value</SqlConnectionString>
-  <MongoConnectionString>TODO: Insert valid value</MongoConnectionString>
-</Settings>

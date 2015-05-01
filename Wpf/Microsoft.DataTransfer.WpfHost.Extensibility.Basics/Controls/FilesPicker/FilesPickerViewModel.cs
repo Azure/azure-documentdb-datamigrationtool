@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics;
+using Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.EditableItemsList;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -6,21 +7,22 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPick
 {
     sealed class FilesPickerViewModel : BindableBase
     {
-        private EditFilesCollectionCommandBase addFiles;
-        private EditFilesCollectionCommandBase addSingleFolder;
-        private EditFilesCollectionCommandBase addRecursiveFolder;
-        private EditFilesCollectionCommandBase removeFiles;
+        private EditItemsCollectionCommandBase<string> addFiles;
+        private EditItemsCollectionCommandBase<string> addSingleFolder;
+        private EditItemsCollectionCommandBase<string> addRecursiveFolder;
+        private EditItemsCollectionCommandBase<string> addUrl;
+        private EditItemsCollectionCommandBase<string> removeFiles;
 
-        private ICollection<string> files;
+        private IList<string> files;
 
-        public ICollection<string> Files
+        public IList<string> Files
         {
             get { return files; }
             set
             {
                 SetProperty(ref files, value);
-                addFiles.Files = addSingleFolder.Files =
-                    addRecursiveFolder.Files = removeFiles.Files = files;
+                addFiles.Items = addSingleFolder.Items = addUrl.Items =
+                    addRecursiveFolder.Items = removeFiles.Items = files;
             }
         }
 
@@ -39,17 +41,23 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPick
             get { return addRecursiveFolder; }
         }
 
+        public ICommand AddUrl
+        {
+            get { return addUrl; }
+        }
+
         public ICommand RemoveFiles
         {
             get { return removeFiles; }
         }
 
-        public FilesPickerViewModel(IFileDialogConfiguration configuration)
+        public FilesPickerViewModel(IFileDialogConfiguration configuration, ISelectedItemsProvider selectedItemsProvider)
         {
             addFiles = new AddFilesCommand(configuration);
             addSingleFolder = new AddSingleFolderCommand();
             addRecursiveFolder = new AddRecursiveFolderCommand();
-            removeFiles = new RemoveFilesCommand();
+            addUrl = new AddUrlCommand();
+            removeFiles = new RemoveItemsCommand<string>(selectedItemsProvider);
         }
     }
 }

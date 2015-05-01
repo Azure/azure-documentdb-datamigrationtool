@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.AzureTable.Wpf.Source.AzureTableSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:source="clr-namespace:Microsoft.DataTransfer.AzureTable.Source;assembly=Microsoft.DataTransfer.AzureTable"
+             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.AzureTable.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="FilterEditor" TargetType="TextBox">
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+      </Style>
+      
+      <ObjectDataProvider x:Key="InternalFieldsValues" ObjectType="{x:Type System:Enum}" MethodName="GetValues">
+        <ObjectDataProvider.MethodParameters>
+          <x:Type TypeName="source:AzureTableInternalFields" />
+        </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <ScrollViewer Style="{StaticResource ScrollWrapper}">
+      <Grid Style="{StaticResource FixScrollViewerAdorner}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="2*" MinHeight="60" />
+          <RowDefinition Height="3*" MinHeight="90" />
+        </Grid.RowDefinitions>
+
+        <shared:AzureTableAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
+
+        <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+          <Label Content="{DynamicResource TableNameKey}" />
+          <TextBox Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Style="{StaticResource OptionElement}">
+          <ebc:ToolTipDecorator ToolTip="{DynamicResource InternalFieldsDescriptionKey}">
+            <Label Content="{DynamicResource InternalFieldsKey}" />
+          </ebc:ToolTipDecorator>
+          <ComboBox ItemsSource="{Binding Source={StaticResource InternalFieldsValues}}" SelectedValue="{Binding InternalFields}" />
+        </StackPanel>
+
+        <Grid Grid.Row="3" Style="{StaticResource OptionElement}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <Label Grid.Row="0" Content="{DynamicResource FilterKey}" />
+          <TextBox Grid.Row="1" Style="{StaticResource FilterEditor}" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+
+        <DockPanel Grid.Row="4" Style="{StaticResource OptionElement}">
+          <Label DockPanel.Dock="Top"  Content="{DynamicResource ProjectionKey}" />
+          <ebc:EditableStringsListControl DockPanel.Dock="Bottom" Items="{Binding EditableProjection}" />
+        </DockPanel>
+      </Grid>
+    </ScrollViewer>
+  </AdornerDecorator>
+
+</UserControl>

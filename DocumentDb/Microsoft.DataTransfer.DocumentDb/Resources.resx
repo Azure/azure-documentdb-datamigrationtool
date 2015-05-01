@@ -148,16 +148,16 @@
     <value>Data item already contains field "{0}"</value>
   </data>
   <data name="FailedToCreateCollectionFormat" xml:space="preserve">
-    <value>Failed to create documents collection '{0}'</value>
+    <value>Failed to create documents collection "{0}"</value>
   </data>
   <data name="FailedToCreateDatabaseFormat" xml:space="preserve">
-    <value>Failed to create documents database '{0}'</value>
+    <value>Failed to create documents database "{0}"</value>
   </data>
   <data name="FailedToCreateDocumentFormat" xml:space="preserve">
     <value>Failed to create document: {0}</value>
   </data>
   <data name="FailedToCreateStoredProcedureFormat" xml:space="preserve">
-    <value>Failed to create stored procedure '{0}'</value>
+    <value>Failed to create stored procedure "{0}"</value>
   </data>
   <data name="InvalidBatchSize" xml:space="preserve">
     <value>Batch size should be greater than zero</value>
@@ -185,5 +185,8 @@
   </data>
   <data name="SourceIsNotInitialized" xml:space="preserve">
     <value>DocumentDB source adapter should be initialized before it can be used</value>
+  </data>
+  <data name="DocumentSizeExceedsBulkScriptSize" xml:space="preserve">
+    <value>Document cannot be indexed in bulk because it exceeds specified script size limit</value>
   </data>
 </root>

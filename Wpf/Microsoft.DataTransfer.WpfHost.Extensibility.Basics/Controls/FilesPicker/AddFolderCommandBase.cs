@@ -1,8 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.EditableItemsList;
+using System.Windows.Forms;
 
 namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPicker
 {
-    abstract class AddFolderCommandBase : EditFilesCollectionCommandBase
+    abstract class AddFolderCommandBase : EditItemsCollectionCommandBase<string>
     {
         public sealed override void Execute(object parameter)
         {
@@ -13,7 +14,7 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPick
             })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
-                    Files.Add(GetFolderSearchPattern(dialog.SelectedPath));
+                    Items.Add(GetFolderSearchPattern(dialog.SelectedPath));
             }
         }
 

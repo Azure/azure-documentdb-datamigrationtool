@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+using Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.EditableItemsList;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPicker;
 using System.Collections.Generic;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls
         /// </summary>
         public static readonly DependencyProperty FilesProperty = DependencyProperty.Register(
             ObjectExtensions.MemberName<FilesPickerControl>(c => c.Files),
-            typeof(ICollection<string>), typeof(FilesPickerControl),
+            typeof(IList<string>), typeof(FilesPickerControl),
             new FrameworkPropertyMetadata(OnFilesPropertyChanged));
 
         /// <summary>
@@ -40,9 +41,9 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls
         /// <summary>
         /// Gets or sets the collection of selected files.
         /// </summary>
-        public ICollection<string> Files
+        public IList<string> Files
         {
-            get { return (ICollection<string>)GetValue(FilesProperty); }
+            get { return (IList<string>)GetValue(FilesProperty); }
             set { SetValue(FilesProperty, value); }
         }
 
@@ -70,7 +71,7 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls
         public FilesPickerControl()
         {
             InitializeComponent();
-            ViewModel = new FilesPickerViewModel(this);
+            ViewModel = new FilesPickerViewModel(this, new ExtendedListBoxSelectedItemsProvider(lbFiles));
         }
 
         private static void OnFilesPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

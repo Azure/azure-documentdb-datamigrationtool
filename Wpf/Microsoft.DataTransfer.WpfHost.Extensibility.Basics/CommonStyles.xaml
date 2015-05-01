@@ -18,7 +18,7 @@
       </Style>
     </Style.Resources>
   </Style>
-  
+
   <Style x:Key="SummaryGrid" TargetType="Grid">
     <Style.Resources>
       <Style TargetType="Label">
@@ -28,9 +28,19 @@
           </Trigger>
         </Style.Triggers>
       </Style>
-      
+
       <Style TargetType="TextBlock">
         <Setter Property="TextWrapping" Value="Wrap" />
+      </Style>
+
+      <Style TargetType="ItemsControl">
+        <Setter Property="ItemTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
       </Style>
     </Style.Resources>
   </Style>

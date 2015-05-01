@@ -25,7 +25,9 @@
       Content="{DynamicResource SelectFileKey}"
       Command="{Binding SelectFile}" />
 
-    <TextBox DockPanel.Dock="Left" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+    <TextBox DockPanel.Dock="Left"
+      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+      Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
   </DockPanel>
 
 </UserControl>

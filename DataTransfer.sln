@@ -112,6 +112,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Solution Items\CommonProperties.proj = Solution Items\CommonProperties.proj
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureTable", "AzureTable", "{7FF55CC5-9069-49E5-B16E-6437AE4892A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable", "AzureTable\Microsoft.DataTransfer.AzureTable\Microsoft.DataTransfer.AzureTable.csproj", "{366BA489-E851-4899-9BA3-2F9C7599D24B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable.FunctionalTests", "AzureTable\Microsoft.DataTransfer.AzureTable.FunctionalTests\Microsoft.DataTransfer.AzureTable.FunctionalTests.csproj", "{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable.Wpf", "AzureTable\Microsoft.DataTransfer.AzureTable.Wpf\Microsoft.DataTransfer.AzureTable.Wpf.csproj", "{8A191B07-775F-43C8-ACB6-F742073612EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +256,18 @@ Global
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -288,6 +308,9 @@ Global
 		{76BC3415-D4A0-43A4-B859-094E7D60F01D} = {8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}
 		{72422FE7-EEFD-4F80-9515-80BB362352D3} = {7F83D352-1039-4B8F-B63C-56231421056A}
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE} = {54BF02DB-CF58-4706-98EE-4175B07E36BC}
+		{366BA489-E851-4899-9BA3-2F9C7599D24B} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
+		{8A191B07-775F-43C8-ACB6-F742073612EA} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45

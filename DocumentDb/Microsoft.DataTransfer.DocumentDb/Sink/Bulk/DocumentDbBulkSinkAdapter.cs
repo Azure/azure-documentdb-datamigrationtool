@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Basics.Collections;
 using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.DocumentDb.Exceptions;
 using Microsoft.DataTransfer.DocumentDb.Shared;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
@@ -19,7 +20,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         private const string BulkImportStoredProcPrefix = "BulkImport";
 
         private string storedProcedureLink;
-        private FastForwardBuffer<object> buffer;
+        private FastForwardBuffer<BulkItemSurrogate> buffer;
         private LengthCappedEnumerableSurrogate surrogate;
         private int currentItemIndex;
         private ConcurrentDictionary<int, TaskCompletionSource<object>> activeBulkItems;
@@ -40,7 +41,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             storedProcedureLink = await Client.CreateStoredProcedureAsync(collectionLink,
                 BulkImportStoredProcPrefix + Guid.NewGuid().ToString("N"), Configuration.StoredProcBody);
 
-            buffer = new FastForwardBuffer<object>();
+            buffer = new FastForwardBuffer<BulkItemSurrogate>();
             surrogate = new LengthCappedEnumerableSurrogate(buffer, Configuration.MaxScriptSize);
             activeBulkItems = new ConcurrentDictionary<int, TaskCompletionSource<object>>();
 
@@ -112,7 +113,25 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             IEnumerable<BulkInsertItemState> response = null;
             try
             {
-                response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(storedProcedureLink, surrogate, Configuration.DisableIdGeneration);
+                response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(storedProcedureLink, surrogate, Configuration.DisableIdGeneration ? 1 : 0);
+            }
+            catch (DocumentSizeExceedsScriptSizeLimitException documentTooLarge)
+            {
+                // This error is thrown by the capped serializer if very first document got capped by the
+                // size limit and prevents it from sending an empty request.
+                // In this case - remove the first document from the buffer and report an error.
+                var firstDocument = buffer.FirstOrDefault();
+                if (firstDocument != null)
+                {
+                    response = new BulkInsertItemState[] 
+                    {
+                        new BulkInsertItemState
+                        {
+                            DocumentIndex = firstDocument.DocumentIndex,
+                            ErrorMessage = documentTooLarge.Message
+                        }
+                    };
+                }
             }
             catch (Exception exception)
             {

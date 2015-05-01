@@ -151,7 +151,16 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to create documents collection &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Document cannot be indexed in bulk because it exceeds specified script size limit.
+        /// </summary>
+        internal static string DocumentSizeExceedsBulkScriptSize {
+            get {
+                return ResourceManager.GetString("DocumentSizeExceedsBulkScriptSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create documents collection &quot;{0}&quot;.
         /// </summary>
         internal static string FailedToCreateCollectionFormat {
             get {
@@ -160,7 +169,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to create documents database &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Failed to create documents database &quot;{0}&quot;.
         /// </summary>
         internal static string FailedToCreateDatabaseFormat {
             get {
@@ -178,7 +187,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to create stored procedure &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Failed to create stored procedure &quot;{0}&quot;.
         /// </summary>
         internal static string FailedToCreateStoredProcedureFormat {
             get {

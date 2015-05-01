@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls.FilesPicker"
+             xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls"
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d"
              d:DesignWidth="365" d:DesignHeight="100">
-  
+
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -43,13 +43,13 @@
           </Style>
         </Style.Resources>
       </Style>
-      
+
       <Style x:Key="FilesList" TargetType="ListBox">
         <Setter Property="SelectionMode" Value="Extended" />
       </Style>
     </ResourceDictionary>
   </UserControl.Resources>
-  
+
   <DockPanel x:Name="LayoutRoot">
     <StackPanel DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
       <Button Content="{DynamicResource AddFilesKey}" Command="{Binding AddFiles}" Style="{StaticResource FirstActionButton}" />
@@ -66,13 +66,18 @@
           <ContentControl Style="{StaticResource AddFolderGlyph}" />
         </StackPanel>
       </bc:DropDownButton>
-      
-      <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" CommandParameter="{Binding ElementName=lbFiles, Path=SelectedItems}" />
+
+      <Button Content="{DynamicResource AddUrlKey}" Command="{Binding AddUrl}" />
+      <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" />
     </StackPanel>
 
-    <ListBox x:Name="lbFiles" DockPanel.Dock="Top" Style="{StaticResource FilesList}"
+    <local:ExtendedListBox x:Name="lbFiles" DockPanel.Dock="Top" Style="{StaticResource FilesList}"
       Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-      ItemsSource="{Binding Files}" />
+      ItemsSource="{Binding Files}">
+      <local:ExtendedListBox.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding RemoveFiles}" />
+      </local:ExtendedListBox.InputBindings>
+    </local:ExtendedListBox>
   </DockPanel>
-  
+
 </UserControl>

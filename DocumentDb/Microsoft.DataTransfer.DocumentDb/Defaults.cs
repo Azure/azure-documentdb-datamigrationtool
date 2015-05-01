@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.DocumentDb
         private static IDefaults GetCurrent()
         {
             if (current == null) lock (updateLock) if (current == null)
-                current = new LibraryDefaults();
+                        current = new LibraryDefaults();
 
             return current;
         }
@@ -52,7 +52,7 @@ namespace Microsoft.DataTransfer.DocumentDb
             public DateTimeHandling SinkDateTimeHandling { get { return DateTimeHandling.String; } }
 
             public int BulkSinkBatchSize { get { return 50; } }
-            public int BulkSinkMaxScriptSize { get { return 960 * 1024; } }
+            public int BulkSinkMaxScriptSize { get { return 1024 * 1024 - 16; } } // Allow 16 bytes for additional stored procedure arguments
             public string BulkSinkStoredProcFile { get { return "BulkInsert.js"; } }
 
             public int ParallelSinkNumberOfParallelRequests { get { return 2; } }
