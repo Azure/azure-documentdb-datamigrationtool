@@ -18,7 +18,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             Guard.NotNull("serializer", serializer);
-            return new LengthCappedEnumerableSurrogate(serializer.Deserialize<IEnumerable>(reader), 0);
+            return new LengthCappedEnumerableSurrogate(serializer.Deserialize<IEnumerable>(reader), 0, 0);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times",
@@ -43,23 +43,30 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             var jsonText = new StringBuilder(surrogate.MaxSerializedLength);
             using (var stringWriter = new StringWriter(jsonText, CultureInfo.InvariantCulture))
             {
-                var totalLength = stringWriter.Encoding.GetMaxByteCount(1); // Add one for array start element
+                var totalDocuments = 0;
+                var totalLength = 1; // Add one for array start element
 
                 foreach (var item in surrogate)
                 {
                     hasDocuments = true;
 
+                    if (++totalDocuments > surrogate.MaxElements)
+                        break;
+
                     serializer.Serialize(stringWriter, item);
 
-                    totalLength += stringWriter.Encoding.GetMaxByteCount(jsonText.Length + 1); // Add one for comma separator or array end element
+                    var jsonString = jsonText.ToString();
+                    totalLength += Encoding.UTF8.GetByteCount(jsonString) + 1; // Add one for comma separator or array end element
                     if (totalLength > surrogate.MaxSerializedLength)
                         break;
 
-                    writer.WriteRawValue(jsonText.ToString());
+                    writer.WriteRawValue(jsonString);
                     ++persistedDocuments;
                     jsonText.Clear();
                 }
             }
+
+            surrogate.LastSerializedCount = persistedDocuments;
 
             if (hasDocuments && persistedDocuments <= 0)
                 throw Errors.DocumentSizeExceedsBulkScriptSize();

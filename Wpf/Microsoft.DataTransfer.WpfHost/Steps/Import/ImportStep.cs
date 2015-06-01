@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
 using Microsoft.DataTransfer.WpfHost.ServiceModel.Steps;
@@ -48,7 +49,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
             Exception criticalError = null;
             try
             {
-                var statistics = statisticsFactory.Create();
+                var statistics = statisticsFactory.Create(TransferModel.InfrastructureConfiguration);
                 operationContext = new ImportOperationContext(statistics, Presenter.DataContext as ImportViewModel);
                 operationContext.ViewModel.IsImportRunning = true;
 
@@ -99,6 +100,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
 
             context.ViewModel.ElapsedTime = snapshot.ElapsedTime;
             context.ViewModel.Transferred = snapshot.Transferred;
+            context.ViewModel.Failed = snapshot.Failed;
             context.ViewModel.Errors = snapshot.GetErrors();
         }
     }

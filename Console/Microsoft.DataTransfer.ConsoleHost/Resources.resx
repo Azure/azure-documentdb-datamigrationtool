@@ -123,11 +123,17 @@
   <data name="DataAdapterConfigurationFactoryNotFoundFormat" xml:space="preserve">
     <value>Data adapter configuration of type '{0}' can not be created because there is no factory exists that can instantiate it.</value>
   </data>
+  <data name="HelpAdapterConfigurationOptionFormat" xml:space="preserve">
+    <value>{0}{1}.{2}: {3}</value>
+  </data>
+  <data name="HelpConfigurationHeader" xml:space="preserve">
+    <value>Options:</value>
+  </data>
   <data name="HelpConfigurationNotAvailableFormat" xml:space="preserve">
     <value>Failed to get configuration: {0}</value>
   </data>
   <data name="HelpConfigurationOptionFormat" xml:space="preserve">
-    <value>{0}{1}.{2}: {3}</value>
+    <value>{0}{1}: {2}</value>
   </data>
   <data name="HelpHeaderFormat" xml:space="preserve">
     <value>DocumentDB Data Migration Tool v{0}</value>
@@ -142,7 +148,7 @@
     <value>Available targets:</value>
   </data>
   <data name="HelpUsageExample" xml:space="preserve">
-    <value>dt.exe {0}{1}:&lt;source-name&gt; [{0}{1}.&lt;source-option&gt;:&lt;value&gt;] {0}{2}:&lt;target-name&gt; [{0}{2}.&lt;target-option&gt;:&lt;value&gt;]</value>
+    <value>dt.exe [{0}&lt;option&gt;:&lt;value&gt;] {0}{1}:&lt;source-name&gt; [{0}{1}.&lt;source-option&gt;:&lt;value&gt;] {0}{2}:&lt;target-name&gt; [{0}{2}.&lt;target-option&gt;:&lt;value&gt;]</value>
   </data>
   <data name="HelpUsageExampleHeader" xml:space="preserve">
     <value>Usage:</value>

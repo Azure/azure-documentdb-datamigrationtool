@@ -11,8 +11,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
 {
     sealed class DocumentDbSourceAdapterInternalFactory : DocumentDbAdapterFactoryBase, IDataSourceAdapterFactory<IDocumentDbSourceAdapterConfiguration>
     {
-        private const string DefaultQuery = "SELECT * FROM c";
-
         private static readonly string[] DocumentDbInternalFields = new[] { "_rid", "_ts", "_self", "_etag", "_attachments" };
 
         public string Description
@@ -20,23 +18,18 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
             get { return Resources.SourceDescription; }
         }
 
-        public Task<IDataSourceAdapter> CreateAsync(IDocumentDbSourceAdapterConfiguration configuration, IDataTransferContext context)
-        {
-            return Task.Factory.StartNew<IDataSourceAdapter>(() => Create(configuration, context));
-        }
-
-        private IDataSourceAdapter Create(IDocumentDbSourceAdapterConfiguration configuration, IDataTransferContext context)
+        public async Task<IDataSourceAdapter> CreateAsync(IDocumentDbSourceAdapterConfiguration configuration, IDataTransferContext context)
         {
             Guard.NotNull("configuration", configuration);
 
             ValidateBaseConfiguration(configuration);
 
             var source = new DocumentDbSourceAdapter(
-                CreateClient(configuration, context),
+                CreateClient(configuration, context, false),
                 GetDataItemTransformation(configuration),
                 GetInstanceConfiguration(configuration));
 
-            source.Initialize();
+            await source.InitializeAsync();
 
             return source;
         }
@@ -46,16 +39,19 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
             if (configuration.InternalFields)
                 return PassThroughTransformation.Instance;
 
-            return new FilteredFieldsTransformation(DocumentDbInternalFields);
+            return new FilterFieldsTransformation(DocumentDbInternalFields);
         }
 
         private static DocumentDbSourceAdapterInstanceConfiguration GetInstanceConfiguration(IDocumentDbSourceAdapterConfiguration configuration)
         {
             Guard.NotNull("configuration", configuration);
 
+            if (String.IsNullOrEmpty(configuration.Collection))
+                throw Errors.CollectionNameMissing();
+
             return new DocumentDbSourceAdapterInstanceConfiguration
             {
-                CollectionName = configuration.Collection,
+                Collection = configuration.Collection,
                 Query = GetQuery(configuration)
             };
         }
@@ -68,12 +64,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
             if (isQuerySet && isQueryFileSet)
                 throw Errors.AmbiguousQuery();
 
-            var query = isQueryFileSet ? File.ReadAllText(configuration.QueryFile) : configuration.Query;
-
-            if (String.IsNullOrEmpty(query))
-                query = DefaultQuery;
-
-            return query;
+            return isQueryFileSet ? File.ReadAllText(configuration.QueryFile) : configuration.Query;
         }
     }
 }

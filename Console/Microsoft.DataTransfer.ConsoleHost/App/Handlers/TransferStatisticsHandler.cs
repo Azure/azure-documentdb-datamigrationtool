@@ -1,5 +1,4 @@
-﻿using Microsoft.DataTransfer.ServiceModel;
-using Microsoft.DataTransfer.ServiceModel.Entities;
+﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,15 +15,15 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             this.statisticsFactory = statisticsFactory;
         }
 
-        public ITransferStatistics CreateNew()
+        public ITransferStatistics CreateNew(ITransferStatisticsConfiguration configuration)
         {
-            return statisticsFactory.Create();
+            return statisticsFactory.Create(configuration);
         }
 
         public void PrintProgress(ITransferStatisticsSnapshot statistics)
         {
             var message = String.Format(CultureInfo.InvariantCulture, Resources.StatisticsProgressFormat,
-                statistics.Transferred, statistics.GetErrors().Count, statistics.ElapsedTime);
+                statistics.Transferred, statistics.Failed, statistics.ElapsedTime);
 
             Console.Write("\r{0}", message);
         }
@@ -33,16 +32,17 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
         {
             Console.Write("\r{0}\r", new String(' ', Console.WindowWidth - 1));
 
-            var errors = statistics.GetErrors();
             Console.WriteLine(String.Format(CultureInfo.InvariantCulture, Resources.StatisticsResultFormat,
-                statistics.Transferred, errors.Count, statistics.ElapsedTime));
+                statistics.Transferred, statistics.Failed, statistics.ElapsedTime));
 
-            if (errors.Count > 0)
-                PrintFailures(errors);
+            PrintFailures(statistics.GetErrors());
         }
 
         private static void PrintFailures(IReadOnlyCollection<KeyValuePair<string, Exception>> errors)
         {
+            if (errors == null || errors.Count <= 0)
+                return;
+
             Console.WriteLine();
             Console.WriteLine(Resources.StatisticsFailuresHeader);
             Console.WriteLine(String.Join(Environment.NewLine, 

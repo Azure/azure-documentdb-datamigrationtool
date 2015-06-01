@@ -1,6 +1,6 @@
 ﻿using Microsoft.DataTransfer.AzureTable.Source;
 using Microsoft.DataTransfer.AzureTable.Wpf.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+using Microsoft.DataTransfer.Basics.Extensions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

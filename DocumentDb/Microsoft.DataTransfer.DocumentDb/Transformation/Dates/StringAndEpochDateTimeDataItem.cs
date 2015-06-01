@@ -13,13 +13,18 @@ namespace Microsoft.DataTransfer.DocumentDb.Transformation.Dates
         public StringAndEpochDateTimeDataItem(IDataItem dataItem)
             : base(dataItem) { }
 
-        protected override object GetValue(DateTime timeStamp)
+        protected override object ConvertDateTime(DateTime timeStamp)
         {
             return new DictionaryDataItem(new Dictionary<string, object>
             {
                 { StringFieldName, DateTimeConverter.ToString(timeStamp) },
                 { EpochFieldName, DateTimeConverter.ToEpoch(timeStamp) }
             });
+        }
+
+        protected override IDataItem TransformDataItem(IDataItem original)
+        {
+            return new StringAndEpochDateTimeDataItem(original);
         }
     }
 }

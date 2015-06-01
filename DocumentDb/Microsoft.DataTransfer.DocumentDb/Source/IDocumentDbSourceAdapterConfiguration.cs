@@ -9,6 +9,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
     public interface IDocumentDbSourceAdapterConfiguration : IDocumentDbAdapterConfiguration
     {
         /// <summary>
+        /// Gets the documents collection name pattern.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Collection")]
+        string Collection { get; }
+
+        /// <summary>
         /// Gets the value that indicates whether internal DocumentDB fields should be emitted in the output.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_InternalFields")]

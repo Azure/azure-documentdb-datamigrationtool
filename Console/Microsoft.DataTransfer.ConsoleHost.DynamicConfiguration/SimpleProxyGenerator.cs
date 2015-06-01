@@ -3,7 +3,6 @@ using Microsoft.DataTransfer.Basics;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,11 +32,18 @@ namespace Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration
 
             var proxyAssembly = new CodeCompileUnit
             {
-                ReferencedAssemblies = { interfaceType.Assembly.Location },
-                Namespaces =  { new CodeNamespace(proxyNamespace) {
-                    Types = { typeDeclaration }
-                }}
+                Namespaces = 
+                {
+                    new CodeNamespace(proxyNamespace)
+                    {
+                        Types = { typeDeclaration }
+                    }
+                }
             };
+
+            proxyAssembly.ReferencedAssemblies.Add(interfaceType.Assembly.Location);
+            proxyAssembly.ReferencedAssemblies.AddRange(
+                interfaceType.GetInterfaces().Select(i => i.Assembly.Location).ToArray());
 
             foreach (var property in GetInterfaceProperties(interfaceType))
             {

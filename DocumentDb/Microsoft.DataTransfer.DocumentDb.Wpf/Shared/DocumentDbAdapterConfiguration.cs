@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.DocumentDb.Shared;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 using System;
 using System.Collections.Generic;
@@ -14,9 +14,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
         public static readonly string ConnectionModePropertyName =
             ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.ConnectionMode);
 
-        public static readonly string CollectionPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.Collection);
-
         public static readonly string RetriesPropertyName =
             ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.Retries);
 
@@ -25,7 +22,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
 
         private string connectionString;
         private DocumentDbConnectionMode? connectionMode;
-        private string collection;
 
         private int? retries;
         private TimeSpan? retryInterval;
@@ -40,12 +36,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
         {
             get { return connectionMode; }
             set { SetProperty(ref connectionMode, value); }
-        }
-
-        public string Collection
-        {
-            get { return collection; }
-            set { SetProperty(ref collection, value, ValidateNonEmptyString); }
         }
 
         public int? Retries

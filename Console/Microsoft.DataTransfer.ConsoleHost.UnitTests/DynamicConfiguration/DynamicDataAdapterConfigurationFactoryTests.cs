@@ -15,7 +15,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
             const string Property1Value = "Test value";
             const int Property2Value = 10;
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(ISimpleConfiguration),
                 new Dictionary<string, string>
@@ -40,7 +40,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
             const int Property2Value = 20;
             const string NewProperty1Value = "Derived property value";
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(IDerivedConfiguration),
                 new Dictionary<string, string>
@@ -63,7 +63,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         [TestMethod]
         public void TryGetConfigurationOptions_SimpleConfiguration_OptionsReturned()
         {
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var options = factory.TryGetConfigurationOptions(typeof(ISimpleConfiguration));
 
             Assert.IsNotNull(options, TestResources.NullOptionsReturned);
@@ -76,7 +76,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         [TestMethod]
         public void TryGetConfigurationOptions_DerivedConfiguration_OptionsReturned()
         {
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var options = factory.TryGetConfigurationOptions(typeof(IDerivedConfiguration));
 
             Assert.IsNotNull(options, TestResources.NullOptionsReturned);
@@ -90,7 +90,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         [TestMethod]
         public void TryGetConfigurationOptions_CustomDescription_DescriptionReturned()
         {
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var options = factory.TryGetConfigurationOptions(typeof(ICustomDescriptionConfiguration));
 
             Assert.IsNotNull(options, TestResources.NullOptionsReturned);
@@ -106,7 +106,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         [TestMethod]
         public void TryGetConfigurationOptions_CustomDescriptionFromResourcesFile_DescriptionReturned()
         {
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var options = factory.TryGetConfigurationOptions(typeof(ICustomResourcesDescriptionConfiguration));
 
             Assert.IsNotNull(options, TestResources.NullOptionsReturned);
@@ -125,7 +125,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
             const TestEnum Property1Value = TestEnum.OptionB;
             const string Property2Value = "Hello world!";
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(IEnumConfiguration),
                 new Dictionary<string, string>
@@ -148,7 +148,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         {
             const TestEnum EnumPropValue = TestEnum.OptionA;
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(INullableConfiguration),
                 new Dictionary<string, string>
@@ -170,7 +170,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         {
             var timeSpanPropertyValue = TimeSpan.FromSeconds(123);
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(ITimeSpanConfiguration),
                 new Dictionary<string, string>
@@ -189,14 +189,14 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
         [TestMethod]
         public void TryCreate_ConfigurationWithCollection_Parsed()
         {
-            var collectionPropertyValue = new[] { @"Va\\lue1;", ";Value2", "Val;ue3" };
+            var collectionPropertyValue = new[] { @"Va\lue1;", ";Value2", "Val;ue3", @"Value\" };
 
-            var factory = new DynamicDataAdapterConfigurationFactory();
+            var factory = new DynamicConfigurationFactory();
             var proxy = factory.TryCreate(
                 typeof(ICollectionConfiguration),
                 new Dictionary<string, string>
                 {
-                    { "CollectionProperty", String.Join(";", collectionPropertyValue.Select(v => v.Replace(";", @"\;"))) }
+                    { "CollectionProperty", String.Join(";", collectionPropertyValue.Select(v => v.Replace(@"\", @"\\").Replace(";", @"\;"))) }
                 });
 
             Assert.IsNotNull(proxy, TestResources.NullProxyGenerated);
@@ -205,6 +205,26 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests.DynamicConfiguration
             var typedProxy = (ICollectionConfiguration)proxy;
 
             CollectionAssert.AreEquivalent(collectionPropertyValue, typedProxy.CollectionProperty.ToArray(),
+                TestResources.InvalidProxyPropertyValueFormat, "CollectionProperty");
+        }
+
+        [TestMethod]
+        public void TryCreate_ConfigurationWithCollection_UnnecessaryEscapeCharactersPreservedInTheOutput()
+        {
+            var factory = new DynamicConfigurationFactory();
+            var proxy = factory.TryCreate(
+                typeof(ICollectionConfiguration),
+                new Dictionary<string, string>
+                {
+                    { "CollectionProperty", @"Value1;Valu\e2;Val\\ue3" }
+                });
+
+            Assert.IsNotNull(proxy, TestResources.NullProxyGenerated);
+            Assert.IsTrue(proxy is ICollectionConfiguration, TestResources.InvalidProxyType);
+
+            var typedProxy = (ICollectionConfiguration)proxy;
+
+            CollectionAssert.AreEquivalent(new[] { "Value1", @"Valu\e2", @"Val\ue3" }, typedProxy.CollectionProperty.ToArray(),
                 TestResources.InvalidProxyPropertyValueFormat, "CollectionProperty");
         }
     }

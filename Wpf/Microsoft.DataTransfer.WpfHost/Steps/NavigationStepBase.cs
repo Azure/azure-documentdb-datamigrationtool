@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.WpfHost.Basics;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.WpfHost.Basics;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
 using Microsoft.DataTransfer.WpfHost.ServiceModel.Steps;
 using System;

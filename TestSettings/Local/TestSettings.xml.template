@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <DocumentDbConnectionStringFormat><!-- TODO: Insert a valid value --></DocumentDbConnectionStringFormat>
-  <SqlConnectionString><!-- TODO: Insert a valid value --></SqlConnectionString>
-  <MongoConnectionString><!-- TODO: Insert a valid value --></MongoConnectionString>
-  <AzureStorageConnectionString><!-- TODO: Insert a valid value --></AzureStorageConnectionString>
+  <DocumentDbConnectionStringFormat><!-- TODO: AccountEndpoint=;AccountKey=;Database={0} --></DocumentDbConnectionStringFormat>
+  <SqlConnectionString><!-- TODO: Server=;Database=;User ID=;Password=; --></SqlConnectionString>
+  <MongoConnectionString><!-- TODO: mongodb://localhost/test --></MongoConnectionString>
+  <AzureStorageConnectionString><!-- TODO: DefaultEndpointsProtocol=https;AccountName=;AccountKey=; --></AzureStorageConnectionString>
+  <RavenDbConnectionStringFormat><!-- TODO: Url=http://localhost:8080;Database={0} --></RavenDbConnectionStringFormat>
 </Settings>

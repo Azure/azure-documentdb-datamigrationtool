@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

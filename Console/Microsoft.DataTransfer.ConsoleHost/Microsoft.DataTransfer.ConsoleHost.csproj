@@ -50,6 +50,9 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\InfrastructureConfigurationFactory.cs" />
+    <Compile Include="Configuration\IInfrastructureConfiguration.cs" />
+    <Compile Include="Configuration\IInfrastructureConfigurationFactory.cs" />
     <Compile Include="Helpers\ConsoleCancellationSource.cs" />
     <Compile Include="App\Handlers\ErrorHandler.cs" />
     <Compile Include="App\Handlers\IErrorHandler.cs" />
@@ -105,6 +108,10 @@
     <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj">
       <Project>{782ce839-40a8-4c47-9998-c3b0b7c3d2a1}</Project>
       <Name>Microsoft.DataTransfer.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj">
+      <Project>{d505404f-2fc0-453c-86bb-ba3b1ae13919}</Project>
+      <Name>Microsoft.DataTransfer.RavenDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj">
       <Project>{e31f1956-78be-4960-82e9-e1d8a73fa6d5}</Project>

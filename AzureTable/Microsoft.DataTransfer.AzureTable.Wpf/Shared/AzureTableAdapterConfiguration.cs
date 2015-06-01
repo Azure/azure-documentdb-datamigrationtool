@@ -1,5 +1,5 @@
 ﻿using Microsoft.DataTransfer.AzureTable.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 
 namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared

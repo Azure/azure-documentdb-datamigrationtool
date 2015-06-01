@@ -13,12 +13,15 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
         private const int SectionIndentation = 2;
 
         private readonly IDataTransferService service;
-        private readonly IDataAdapterConfigurationFactory configurationFactory;
+        private readonly IInfrastructureConfigurationFactory infrastructureConfigurationFactory;
+        private readonly IDataAdapterConfigurationFactory adaptersConfigurationFactory;
 
-        public HelpHandler(IDataTransferService service, IDataAdapterConfigurationFactory configurationFactory)
+        public HelpHandler(IDataTransferService service, IInfrastructureConfigurationFactory infrastructureConfigurationFactory,
+            IDataAdapterConfigurationFactory adaptersConfigurationFactory)
         {
             this.service = service;
-            this.configurationFactory = configurationFactory;
+            this.infrastructureConfigurationFactory = infrastructureConfigurationFactory;
+            this.adaptersConfigurationFactory = adaptersConfigurationFactory;
         }
 
         public void Print()
@@ -44,6 +47,32 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                 CommandLineOneTimeTransferConfiguration.SourceSwitch,
                 CommandLineOneTimeTransferConfiguration.TargetSwitch);
             Console.WriteLine();
+
+            Console.WriteLine(Resources.HelpConfigurationHeader);
+            Console.WriteLine();
+            PrintOptions();
+        }
+
+        private void PrintOptions()
+        {
+            const int IndentLevel = 1;
+            IReadOnlyDictionary<string, string> options;
+
+            try
+            {
+                options = infrastructureConfigurationFactory.DescribeOptions();
+            }
+            catch (Exception ex)
+            {
+                WriteLineSection(IndentLevel, Resources.HelpConfigurationNotAvailableFormat, ex.Message);
+                return;
+            }
+
+            foreach (var option in options)
+            {
+                WriteLineSection(IndentLevel, Resources.HelpConfigurationOptionFormat,
+                    CommandLineOneTimeTransferConfiguration.SwitchCharacter, option.Key, option.Value);
+            }
         }
 
         private void PrintAdapters(string header, string adapterCharacter, IReadOnlyDictionary<string, IDataAdapterDefinition> adapters)
@@ -68,7 +97,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             try
             {
-                options = configurationFactory.TryGetConfigurationOptions(configurationType);
+                options = adaptersConfigurationFactory.TryGetConfigurationOptions(configurationType);
             }
             catch (Exception ex)
             {
@@ -78,7 +107,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             foreach (var option in options)
             {
-                WriteLineSection(IndentLevel, Resources.HelpConfigurationOptionFormat,
+                WriteLineSection(IndentLevel, Resources.HelpAdapterConfigurationOptionFormat,
                     CommandLineOneTimeTransferConfiguration.SwitchCharacter, adapterCharacter,
                     option.Key, option.Value);
             }

@@ -1,70 +1,81 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Extensibility.Basics;component/CommonStyles.xaml" />
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
   </ResourceDictionary.MergedDictionaries>
   
   <!-- String resources -->
 
-  <System:String x:Key="ConnectionStringKey">Connection String</System:String>
-  <System:String x:Key="ConnectionStringDescriptionKey"><![CDATA[Specify a valid DocumentDB connection string in the following format: AccountEndpoint=<url>;AccountKey=<key>;Database=<db>]]></System:String>
-  <System:String x:Key="ConnectionStringSummaryKey">Connection String:</System:String>
-  <System:String x:Key="TestConnectionKey">Verify</System:String>
-  
-  <System:String x:Key="CollectionNameKey">Collection</System:String>
-  <System:String x:Key="CollectionNameSummaryKey">Collection:</System:String>
+  <system:String x:Key="ConnectionStringKey">Connection String</system:String>
+  <system:String x:Key="ConnectionStringDescriptionKey"><![CDATA[Specify a valid DocumentDB connection string in the following format: AccountEndpoint=<url>;AccountKey=<key>;Database=<db>]]></system:String>
+  <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="TestConnectionKey">Verify</system:String>
 
-  <System:String x:Key="CollectionTierKey">Collection Pricing Tier</System:String>
-  <System:String x:Key="CollectionTierDescriptionKey">Specify the pricing / performance tier of the collection. Note that this only applies to collection creation, existing collections will not have their pricing tier modified</System:String>
-  <System:String x:Key="CollectionTierSummaryKey">Collection Pricing Tier:</System:String>
-  
-  <System:String x:Key="ConnectionModeKey">Connection Mode</System:String>
-  <System:String x:Key="ConnectionModeDescriptionKey">Choose the DocumentDB connection mode. Direct connection works faster, but Gateway is more firewall friendly</System:String>
-  <System:String x:Key="ConnectionModeSummaryKey">Connection Mode:</System:String>
+  <system:String x:Key="CollectionPatternKey">Collection</system:String>
+  <system:String x:Key="CollectionPatternDescriptionKey">Regular expression to match one or more collection names</system:String>
+  <system:String x:Key="CollectionPatternSummaryKey">Collection:</system:String>
 
-  <System:String x:Key="IdFieldKey">Id Field</System:String>
-  <System:String x:Key="IdFieldSummaryKey">Id Field:</System:String>
-  
-  <System:String x:Key="AdvancedConfigurationTitleKey">Advanced Options</System:String>
+  <system:String x:Key="CollectionsKey">Collections</system:String>
+  <system:String x:Key="CollectionsDescriptionKey">
+    <![CDATA[One or more collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2]]>
+  </system:String>
+  <system:String x:Key="CollectionsSummaryKey">Collections:</system:String>
 
-  <System:String x:Key="DisableIdGenerationKey">Disable Automatic Id Generation</System:String>
-  <System:String x:Key="DisableIdGenerationDescriptionKey">If every document to be imported contains an unique id field, then selecting this option can increase performance. Documents without an unique id field will not be imported</System:String>
-  <System:String x:Key="DisableIdGenerationSummaryKey">Disable Automatic Id Generation:</System:String>
+  <system:String x:Key="PartitionKeyKey">Partition Key</system:String>
+  <system:String x:Key="PartitionKeyDescriptionKey">Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</system:String>
+  <system:String x:Key="PartitionKeySummaryKey">Partition Key:</system:String>
+  
+  <system:String x:Key="CollectionTierKey">Collection Pricing Tier</system:String>
+  <system:String x:Key="CollectionTierDescriptionKey">Specify the pricing / performance tier of the collection. Note that this only applies to collection creation, existing collections will not have their pricing tier modified</system:String>
+  <system:String x:Key="CollectionTierSummaryKey">Collection Pricing Tier:</system:String>
+  
+  <system:String x:Key="ConnectionModeKey">Connection Mode</system:String>
+  <system:String x:Key="ConnectionModeDescriptionKey">Choose the DocumentDB connection mode. Direct connection works faster, but Gateway is more firewall friendly</system:String>
+  <system:String x:Key="ConnectionModeSummaryKey">Connection Mode:</system:String>
 
-  <System:String x:Key="DatesHandlingKey">Persist Date and Time as</System:String>
-  <System:String x:Key="DatesHandlingSummaryKey">Persist Date and Time as:</System:String>
+  <system:String x:Key="IdFieldKey">Id Field</system:String>
+  <system:String x:Key="IdFieldSummaryKey">Id Field:</system:String>
   
-  <System:String x:Key="RetriesKey">Number of Retries on Failure</System:String>
-  <System:String x:Key="RetriesSummaryKey">Number of Retries on Failure:</System:String>
-  
-  <System:String x:Key="RetryIntervalKey">Retry Interval</System:String>
-  <System:String x:Key="RetryIntervalSummaryKey">Retry Interval:</System:String>
-  
-  <System:String x:Key="ParallelRequestsKey">Number of Parallel Requests</System:String>
-  <System:String x:Key="ParallelRequestsSummaryKey">Number of Parallel Requests:</System:String>
+  <system:String x:Key="AdvancedConfigurationTitleKey">Advanced Options</system:String>
 
-  <System:String x:Key="StoredProcFileKey">Bulk Insert Stored Procedure</System:String>
-  <System:String x:Key="StoredProcFileDescriptionKey">Select an alternate bulk insert stored procedure (leave blank to use the default script)</System:String>
-  <System:String x:Key="StoredProcFileSummaryKey">Bulk Insert Stored Procedure:</System:String>
-  <System:String x:Key="StoredProcFileFilter">JavaScript Files|*.js|All Files|*.*</System:String>
-  <System:String x:Key="StoredProcFileDefaultExtension">*.js</System:String>
-  
-  <System:String x:Key="BatchSizeKey">Batch Size</System:String>
-  <System:String x:Key="BatchSizeSummaryKey">Batch Size:</System:String>
-  
-  <System:String x:Key="MaxScriptSizeKey">Max Script Size (bytes)</System:String>
-  <System:String x:Key="MaxScriptSizeSummaryKey">Max Script Size (bytes):</System:String>
+  <system:String x:Key="DisableIdGenerationKey">Disable Automatic Id Generation</system:String>
+  <system:String x:Key="DisableIdGenerationDescriptionKey">If every document to be imported contains an unique id field, then selecting this option can increase performance. Documents without an unique id field will not be imported</system:String>
+  <system:String x:Key="DisableIdGenerationSummaryKey">Disable Automatic Id Generation:</system:String>
 
-  <System:String x:Key="QuerySummaryKey">Query:</System:String>
-  <System:String x:Key="EnterQuerySelectionKey">Enter Query</System:String>
-  <System:String x:Key="QueryFileSelectionKey">Select Query File</System:String>
-  <System:String x:Key="QueryFileFilterKey">SQL Query|*.sql|All Files|*.*</System:String>
-  <System:String x:Key="QueryFileDefaultExtensionKey">*.sql</System:String>
+  <system:String x:Key="DatesHandlingKey">Persist Date and Time as</system:String>
+  <system:String x:Key="DatesHandlingSummaryKey">Persist Date and Time as:</system:String>
+  
+  <system:String x:Key="RetriesKey">Number of Retries on Failure</system:String>
+  <system:String x:Key="RetriesSummaryKey">Number of Retries on Failure:</system:String>
+  
+  <system:String x:Key="RetryIntervalKey">Retry Interval</system:String>
+  <system:String x:Key="RetryIntervalSummaryKey">Retry Interval:</system:String>
+  
+  <system:String x:Key="ParallelRequestsKey">Number of Parallel Requests</system:String>
+  <system:String x:Key="ParallelRequestsSummaryKey">Number of Parallel Requests:</system:String>
 
-  <System:String x:Key="IncludeInternalFieldsKey">Include Internal Fields</System:String>
-  <System:String x:Key="IncludeInternalFieldsSummaryKey">Include Internal Fields:</System:String>
+  <system:String x:Key="StoredProcFileKey">Bulk Insert Stored Procedure</system:String>
+  <system:String x:Key="StoredProcFileDescriptionKey">Select an alternate bulk insert stored procedure (leave blank to use the default script)</system:String>
+  <system:String x:Key="StoredProcFileSummaryKey">Bulk Insert Stored Procedure:</system:String>
+  <system:String x:Key="StoredProcFileFilter">JavaScript Files|*.js|All Files|*.*</system:String>
+  <system:String x:Key="StoredProcFileDefaultExtension">*.js</system:String>
+  
+  <system:String x:Key="BatchSizeKey">Batch Size</system:String>
+  <system:String x:Key="BatchSizeSummaryKey">Batch Size:</system:String>
+  
+  <system:String x:Key="MaxScriptSizeKey">Max Script Size (bytes)</system:String>
+  <system:String x:Key="MaxScriptSizeSummaryKey">Max Script Size (bytes):</system:String>
+
+  <system:String x:Key="QuerySummaryKey">Query:</system:String>
+  <system:String x:Key="EnterQuerySelectionKey">Enter Query</system:String>
+  <system:String x:Key="QueryFileSelectionKey">Select Query File</system:String>
+  <system:String x:Key="QueryFileFilterKey">SQL Query|*.sql|All Files|*.*</system:String>
+  <system:String x:Key="QueryFileDefaultExtensionKey">*.sql</system:String>
+
+  <system:String x:Key="IncludeInternalFieldsKey">Include Internal Fields</system:String>
+  <system:String x:Key="IncludeInternalFieldsSummaryKey">Include Internal Fields:</system:String>
 
   <!-- Styles -->
 

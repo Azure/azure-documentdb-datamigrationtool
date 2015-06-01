@@ -1,5 +1,5 @@
 ﻿using Microsoft.DataTransfer.Extensibility;
-using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System.Threading;
 using System.Threading.Tasks;
 

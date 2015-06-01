@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.ConsoleHost.Extensibility;
 using Microsoft.DataTransfer.ConsoleHost.Helpers;
 using Microsoft.DataTransfer.ServiceModel;
 using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,15 +14,17 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
     {
         private readonly IDataTransferService transferService;
         private readonly IDataAdapterConfigurationFactory dataAdapterConfiguration;
+        private readonly IInfrastructureConfigurationFactory infrastructureConfiguration;
         private readonly ITransferStatisticsHandler statisticsHandler;
 
         private readonly IOneTimeDataTransferConfiguration configuration;
 
         public OneTimeDataTransferHandler(IDataTransferService transferService, IDataAdapterConfigurationFactory dataAdapterConfiguration,
-            ITransferStatisticsHandler statisticsHandler, IOneTimeDataTransferConfiguration configuration)
+            IInfrastructureConfigurationFactory infrastructureConfiguration, ITransferStatisticsHandler statisticsHandler, IOneTimeDataTransferConfiguration configuration)
         {
             this.transferService = transferService;
             this.dataAdapterConfiguration = dataAdapterConfiguration;
+            this.infrastructureConfiguration = infrastructureConfiguration;
             this.statisticsHandler = statisticsHandler;
             this.configuration = configuration;
         }
@@ -38,11 +41,11 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             if (!transferService.GetKnownSinks().TryGetValue(configuration.TargetName, out sinkDefinition))
                 throw Errors.UnknownDestination(configuration.TargetName);
 
-            var statistics = statisticsHandler.CreateNew();
+            var statistics = statisticsHandler.CreateNew(infrastructureConfiguration.Create(configuration.InfrastructureConfiguration));
 
             using (var cancellation = new ConsoleCancellationSource())
             {
-                using (var timer = new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
+                using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
                 {
                     await transferService
                         .TransferAsync(

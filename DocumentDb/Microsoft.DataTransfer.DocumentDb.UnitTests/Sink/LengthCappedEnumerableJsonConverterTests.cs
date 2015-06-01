@@ -17,7 +17,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
                 new { Field1 = "Should", Field2 = "cap" }
             };
 
-            var cappable = new LengthCappedEnumerableSurrogate(data, 150);
+            var cappable = new LengthCappedEnumerableSurrogate(data, 10, 80);
             var serialized = JsonConvert.SerializeObject(cappable, new LengthCappedEnumerableJsonConverter());
 
             Assert.AreEqual("[{\"Field1\":\"Hello\",\"Field2\":\"World!\"},{\"Field1\":\"Next\",\"Field2\":\"Item\"}]", serialized,

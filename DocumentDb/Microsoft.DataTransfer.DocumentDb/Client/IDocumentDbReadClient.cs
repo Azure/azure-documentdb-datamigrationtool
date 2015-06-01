@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Client
 {
     interface IDocumentDbReadClient : IDisposable
     {
-        IEnumerable<IReadOnlyDictionary<string, object>> QueryDocuments(string collectionName, string query);
+        Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string collectionNamePattern, string query);
     }
 }

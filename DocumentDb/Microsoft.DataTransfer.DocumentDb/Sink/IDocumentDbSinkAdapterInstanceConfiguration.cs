@@ -1,9 +1,11 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Shared;
+﻿using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink
 {
-    interface IDocumentDbSinkAdapterInstanceConfiguration : IDocumentDbAdapterInstanceConfiguration
+    interface IDocumentDbSinkAdapterInstanceConfiguration
     {
+        IEnumerable<string> Collections { get; }
+        string PartitionKey { get; }
         CollectionPricingTier CollectionTier { get; }
         bool DisableIdGeneration { get; }
     }

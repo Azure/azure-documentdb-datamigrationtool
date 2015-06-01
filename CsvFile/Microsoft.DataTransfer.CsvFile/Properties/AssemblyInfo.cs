@@ -12,3 +12,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("3a0f0ccd-3e41-4213-80db-fb792a76cb06")]
+
+#if DEBUG
+[assembly: InternalsVisibleTo("Microsoft.DataTransfer.CsvFile.UnitTests")]
+#endif

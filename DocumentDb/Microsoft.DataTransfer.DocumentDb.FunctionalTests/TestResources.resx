@@ -120,10 +120,13 @@
   <data name="AmbiguousQueryDidNotFail" xml:space="preserve">
     <value>Data adapter should fail when both Query and QueryFile are set</value>
   </data>
+  <data name="DataIsNotPartitioned" xml:space="preserve">
+    <value>One of the collections used for partitioning is empty</value>
+  </data>
+  <data name="InvalidDocumentsPersisted" xml:space="preserve">
+    <value>Documents persisted in the collection are invalid</value>
+  </data>
   <data name="InvalidDocumentsRead" xml:space="preserve">
     <value>Documents read form the collection are invalid</value>
-  </data>
-  <data name="InvalidNumberOfDocumentsWritten" xml:space="preserve">
-    <value>Target collection contains invalid number of documents</value>
   </data>
 </root>

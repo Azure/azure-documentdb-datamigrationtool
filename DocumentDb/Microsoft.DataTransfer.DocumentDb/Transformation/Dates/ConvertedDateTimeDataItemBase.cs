@@ -3,21 +3,20 @@ using System;
 
 namespace Microsoft.DataTransfer.DocumentDb.Transformation.Dates
 {
-    abstract class ConvertedDateTimeDataItemBase : DataItemWrapper
+    abstract class ConvertedDateTimeDataItemBase : TransformedDataItemBase
     {
         public ConvertedDateTimeDataItemBase(IDataItem dataItem)
             : base(dataItem) { }
 
-        public override object GetValue(string fieldName)
+        protected sealed override object TransformValue(object value)
         {
-            var value = base.GetValue(fieldName);
-
             if (value is DateTime)
-                return GetValue((DateTime)value);
+                return ConvertDateTime((DateTime)value);
 
-            return value;
+            return base.TransformValue(value);
         }
 
-        protected abstract object GetValue(DateTime timeStamp);
+        protected abstract object ConvertDateTime(DateTime timeStamp);
+        protected abstract override IDataItem TransformDataItem(IDataItem original);
     }
 }

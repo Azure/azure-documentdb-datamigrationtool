@@ -29,7 +29,7 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
-            arguments.Add(JsonFileSourceAdapterConfiguration.FilesPropertyName, String.Join(";", configuration.Files.Select(f => f.Replace(";", @"\;"))));
+            arguments.Add(JsonFileSourceAdapterConfiguration.FilesPropertyName, AsCollectionArgument(configuration.Files));
         }
     }
 }

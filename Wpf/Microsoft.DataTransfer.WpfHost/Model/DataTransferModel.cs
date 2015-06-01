@@ -1,11 +1,14 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
+using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
 using System.Threading;
 
 namespace Microsoft.DataTransfer.WpfHost.Model
 {
     sealed class DataTransferModel : BindableBase, IDataTransferModel
     {
+        private IInfrastructureConfiguration infrastructureConfiguration;
+
         private string sourceAdapterName;
         private object sourceConfiguration;
 
@@ -14,6 +17,12 @@ namespace Microsoft.DataTransfer.WpfHost.Model
 
         private bool hasImportStarted;
         private CancellationTokenSource importCancellation;
+
+        public IInfrastructureConfiguration InfrastructureConfiguration
+        {
+            get { return infrastructureConfiguration; }
+            set { SetProperty(ref infrastructureConfiguration, value); }
+        }
 
         public string SourceAdapterName
         {

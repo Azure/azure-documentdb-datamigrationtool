@@ -1,4 +1,4 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Entities;
+﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +12,11 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
         }
 
         public int Transferred
+        {
+            get { return 0; }
+        }
+
+        public int Failed
         {
             get { return 0; }
         }

@@ -10,6 +10,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
         private bool isImportRunning;
         private TimeSpan elapsedTime;
         private int transferred;
+        private int failed;
         private IReadOnlyCollection<KeyValuePair<string, Exception>> errors;
 
         public bool IsImportRunning
@@ -28,6 +29,12 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
         {
             get { return transferred; }
             set { SetProperty(ref transferred, value); }
+        }
+
+        public int Failed
+        {
+            get { return failed; }
+            set { SetProperty(ref failed, value); }
         }
 
         public IReadOnlyCollection<KeyValuePair<string, Exception>> Errors

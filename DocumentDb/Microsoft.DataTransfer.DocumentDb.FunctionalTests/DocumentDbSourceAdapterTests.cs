@@ -17,7 +17,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
     public class DocumentDbSourceAdapterTests : DocumentDbAdapterTestBase
     {
         const string CollectionName = "Data";
-        const int NumberOfItems = 42;
+        const int NumberOfItems = 200;
 
         private Dictionary<string, object>[] sampleData;
 
@@ -29,7 +29,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 .Wait();
         }
 
-        [TestMethod, Timeout(120000)]
+        [TestMethod, Timeout(300000)]
         public async Task ReadSampleData_AllDataRead()
         {
             var configuration =

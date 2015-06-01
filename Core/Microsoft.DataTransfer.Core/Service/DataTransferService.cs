@@ -2,6 +2,7 @@
 using Microsoft.DataTransfer.Core.FactoryAdapters;
 using Microsoft.DataTransfer.ServiceModel;
 using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

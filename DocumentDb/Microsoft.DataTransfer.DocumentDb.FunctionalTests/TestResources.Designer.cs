@@ -70,20 +70,29 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One of the collections used for partitioning is empty.
+        /// </summary>
+        internal static string DataIsNotPartitioned {
+            get {
+                return ResourceManager.GetString("DataIsNotPartitioned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents persisted in the collection are invalid.
+        /// </summary>
+        internal static string InvalidDocumentsPersisted {
+            get {
+                return ResourceManager.GetString("InvalidDocumentsPersisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents read form the collection are invalid.
         /// </summary>
         internal static string InvalidDocumentsRead {
             get {
                 return ResourceManager.GetString("InvalidDocumentsRead", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Target collection contains invalid number of documents.
-        /// </summary>
-        internal static string InvalidNumberOfDocumentsWritten {
-            get {
-                return ResourceManager.GetString("InvalidNumberOfDocumentsWritten", resourceCulture);
             }
         }
     }

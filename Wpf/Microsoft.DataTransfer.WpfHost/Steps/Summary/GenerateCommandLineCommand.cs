@@ -1,9 +1,10 @@
-﻿using Microsoft.DataTransfer.WpfHost.Basics.Commands;
+﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics.Commands;
 using Microsoft.DataTransfer.WpfHost.Extensibility;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
+using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
 using System;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Microsoft.DataTransfer.WpfHost.Steps.Summary
 {
@@ -11,11 +12,19 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Summary
     {
         private readonly ICommandLineProvider commandLineProvider;
 
+        private IInfrastructureConfiguration infrastructureConfiguration;
+
         private string sourceName;
         private IDataAdapterConfigurationProvider sourceConfigurationProvider;
 
         private string sinkName;
         private IDataAdapterConfigurationProvider sinkConfigurationProvider;
+
+        public IInfrastructureConfiguration InfrastructureConfiguration
+        {
+            get { return infrastructureConfiguration; }
+            set { SetProperty(ref infrastructureConfiguration, value); }
+        }
 
         public string SourceName
         {
@@ -43,12 +52,14 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Summary
 
         public GenerateCommandLineCommand(ICommandLineProvider commandLineProvider)
         {
+            Guard.NotNull("commandLineProvider", commandLineProvider);
             this.commandLineProvider = commandLineProvider;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return sourceName != null && sourceConfigurationProvider != null &&
+            return infrastructureConfiguration != null &&
+                sourceName != null && sourceConfigurationProvider != null &&
                 sinkName != null && sinkConfigurationProvider != null;
         }
 
@@ -57,6 +68,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Summary
             new CommandLinePreviewWindow
             {
                 DataContext = commandLineProvider.Get(
+                    infrastructureConfiguration,
                     sourceName, sourceConfigurationProvider.CommandLineArguments,
                     sinkName, sinkConfigurationProvider.CommandLineArguments),
                 Owner = Application.Current.MainWindow

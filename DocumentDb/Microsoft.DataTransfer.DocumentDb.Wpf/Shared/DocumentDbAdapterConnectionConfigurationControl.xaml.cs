@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.DocumentDb.Shared;
 using System.Windows;
 using System.Windows.Controls;
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
+using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.Extensibility;
+using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -26,7 +28,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        public static int CountDocuments(string connectionString, string collectionName)
+        public static IEnumerable<IReadOnlyDictionary<string, object>> ReadDocuments(string connectionString, string collectionName)
         {
             var connectionSettings = DocumentDbConnectionStringBuilder.Parse(connectionString);
 
@@ -49,9 +51,8 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Assert.IsNotNull(collection, "Document collection does not exist.");
 
                 return client
-                    .CreateDocumentQuery(collection.DocumentsLink)
-                    .AsEnumerable() // No visitor for Count() ???
-                    .Count();
+                    .CreateDocumentQuery<Dictionary<string, object>>(collection.DocumentsLink)
+                    .ToArray();
             }
         }
 
@@ -72,9 +73,10 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        private static DocumentClient CreateClient(IDocumentDbConnectionSettings connectionSettings)
+        private static IReliableReadWriteDocumentClient CreateClient(IDocumentDbConnectionSettings connectionSettings)
         {
-            return new DocumentClient(new Uri(connectionSettings.AccountEndpoint), connectionSettings.AccountKey);
+            return new DocumentClient(new Uri(connectionSettings.AccountEndpoint), connectionSettings.AccountKey)
+                .AsReliable(new FixedInterval(10, TimeSpan.FromSeconds(1)));
         }
     }
 }

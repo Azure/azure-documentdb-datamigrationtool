@@ -70,7 +70,9 @@
     <Compile Include="Statistics\Collections\AppendOnlyConcurrentLinkedListEnumerator.cs" />
     <Compile Include="Statistics\Collections\ConcurrentLinkedListNode.cs" />
     <Compile Include="Statistics\Collections\AppendOnlyConcurrentLinkedListSnapshot.cs" />
-    <Compile Include="Statistics\ThreadSafeTransferStatistics.cs" />
+    <Compile Include="Statistics\CsvErrorLogTransferStatistics.cs" />
+    <Compile Include="Statistics\InMemoryTransferStatistics.cs" />
+    <Compile Include="Statistics\ThreadSafeTransferStatisticsBase.cs" />
     <Compile Include="Statistics\TransferStatisticsFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.WpfHost.Helpers;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
+using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,22 +16,43 @@ namespace Microsoft.DataTransfer.WpfHost.Model
         private const string PropertyAccessorCharacter = ".";
         private const string AssignmentCharacter = ":";
 
-        public string Get(
+        public string Get(IInfrastructureConfiguration infrastructureConfiguration,
             string sourceName, IReadOnlyDictionary<string, string> sourceArguments,
             string sinkName, IReadOnlyDictionary<string, string> sinkArguments)
         {
             var commandLine = new StringBuilder();
 
+            if (AppendInfrastructureConfiguration(commandLine, infrastructureConfiguration))
+                commandLine.Append(' ');
+
             AppendAdapterArgument(commandLine, SourceSwitch, sourceName);
             commandLine.Append(' ');
-            AppendAdapterConfiguration(commandLine, SourceSwitch, sourceArguments);
-            commandLine.Append(' ');
+            if (AppendConfiguration(commandLine, AppendSourceAdapterConfigurationArgumentName, sourceArguments))
+                commandLine.Append(' ');
 
             AppendAdapterArgument(commandLine, TargetSwitch, sinkName);
             commandLine.Append(' ');
-            AppendAdapterConfiguration(commandLine, TargetSwitch, sinkArguments);
+            AppendConfiguration(commandLine, AppendTargetAdapterConfigurationArgumentName, sinkArguments);
 
             return commandLine.ToString();
+        }
+
+        private bool AppendInfrastructureConfiguration(StringBuilder commandLine, IInfrastructureConfiguration infrastructureConfiguration)
+        {
+            if (infrastructureConfiguration == null)
+                return false;
+
+            var arguments = new Dictionary<string, string>(2);
+
+            if (!String.IsNullOrEmpty(infrastructureConfiguration.ErrorLog))
+            {
+                arguments.Add(InfrastructureConfigurationProperties.ErrorLog, infrastructureConfiguration.ErrorLog);
+
+                if (infrastructureConfiguration.OverwriteErrorLog)
+                    arguments.Add(InfrastructureConfigurationProperties.OverwriteErrorLog, null);
+            }
+
+            return AppendConfiguration(commandLine, AppendInfrastructureConfigurationArgumentName, arguments);
         }
 
         private static void AppendAdapterArgument(StringBuilder commandLine, string adapterSwitch, string name)
@@ -41,22 +65,20 @@ namespace Microsoft.DataTransfer.WpfHost.Model
             commandLine.Append(EscapeValue(name));
         }
 
-        private static void AppendAdapterConfiguration(StringBuilder commandLine, string adapterSwitch, IReadOnlyDictionary<string, string> arguments)
+        private static bool AppendConfiguration(StringBuilder commandLine, Action<StringBuilder, string> switchNameRenderer,
+            IReadOnlyDictionary<string, string> arguments)
         {
             Guard.NotNull("commandLine", commandLine);
 
             if (arguments == null)
-                return;
+                return false;
 
             var first = true;
             foreach (var argument in arguments)
             {
                 if (!first) commandLine.Append(' '); else first = false;
 
-                commandLine.Append(SwitchCharacter);
-                commandLine.Append(adapterSwitch);
-                commandLine.Append(PropertyAccessorCharacter);
-                commandLine.Append(EscapeValue(argument.Key));
+                switchNameRenderer(commandLine, argument.Key);
 
                 if (argument.Value != null)
                 {
@@ -64,6 +86,32 @@ namespace Microsoft.DataTransfer.WpfHost.Model
                     commandLine.Append(EscapeValue(argument.Value));
                 }
             }
+
+            return !first;
+        }
+
+        private static void AppendSourceAdapterConfigurationArgumentName(StringBuilder commandLine, string argumentName)
+        {
+            AppendAdapterConfigurationArgumentName(commandLine, SourceSwitch, argumentName);
+        }
+
+        private static void AppendTargetAdapterConfigurationArgumentName(StringBuilder commandLine, string argumentName)
+        {
+            AppendAdapterConfigurationArgumentName(commandLine, TargetSwitch, argumentName);
+        }
+
+        private static void AppendAdapterConfigurationArgumentName(StringBuilder commandLine, string adapterSwitch, string argumentName)
+        {
+            commandLine.Append(SwitchCharacter);
+            commandLine.Append(adapterSwitch);
+            commandLine.Append(PropertyAccessorCharacter);
+            commandLine.Append(EscapeValue(argumentName));
+        }
+
+        private static void AppendInfrastructureConfigurationArgumentName(StringBuilder commandLine, string argumentName)
+        {
+            commandLine.Append(SwitchCharacter);
+            commandLine.Append(EscapeValue(argumentName));
         }
 
         private static string EscapeValue(string value)

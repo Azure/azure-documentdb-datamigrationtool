@@ -1,14 +1,17 @@
 ﻿using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Linq;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Client.TransientFaultHandling;
+using Microsoft.Azure.Documents.Linq;
 using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
+using Microsoft.DataTransfer.DocumentDb.Client.PartitionResolvers;
 using Microsoft.DataTransfer.DocumentDb.Client.Serialization;
 using Microsoft.DataTransfer.DocumentDb.Sink;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Client
@@ -83,30 +86,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return client.CreateDocumentAsync(collectionLink, document, null, disableAutomaticIdGeneration);
         }
 
-        public IEnumerable<IReadOnlyDictionary<string, object>> QueryDocuments(string collectionName, string query)
-        {
-            Guard.NotEmpty("collectionName", collectionName);
-            Guard.NotEmpty("query", query);
-
-            var database = TryGetDatabase(databaseName).Result;
-            if (database == null)
-                yield break;
-
-            var collection = TryGetCollection(database, collectionName).Result;
-            if (collection == null)
-                yield break;
-
-            var documentQuery = client.CreateDocumentQuery<DocumentSurrogate>(collection.DocumentsLink, query).AsDocumentQuery();
-
-            while (documentQuery.HasMoreResults)
-            {
-                foreach (var document in documentQuery.ExecuteNextAsync<DocumentSurrogate>().Result)
-                    yield return document.Properties;
-            }
-
-            yield break;
-        }
-
         public async Task<string> CreateStoredProcedureAsync(string collectionLink, string name, string body)
         {
             var response = await client.CreateStoredProcedureAsync(collectionLink, new StoredProcedure { Id = name, Body = body });
@@ -124,6 +103,44 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
         public Task DeleteStoredProcedureAsync(string storedProcedureLink)
         {
             return client.DeleteStoredProcedureAsync(storedProcedureLink);
+        }
+
+        public async Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string collectionNamePattern, string query)
+        {
+            Guard.NotEmpty("collectionNamePattern", collectionNamePattern);
+
+            var database = await TryGetDatabase(databaseName);
+            if (database == null)
+                return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
+
+            var matchingCollections = await GetMatchingCollections(database, collectionNamePattern);
+            if (matchingCollections == null || !matchingCollections.Any())
+                return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
+
+            // Use SDK to query multiple collections, client will not be thread-safe
+            client.UnderlyingClient.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
+
+            var documentQuery = 
+                String.IsNullOrEmpty(query)
+                    ? client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink)
+                    : client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink, query);
+
+            return new DocumentSurrogateQueryAsyncEnumerator(documentQuery.AsDocumentQuery());
+        }
+
+        private async Task<IReadOnlyList<string>> GetMatchingCollections(Database database, string collectionNamePattern)
+        {
+            var result = new List<string>();
+
+            using (var enumerator = new AsyncEnumerator<DocumentCollection>(
+                client.CreateDocumentCollectionQuery(database.CollectionsLink).AsDocumentQuery()))
+            {
+                while (await enumerator.MoveNextAsync())
+                    if (Regex.IsMatch(enumerator.Current.Id, collectionNamePattern))
+                        result.Add(enumerator.Current.SelfLink);
+            }
+
+            return result;
         }
 
         private async Task<Database> GetOrCreateDatabase(string name)

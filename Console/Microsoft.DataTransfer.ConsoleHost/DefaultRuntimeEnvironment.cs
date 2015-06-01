@@ -20,26 +20,32 @@ namespace Microsoft.DataTransfer.ConsoleHost
         protected override void Load(ContainerBuilder builder)
         {
             builder
+                .Register(c => CommandLineOneTimeTransferConfiguration.Parse(arguments))
+                .As<IOneTimeDataTransferConfiguration>()
+                .SingleInstance();
+
+            builder
                 .RegisterModule<CoreServiceImplementation>()
                 .RegisterModule(new TypeLimitedComponentsConfigurationSettingsReader(
                     "dataTransfer.configurationFactories", typeof(IDataAdapterConfigurationFactory)));
 
-            builder.RegisterAggregationDecorator<IDataAdapterConfigurationFactory>((c, f) =>
-                new DataAdapterConfigurationFactoryDispatcher(f));
+            builder
+                .RegisterType<InfrastructureConfigurationFactory>()
+                .As<IInfrastructureConfigurationFactory>()
+                .SingleInstance();
 
-            RegisterActions(builder);
+            builder.RegisterAggregationDecorator<IDataAdapterConfigurationFactory>(
+                (c, f) => new DataAdapterConfigurationFactoryDispatcher(f));
+
+            RegisterHandlers(builder);
         }
 
-        private void RegisterActions(ContainerBuilder builder)
+        private void RegisterHandlers(ContainerBuilder builder)
         {
             builder
                 .RegisterType<HelpHandler>()
                 .As<IHelpHandler>()
                 .SingleInstance();
-
-            builder
-                .Register(c => new CommandLineOneTimeTransferConfiguration(arguments))
-                .As<IOneTimeDataTransferConfiguration>();
 
             builder
                 .RegisterType<OneTimeDataTransferHandler>()

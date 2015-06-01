@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.Sql.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.Sql.Shared;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 
 namespace Microsoft.DataTransfer.Sql.Wpf.Shared

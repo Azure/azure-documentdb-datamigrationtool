@@ -120,7 +120,13 @@
   <data name="DataItemIdFormat" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
+  <data name="InvalidNumberOfColumnsFormat" xml:space="preserve">
+    <value>Invalid number of columns: {0}, expected {1}</value>
+  </data>
   <data name="SourceDescription" xml:space="preserve">
     <value>Reads data from CSV files, either one or multiple</value>
+  </data>
+  <data name="UnexpectedCharacterFormat" xml:space="preserve">
+    <value>Unexpected character at row {0}, position {1}: "{2}"</value>
   </data>
 </root>

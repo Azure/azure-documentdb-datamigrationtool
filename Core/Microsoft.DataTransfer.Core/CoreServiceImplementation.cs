@@ -5,6 +5,7 @@ using Microsoft.DataTransfer.Core.Service;
 using Microsoft.DataTransfer.Core.Statistics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 
 namespace Microsoft.DataTransfer.Core
 {

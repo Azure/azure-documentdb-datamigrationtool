@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.JsonFile.Source;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.JsonFile.Source;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

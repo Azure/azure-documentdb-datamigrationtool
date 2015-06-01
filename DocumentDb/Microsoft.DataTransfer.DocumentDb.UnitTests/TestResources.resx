@@ -189,4 +189,16 @@
   <data name="ParallelSinkAdapterCreatedStoredProcedure" xml:space="preserve">
     <value>Parallel sink adapter is not expected to create a stored procedure</value>
   </data>
+  <data name="InvalidSubstitutionsApplied" xml:space="preserve">
+    <value>Incorrect substitutions applied by the pattern resolver</value>
+  </data>
+  <data name="InvalidValueFromEvaluatedExpression" xml:space="preserve">
+    <value>Evaluated Javascript expression returned invalid value</value>
+  </data>
+  <data name="InvalidFieldNames" xml:space="preserve">
+    <value>Data item has invalid field names</value>
+  </data>
+  <data name="InvalidFieldValue" xml:space="preserve">
+    <value>Data item has invalid field value</value>
+  </data>
 </root>

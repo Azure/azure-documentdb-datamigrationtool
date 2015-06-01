@@ -11,6 +11,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         {
             base.PopulateCommandLineArguments(configuration, arguments);
 
+            arguments.Add(DocumentDbSinkAdapterConfiguration.CollectionPropertyName, AsCollectionArgument(configuration.Collection));
+
+            if (!String.IsNullOrEmpty(configuration.PartitionKey))
+                arguments.Add(DocumentDbSinkAdapterConfiguration.PartitionKeyPropertyName, configuration.PartitionKey);
+
             if (configuration.CollectionTier.HasValue && configuration.CollectionTier.Value != Defaults.Current.SinkCollectionTier)
                 arguments.Add(DocumentDbSinkAdapterConfiguration.CollectionTierPropertyName, configuration.CollectionTier.Value.ToString());
 

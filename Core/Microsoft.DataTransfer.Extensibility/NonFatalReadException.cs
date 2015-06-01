@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.DataTransfer.Basics;
+using System;
 using System.Runtime.Serialization;
 
 namespace Microsoft.DataTransfer.Extensibility
@@ -39,5 +40,16 @@ namespace Microsoft.DataTransfer.Extensibility
         /// <param name="context">The <see cref="StreamingContext" /> that contains contextual information about the source or destination.</param>
         protected NonFatalReadException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+
+        /// <summary>
+        /// Converts provided <paramref name="source" /> <see cref="Exception" /> to <see cref="NonFatalReadException" />.
+        /// </summary>
+        /// <param name="source">Source <see cref="Exception" /> to extract message and inner exception from.</param>
+        /// <returns>New instance of <see cref="NonFatalReadException" /> with source message and inner exception.</returns>
+        public static NonFatalReadException Convert(Exception source)
+        {
+            Guard.NotNull("source", source);
+            return new NonFatalReadException(source.Message, source.InnerException);
+        }
     }
 }

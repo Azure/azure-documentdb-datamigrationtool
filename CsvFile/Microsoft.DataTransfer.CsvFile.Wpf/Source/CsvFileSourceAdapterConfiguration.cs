@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.CsvFile.Source;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.CsvFile.Source;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,8 +18,16 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
         public static readonly string NestingSeparatorPropertyName =
             ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.NestingSeparator);
 
+        public static readonly string TrimQuotedPropertyName =
+            ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.TrimQuoted);
+
+        public static readonly string NoUnquotedNullsPropertyName =
+            ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.NoUnquotedNulls);
+
         private ObservableCollection<string> files;
         private string nestingSeparator;
+        private bool trimQuoted;
+        private bool noUnquotedNulls;
 
         public IEnumerable<string> Files
         {
@@ -36,6 +44,18 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
         {
             get { return nestingSeparator; }
             set { SetProperty(ref nestingSeparator, value); }
+        }
+
+        public bool TrimQuoted
+        {
+            get { return trimQuoted; }
+            set { SetProperty(ref trimQuoted, value); }
+        }
+
+        public bool NoUnquotedNulls
+        {
+            get { return noUnquotedNulls; }
+            set { SetProperty(ref noUnquotedNulls, value); }
         }
 
         public CsvFileSourceAdapterConfiguration()

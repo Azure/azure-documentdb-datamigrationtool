@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Steps.InfrastructureSetup.InfrastructureSetupPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+  <DockPanel>
+    <bc:TitleControl DockPanel.Dock="Top" Text="{DynamicResource InfrastructureSetupPageTitleKey}" />
+
+    <StackPanel DockPanel.Dock="Top" Style="{StaticResource OptionElement}">
+      <bc:ToolTipDecorator ToolTip="{DynamicResource ErrorLogFileNameDescriptionKey}">
+        <Label Content="{DynamicResource ErrorLogFileNameKey}" />
+      </bc:ToolTipDecorator>
+      <bc:SaveFileControl FileName="{Binding ErrorLog}" Filter="{DynamicResource ErrorLogFileFilterKey}" DefaultExtension="{DynamicResource ErrorLogFileDefaultExtensionKey}" />
+    </StackPanel>
+  </DockPanel>
+  
+</UserControl>

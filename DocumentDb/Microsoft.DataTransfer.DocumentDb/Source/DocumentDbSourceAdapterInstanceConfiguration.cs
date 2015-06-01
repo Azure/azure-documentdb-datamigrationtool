@@ -1,9 +1,10 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Shared;
+﻿using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Source
 {
-    sealed class DocumentDbSourceAdapterInstanceConfiguration : DocumentDbAdapterInstanceConfiguration, IDocumentDbSourceAdapterInstanceConfiguration
+    sealed class DocumentDbSourceAdapterInstanceConfiguration : IDocumentDbSourceAdapterInstanceConfiguration
     {
+        public string Collection { get; set; }
         public string Query { get; set; }
     }
 }

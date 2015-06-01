@@ -20,8 +20,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
                     DocumentDbAdapterConfiguration.ConnectionModePropertyName,
                     configuration.ConnectionMode.Value.ToString());
 
-            arguments.Add(DocumentDbAdapterConfiguration.CollectionPropertyName, configuration.Collection);
-
             if (configuration.Retries.HasValue && configuration.Retries.Value != Defaults.Current.NumberOfRetries)
                 arguments.Add(
                     DocumentDbAdapterConfiguration.RetriesPropertyName,

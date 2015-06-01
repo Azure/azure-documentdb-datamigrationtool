@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Basics.Controls.ToolTipDecorator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters"
+             mc:Ignorable="d" ToolTipService.IsEnabled="False"
+             d:DesignHeight="35" d:DesignWidth="300" >
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonStyles.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="DecoratorContainer" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+      </Style>
+
+      <Style x:Key="DecoratedContentContainer" TargetType="ContentControl">
+        <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+      </Style>
+      
+      <Style x:Key="ToolTipText" TargetType="TextBlock">
+        <Setter Property="MaxWidth" Value="400" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+      </Style>
+
+      <Style x:Key="ToolTipButton" TargetType="ContentControl">
+        <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template" Value="{DynamicResource ToolTipIcon}" />
+        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />
+        <Setter Property="ToolTipService.ShowDuration" Value="300000" />
+      </Style>
+
+      <converters:ToStringValueConverter x:Key="ToString" />
+
+      <converters:AggregateValueConverter x:Key="ToolTipNotEmpty">
+        <StaticResourceExtension ResourceKey="ToString" />
+        <converters:StringNotEmptyToVisibilityValueConverter />
+      </converters:AggregateValueConverter>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <StackPanel x:Name="LayoutRoot" Style="{StaticResource DecoratorContainer}">
+    <ContentControl Style="{StaticResource DecoratedContentContainer}" Content="{Binding ElementName=LayoutRoot, Path=DataContext.DecoratedContent}" DataContext="{Binding DataContext}" />
+    <ContentControl Style="{StaticResource ToolTipButton}" Visibility="{Binding ToolTip, Converter={StaticResource ToolTipNotEmpty}}">
+      <ContentControl.ToolTip>
+        <TextBlock Style="{StaticResource ToolTipText}" Text="{Binding ToolTip, Converter={StaticResource ToString}}" />
+      </ContentControl.ToolTip>
+    </ContentControl>
+  </StackPanel>
+  
+</UserControl>

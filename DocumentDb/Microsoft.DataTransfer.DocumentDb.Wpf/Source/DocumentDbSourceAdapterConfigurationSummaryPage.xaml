@@ -39,7 +39,7 @@
       <TextBlock Text="{Binding ConnectionString}" />
     </Label>
 
-    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionNameSummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionPatternSummaryKey}" />
     <Label Grid.Row="1" Grid.Column="1">
       <TextBlock Text="{Binding Collection}" />
     </Label>

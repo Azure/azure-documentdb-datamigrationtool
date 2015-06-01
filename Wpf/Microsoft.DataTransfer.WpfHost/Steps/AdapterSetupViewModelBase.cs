@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Entities;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.ServiceModel.Entities;
 using Microsoft.DataTransfer.WpfHost.Basics;
 using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
 using Microsoft.DataTransfer.WpfHost.Extensibility;

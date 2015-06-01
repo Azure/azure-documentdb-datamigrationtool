@@ -1,7 +1,9 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics
 {
@@ -117,5 +119,15 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics
         /// <param name="configuration">Source configuration.</param>
         /// <param name="arguments">Command line arguments collection to populate.</param>
         protected abstract void PopulateCommandLineArguments(TConfiguration configuration, IDictionary<string, string> arguments);
+
+        /// <summary>
+        /// Converts the <paramref name="collection" /> of <see cref="String" /> to a single command line argument.
+        /// </summary>
+        /// <param name="collection">Source collection to convert.</param>
+        /// <returns><see cref="String" /> that represents command line argument value.</returns>
+        protected static string AsCollectionArgument(IEnumerable<string> collection)
+        {
+            return String.Join(";", collection.Select(f => Regex.Replace(f, @"[;|\\]", @"\$0")));
+        }
     }
 }

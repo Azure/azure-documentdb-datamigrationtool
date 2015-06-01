@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
 {
-    internal static class CsvFileHelper
+    static class CsvFileHelper
     {
-        internal static async Task<List<IDataItem>> ReadCsv(ICsvFileSourceAdapterConfiguration configuration)
+        public static async Task<List<IDataItem>> ReadCsv(ICsvFileSourceAdapterConfiguration configuration)
         {
             var records = new List<IDataItem>();
 
@@ -19,8 +19,20 @@ namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
             {
                 IDataItem record = null;
                 var readOutput = new ReadOutputByRef();
-                while ((record = source.ReadNextAsync(readOutput, CancellationToken.None).Result) != null)
+                while (true)
                 {
+                    try
+                    {
+                        record = await source.ReadNextAsync(readOutput, CancellationToken.None);
+                    }
+                    catch (NonFatalReadException)
+                    {
+                        continue;
+                    }
+
+                    if (record == null)
+                        break;
+
                     records.Add(record);
 
                     Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);

@@ -36,6 +36,10 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1409.1722, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -63,6 +67,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj">
+      <Project>{b6e28981-4195-4910-b9b9-1cf96674620f}</Project>
+      <Name>Microsoft.DataTransfer.ServiceModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.DataTransfer.WpfHost.ServiceModel\Microsoft.DataTransfer.WpfHost.ServiceModel.csproj">
       <Project>{a596c599-4070-493b-85b6-1b3593d92bfb}</Project>
       <Name>Microsoft.DataTransfer.WpfHost.ServiceModel</Name>
@@ -80,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

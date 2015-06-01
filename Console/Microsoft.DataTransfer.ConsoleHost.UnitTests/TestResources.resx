@@ -123,6 +123,9 @@
   <data name="InvalidConfigurationOptionDescriptionFormat" xml:space="preserve">
     <value>Invalid configuration option description returned for property '{0}'</value>
   </data>
+  <data name="InvalidInfrastructureConfigurationParsed" xml:space="preserve">
+    <value>Invalid infrastructure configuration parsed from string arguments</value>
+  </data>
   <data name="InvalidNumberOfOptions" xml:space="preserve">
     <value>Invalid number of options returned by the configuration factory</value>
   </data>
@@ -131,6 +134,18 @@
   </data>
   <data name="InvalidProxyType" xml:space="preserve">
     <value>Generated proxy type is not valid</value>
+  </data>
+  <data name="InvalidSourceConfigurationParsed" xml:space="preserve">
+    <value>Invalid source configuration parsed from string arguments</value>
+  </data>
+  <data name="InvalidSourceNameParsed" xml:space="preserve">
+    <value>Invalid source name parsed from string arguments</value>
+  </data>
+  <data name="InvalidTargetConfigurationParsed" xml:space="preserve">
+    <value>Invalid target configuration parsed from string arguments</value>
+  </data>
+  <data name="InvalidTargetNameParsed" xml:space="preserve">
+    <value>Invalid target name parsed from string arguments</value>
   </data>
   <data name="NullOptionsReturned" xml:space="preserve">
     <value>Options collection returned by configuration factory is null</value>

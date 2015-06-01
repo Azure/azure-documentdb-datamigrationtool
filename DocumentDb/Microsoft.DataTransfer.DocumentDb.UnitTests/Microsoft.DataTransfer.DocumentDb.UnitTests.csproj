@@ -67,7 +67,11 @@
     <Compile Include="Sink\DocumentDbBulkSinkAdapterTests.cs" />
     <Compile Include="Sink\DocumentDbParallelSinkAdapterTests.cs" />
     <Compile Include="Sink\DocumentDbWriteClientMock.cs" />
+    <Compile Include="Client\PartitionResolvers\Javascript\DataItemMemberEvaluationVisitorTests.cs" />
     <Compile Include="Sink\LengthCappedEnumerableJsonConverterTests.cs" />
+    <Compile Include="Sink\Substitutions\RangeSubstitutionsResolverTests.cs" />
+    <Compile Include="Source\AsyncEnumeratorMock.cs" />
+    <Compile Include="Transformation\DateTimeDataItemTests.cs" />
     <Compile Include="Transformation\RemappedFieldsDataItemTests.cs" />
     <Compile Include="Source\DocumentDbSourceAdapterTests.cs" />
     <Compile Include="Transformation\FilteredFieldsDataItemTests.cs" />
@@ -76,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Transformation\StringifiedFieldsDataItemTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">

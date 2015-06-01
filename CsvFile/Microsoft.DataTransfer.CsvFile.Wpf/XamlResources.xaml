@@ -1,19 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
   
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Extensibility.Basics;component/CommonStyles.xaml" />
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- String resources -->
 
-  <System:String x:Key="FilesSummaryKey">Files:</System:String>
-  <System:String x:Key="OpenFilesFilterKey">CSV Files|*.csv|All Files|*.*</System:String>
-  <System:String x:Key="OpenFilesDefaultExtensionKey">*.csv</System:String>
+  <system:String x:Key="FilesSummaryKey">Files:</system:String>
+  <system:String x:Key="OpenFilesFilterKey">CSV Files|*.csv|All Files|*.*</system:String>
+  <system:String x:Key="OpenFilesDefaultExtensionKey">*.csv</system:String>
 
-  <System:String x:Key="NestingSeparatorKey">Nesting Separator</System:String>
-  <System:String x:Key="NestingSeparatorDescriptionKey">Specify the delimiter to split column names into sub-documents</System:String>
-  <System:String x:Key="NestingSeparatorSummaryKey">Nesting Separator:</System:String>
+  <system:String x:Key="NestingSeparatorKey">Nesting Separator</system:String>
+  <system:String x:Key="NestingSeparatorDescriptionKey">Specify the delimiter to split column names into sub-documents</system:String>
+  <system:String x:Key="NestingSeparatorSummaryKey">Nesting Separator:</system:String>
+
+  <system:String x:Key="TrimQuotedKey">Trim quoted values</system:String>
+  <system:String x:Key="TrimQuotedSummaryKey">Trim quoted values:</system:String>
+
+  <system:String x:Key="NoUnquotedNullsKey">Treat unquoted NULL as string</system:String>
+  <system:String x:Key="NoUnquotedNullsSummaryKey">Unquoted NULL is string:</system:String>
 
 </ResourceDictionary>

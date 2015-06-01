@@ -126,9 +126,6 @@
   <data name="BulkSink_StoredProcFileFormat" xml:space="preserve">
     <value>Optional, default is {0}. Name of the file containing bulk insert stored procedure</value>
   </data>
-  <data name="Collection" xml:space="preserve">
-    <value>Name of the documents collection</value>
-  </data>
   <data name="ConnectionModeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies how to connect to DocumentDB account: {1}</value>
   </data>
@@ -144,6 +141,9 @@
   <data name="RetryIntervalFormat" xml:space="preserve">
     <value>Optional, default is {0}. Retry interval on transient failures</value>
   </data>
+  <data name="Sink_Collection" xml:space="preserve">
+    <value>One or more documents collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2</value>
+  </data>
   <data name="Sink_CollectionTierFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}</value>
   </data>
@@ -155,6 +155,12 @@
   </data>
   <data name="Sink_IdField" xml:space="preserve">
     <value>Optional. Name of the source field that should be treated as document ID</value>
+  </data>
+  <data name="Sink_PartitionKey" xml:space="preserve">
+    <value>Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</value>
+  </data>
+  <data name="Source_Collection" xml:space="preserve">
+    <value>Regex pattern to match one or more documents collection name</value>
   </data>
   <data name="Source_InternalFields" xml:space="preserve">
     <value>Optional. Preserve internal DocumentDB fields in the output</value>

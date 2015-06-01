@@ -21,12 +21,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
         DocumentDbConnectionMode? ConnectionMode { get; }
 
         /// <summary>
-        /// Gets the name of the documents collection.
-        /// </summary>
-        [Display(ResourceType = typeof(ConfigurationResources), Description = "Collection")]
-        string Collection { get; }
-
-        /// <summary>
         /// Gets the number of retries to perform on transient failures.
         /// </summary>
         [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Retries")]

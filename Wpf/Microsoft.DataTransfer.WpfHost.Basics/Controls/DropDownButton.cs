@@ -1,4 +1,4 @@
-﻿using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;

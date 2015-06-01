@@ -30,6 +30,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
+            arguments.Add(DocumentDbSourceAdapterConfiguration.CollectionPropertyName, configuration.Collection);
+
             if (configuration.InternalFields)
                 arguments.Add(DocumentDbSourceAdapterConfiguration.InternalFieldsPropertyName, null);
 

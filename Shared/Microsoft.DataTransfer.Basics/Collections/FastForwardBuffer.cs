@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Microsoft.DataTransfer.Basics.Collections
 {
@@ -18,6 +19,8 @@ namespace Microsoft.DataTransfer.Basics.Collections
         private Node head, tail;
         private int count;
 
+        private object skipLock;
+
         /// <summary>
         /// Gets the count of elements in the list.
         /// </summary>
@@ -29,6 +32,7 @@ namespace Microsoft.DataTransfer.Basics.Collections
         public FastForwardBuffer()
         {
             head = tail = new Node();
+            skipLock = new object();
         }
 
         /// <summary>
@@ -37,8 +41,18 @@ namespace Microsoft.DataTransfer.Basics.Collections
         /// <param name="element">Element to add.</param>
         public void Add(T element)
         {
-            tail = tail.Next = new Node { Data = element };
-            ++count;
+            var newTail = new Node { Data = element };
+
+            Node oldTail;
+            do
+            {
+                oldTail = tail;
+            }
+            while (Interlocked.CompareExchange(ref tail, newTail, oldTail) != oldTail);
+
+            oldTail.Next = newTail;
+
+            Interlocked.Increment(ref count);
         }
 
         /// <summary>
@@ -47,14 +61,21 @@ namespace Microsoft.DataTransfer.Basics.Collections
         /// <param name="numberOfElements">Number of elements to remove.</param>
         public void SkipForward(int numberOfElements)
         {
-            var skipped = 0;
-            var current = head;
-            while ((current = current.Next) != null && skipped < numberOfElements)
-                ++skipped;
+            lock (skipLock)
+            {
+                var skipped = 0;
 
-            count -= skipped;
-            if ((head.Next = current) == null)
-                tail = head;
+                var newHead = head;
+                while (skipped < numberOfElements && newHead.Next != null)
+                {
+                    newHead = newHead.Next;
+                    ++skipped;
+                }
+
+                head = newHead;
+
+                Interlocked.Add(ref count, -skipped);
+            }
         }
 
         /// <summary>

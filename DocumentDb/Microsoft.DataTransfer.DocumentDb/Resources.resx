@@ -139,7 +139,7 @@
     <value>DocumentDB connection string is required</value>
   </data>
   <data name="CustomUserAgentSuffixFormat" xml:space="preserve">
-    <value>dt-{0}-{1}-{2}</value>
+    <value>{0}-{1}-{2}-{3}{4}</value>
   </data>
   <data name="DatabaseNameMissing" xml:space="preserve">
     <value>Documents database name should be provided as part of the connection string</value>
@@ -188,5 +188,41 @@
   </data>
   <data name="DocumentSizeExceedsBulkScriptSize" xml:space="preserve">
     <value>Document cannot be indexed in bulk because it exceeds specified script size limit</value>
+  </data>
+  <data name="OperationNotSupportedFormat" xml:space="preserve">
+    <value>Operation "{0}" is not supported</value>
+  </data>
+  <data name="UnexpectedCharacterFormat" xml:space="preserve">
+    <value>Unexpected character at position {0}: "{1}"</value>
+  </data>
+  <data name="DocumentIsNotDataItem" xml:space="preserve">
+    <value>Input does not represent a valid document</value>
+  </data>
+  <data name="FailedToExtractPartitionKeyFormat" xml:space="preserve">
+    <value>Failed to extract partition ket: {0}</value>
+  </data>
+  <data name="ShardedImportDesignator" xml:space="preserve">
+    <value>-Sharded</value>
+  </data>
+  <data name="UnexpectedPartitionCollectionFormat" xml:space="preserve">
+    <value>Partition collection "{0}" is not expected</value>
+  </data>
+  <data name="FailedToReadSubstituionFormat" xml:space="preserve">
+    <value>Failed to read substitution: {0}</value>
+  </data>
+  <data name="FailedToReadJavascriptMemberExpressionFormat" xml:space="preserve">
+    <value>Failed to read javascript member expression: {0}</value>
+  </data>
+  <data name="NotANumberFormat" xml:space="preserve">
+    <value>Value "{0}" does not represent a valid number</value>
+  </data>
+  <data name="InvalidRangeFormat" xml:space="preserve">
+    <value>Range from {0} to {1} is not valid</value>
+  </data>
+  <data name="UnexpectedAsyncFlushErrorMessageFormat" xml:space="preserve">
+    <value>Failed to persist documents bulk: {0}</value>
+  </data>
+  <data name="UnknownEntryAssembly" xml:space="preserve">
+    <value>dtr</value>
   </data>
 </root>

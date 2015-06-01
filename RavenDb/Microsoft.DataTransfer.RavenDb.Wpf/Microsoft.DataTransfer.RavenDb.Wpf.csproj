@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29968BB5-BC00-4976-8B78-1B0244654B5D}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.DataTransfer.RavenDb.Wpf</RootNamespace>
+    <AssemblyName>Microsoft.DataTransfer.RavenDb.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="..\..\Solution Items\CommonProperties.proj" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\RavenDbAdapterConfiguration.cs" />
+    <Compile Include="Shared\RavenDbAdapterConnectionConfigurationControl.xaml.cs">
+      <DependentUpon>RavenDbAdapterConnectionConfigurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\RavenDbAdapterConnectionConfigurationViewModel.cs" />
+    <Compile Include="Shared\TestConnectionCommand.cs" />
+    <Compile Include="Source\RavenDbSourceAdapterConfiguration.cs" />
+    <Compile Include="Source\RavenDbSourceAdapterConfigurationPage.xaml.cs">
+      <DependentUpon>RavenDbSourceAdapterConfigurationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Source\RavenDbSourceAdapterConfigurationProvider.cs" />
+    <Compile Include="Source\RavenDbSourceAdapterConfigurationSummaryPage.xaml.cs">
+      <DependentUpon>RavenDbSourceAdapterConfigurationSummaryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Source\RavenDbSourceAdapterInternalConfigurationProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Shared\RavenDbAdapterConnectionConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Source\RavenDbSourceAdapterConfigurationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Source\RavenDbSourceAdapterConfigurationSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
+      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
+      <Name>Microsoft.DataTransfer.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj">
+      <Project>{da8ec2b9-b282-4438-98b2-612d6dfedf73}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj">
+      <Project>{1f2070f3-bd45-45b3-a143-7ce4073d3a69}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Extensibility.Basics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj">
+      <Project>{a020fbd4-0f13-4630-acb9-6cdb894e3b82}</Project>
+      <Name>Microsoft.DataTransfer.WpfHost.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj">
+      <Project>{d505404f-2fc0-453c-86bb-ba3b1ae13919}</Project>
+      <Name>Microsoft.DataTransfer.RavenDb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

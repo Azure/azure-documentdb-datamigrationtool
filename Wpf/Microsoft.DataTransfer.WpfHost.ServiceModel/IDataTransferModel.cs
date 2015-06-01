@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
+using System.ComponentModel;
 using System.Threading;
 
 namespace Microsoft.DataTransfer.WpfHost.ServiceModel
@@ -8,6 +9,11 @@ namespace Microsoft.DataTransfer.WpfHost.ServiceModel
     /// </summary>
     public interface IDataTransferModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Gets or sets the configuration for data transfer process infrastructure.
+        /// </summary>
+        IInfrastructureConfiguration InfrastructureConfiguration { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the data source adapter.
         /// </summary>

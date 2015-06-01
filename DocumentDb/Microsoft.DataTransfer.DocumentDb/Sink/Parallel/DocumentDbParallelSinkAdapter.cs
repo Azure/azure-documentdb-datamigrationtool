@@ -1,9 +1,11 @@
-﻿using Microsoft.DataTransfer.Basics.Threading;
+﻿using Microsoft.Azure.Documents.Client;
+using Microsoft.DataTransfer.Basics.Threading;
 using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.DocumentDb.Client.PartitionResolvers;
 using Microsoft.DataTransfer.DocumentDb.Shared;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
-using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
 {
     sealed class DocumentDbParallelSinkAdapter : DocumentDbAdapterBase<IDocumentDbWriteClient, IDocumentDbParallelSinkAdapterInstanceConfiguration>, IDataSinkAdapter
     {
-        private string collectionLink;
+        private IPartitionResolver partitionResolver;
 
         public int MaxDegreeOfParallelism
         {
@@ -23,15 +25,26 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
 
         public async Task InitializeAsync()
         {
-            collectionLink = await Client.GetOrCreateCollectionAsync(Configuration.CollectionName, Configuration.CollectionTier);
+            var collectionLinks = new List<string>();
+
+            foreach (var collection in Configuration.Collections)
+                collectionLinks.Add(await Client.GetOrCreateCollectionAsync(collection, Configuration.CollectionTier));
+
+            partitionResolver = PartitionResolverFactory.Instance.Create(Configuration.PartitionKey, collectionLinks);
         }
 
         public Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
         {
-            if (String.IsNullOrEmpty(collectionLink))
+            if (partitionResolver == null)
                 throw Errors.SinkIsNotInitialized();
 
-            return Client.CreateDocumentAsync(collectionLink, new DataItemSurrogate(Transformation.Transform(dataItem)), Configuration.DisableIdGeneration);
+            dataItem = Transformation.Transform(dataItem);
+            var partitionKey = partitionResolver.GetPartitionKey(dataItem);
+
+            return Client.CreateDocumentAsync(
+                partitionResolver.ResolveForCreate(partitionKey),
+                new DataItemSurrogate(dataItem),
+                Configuration.DisableIdGeneration);
         }
 
         public Task CompleteAsync(CancellationToken cancellation)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.ServiceModel;
-using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;

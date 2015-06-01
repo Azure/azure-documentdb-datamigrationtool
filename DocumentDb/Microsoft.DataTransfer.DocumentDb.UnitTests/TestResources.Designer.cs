@@ -160,6 +160,24 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data item has invalid field names.
+        /// </summary>
+        internal static string InvalidFieldNames {
+            get {
+                return ResourceManager.GetString("InvalidFieldNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data item has invalid field value.
+        /// </summary>
+        internal static string InvalidFieldValue {
+            get {
+                return ResourceManager.GetString("InvalidFieldValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field names collection returned by filtered data item is invalid.
         /// </summary>
         internal static string InvalidFilteredFieldNames {
@@ -201,6 +219,24 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests {
         internal static string InvalidRemappedFieldValue {
             get {
                 return ResourceManager.GetString("InvalidRemappedFieldValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect substitutions applied by the pattern resolver.
+        /// </summary>
+        internal static string InvalidSubstitutionsApplied {
+            get {
+                return ResourceManager.GetString("InvalidSubstitutionsApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluated Javascript expression returned invalid value.
+        /// </summary>
+        internal static string InvalidValueFromEvaluatedExpression {
+            get {
+                return ResourceManager.GetString("InvalidValueFromEvaluatedExpression", resourceCulture);
             }
         }
         

@@ -18,7 +18,8 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 
             var configurationMock = Mocks
                     .Of<IDocumentDbBulkSinkAdapterInstanceConfiguration>(m => 
-                        m.CollectionName == "TestCollection" &&
+                        m.Collection == "TestCollection" &&
+                        m.StoredProcName == "test" &&
                         m.BatchSize == 5 &&
                         m.MaxScriptSize == 1024)
                     .First();

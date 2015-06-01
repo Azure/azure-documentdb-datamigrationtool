@@ -77,5 +77,23 @@ namespace Microsoft.DataTransfer.CsvFile {
                 return ResourceManager.GetString("Source_NestingSeparator", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. If unquoted NULL string should be treated as string.
+        /// </summary>
+        public static string Source_NoUnquotedNulls {
+            get {
+                return ResourceManager.GetString("Source_NoUnquotedNulls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. If empty space at the start and end of the quoted value should be removed.
+        /// </summary>
+        public static string Source_TrimQuoted {
+            get {
+                return ResourceManager.GetString("Source_TrimQuoted", resourceCulture);
+            }
+        }
     }
 }

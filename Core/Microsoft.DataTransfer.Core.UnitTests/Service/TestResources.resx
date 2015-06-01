@@ -147,6 +147,9 @@
   <data name="StatisticsInvalidErrors" xml:space="preserve">
     <value>Errors recorded by statistics are invalid</value>
   </data>
+  <data name="StatisticsInvalidFailedCount" xml:space="preserve">
+    <value>Number of failed items recorded by statistics is invalid</value>
+  </data>
   <data name="StatisticsInvalidTransferredCount" xml:space="preserve">
     <value>Number of transferred items recorded by statistics is invalid</value>
   </data>

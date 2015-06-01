@@ -1,8 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Basics.IO;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -15,21 +17,23 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             get { return Resources.BulkSinkDescription; }
         }
 
-        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client,
-            IDataItemTransformation transformation, IDocumentDbBulkSinkAdapterConfiguration configuration)
+        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
+            IDocumentDbBulkSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
         {
-            var sink = new DocumentDbBulkSinkAdapter(client, transformation, GetInstanceConfiguration(configuration));
+            var sink = new DocumentDbBulkSinkAdapterDispatcher(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
             await sink.InitializeAsync();
             return sink;
         }
 
-        private static DocumentDbBulkSinkAdapterInstanceConfiguration GetInstanceConfiguration(IDocumentDbBulkSinkAdapterConfiguration configuration)
+        private static DocumentDbBulkSinkAdapterDispatcherConfiguration GetInstanceConfiguration(
+            IDocumentDbBulkSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
         {
             Guard.NotNull("configuration", configuration);
 
-            return new DocumentDbBulkSinkAdapterInstanceConfiguration
+            return new DocumentDbBulkSinkAdapterDispatcherConfiguration
             {
-                CollectionName = configuration.Collection,
+                Collections = collectionNames,
+                PartitionKey = configuration.PartitionKey,
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 StoredProcBody = GetStoredProcBody(configuration.StoredProcFile),

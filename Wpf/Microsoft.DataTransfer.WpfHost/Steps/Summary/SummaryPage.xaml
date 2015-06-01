@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Steps.Summary"
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -36,6 +37,14 @@
             Text="{Binding SinkAdapterDisplayName}"
             TextFormat="{DynamicResource SinkSummarySubtitleFormatKey}" />
           <ContentPresenter Content="{Binding SinkConfigurationProvider.SummaryPresenter}" />
+
+          <bc:TitleControl Style="{StaticResource Subtitle}"
+            Text="{DynamicResource InfrastructureSetupSummarySubtitleKey}" />
+          <ContentPresenter>
+            <ContentPresenter.Content>
+              <local:InfrastructureSetupSummaryControl DataContext="{Binding InfrastructureConfiguration}" />
+            </ContentPresenter.Content>
+          </ContentPresenter>
         </StackPanel>
       </ScrollViewer>
     </Grid>

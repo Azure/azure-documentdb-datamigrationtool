@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:source="clr-namespace:Microsoft.DataTransfer.AzureTable.Source;assembly=Microsoft.DataTransfer.AzureTable"
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.AzureTable.Wpf.Shared" 
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -22,7 +22,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
       </Style>
       
-      <ObjectDataProvider x:Key="InternalFieldsValues" ObjectType="{x:Type System:Enum}" MethodName="GetValues">
+      <ObjectDataProvider x:Key="InternalFieldsValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
         <ObjectDataProvider.MethodParameters>
           <x:Type TypeName="source:AzureTableInternalFields" />
         </ObjectDataProvider.MethodParameters>
@@ -45,13 +45,13 @@
 
         <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
           <Label Content="{DynamicResource TableNameKey}" />
-          <TextBox Text="{Binding Table, UpdateSourceTrigger=PropertyChanged}" />
+          <TextBox Text="{Binding Table, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Style="{StaticResource OptionElement}">
-          <ebc:ToolTipDecorator ToolTip="{DynamicResource InternalFieldsDescriptionKey}">
+          <bc:ToolTipDecorator ToolTip="{DynamicResource InternalFieldsDescriptionKey}">
             <Label Content="{DynamicResource InternalFieldsKey}" />
-          </ebc:ToolTipDecorator>
+          </bc:ToolTipDecorator>
           <ComboBox ItemsSource="{Binding Source={StaticResource InternalFieldsValues}}" SelectedValue="{Binding InternalFields}" />
         </StackPanel>
 
@@ -62,12 +62,13 @@
           </Grid.RowDefinitions>
 
           <Label Grid.Row="0" Content="{DynamicResource FilterKey}" />
-          <TextBox Grid.Row="1" Style="{StaticResource FilterEditor}" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+          <TextBox Grid.Row="1" Style="{StaticResource FilterEditor}"
+            Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
         </Grid>
 
         <DockPanel Grid.Row="4" Style="{StaticResource OptionElement}">
           <Label DockPanel.Dock="Top"  Content="{DynamicResource ProjectionKey}" />
-          <ebc:EditableStringsListControl DockPanel.Dock="Bottom" Items="{Binding EditableProjection}" />
+          <bc:EditableStringsListControl DockPanel.Dock="Bottom" Items="{Binding EditableProjection}" />
         </DockPanel>
       </Grid>
     </ScrollViewer>

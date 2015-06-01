@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.RavenDb.Wpf.Source.RavenDbSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.RavenDb.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="200" d:DesignWidth="300" MinHeight="200" MinWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <shared:RavenDbAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
+        
+      <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+        <bc:ToolTipDecorator ToolTip="{DynamicResource IndexNameDescriptionKey}">
+          <Label Content="{DynamicResource IndexNameKey}" />
+        </bc:ToolTipDecorator>
+        <TextBox Text="{Binding Index, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
+
+      <bc:StringOrFileConfigurationControl Grid.Row="2" Style="{StaticResource OptionElement}"
+        UseFile="{Binding UseQueryFile}"
+        StringValueLabel="{DynamicResource EnterQuerySelectionKey}" StringValue="{Binding Query}"
+        FileNameLabel="{DynamicResource QueryFileSelectionKey}" FileName="{Binding QueryFile}"
+        FileFilter="{DynamicResource QueryFileFilterKey}" FileDefaultExtension="{DynamicResource QueryFileDefaultExtensionKey}" />
+
+      <CheckBox Grid.Row="3" Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource ExcludeIdFieldKey}" IsChecked="{Binding ExcludeId}" />
+    </Grid>
+  </AdornerDecorator>
+
+</UserControl>

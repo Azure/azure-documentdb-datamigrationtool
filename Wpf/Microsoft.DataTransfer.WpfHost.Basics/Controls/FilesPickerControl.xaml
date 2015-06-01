@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls"
+             mc:Ignorable="d"
+             d:DesignWidth="365" d:DesignHeight="100">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="ActionButton" TargetType="ButtonBase">
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Padding" Value="5,0" />
+        <Setter Property="Margin" Value="5,0,0,0" />
+      </Style>
+
+      <Style x:Key="FirstActionButton" TargetType="ButtonBase" BasedOn="{StaticResource ActionButton}">
+        <Setter Property="Margin" Value="0" />
+      </Style>
+
+      <Style x:Key="AddFolderGlyph" TargetType="ContentControl" BasedOn="{StaticResource DownArrowGlyph}">
+        <Setter Property="Margin" Value="5,0,0,0" />
+      </Style>
+
+      <Style x:Key="ButtonsPane" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,0,0,5" />
+        <Style.Resources>
+          <Style TargetType="Button" BasedOn="{StaticResource ActionButton}" />
+          <Style TargetType="local:DropDownButton" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Padding" Value="5,0,2,0" />
+            <Style.Resources>
+              <Style TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+              </Style>
+            </Style.Resources>
+          </Style>
+        </Style.Resources>
+      </Style>
+
+      <Style x:Key="FilesList" TargetType="ListBox">
+        <Setter Property="SelectionMode" Value="Extended" />
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <DockPanel x:Name="LayoutRoot">
+    <StackPanel DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
+      <Button Content="{DynamicResource AddFilesKey}" Command="{Binding AddFiles}" Style="{StaticResource FirstActionButton}" />
+
+      <local:DropDownButton AutomationProperties.Name="{DynamicResource AddFolderKey}">
+        <local:DropDownButton.DropDown>
+          <ContextMenu>
+            <MenuItem Header="{DynamicResource AddSingleFolderKey}" Command="{Binding AddSingleFolder}" />
+            <MenuItem Header="{DynamicResource AddRecursiveFolderKey}" Command="{Binding AddRecursiveFolder}" />
+          </ContextMenu>
+        </local:DropDownButton.DropDown>
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AddFolderKey}" />
+          <ContentControl Style="{StaticResource AddFolderGlyph}" />
+        </StackPanel>
+      </local:DropDownButton>
+
+      <Button Content="{DynamicResource AddUrlKey}" Command="{Binding AddUrl}" />
+      <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" />
+    </StackPanel>
+
+    <local:ExtendedListBox x:Name="lbFiles" DockPanel.Dock="Top" Style="{StaticResource FilesList}"
+      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+      ItemsSource="{Binding Files}">
+      <local:ExtendedListBox.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding RemoveFiles}" />
+      </local:ExtendedListBox.InputBindings>
+    </local:ExtendedListBox>
+  </DockPanel>
+
+</UserControl>

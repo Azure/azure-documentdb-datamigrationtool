@@ -19,5 +19,17 @@ namespace Microsoft.DataTransfer.CsvFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_NestingSeparator")]
         string NestingSeparator { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether empty space in the quoted values should be trimmed.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_TrimQuoted")]
+        bool TrimQuoted { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether unquoted NULL string should be treated as string.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_NoUnquotedNulls")]
+        bool NoUnquotedNulls { get; }
     }
 }

@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Basics.Controls.StringOrFileConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls"
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="QuerySourceSelector" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Style.Resources>
+          <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="0,0,10,0" />
+          </Style>
+        </Style.Resources>
+      </Style>
+
+      <Style x:Key="QueryEditor" TargetType="TextBox">
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+      </Style>
+      
+      <ObjectDataProvider x:Key="ControlInstanceId" MethodName="ToString">
+        <ObjectDataProvider.ObjectInstance>
+          <ObjectDataProvider ObjectType="{x:Type system:Guid}" MethodName="NewGuid" />
+        </ObjectDataProvider.ObjectInstance>
+      </ObjectDataProvider>
+
+      <converters:InvertBooleanValueConverter x:Key="NotOperator" />
+
+      <converters:BooleanToVisibilityValueConverter x:Key="IsVisible" />
+      <converters:BooleanToVisibilityValueConverter x:Key="IsInvisible" True="Collapsed" False="Visible" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <DockPanel x:Name="LayoutRoot">
+    <Label DockPanel.Dock="Top">
+      <StackPanel Style="{StaticResource QuerySourceSelector}">
+        <RadioButton
+          GroupName="{Binding Source={StaticResource ControlInstanceId}}"
+          Content="{Binding StringValueLabel}" 
+          IsChecked="{Binding UseFile, Converter={StaticResource NotOperator}}" />
+        <RadioButton
+          GroupName="{Binding Source={StaticResource ControlInstanceId}}"
+          Content="{Binding FileNameLabel}"
+          IsChecked="{Binding UseFile}" />
+      </StackPanel>
+    </Label>
+
+    <DockPanel DockPanel.Dock="Top" Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+      <local:OpenFileControl DockPanel.Dock="Top"
+        Visibility="{Binding UseFile, Converter={StaticResource IsVisible}}"
+        FileName="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"
+        Filter="{Binding FileFilter}"
+        DefaultExtension="{Binding FileDefaultExtension}" />
+
+      <TextBox DockPanel.Dock="Top" Style="{StaticResource QueryEditor}"
+        Visibility="{Binding UseFile, Converter={StaticResource IsInvisible}}"
+        Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+    </DockPanel>
+  </DockPanel>
+  
+</UserControl>

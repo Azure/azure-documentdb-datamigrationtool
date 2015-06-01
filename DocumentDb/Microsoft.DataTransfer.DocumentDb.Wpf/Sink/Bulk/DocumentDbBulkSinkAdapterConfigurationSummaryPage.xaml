@@ -37,6 +37,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ConnectionStringSummaryKey}" />
@@ -44,58 +45,61 @@
       <TextBlock Text="{Binding ConnectionString}" />
     </Label>
 
-    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionNameSummaryKey}" />
-    <Label Grid.Row="1" Grid.Column="1">
-      <TextBlock Text="{Binding Collection}" />
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionsSummaryKey}" />
+    <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Collection}" />
+
+    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource PartitionKeySummaryKey}" />
+    <Label Grid.Row="2" Grid.Column="1">
+      <TextBlock Text="{Binding PartitionKey}" />
     </Label>
 
-    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource CollectionTierSummaryKey}" />
-    <Label Grid.Row="2" Grid.Column="1">
+    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource CollectionTierSummaryKey}" />
+    <Label Grid.Row="3" Grid.Column="1">
       <TextBlock Text="{Binding CollectionTier, Converter={StaticResource CollectionTierConverter}}" />
     </Label>
     
-    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource IdFieldSummaryKey}" />
-    <Label Grid.Row="3" Grid.Column="1">
+    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource IdFieldSummaryKey}" />
+    <Label Grid.Row="4" Grid.Column="1">
       <TextBlock Text="{Binding IdField}" />
     </Label>
     
-    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource StoredProcFileSummaryKey}" />
-    <Label Grid.Row="4" Grid.Column="1">
+    <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource StoredProcFileSummaryKey}" />
+    <Label Grid.Row="5" Grid.Column="1">
       <TextBlock Text="{Binding StoredProcFile}" />
     </Label>
 
-    <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource BatchSizeSummaryKey}" />
-    <Label Grid.Row="5" Grid.Column="1">
+    <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource BatchSizeSummaryKey}" />
+    <Label Grid.Row="6" Grid.Column="1">
       <TextBlock Text="{Binding BatchSize}" />
     </Label>
 
-    <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource MaxScriptSizeSummaryKey}" />
-    <Label Grid.Row="6" Grid.Column="1">
+    <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource MaxScriptSizeSummaryKey}" />
+    <Label Grid.Row="7" Grid.Column="1">
       <TextBlock Text="{Binding MaxScriptSize}" />
     </Label>
 
-    <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource DisableIdGenerationSummaryKey}" />
-    <Label Grid.Row="7" Grid.Column="1">
+    <Label Grid.Row="8" Grid.Column="0" Content="{DynamicResource DisableIdGenerationSummaryKey}" />
+    <Label Grid.Row="8" Grid.Column="1">
       <TextBlock Text="{Binding DisableIdGeneration, Converter={StaticResource YesNoConverter}}" />
     </Label>
     
-    <Label Grid.Row="8" Grid.Column="0" Content="{DynamicResource DatesHandlingSummaryKey}" />
-    <Label Grid.Row="8" Grid.Column="1">
+    <Label Grid.Row="9" Grid.Column="0" Content="{DynamicResource DatesHandlingSummaryKey}" />
+    <Label Grid.Row="9" Grid.Column="1">
       <TextBlock Text="{Binding Dates}" />
     </Label>
 
-    <Label Grid.Row="9" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
-    <Label Grid.Row="9" Grid.Column="1">
+    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
+    <Label Grid.Row="10" Grid.Column="1">
       <TextBlock Text="{Binding Retries}" />
     </Label>
 
-    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
-    <Label Grid.Row="10" Grid.Column="1">
+    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
+    <Label Grid.Row="11" Grid.Column="1">
       <TextBlock Text="{Binding RetryInterval}" />
     </Label>
 
-    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
-    <Label Grid.Row="11" Grid.Column="1">
+    <Label Grid.Row="12" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
+    <Label Grid.Row="12" Grid.Column="1">
       <TextBlock Text="{Binding ConnectionMode}" />
     </Label>
   </Grid>

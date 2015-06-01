@@ -29,7 +29,7 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
-            arguments.Add(MongoexportFileSourceAdapterConfiguration.FilesPropertyName, String.Join(";", configuration.Files.Select(f => f.Replace(";", @"\;"))));
+            arguments.Add(MongoexportFileSourceAdapterConfiguration.FilesPropertyName, AsCollectionArgument(configuration.Files));
         }
     }
 }

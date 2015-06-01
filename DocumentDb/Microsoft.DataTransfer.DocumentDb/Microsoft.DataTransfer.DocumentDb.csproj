@@ -31,13 +31,13 @@
   </PropertyGroup>
   <Import Project="..\..\Solution Items\CommonProperties.proj" />
   <ItemGroup>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.0.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.1.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.0.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.1.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,6 +60,11 @@
     <Compile Include="Client\DocumentDbProbeClient.cs" />
     <Compile Include="Client\DocumentDbConnectionStringBuilder.cs" />
     <Compile Include="Client\DocumentQueryExtensions.cs" />
+    <Compile Include="Client\Enumeration\AsyncEnumerator.cs" />
+    <Compile Include="Client\Enumeration\AsyncEnumeratorBase.cs" />
+    <Compile Include="Client\Enumeration\DocumentSurrogateQueryAsyncEnumerator.cs" />
+    <Compile Include="Client\Enumeration\EmptyAsyncEnumerator.cs" />
+    <Compile Include="Client\Enumeration\IAsyncEnumerator.cs" />
     <Compile Include="Client\Serialization\DictionaryCreationConverter.cs" />
     <Compile Include="Client\Serialization\DocumentSurrogate.cs" />
     <Compile Include="Client\Serialization\DocumentSurrogateJsonConverter.cs" />
@@ -75,7 +80,6 @@
     <Compile Include="Exceptions\DocumentSizeExceedsScriptSizeLimitException.cs" />
     <Compile Include="IDefaults.cs" />
     <Compile Include="Client\DocumentDbClientHelper.cs" />
-    <Compile Include="Shared\DocumentDbAdapterInstanceConfiguration.cs" />
     <Compile Include="Shared\DocumentDbConnectionMode.cs" />
     <Compile Include="Shared\DocumentDbAdapterFactoryBase.cs" />
     <Compile Include="Errors.cs" />
@@ -86,31 +90,48 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Shared\IDocumentDbAdapterConfiguration.cs" />
-    <Compile Include="Shared\IDocumentDbAdapterInstanceConfiguration.cs" />
     <Compile Include="Sink\Bulk\BulkItemSurrogate.cs" />
     <Compile Include="Sink\Bulk\BulkInsertItemState.cs" />
     <Compile Include="Exceptions\FailedToCreateDocumentException.cs" />
+    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterDispatcher.cs" />
+    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterDispatcherConfiguration.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterFactory.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterInternalFactory.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterInstanceConfiguration.cs" />
     <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterConfiguration.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapter.cs" />
+    <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterDispatcherConfiguration.cs" />
     <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterInstanceConfiguration.cs" />
     <Compile Include="Sink\Bulk\LengthCappedEnumerableJsonConverter.cs" />
     <Compile Include="Sink\Bulk\LengthCappedEnumerableSurrogate.cs" />
     <Compile Include="Shared\DocumentDbAdapterBase.cs" />
     <Compile Include="Sink\CollectionPricingTier.cs" />
     <Compile Include="Sink\DataItemSurrogateJsonConverter.cs" />
+    <Compile Include="Client\PartitionResolvers\ConstantPartitionResolver.cs" />
+    <Compile Include="Client\PartitionResolvers\FairPartitionResolver.cs" />
+    <Compile Include="Client\PartitionResolvers\Javascript\JavascriptMemberExpression.cs" />
+    <Compile Include="Client\PartitionResolvers\Javascript\JavascriptMemberExpressionReader.cs" />
+    <Compile Include="Client\PartitionResolvers\Javascript\Visitors\DataItemMemberEvaluationVisitor.cs" />
+    <Compile Include="Client\PartitionResolvers\Javascript\Visitors\IJavascriptMemberExpressionVisitor.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterFactory.cs" />
     <Compile Include="Sink\DocumentDbSinkAdapterFactoryBase.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterInstanceConfiguration.cs" />
     <Compile Include="Sink\Parallel\IDocumentDbParallelSinkAdapterConfiguration.cs" />
     <Compile Include="Sink\Parallel\IDocumentDbParallelSinkAdapterInstanceConfiguration.cs" />
     <Compile Include="Sink\DateTimeHandling.cs" />
+    <Compile Include="Client\PartitionResolvers\PartitionResolverFactory.cs" />
+    <Compile Include="Sink\Substitutions\ISubstitutionResolver.cs" />
+    <Compile Include="Sink\Substitutions\Range\IRangeSubstitutionVisitor.cs" />
+    <Compile Include="Sink\Substitutions\Range\IterableIntegerRange.cs" />
+    <Compile Include="Sink\Substitutions\Range\RangeSubstitution.cs" />
+    <Compile Include="Sink\Substitutions\Range\RangeSubstitutionReader.cs" />
+    <Compile Include="Sink\Substitutions\Range\RangeSubstitutionResolver.cs" />
+    <Compile Include="Sink\Substitutions\Range\IntegerRange.cs" />
+    <Compile Include="Sink\Substitutions\Range\StringFormatRangeSubstitutionVisitor.cs" />
     <Compile Include="Source\DocumentDbSourceAdapterInternalFactory.cs" />
     <Compile Include="StrongReference.cs" />
     <Compile Include="Transformation\DataItemWrapper.cs" />
-    <Compile Include="Transformation\Remap\RemappedFieldsTransformation.cs" />
+    <Compile Include="Transformation\Remap\RemapFieldsTransformation.cs" />
     <Compile Include="Sink\DataItemSurrogate.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapter.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterInternalFactory.cs" />
@@ -125,7 +146,7 @@
     <Compile Include="Source\DocumentDbSourceAdapterInstanceConfiguration.cs" />
     <Compile Include="Source\IDocumentDbSourceAdapterConfiguration.cs" />
     <Compile Include="Source\IDocumentDbSourceAdapterInstanceConfiguration.cs" />
-    <Compile Include="Transformation\Filter\FilteredFieldsTransformation.cs" />
+    <Compile Include="Transformation\Filter\FilterFieldsTransformation.cs" />
     <Compile Include="Transformation\Filter\FilteredFieldsDataItem.cs" />
     <Compile Include="Transformation\IDataItemTransformation.cs" />
     <Compile Include="Transformation\PassThroughTransformation.cs" />
@@ -135,7 +156,10 @@
     <Compile Include="Transformation\Dates\DateTimeConverter.cs" />
     <Compile Include="Transformation\Dates\StringAndEpochDateTimeDataItem.cs" />
     <Compile Include="Transformation\Dates\StringDateTimeDataItem.cs" />
+    <Compile Include="Transformation\Stringify\StringifiedFieldsDataItem.cs" />
+    <Compile Include="Transformation\Stringify\StringifyFieldsTransformation.cs" />
     <Compile Include="Transformation\TransformationPipeline.cs" />
+    <Compile Include="Transformation\TransformedDataItemBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">

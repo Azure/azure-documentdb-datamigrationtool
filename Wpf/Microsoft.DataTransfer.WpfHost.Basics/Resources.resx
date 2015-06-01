@@ -123,6 +123,9 @@
   <data name="DefaultTrueValue" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="FolderBrowserDescription" xml:space="preserve">
+    <value>Select folder:</value>
+  </data>
   <data name="InvalidSourceConvertionType" xml:space="preserve">
     <value>Cannot convert value from type "{0}", expected type is "{1}"</value>
   </data>

@@ -52,9 +52,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="IO\DirectoryHelper.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="PathHelper.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="IO\PathHelper.cs" />
+    <Compile Include="IO\SimpleStringReader.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

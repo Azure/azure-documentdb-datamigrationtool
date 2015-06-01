@@ -7,5 +7,6 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         string MongoConnectionString { get; }
         string AzureStorageConnectionString { get; }
         string DocumentDbConnectionString(string databaseName);
+        string RavenDbConnectionString(string databaseName);
     }
 }

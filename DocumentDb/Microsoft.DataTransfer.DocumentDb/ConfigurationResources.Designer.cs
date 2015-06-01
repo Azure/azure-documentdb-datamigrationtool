@@ -88,15 +88,6 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name of the documents collection.
-        /// </summary>
-        public static string Collection {
-            get {
-                return ResourceManager.GetString("Collection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optional, default is {0}. Specifies how to connect to DocumentDB account: {1}.
         /// </summary>
         public static string ConnectionModeFormat {
@@ -142,6 +133,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more documents collection names. Use &quot;[a-b]&quot; placeholder to automatically generate collection index, e.g. &quot;Data[0-2]&quot; will result in the following collection names: Data0, Data1, Data2.
+        /// </summary>
+        public static string Sink_Collection {
+            get {
+                return ResourceManager.GetString("Sink_Collection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}.
         /// </summary>
         public static string Sink_CollectionTierFormat {
@@ -174,6 +174,24 @@ namespace Microsoft.DataTransfer.DocumentDb {
         public static string Sink_IdField {
             get {
                 return ResourceManager.GetString("Sink_IdField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections.
+        /// </summary>
+        public static string Sink_PartitionKey {
+            get {
+                return ResourceManager.GetString("Sink_PartitionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regex pattern to match one or more documents collection name.
+        /// </summary>
+        public static string Source_Collection {
+            get {
+                return ResourceManager.GetString("Source_Collection", resourceCulture);
             }
         }
         

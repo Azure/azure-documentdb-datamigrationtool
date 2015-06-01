@@ -55,6 +55,7 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CommandLineConfigurationTests.cs" />
     <Compile Include="DynamicConfiguration\ICollectionConfiguration.cs" />
     <Compile Include="DynamicConfiguration\ICustomResourcesDescriptionConfiguration.cs" />
     <Compile Include="DynamicConfiguration\DescriptionResources.Designer.cs">
@@ -85,6 +86,10 @@
     <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.Extensibility\Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj">
       <Project>{323766cd-3e2e-42e0-bc6e-cb7785057154}</Project>
       <Name>Microsoft.DataTransfer.ConsoleHost.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj">
+      <Project>{b034bcdd-283e-4e35-b617-c21cf4aff7de}</Project>
+      <Name>Microsoft.DataTransfer.ConsoleHost</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

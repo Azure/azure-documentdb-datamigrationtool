@@ -1,7 +1,7 @@
 ﻿<Application
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Microsoft.DataTransfer.WpfHost.App"
+             xmlns:system="clr-namespace:System;assembly=mscorlib" x:Class="Microsoft.DataTransfer.WpfHost.App"
              xmlns:basics="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              Startup="ApplicationStartup">
   <Application.Resources>
@@ -15,21 +15,21 @@
 
       <!-- String resources -->
 
-      <System:String x:Key="CopyKey">Copy</System:String>
-      <System:String x:Key="CloseKey">Close</System:String>
+      <system:String x:Key="CopyKey">Copy</system:String>
+      <system:String x:Key="CloseKey">Close</system:String>
 
       <!-- Main window -->
-      <System:String x:Key="MainWindowTitleKey">DocumentDB Data Migration Tool</System:String>
+      <system:String x:Key="MainWindowTitleKey">DocumentDB Data Migration Tool</system:String>
 
       <!-- Navigation -->
-      <System:String x:Key="NavigateToPreviousStepKey">Previous</System:String>
-      <System:String x:Key="NavigateToNextStepKey">Next</System:String>
-      <System:String x:Key="StartImportKey">Import</System:String>
-      <System:String x:Key="CancelImportKey">Cancel</System:String>
-      <System:String x:Key="StartNewImportKey">New Import</System:String>
+      <system:String x:Key="NavigateToPreviousStepKey">Previous</system:String>
+      <system:String x:Key="NavigateToNextStepKey">Next</system:String>
+      <system:String x:Key="StartImportKey">Import</system:String>
+      <system:String x:Key="CancelImportKey">Cancel</system:String>
+      <system:String x:Key="StartNewImportKey">New Import</system:String>
 
       <!-- Step: Welcome -->
-      <System:String x:Key="WelcomePageTitleKey">DocumentDB Data Migration Tool</System:String>
+      <system:String x:Key="WelcomePageTitleKey">DocumentDB Data Migration Tool</system:String>
       <Span x:Key="WelcomePageContentKey">
         <Span>
           Use the DocumentDB data migration tool to import data to DocumentDB from a variety of sources.
@@ -51,33 +51,48 @@
       </Span>
 
       <!-- Step: Source Setup -->
-      <System:String x:Key="SourceSetupPageTitleKey">Specify source information</System:String>
-      <System:String x:Key="SourceSelectorKey">Import from:</System:String>
+      <system:String x:Key="SourceSetupPageTitleKey">Specify source information</system:String>
+      <system:String x:Key="SourceSelectorKey">Import from:</system:String>
 
       <!-- Step: Sink Setup -->
-      <System:String x:Key="SinkSetupPageTitleKey">Specify target information</System:String>
-      <System:String x:Key="SinkSelectorKey">Export to:</System:String>
+      <system:String x:Key="SinkSetupPageTitleKey">Specify target information</system:String>
+      <system:String x:Key="SinkSelectorKey">Export to:</system:String>
+
+      <!-- Step: Infrastructure Setup -->
+      <system:String x:Key="InfrastructureSetupPageTitleKey">Advanced configuration</system:String>
+      
+      <system:String x:Key="ErrorLogFileNameKey">Error Log File</system:String>
+      <system:String x:Key="ErrorLogFileNameDescriptionKey">
+        Name of the CSV file to redirect data transfer failures. Leave blank for failures to be displayed
+        on the user interface instead. It is recommended to redirect errors to a file to prevent excessive
+        memory consumption in cases when high number of failures is expected
+      </system:String>
+      <system:String x:Key="ErrorLogFileFilterKey">CSV Files|*.csv</system:String>
+      <system:String x:Key="ErrorLogFileDefaultExtensionKey">*.csv</system:String>
 
       <!-- Step: Summary -->
-      <System:String x:Key="SummaryPageTitleKey">Confirm import settings</System:String>
-      <System:String x:Key="GenerateCommandLineKey">View Command</System:String>
-      <System:String x:Key="CommandLinePreviewWindowTitleKey">Command Line Preview</System:String>
-      <System:String x:Key="SourceSummarySubtitleFormatKey">Source ({0})</System:String>
-      <System:String x:Key="SinkSummarySubtitleFormatKey">Sink ({0})</System:String>
+      <system:String x:Key="SummaryPageTitleKey">Confirm import settings</system:String>
+      <system:String x:Key="GenerateCommandLineKey">View Command</system:String>
+      <system:String x:Key="CommandLinePreviewWindowTitleKey">Command Line Preview</system:String>
+      <system:String x:Key="SourceSummarySubtitleFormatKey">Source ({0})</system:String>
+      <system:String x:Key="SinkSummarySubtitleFormatKey">Sink ({0})</system:String>
+      
+      <system:String x:Key="InfrastructureSetupSummarySubtitleKey">Advanced</system:String>
+      <system:String x:Key="ErrorLogFileNameSummaryKey">Error Log File:</system:String>
 
       <!-- Step: Import -->
-      <System:String x:Key="ImportPageTitleKey">Import results</System:String>
-      <System:String x:Key="ExportErrorsKey">Export</System:String>
-      <System:String x:Key="ExportErrorsToClipboardKey">To Clipboard</System:String>
-      <System:String x:Key="ExportErrorsToFileKey">To File</System:String>
+      <system:String x:Key="ImportPageTitleKey">Import results</system:String>
+      <system:String x:Key="ExportErrorsKey">Export</system:String>
+      <system:String x:Key="ExportErrorsToClipboardKey">To Clipboard</system:String>
+      <system:String x:Key="ExportErrorsToFileKey">To File</system:String>
 
-      <System:String x:Key="ElapsedTimeLabelKey">Elapsed time:</System:String>
-      <System:String x:Key="TransferredLabelKey">Transferred:</System:String>
-      <System:String x:Key="ErrorsLabelKey">Failed:</System:String>
+      <system:String x:Key="ElapsedTimeLabelKey">Elapsed time:</system:String>
+      <system:String x:Key="TransferredLabelKey">Transferred:</system:String>
+      <system:String x:Key="ErrorsLabelKey">Failed:</system:String>
 
-      <System:String x:Key="ErrorsSectionHeaderKey">Failure Information</System:String>
-      <System:String x:Key="RecordIdColumnHeaderKey">Record</System:String>
-      <System:String x:Key="ErrorColumnHeaderKey">Error</System:String>
+      <system:String x:Key="ErrorsSectionHeaderKey">Failure Information</system:String>
+      <system:String x:Key="RecordIdColumnHeaderKey">Record</system:String>
+      <system:String x:Key="ErrorColumnHeaderKey">Error</system:String>
 
       <!-- Styles -->
 

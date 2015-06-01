@@ -31,9 +31,6 @@
   </PropertyGroup>
   <Import Project="..\..\Solution Items\CommonProperties.proj" />
   <ItemGroup>
-    <Reference Include="CsvHelper">
-      <HintPath>..\..\packages\CsvHelper.2.10.0\lib\net40-client\CsvHelper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,7 +46,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfigurationResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Errors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader\CsvReader.cs" />
+    <Compile Include="Reader\CsvReaderConfiguration.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,9 +84,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

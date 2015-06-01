@@ -42,7 +42,8 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
             var configuration = Mocks
                     .Of<IAzureTableSourceAdapterConfiguration>(c =>
                         c.ConnectionString == Settings.AzureStorageConnectionString &&
-                        c.Table == tableName)
+                        c.Table == tableName &&
+                        c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
             var readResults = new List<IDataItem>();
@@ -72,7 +73,8 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                     .Of<IAzureTableSourceAdapterConfiguration>(c =>
                         c.ConnectionString == Settings.AzureStorageConnectionString &&
                         c.Table == tableName &&
-                        c.Filter == IntegerPropertyName + " lt 100")
+                        c.Filter == IntegerPropertyName + " lt 100" &&
+                        c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
             var readResults = new List<IDataItem>();
@@ -102,7 +104,8 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                     .Of<IAzureTableSourceAdapterConfiguration>(c =>
                         c.ConnectionString == Settings.AzureStorageConnectionString &&
                         c.Table == tableName &&
-                        c.Projection == new [] { StringPropertyName })
+                        c.Projection == new[] { StringPropertyName } &&
+                        c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
             var readResults = new List<IDataItem>();

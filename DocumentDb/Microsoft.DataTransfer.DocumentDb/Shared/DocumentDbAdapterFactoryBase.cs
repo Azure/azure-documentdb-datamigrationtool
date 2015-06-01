@@ -18,18 +18,15 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             if (String.IsNullOrEmpty(configuration.ConnectionString))
                 throw Errors.ConnectionStringMissing();
-
-            if (String.IsNullOrEmpty(configuration.Collection))
-                throw Errors.CollectionNameMissing();
         }
 
-        protected static DocumentDbClient CreateClient(IDocumentDbAdapterConfiguration configuration, IDataTransferContext context)
+        protected static DocumentDbClient CreateClient(IDocumentDbAdapterConfiguration configuration, IDataTransferContext context, bool isShardedImport)
         {
             Guard.NotNull("configuration", configuration);
 
             var connectionSettings = ParseConnectionString(configuration.ConnectionString);
             return new DocumentDbClient(
-                CreateRawClient(connectionSettings, configuration.ConnectionMode, context)
+                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport)
                     .AsReliable(new FixedInterval(
                         null,
                         GetValueOrDefault(configuration.Retries, Defaults.Current.NumberOfRetries, Errors.InvalidNumberOfRetries),
@@ -39,23 +36,27 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
             );
         }
 
-        private static DocumentClient CreateRawClient(IDocumentDbConnectionSettings connectionSettings, DocumentDbConnectionMode? connectionMode, IDataTransferContext context)
+        private static DocumentClient CreateRawClient(IDocumentDbConnectionSettings connectionSettings, DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport)
         {
             Guard.NotNull("connectionSettings", connectionSettings);
 
             return new DocumentClient(
                 new Uri(connectionSettings.AccountEndpoint),
                 connectionSettings.AccountKey,
-                CreateConnectionPolicy(connectionMode, context)
+                CreateConnectionPolicy(connectionMode, context, isShardedImport)
             );
         }
 
-        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context)
+        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport)
         {
+            var entryAssembly = Assembly.GetEntryAssembly();
             return DocumentDbClientHelper.ApplyConnectionMode(new ConnectionPolicy
                 {
                     UserAgentSuffix = String.Format(CultureInfo.InvariantCulture, Resources.CustomUserAgentSuffixFormat,
-                        Assembly.GetExecutingAssembly().GetName().Version, context.SourceName, context.SinkName)
+                        entryAssembly == null ? Resources.UnknownEntryAssembly : entryAssembly.GetName().Name,
+                        Assembly.GetExecutingAssembly().GetName().Version,
+                        context.SourceName, context.SinkName,
+                        isShardedImport ? Resources.ShardedImportDesignator : String.Empty)
                 }, connectionMode);
         }
 

@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.JsonNet.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Microsoft.DataTransfer.TestsCommon.Mocks
 {
@@ -33,10 +34,31 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
                 result ^= fieldName.GetHashCode() ^ (
                     value is IDataItem
                         ? GetDataItemHash((IDataItem)value)
-                        : value.GetHashCode());
+                        : GetValueHashCode(value));
             }
 
             return result;
+        }
+
+        private static int GetValueHashCode(object value)
+        {
+            switch (Type.GetTypeCode(value.GetType()))
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Single:
+                    // Convert all numeric types to double since type can change after deserialization
+                    return Convert.ChangeType(value, typeof(double), CultureInfo.InvariantCulture).GetHashCode();
+                default:
+                    return value.GetHashCode();
+            }
         }
 
         public IEnumerable<string> GetFieldNames()

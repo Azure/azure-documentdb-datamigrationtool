@@ -120,6 +120,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Azur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable.Wpf", "AzureTable\Microsoft.DataTransfer.AzureTable.Wpf\Microsoft.DataTransfer.AzureTable.Wpf.csproj", "{8A191B07-775F-43C8-ACB6-F742073612EA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RavenDb", "RavenDb", "{0D63DA64-9090-42C1-A066-172C2700F1D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb", "RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj", "{D505404F-2FC0-453C-86BB-BA3B1AE13919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb.FunctionalTests", "RavenDb\Microsoft.DataTransfer.RavenDb.FunctionalTests\Microsoft.DataTransfer.RavenDb.FunctionalTests.csproj", "{6E25967D-5286-47DB-AB9F-82AA7416D344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb.Wpf", "RavenDb\Microsoft.DataTransfer.RavenDb.Wpf\Microsoft.DataTransfer.RavenDb.Wpf.csproj", "{29968BB5-BC00-4976-8B78-1B0244654B5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile.UnitTests", "CsvFile\Microsoft.DataTransfer.CsvFile.UnitTests\Microsoft.DataTransfer.CsvFile.UnitTests.csproj", "{F1D74F07-96B2-4150-830F-4DFB2E3A1707}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -268,6 +278,22 @@ Global
 		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D505404F-2FC0-453C-86BB-BA3B1AE13919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D505404F-2FC0-453C-86BB-BA3B1AE13919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D505404F-2FC0-453C-86BB-BA3B1AE13919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D505404F-2FC0-453C-86BB-BA3B1AE13919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E25967D-5286-47DB-AB9F-82AA7416D344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E25967D-5286-47DB-AB9F-82AA7416D344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E25967D-5286-47DB-AB9F-82AA7416D344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E25967D-5286-47DB-AB9F-82AA7416D344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -311,6 +337,10 @@ Global
 		{366BA489-E851-4899-9BA3-2F9C7599D24B} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
 		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
 		{8A191B07-775F-43C8-ACB6-F742073612EA} = {7FF55CC5-9069-49E5-B16E-6437AE4892A7}
+		{D505404F-2FC0-453C-86BB-BA3B1AE13919} = {0D63DA64-9090-42C1-A066-172C2700F1D4}
+		{6E25967D-5286-47DB-AB9F-82AA7416D344} = {0D63DA64-9090-42C1-A066-172C2700F1D4}
+		{29968BB5-BC00-4976-8B78-1B0244654B5D} = {0D63DA64-9090-42C1-A066-172C2700F1D4}
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707} = {8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45

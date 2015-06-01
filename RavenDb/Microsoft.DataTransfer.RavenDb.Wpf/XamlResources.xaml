@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+  
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- String resources -->
+
+  <system:String x:Key="ConnectionStringKey">Connection String</system:String>
+  <system:String x:Key="ConnectionStringDescriptionKey">
+    <![CDATA[Specify a valid RavenDB connection string in the following format: Url=<server-address>;User=<username>;Password=<password>;Database=<database-name>]]>
+  </system:String>
+  <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="TestConnectionKey">Verify</system:String>
+
+  <system:String x:Key="IndexNameKey">Index Name</system:String>
+  <system:String x:Key="IndexNameDescriptionKey">
+    <![CDATA[Name of the index to use with the query. Leave blank to use default and query against "__document_id" field]]>
+  </system:String>
+  <system:String x:Key="IndexNameSummaryKey">Index Name:</system:String>
+
+  <system:String x:Key="QuerySummaryKey">Lucene Query:</system:String>
+  <system:String x:Key="EnterQuerySelectionKey">Enter Lucene Query</system:String>
+  <system:String x:Key="QueryFileSelectionKey">Select Lucene Query File</system:String>
+  <system:String x:Key="QueryFileFilterKey">Text Files|*.txt|All Files|*.*</system:String>
+  <system:String x:Key="QueryFileDefaultExtensionKey">*.txt</system:String>
+
+  <system:String x:Key="ExcludeIdFieldKey">Exclude Id Field</system:String>
+  <system:String x:Key="ExcludeIdFieldSummaryKey">Exclude Id Field:</system:String>
+
+</ResourceDictionary>

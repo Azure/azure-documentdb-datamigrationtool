@@ -115,7 +115,7 @@
       <Label Grid.Row="1" Grid.Column="1" Content="{Binding Transferred}" />
 
       <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource ErrorsLabelKey}" />
-      <Label Grid.Row="2" Grid.Column="1" Content="{Binding Errors.Count}" />
+      <Label Grid.Row="2" Grid.Column="1" Content="{Binding Failed}" />
     </Grid>
 
     <ProgressBar DockPanel.Dock="Top" Style="{StaticResource ImportProgress}"

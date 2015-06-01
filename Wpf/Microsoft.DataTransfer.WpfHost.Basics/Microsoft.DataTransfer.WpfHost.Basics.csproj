@@ -35,6 +35,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,14 +53,60 @@
     <Compile Include="Commands\CopyToClipboardCommand.cs" />
     <Compile Include="Commands\NavigateUriCommand.cs" />
     <Compile Include="Commands\SynchronizedAsyncCommand.cs" />
+    <Compile Include="Controls\EditableItemsList\AddItemCommand.cs" />
+    <Compile Include="Controls\EditableItemsList\EditableItemsListViewModel.cs" />
+    <Compile Include="Controls\EditableItemsList\EditItemCommand.cs" />
+    <Compile Include="Controls\EditableItemsList\EditItemsCollectionCommandBase.cs" />
+    <Compile Include="Controls\EditableItemsList\ExtendedListBoxSelectedItemsProvider.cs" />
+    <Compile Include="Controls\EditableItemsList\ISelectedItemsProvider.cs" />
+    <Compile Include="Controls\EditableItemsList\ISingleItemProvider.cs" />
+    <Compile Include="Controls\EditableItemsList\RemoveItemsCommand.cs" />
+    <Compile Include="Controls\EditableStringsListControl.xaml.cs">
+      <DependentUpon>EditableStringsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtendedListBox.cs" />
+    <Compile Include="Controls\FilesPickerControl.xaml.cs">
+      <DependentUpon>FilesPickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilesPicker\AddFilesCommand.cs" />
+    <Compile Include="Controls\FilesPicker\AddFolderCommandBase.cs" />
+    <Compile Include="Controls\FilesPicker\AddRecursiveFolderCommand.cs" />
+    <Compile Include="Controls\FilesPicker\AddSingleFolderCommand.cs" />
+    <Compile Include="Controls\FilesPicker\AddUrlCommand.cs" />
+    <Compile Include="Controls\FilesPicker\FilesPickerViewModel.cs" />
+    <Compile Include="Controls\FilesPicker\Url\AddUrlsDialog.xaml.cs">
+      <DependentUpon>AddUrlsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilesPicker\Url\AddUrlsViewModel.cs" />
+    <Compile Include="Controls\FilesPicker\Url\IUrlsListener.cs" />
+    <Compile Include="Controls\FilesPicker\Url\IUrlsProvider.cs" />
+    <Compile Include="Controls\FilesPicker\Url\SetUrlsCommand.cs" />
+    <Compile Include="Controls\FilesPicker\Url\UrlHelper.cs" />
+    <Compile Include="Controls\IFileDialogConfiguration.cs" />
+    <Compile Include="Controls\IFileNameListener.cs" />
+    <Compile Include="Controls\OpenFileControl.xaml.cs">
+      <DependentUpon>OpenFileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OpenFile\OpenFileCommand.cs" />
+    <Compile Include="Controls\OpenFile\OpenFileViewModel.cs" />
+    <Compile Include="Controls\SaveFileControl.xaml.cs">
+      <DependentUpon>SaveFileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SaveFile\SaveFileCommand.cs" />
+    <Compile Include="Controls\SaveFile\SaveFileViewModel.cs" />
+    <Compile Include="Controls\StringOrFileConfigurationControl.xaml.cs">
+      <DependentUpon>StringOrFileConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TitleControl.xaml.cs">
       <DependentUpon>TitleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DropDownButton.cs" />
+    <Compile Include="Controls\ToolTipDecorator.xaml.cs">
+      <DependentUpon>ToolTipDecorator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Errors.cs" />
     <Compile Include="ValidatableBindableBase.cs" />
     <Compile Include="Extensions\NotifyPropertyChangedExtensions.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -95,7 +142,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\EditableStringsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FilesPickerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FilesPicker\Url\AddUrlsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\OpenFileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SaveFileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StringOrFileConfigurationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\TitleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ToolTipDecorator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XamlResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

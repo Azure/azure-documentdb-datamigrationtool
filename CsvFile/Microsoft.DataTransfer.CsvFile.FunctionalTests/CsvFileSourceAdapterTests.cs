@@ -36,7 +36,7 @@ namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
 
             var records = await CsvFileHelper.ReadCsv(configuration);
 
-            Assert.AreEqual(5, records.Count, TestResources.UnexpectedRecordsProcessed);
+            Assert.AreEqual(3, records.Count, TestResources.UnexpectedRecordsProcessed);
             Assert.AreEqual(6, records[0].GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
         }
 

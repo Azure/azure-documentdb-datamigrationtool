@@ -70,11 +70,29 @@ namespace Microsoft.DataTransfer.CsvFile {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid number of columns: {0}, expected {1}.
+        /// </summary>
+        internal static string InvalidNumberOfColumnsFormat {
+            get {
+                return ResourceManager.GetString("InvalidNumberOfColumnsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reads data from CSV files, either one or multiple.
         /// </summary>
         internal static string SourceDescription {
             get {
                 return ResourceManager.GetString("SourceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected character at row {0}, position {1}: &quot;{2}&quot;.
+        /// </summary>
+        internal static string UnexpectedCharacterFormat {
+            get {
+                return ResourceManager.GetString("UnexpectedCharacterFormat", resourceCulture);
             }
         }
     }

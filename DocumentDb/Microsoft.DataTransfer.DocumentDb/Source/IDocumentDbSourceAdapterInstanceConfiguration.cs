@@ -1,9 +1,9 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Shared;
-
+﻿
 namespace Microsoft.DataTransfer.DocumentDb.Source
 {
-    interface IDocumentDbSourceAdapterInstanceConfiguration : IDocumentDbAdapterInstanceConfiguration
+    interface IDocumentDbSourceAdapterInstanceConfiguration
     {
+        string Collection { get; }
         string Query { get; }
     }
 }

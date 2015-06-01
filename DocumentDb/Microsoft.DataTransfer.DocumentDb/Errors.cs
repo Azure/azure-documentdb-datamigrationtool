@@ -1,7 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Exceptions;
 using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Microsoft.DataTransfer.DocumentDb
 {
@@ -105,6 +105,51 @@ namespace Microsoft.DataTransfer.DocumentDb
         public static Exception DocumentSizeExceedsBulkScriptSize()
         {
             return new DocumentSizeExceedsScriptSizeLimitException(Resources.DocumentSizeExceedsBulkScriptSize);
+        }
+
+        public static Exception OperationNotSupported([CallerMemberName] string operationName = null)
+        {
+            return new NotSupportedException(FormatMessage(Resources.OperationNotSupportedFormat, operationName));
+        }
+
+        public static Exception UnexpectedCharacter(int position, char character)
+        {
+            return new FormatException(FormatMessage(Resources.UnexpectedCharacterFormat, position, character));
+        }
+
+        public static Exception FailedToExtractPartitionKey(string message)
+        {
+            return new InvalidOperationException(FormatMessage(Resources.FailedToExtractPartitionKeyFormat, message));
+        }
+
+        public static Exception UnexpectedPartitionCollection(string collectionName)
+        {
+            return new ArgumentException(FormatMessage(Resources.UnexpectedPartitionCollectionFormat, collectionName));
+        }
+
+        public static Exception FailedToReadSubstituion(string message)
+        {
+            return new FormatException(FormatMessage(Resources.FailedToReadSubstituionFormat, message));
+        }
+
+        public static Exception FailedToReadJavascriptMemberExpression(string message)
+        {
+            return new FormatException(FormatMessage(Resources.FailedToReadJavascriptMemberExpressionFormat, message));
+        }
+
+        public static Exception NotANumber(string value)
+        {
+            return new FormatException(FormatMessage(Resources.NotANumberFormat, value));
+        }
+
+        public static Exception InvalidRange(int start, int end)
+        {
+            return new ArgumentException(FormatMessage(Resources.InvalidRangeFormat, start, end));
+        }
+
+        public static Exception UnexpectedAsyncFlushError(Exception error)
+        {
+            return new Exception(FormatMessage(Resources.UnexpectedAsyncFlushErrorMessageFormat, error.Message), error);
         }
     }
 }

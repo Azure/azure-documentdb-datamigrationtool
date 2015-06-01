@@ -8,9 +8,14 @@ namespace Microsoft.DataTransfer.DocumentDb.Transformation.Dates
         public EpochDateTimeDataItem(IDataItem dataItem)
             : base(dataItem) { }
 
-        protected override object GetValue(DateTime timeStamp)
+        protected override object ConvertDateTime(DateTime timeStamp)
         {
             return DateTimeConverter.ToEpoch(timeStamp);
+        }
+
+        protected override IDataItem TransformDataItem(IDataItem original)
+        {
+            return new EpochDateTimeDataItem(original);
         }
     }
 }

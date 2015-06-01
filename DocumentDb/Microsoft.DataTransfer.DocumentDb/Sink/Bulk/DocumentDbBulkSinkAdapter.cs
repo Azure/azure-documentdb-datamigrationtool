@@ -17,19 +17,18 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapter : DocumentDbAdapterBase<IDocumentDbWriteClient, IDocumentDbBulkSinkAdapterInstanceConfiguration>, IDataSinkAdapter
     {
-        private const string BulkImportStoredProcPrefix = "BulkImport";
-
         private string storedProcedureLink;
         private FastForwardBuffer<BulkItemSurrogate> buffer;
         private LengthCappedEnumerableSurrogate surrogate;
-        private int currentItemIndex;
+        private int numberOfItems;
         private ConcurrentDictionary<int, TaskCompletionSource<object>> activeBulkItems;
 
         private SemaphoreSlim flushSemaphore;
 
         public int MaxDegreeOfParallelism
         {
-            get { return Configuration.BatchSize; }
+            // Allow framework to read one bulk ahead, so that flush will not starve
+            get { return Configuration.BatchSize * 2; }
         }
 
         public DocumentDbBulkSinkAdapter(IDocumentDbWriteClient client, IDataItemTransformation transformation, IDocumentDbBulkSinkAdapterInstanceConfiguration configuration)
@@ -37,15 +36,14 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
         public async Task InitializeAsync()
         {
-            var collectionLink = await Client.GetOrCreateCollectionAsync(Configuration.CollectionName, Configuration.CollectionTier);
-            storedProcedureLink = await Client.CreateStoredProcedureAsync(collectionLink,
-                BulkImportStoredProcPrefix + Guid.NewGuid().ToString("N"), Configuration.StoredProcBody);
+            var collectionLink = await Client.GetOrCreateCollectionAsync(Configuration.Collection, Configuration.CollectionTier);
+            storedProcedureLink = await Client.CreateStoredProcedureAsync(collectionLink, Configuration.StoredProcName, Configuration.StoredProcBody);
 
             buffer = new FastForwardBuffer<BulkItemSurrogate>();
-            surrogate = new LengthCappedEnumerableSurrogate(buffer, Configuration.MaxScriptSize);
+            surrogate = new LengthCappedEnumerableSurrogate(buffer, Configuration.BatchSize, Configuration.MaxScriptSize);
             activeBulkItems = new ConcurrentDictionary<int, TaskCompletionSource<object>>();
 
-            flushSemaphore = new SemaphoreSlim(1);
+            flushSemaphore = new SemaphoreSlim(1, 1);
         }
 
         public Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
@@ -53,20 +51,38 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             if (String.IsNullOrEmpty(storedProcedureLink))
                 throw Errors.SinkIsNotInitialized();
 
-            currentItemIndex = Interlocked.Increment(ref currentItemIndex);
+            var currentItemIndex = Interlocked.Increment(ref numberOfItems);
             buffer.Add(new BulkItemSurrogate(currentItemIndex, Transformation.Transform(dataItem)));
 
-            TaskCompletionSource<object> waitTaskCompletionSource;
+            var waitTaskCompletionSource = new TaskCompletionSource<object>();
+            if (!activeBulkItems.TryAdd(currentItemIndex, waitTaskCompletionSource))
+                throw Errors.BufferSlotIsOccupied();
 
-            if (buffer.Count < Configuration.BatchSize)
+            if (HaveEnoughRecordsForBatch() && flushSemaphore.Wait(0))
             {
-                if (!activeBulkItems.TryAdd(currentItemIndex, waitTaskCompletionSource = new TaskCompletionSource<object>()))
-                    throw Errors.BufferSlotIsOccupied();
-
-                return waitTaskCompletionSource.Task;
+                // If we are not flushing yet - fire and forget flush task
+                FlushWhileAsync(HaveEnoughRecordsForBatch, true, cancellation)
+                    .ContinueWith(HandleUnexpectedFlushFailure, TaskContinuationOptions.OnlyOnFaulted);
             }
 
-            return FlushCurrentBufferSynchronizedAsync(currentItemIndex);
+            return waitTaskCompletionSource.Task;
+        }
+
+        private void HandleUnexpectedFlushFailure(Task failed)
+        {
+            // When async flush operation fails - report it on the first document in the list.
+            // It is not related to the document, but we need to report it somewhere, so that
+            // it will not go unnoticed.
+            foreach (var index in activeBulkItems.Keys)
+            {
+                TaskCompletionSource<object> waitHandle;
+                if (!activeBulkItems.TryRemove(index, out waitHandle))
+                    continue;
+
+                waitHandle.SetException(Errors.UnexpectedAsyncFlushError(failed.Exception));
+            }
+
+            // It might be so that we cannot find anything - let's assume we flushed everything successfully
         }
 
         public async Task CompleteAsync(CancellationToken cancellation)
@@ -75,8 +91,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
             try
             {
-                while (buffer.Count > 0)
-                    await FlushCurrentBufferSynchronizedAsync(null);
+                await FlushWhileAsync(HaveAnyRecords, false, CancellationToken.None);
             }
             catch (Exception exception)
             {
@@ -89,31 +104,56 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 exceptionInfo.Throw();
         }
 
-        private async Task FlushCurrentBufferSynchronizedAsync(int? ownedDocumentIndex)
+        private async Task FlushWhileAsync(Func<bool> condition, bool lockAcquired, CancellationToken cancellationToken)
         {
-            // Synchronized version to prevent multiple flushes happening in parallel
-            // This is necessary when we got to the end, and CompleteAsync is about to flush
-            if (buffer.Count <= 0)
-                return;
+            // NOTE: This task will run in the background, so we need to make sure it is robust enough
 
-            await flushSemaphore.WaitAsync();
             try
             {
-                if (buffer.Count > 0)
-                    await FlushCurrentBufferAsync(ownedDocumentIndex);
+                while (condition())
+                {
+                    if (lockAcquired)
+                    {
+                        // Actual lock will be released in the finally
+                        lockAcquired = false;
+                    }
+                    else
+                    {
+                        await flushSemaphore.WaitAsync(cancellationToken);
+                    }
+
+                    IEnumerable<BulkInsertItemState> response;
+                    try
+                    {
+                        if (!condition())
+                            continue;
+
+                        response = await FlushCurrentBufferAsync();
+                        buffer.SkipForward(response.Count());
+                    }
+                    finally
+                    {
+                        flushSemaphore.Release();
+                    }
+
+                    ReportTasksStatus(response);
+                }
             }
             finally
             {
-                flushSemaphore.Release();
+                if (lockAcquired)
+                    // If while condition was not satisfied - finally block did not execute, release the lock
+                    flushSemaphore.Release();
             }
         }
 
-        private async Task FlushCurrentBufferAsync(int? ownedDocumentIndex)
+        private async Task<IEnumerable<BulkInsertItemState>> FlushCurrentBufferAsync()
         {
             IEnumerable<BulkInsertItemState> response = null;
             try
             {
-                response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(storedProcedureLink, surrogate, Configuration.DisableIdGeneration ? 1 : 0);
+                response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(
+                    storedProcedureLink, surrogate, Configuration.DisableIdGeneration ? 1 : 0);
             }
             catch (DocumentSizeExceedsScriptSizeLimitException documentTooLarge)
             {
@@ -135,62 +175,61 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             }
             catch (Exception exception)
             {
-                // In case of a stored procedure failure - fail all items: sorry, it's a bulk operation :)
-                FailAllActiveBatches(exception, ownedDocumentIndex.HasValue);
+                // Obtain last serialized document indexes, and report exception on their tasks
+                // ConcurrentDictionary<,>.Keys will actually clone the collection, so we are good
+                var lastIndexes = activeBulkItems.Keys;
 
-                // If executing as part of the write - rethrow, otherwise ignore - will be reported on the item's task
-                if (ownedDocumentIndex.HasValue) throw;
+                var responseIndex = -1;
+                var responseArray = new BulkInsertItemState[surrogate.LastSerializedCount];
+                foreach (var index in lastIndexes)
+                {
+                    if (++responseIndex >= surrogate.LastSerializedCount)
+                        break;
 
-                return;
+                    responseArray[responseIndex] = new BulkInsertItemState
+                    {
+                        DocumentIndex = index,
+                        ErrorMessage = exception.Message
+                    };
+                }
+
+                response = responseArray;
             }
 
-            // Clean-up the buffer, because as soon as we start reporting completion - more items will be added, and buffer is not thread-safe
-            buffer.SkipForward(response.Count());
+            return response ?? Enumerable.Empty<BulkInsertItemState>();
+        }
 
-            Exception ownedDocumentError = null;
+        private void ReportTasksStatus(IEnumerable<BulkInsertItemState> response)
+        {
             foreach (var item in response)
             {
                 var itemError = String.IsNullOrEmpty(item.ErrorMessage) ? null : Errors.FailedToCreateDocument(item.ErrorMessage);
 
                 TaskCompletionSource<object> waitHandle;
                 if (!activeBulkItems.TryRemove(item.DocumentIndex, out waitHandle))
-                {
-                    // We are in the task that is responsible to report the state of the document, preserve the error
-                    if (item.DocumentIndex == ownedDocumentIndex && itemError != null)
-                        ownedDocumentError = itemError;
                     continue;
-                }
 
                 if (itemError == null)
                     waitHandle.SetResult(null);
                 else
                     waitHandle.SetException(itemError);
             }
-
-            if (ownedDocumentError != null)
-                throw ownedDocumentError;
-        }
-
-        private void FailAllActiveBatches(Exception exception, bool skipSelf)
-        {
-            // Obtain all active items' indexes, so we can report exception on their tasks
-            // ConcurrentDictionary<,>.Keys will actually clone the collection, so we are good
-            var activeIndexes = activeBulkItems.Keys;
-
-            // Clean-up the buffer first - it is not thread-safe
-            // If we are running as part of the write task - our index will not be in activeIndexes - account for it based on the skipSelf
-            buffer.SkipForward(activeIndexes.Count + (skipSelf ? 1 : 0));
-
-            TaskCompletionSource<object> waitHandle;
-            foreach (var index in activeIndexes)
-                if (activeBulkItems.TryRemove(index, out waitHandle))
-                    waitHandle.SetException(exception);
         }
 
         private async Task CleanupAsync()
         {
             if (!String.IsNullOrEmpty(storedProcedureLink))
                 await Client.DeleteStoredProcedureAsync(storedProcedureLink);
+        }
+
+        private bool HaveAnyRecords()
+        {
+            return buffer.Count > 0;
+        }
+
+        private bool HaveEnoughRecordsForBatch()
+        {
+            return buffer.Count > Configuration.BatchSize;
         }
 
         public override void Dispose()

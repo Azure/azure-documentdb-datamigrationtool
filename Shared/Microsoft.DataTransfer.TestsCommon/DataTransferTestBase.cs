@@ -1,4 +1,4 @@
-﻿using Microsoft.DataTransfer.Basics;
+﻿using Microsoft.DataTransfer.Basics.IO;
 using Microsoft.DataTransfer.TestsCommon.SampleData;
 using Microsoft.DataTransfer.TestsCommon.Settings;
 using System;

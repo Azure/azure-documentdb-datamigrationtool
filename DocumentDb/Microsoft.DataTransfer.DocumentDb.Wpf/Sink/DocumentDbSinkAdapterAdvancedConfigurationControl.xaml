@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:sink="clr-namespace:Microsoft.DataTransfer.DocumentDb.Sink;assembly=Microsoft.DataTransfer.DocumentDb"
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -16,7 +16,7 @@
         <ResourceDictionary Source="..\XamlResources.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
-      <ObjectDataProvider x:Key="DateTimeHandlingValues" ObjectType="{x:Type System:Enum}" MethodName="GetValues">
+      <ObjectDataProvider x:Key="DateTimeHandlingValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
         <ObjectDataProvider.MethodParameters>
           <x:Type TypeName="sink:DateTimeHandling" />
         </ObjectDataProvider.MethodParameters>
@@ -25,9 +25,9 @@
   </UserControl.Resources>
 
   <StackPanel>
-    <ebc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource DisableIdGenerationDescriptionKey}">
+    <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource DisableIdGenerationDescriptionKey}">
       <CheckBox Content="{DynamicResource DisableIdGenerationKey}" IsChecked="{Binding DisableIdGeneration}" />
-    </ebc:ToolTipDecorator>
+    </bc:ToolTipDecorator>
     
     <StackPanel Style="{StaticResource OptionElement}">
       <Label Content="{DynamicResource DatesHandlingKey}" />

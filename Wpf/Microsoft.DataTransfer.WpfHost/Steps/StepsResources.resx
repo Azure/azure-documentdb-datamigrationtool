@@ -120,6 +120,9 @@
   <data name="ImportStepTitle" xml:space="preserve">
     <value>Results</value>
   </data>
+  <data name="InfrastructureStepTitle" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
   <data name="SinkSetupStepTitle" xml:space="preserve">
     <value>Target Information</value>
   </data>

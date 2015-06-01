@@ -55,7 +55,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                         throw new Exception();
                 });
 
-            var statistics = new ThreadSafeTransferStatistics();
+            var statistics = new InMemoryTransferStatistics();
             using (var source = new DataSourceAdapterMock(sourceData))
             using (var sink = sinkMock)
                 await action.ExecuteAsync(source, sink, statistics, CancellationToken.None);
@@ -67,6 +67,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
 
             var resultStatistics = statistics.GetSnapshot();
             Assert.AreEqual(ThrowAfter, resultStatistics.Transferred, TestResources.StatisticsInvalidTransferredCount);
+            Assert.AreEqual(NumberOfItems - ThrowAfter, resultStatistics.Failed, TestResources.StatisticsInvalidFailedCount);
             Assert.AreNotEqual(TimeSpan.Zero, resultStatistics.ElapsedTime, TestResources.StatisticsElapsedTimeIsEmpty);
 
             var resultExceptions = resultStatistics.GetErrors();
@@ -92,7 +93,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                 });
             var sinkMock = new DataSinkAdapterMock();
 
-            var statistics = new ThreadSafeTransferStatistics();
+            var statistics = new InMemoryTransferStatistics();
             using (var source = sourceMock)
             using (var sink = sinkMock)
                 await action.ExecuteAsync(source, sink, statistics, CancellationToken.None);
@@ -104,6 +105,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
 
             var resultStatistics = statistics.GetSnapshot();
             Assert.AreEqual(ThrowAfter, resultStatistics.Transferred, TestResources.StatisticsInvalidTransferredCount);
+            Assert.AreEqual(NumberOfItems - ThrowAfter, resultStatistics.Failed, TestResources.StatisticsInvalidFailedCount);
             Assert.AreNotEqual(TimeSpan.Zero, resultStatistics.ElapsedTime, TestResources.StatisticsElapsedTimeIsEmpty);
 
             var resultExceptions = resultStatistics.GetErrors();

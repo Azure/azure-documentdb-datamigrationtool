@@ -14,7 +14,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
     {
         private const string CollectionName = "TestCollection";
 
-        [TestMethod, Timeout(120000)]
+        [TestMethod, Timeout(300000)]
         public async Task CreateAsync_QueryAndQueryFileBothSet_ArgumentExceptionThrown()
         {
             const string Query = "SELECT * FROM Collection";

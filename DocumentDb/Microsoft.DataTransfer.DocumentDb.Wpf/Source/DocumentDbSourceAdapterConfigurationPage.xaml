@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared" 
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -21,19 +22,27 @@
       <Grid Style="{StaticResource FixScrollViewerAdorner}">
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
           <RowDefinition Height="150" />
           <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <shared:DocumentDbAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
 
-        <ebc:StringOrFileConfigurationControl Grid.Row="1" Style="{StaticResource OptionElement}"
+        <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+          <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionPatternDescriptionKey}">
+            <Label Content="{DynamicResource CollectionPatternKey}" />
+          </bc:ToolTipDecorator>
+          <TextBox Text="{Binding Collection, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+        </StackPanel>
+
+        <bc:StringOrFileConfigurationControl Grid.Row="2" Style="{StaticResource OptionElement}"
           UseFile="{Binding UseQueryFile}"
           StringValueLabel="{DynamicResource EnterQuerySelectionKey}" StringValue="{Binding Query}"
           FileNameLabel="{DynamicResource QueryFileSelectionKey}" FileName="{Binding QueryFile}"
           FileFilter="{DynamicResource QueryFileFilterKey}" FileDefaultExtension="{DynamicResource QueryFileDefaultExtensionKey}" />
 
-        <Expander Grid.Row="2" Style="{StaticResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
+        <Expander Grid.Row="3" Style="{StaticResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
           <StackPanel>
             <CheckBox Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource IncludeInternalFieldsKey}" IsChecked="{Binding InternalFields}" />
 

@@ -48,7 +48,9 @@ namespace Microsoft.DataTransfer.CsvFile.Source
         {
             return new CsvFileSourceAdapterInstanceConfiguration
             {
-                NestingSeparator = configuration.NestingSeparator
+                NestingSeparator = configuration.NestingSeparator,
+                TrimQuoted = configuration.TrimQuoted,
+                NoUnquotedNulls = configuration.NoUnquotedNulls
             };
         }
     }

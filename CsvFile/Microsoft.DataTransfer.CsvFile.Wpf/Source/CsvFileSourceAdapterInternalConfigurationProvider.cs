@@ -2,7 +2,6 @@
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
@@ -29,10 +28,16 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
-            arguments.Add(CsvFileSourceAdapterConfiguration.FilesPropertyName, String.Join(";", configuration.Files.Select(f => f.Replace(";", @"\;"))));
+            arguments.Add(CsvFileSourceAdapterConfiguration.FilesPropertyName, AsCollectionArgument(configuration.Files));
 
             if (!String.IsNullOrEmpty(configuration.NestingSeparator))
                 arguments.Add(CsvFileSourceAdapterConfiguration.NestingSeparatorPropertyName, configuration.NestingSeparator);
+
+            if (configuration.TrimQuoted)
+                arguments.Add(CsvFileSourceAdapterConfiguration.TrimQuotedPropertyName, null);
+
+            if (configuration.NoUnquotedNulls)
+                arguments.Add(CsvFileSourceAdapterConfiguration.NoUnquotedNullsPropertyName, null);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.Extensibility.Basics.Source
@@ -43,8 +44,21 @@ namespace Microsoft.DataTransfer.Extensibility.Basics.Source
             if (!fields.TryGetValue(fieldName, out value))
                 throw CommonErrors.DataItemFieldNotFound(fieldName);
 
+            return GetValue(value);
+        }
+
+        private object GetValue(object value)
+        {
             if (value is IReadOnlyDictionary<string, object>)
                 return new DictionaryDataItem((IReadOnlyDictionary<string, object>)value);
+
+            if (value is IEnumerable && !(value is string))
+            {
+                var result = new List<object>();
+                foreach (var item in (IEnumerable)value)
+                    result.Add(GetValue(item));
+                return result;
+            }
 
             return value;
         }

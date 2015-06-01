@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.WpfHost.Basics.Controls.OpenFileControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DesignHeight="30" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="SelectButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="Width" Value="70" />
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <DockPanel x:Name="LayoutRoot">
+    <Button DockPanel.Dock="Right" Style="{StaticResource SelectButton}" 
+      Content="{DynamicResource SelectFileKey}"
+      Command="{Binding SelectFile}" />
+
+    <TextBox DockPanel.Dock="Left"
+      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+      Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+  </DockPanel>
+
+</UserControl>

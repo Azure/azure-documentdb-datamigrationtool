@@ -1,11 +1,15 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Source;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.DocumentDb.Source;
 using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
 {
     sealed class DocumentDbSourceAdapterConfiguration : DocumentDbAdapterConfiguration, IDocumentDbSourceAdapterConfiguration
     {
+        public static readonly string CollectionPropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.Collection);
+
         public static readonly string InternalFieldsPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.InternalFields);
 
@@ -15,10 +19,19 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
         public static readonly string QueryFilePropertyName =
             ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.QueryFile);
 
+        private string collection;
+
         private bool internalFields;
+
         private bool useQueryFile;
         private string query;
         private string queryFile;
+
+        public string Collection
+        {
+            get { return collection; }
+            set { SetProperty(ref collection, value, ValidateNonEmptyString); }
+        }
 
         public bool InternalFields
         {

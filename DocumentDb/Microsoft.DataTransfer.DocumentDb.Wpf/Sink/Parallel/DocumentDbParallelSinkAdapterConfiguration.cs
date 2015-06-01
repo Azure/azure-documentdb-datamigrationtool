@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Sink.Parallel;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.DocumentDb.Sink.Parallel;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
 {

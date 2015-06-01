@@ -1,6 +1,6 @@
-﻿using Microsoft.DataTransfer.MongoDb.Source.Online;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.MongoDb.Source.Online;
 using Microsoft.DataTransfer.MongoDb.Wpf.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
 
 namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Online
 {

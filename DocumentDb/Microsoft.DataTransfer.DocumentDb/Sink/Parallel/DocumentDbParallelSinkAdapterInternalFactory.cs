@@ -2,6 +2,7 @@
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
@@ -13,21 +14,22 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             get { return Resources.ParallelSinkDescription; }
         }
 
-        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client,
-            IDataItemTransformation transformation, IDocumentDbParallelSinkAdapterConfiguration configuration)
+        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
+            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
         {
-            var sink = new DocumentDbParallelSinkAdapter(client, transformation, GetInstanceConfiguration(configuration));
+            var sink = new DocumentDbParallelSinkAdapter(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
             await sink.InitializeAsync();
             return sink;
         }
 
-        private static DocumentDbParallelSinkAdapterInstanceConfiguration GetInstanceConfiguration(IDocumentDbParallelSinkAdapterConfiguration configuration)
+        private static DocumentDbParallelSinkAdapterInstanceConfiguration GetInstanceConfiguration(
+            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
         {
             Guard.NotNull("configuration", configuration);
 
             return new DocumentDbParallelSinkAdapterInstanceConfiguration
             {
-                CollectionName = configuration.Collection,
+                Collections = collectionNames,
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 NumberOfParallelRequests = GetValueOrDefault(configuration.ParallelRequests,

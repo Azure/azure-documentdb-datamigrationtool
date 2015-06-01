@@ -3,7 +3,7 @@ using Microsoft.DataTransfer.Core.FactoryAdapters;
 using Microsoft.DataTransfer.Core.Service;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.ServiceModel;
-using Microsoft.DataTransfer.ServiceModel.Entities;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

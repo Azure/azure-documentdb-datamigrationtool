@@ -1,4 +1,4 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Entities;
+﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
 
 namespace Microsoft.DataTransfer.WpfHost.Steps.Import
 {

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.Sql.Wpf.Shared" 
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -26,17 +27,17 @@
 
       <shared:SqlDataAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
 
-      <ebc:StringOrFileConfigurationControl Grid.Row="1" Style="{StaticResource OptionElement}"
+      <bc:StringOrFileConfigurationControl Grid.Row="1" Style="{StaticResource OptionElement}"
         UseFile="{Binding UseQueryFile}"
         StringValueLabel="{DynamicResource EnterQuerySelectionKey}" StringValue="{Binding Query, UpdateSourceTrigger=PropertyChanged}"
         FileNameLabel="{DynamicResource QueryFileSelectionKey}" FileName="{Binding QueryFile, UpdateSourceTrigger=PropertyChanged}"
         FileFilter="{DynamicResource QueryFileFilterKey}" FileDefaultExtension="{DynamicResource QueryFileDefaultExtensionKey}" />
 
       <StackPanel Grid.Row="2" Style="{StaticResource OptionElement}">
-        <ebc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
+        <bc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
           <Label Content="{DynamicResource NestingSeparatorKey}" />
-        </ebc:ToolTipDecorator>
-        <TextBox Text="{Binding NestingSeparator, UpdateSourceTrigger=PropertyChanged}" />
+        </bc:ToolTipDecorator>
+        <TextBox Text="{Binding NestingSeparator, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
       </StackPanel>
     </Grid>
   </AdornerDecorator>

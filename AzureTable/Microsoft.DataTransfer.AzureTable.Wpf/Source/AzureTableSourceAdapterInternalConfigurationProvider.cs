@@ -45,9 +45,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Source
                 arguments.Add(AzureTableSourceAdapterConfiguration.FilterPropertyName, configuration.Filter);
 
             if (configuration.Projection != null && configuration.Projection.Any())
-                arguments.Add(
-                    AzureTableSourceAdapterConfiguration.ProjectionPropertyName,
-                    String.Join(";", configuration.Projection.Select(f => f.Replace(";", @"\;"))));
+                arguments.Add(AzureTableSourceAdapterConfiguration.ProjectionPropertyName, AsCollectionArgument(configuration.Projection));
         }
     }
 }

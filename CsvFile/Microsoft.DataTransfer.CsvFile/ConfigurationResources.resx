@@ -123,4 +123,10 @@
   <data name="Source_NestingSeparator" xml:space="preserve">
     <value>Optional. Special character in the column name to indicate that nested document is needed</value>
   </data>
+  <data name="Source_NoUnquotedNulls" xml:space="preserve">
+    <value>Optional. If unquoted NULL string should be treated as string</value>
+  </data>
+  <data name="Source_TrimQuoted" xml:space="preserve">
+    <value>Optional. If empty space at the start and end of the quoted value should be removed</value>
+  </data>
 </root>

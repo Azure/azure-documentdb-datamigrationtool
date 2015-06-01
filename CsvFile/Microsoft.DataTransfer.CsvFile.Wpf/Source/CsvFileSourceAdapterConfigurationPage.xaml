@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="400">
   
@@ -20,21 +21,29 @@
       <Grid.RowDefinitions>
         <RowDefinition />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
       
       <DockPanel Grid.Row="0" Style="{StaticResource OptionElement}">
-        <ebc:FilesPickerControl DockPanel.Dock="Bottom"
+        <bc:FilesPickerControl DockPanel.Dock="Bottom"
           Files="{Binding EditableFiles}"
           Filter="{DynamicResource OpenFilesFilterKey}"
           DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
       </DockPanel>
 
       <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
-        <ebc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
+        <bc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
           <Label Content="{DynamicResource NestingSeparatorKey}" />
-        </ebc:ToolTipDecorator>
-        <TextBox Text="{Binding NestingSeparator, UpdateSourceTrigger=PropertyChanged}" />
+        </bc:ToolTipDecorator>
+        <TextBox Text="{Binding NestingSeparator, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
       </StackPanel>
+
+      <CheckBox Grid.Row="2" Style="{StaticResource SingleLineOptionElement}" 
+        Content="{DynamicResource TrimQuotedKey}" IsChecked="{Binding TrimQuoted}" />
+
+      <CheckBox Grid.Row="3" Style="{StaticResource SingleLineOptionElement}"
+        Content="{DynamicResource NoUnquotedNullsKey}" IsChecked="{Binding NoUnquotedNulls}" />
     </Grid>
   </AdornerDecorator>
   

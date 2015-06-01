@@ -1,5 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
 using Microsoft.DataTransfer.DocumentDb.Shared;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
@@ -14,31 +15,23 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
     {
         private const string DocumentIdFieldName = "id";
 
-        private IEnumerator<IReadOnlyDictionary<string, object>> documentsCursor;
+        private IAsyncEnumerator<IReadOnlyDictionary<string, object>> documentsCursor;
 
         public DocumentDbSourceAdapter(IDocumentDbReadClient client, IDataItemTransformation transformation, IDocumentDbSourceAdapterInstanceConfiguration configuration)
             : base(client, transformation, configuration) { }
 
-        public void Initialize()
+        public async Task InitializeAsync()
         {
-            documentsCursor = Client
-                .QueryDocuments(Configuration.CollectionName, Configuration.Query)
-                .GetEnumerator();
+            documentsCursor = await Client
+                .QueryDocumentsAsync(Configuration.Collection, Configuration.Query);
         }
 
-        public Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
+        public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             if (documentsCursor == null)
                 throw Errors.SourceIsNotInitialized();
 
-            return Task.Factory.StartNew<IDataItem>(ReadNext, readOutput);
-        }
-
-        private IDataItem ReadNext(object taskState)
-        {
-            var readOutput = (ReadOutputByRef)taskState;
-
-            if (!documentsCursor.MoveNext())
+            if (!(await documentsCursor.MoveNextAsync()))
                 return null;
 
             var document = documentsCursor.Current;

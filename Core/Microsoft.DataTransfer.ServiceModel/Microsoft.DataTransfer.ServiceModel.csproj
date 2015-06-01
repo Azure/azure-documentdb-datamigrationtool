@@ -32,6 +32,7 @@
   <Import Project="..\..\Solution Items\CommonProperties.proj" />
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,12 +44,18 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConfigurationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConfigurationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics\ITransferStatisticsConfiguration.cs" />
     <Compile Include="Entities\IDataAdapterDefinition.cs" />
-    <Compile Include="Entities\ITransferStatistics.cs" />
-    <Compile Include="Entities\ITransferStatisticsSnapshot.cs" />
+    <Compile Include="Statistics\ITransferStatistics.cs" />
+    <Compile Include="Statistics\ITransferStatisticsSnapshot.cs" />
     <Compile Include="IDataTransferAction.cs" />
     <Compile Include="IDataTransferService.cs" />
-    <Compile Include="ITransferStatisticsFactory.cs" />
+    <Compile Include="Statistics\ITransferStatisticsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +63,12 @@
       <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigurationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConfigurationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

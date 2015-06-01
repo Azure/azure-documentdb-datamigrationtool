@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
 using Microsoft.DataTransfer.DocumentDb.Source;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
@@ -27,20 +28,23 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
 
             var client = Mocks
                     .Of<IDocumentDbReadClient>()
-                    .Where(m => m.QueryDocuments(TestCollectionName, TestQuery) == sampleData)
+                    .Where(m => 
+                        m.QueryDocumentsAsync(TestCollectionName, TestQuery) ==
+                            Task.FromResult<IAsyncEnumerator<IReadOnlyDictionary<string, object>>>(
+                                new AsyncEnumeratorMock<Dictionary<string, object>>(sampleData.OfType<Dictionary<string, object>>().GetEnumerator())))
                     .First();
 
             var configuration = Mocks
                     .Of<IDocumentDbSourceAdapterInstanceConfiguration>()
                     .Where(m => 
-                        m.CollectionName == TestCollectionName && 
+                        m.Collection == TestCollectionName && 
                         m.Query == TestQuery)
                     .First();
 
             var readResults = new List<IDataItem>();
             using (var adapter = new DocumentDbSourceAdapter(client, PassThroughTransformation.Instance, configuration))
             {
-                adapter.Initialize();
+                await adapter.InitializeAsync();
 
                 IDataItem dataItem;
                 while ((dataItem = await adapter.ReadNextAsync(ReadOutputByRef.None, CancellationToken.None)) != null)

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.RavenDb.Wpf.Shared.RavenDbAdapterConnectionConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="100" d:DesignWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="ConnectionStringConfiguration" TargetType="Grid">
+        <Style.Resources>
+          <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="Padding" Value="10,0" />
+          </Style>
+        </Style.Resources>
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <StackPanel x:Name="LayoutRoot" Style="{StaticResource OptionElement}">
+    <bc:ToolTipDecorator ToolTip="{DynamicResource ConnectionStringDescriptionKey}">
+      <Label Content="{DynamicResource ConnectionStringKey}" />
+    </bc:ToolTipDecorator>
+
+    <Grid Style="{StaticResource ConnectionStringConfiguration}">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <TextBox Grid.Column="0" Text="{Binding Configuration.ConnectionString, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      <Button Grid.Column="1"
+        Validation.ErrorTemplate="{x:Null}"
+        Content="{DynamicResource TestConnectionKey}"
+        Command="{Binding TestConnection}" CommandParameter="{Binding Configuration.ConnectionString}" />
+    </Grid>
+  </StackPanel>
+  
+</UserControl>

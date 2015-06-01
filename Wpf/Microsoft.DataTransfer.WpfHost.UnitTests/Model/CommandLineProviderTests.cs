@@ -1,5 +1,8 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Model;
+using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
@@ -13,6 +16,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == "errors.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "TestSource",
                 new Dictionary<string, string>
                 {
@@ -26,7 +32,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg2", "value" }
                 });
 
-            Assert.AreEqual(96, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(117, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:errors.csv", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SourceArg1:value", TestResources.CommandLineArgumentMissing);
@@ -38,11 +46,45 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
         }
 
         [TestMethod]
+        public void Get_NoInfrastructureArguments_Generated()
+        {
+            var provider = new CommandLineProvider();
+
+            var commandLine = provider.Get(
+                null,
+                "AnotherSource",
+                new Dictionary<string, string>
+                {
+                    { "SourceArg1", "value42" },
+                    { "SourceArg2", "1" }
+                },
+                "SomeSink",
+                new Dictionary<string, string>
+                {
+                    { "SinkArg1", "351" },
+                    { "SinkArg2", "hello" }
+                });
+
+            Assert.AreEqual(100, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/s:AnotherSource", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/s.SourceArg1:value42", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/s.SourceArg2:1", TestResources.CommandLineArgumentMissing);
+
+            StringAssert.Contains(commandLine, "/t:SomeSink", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/t.SinkArg1:351", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/t.SinkArg2:hello", TestResources.CommandLineArgumentMissing);
+        }
+
+        [TestMethod]
         public void Get_NoSourceArguments_Generated()
         {
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == "somefile.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "AnotherSource", null,
                 "SomeSink",
                 new Dictionary<string, string>
@@ -51,7 +93,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg2", "hello" }
                 });
 
-            Assert.AreEqual(63, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(85, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:somefile.csv", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:AnotherSource", TestResources.CommandLineArgumentMissing);
 
@@ -66,6 +110,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == "otherfile.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "SomeSource",
                 new Dictionary<string, string>
                 {
@@ -74,7 +121,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                 },
                 "AnotherSink", null);
 
-            Assert.AreEqual(66, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(90, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:otherfile.csv", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:SomeSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SourceArg1:world", TestResources.CommandLineArgumentMissing);
@@ -89,6 +138,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == @"d:\path with spaces\file.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "TestSource",
                 new Dictionary<string, string>
                 {
@@ -100,7 +152,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg1", "42" },
                 });
 
-            Assert.AreEqual(74, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(115, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:\"d:\\path with spaces\\file.csv\"", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SourceArg1:\"value with spaces\"", TestResources.CommandLineArgumentMissing);
@@ -115,6 +169,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == @"d:\pathwith""quotes""\file.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "TestSource",
                 new Dictionary<string, string>
                 {
@@ -126,7 +183,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg1", "quote\"here" },
                 });
 
-            Assert.AreEqual(67, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(110, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:d:\\pathwith\"\"\"quotes\"\"\"\\file.csv", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SourceArg1:42", TestResources.CommandLineArgumentMissing);
@@ -141,6 +200,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == @"d:\path with spaces and ""quotes""\file.csv" &&
+                    c.OverwriteErrorLog == false).First(),
                 "TestSource",
                 new Dictionary<string, string>
                 {
@@ -152,7 +214,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg1", "quotes\" and \"spaces" },
                 });
 
-            Assert.AreEqual(80, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(138, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:\"d:\\path with spaces and \"\"\"quotes\"\"\"\\file.csv\"", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SourceArg1:42", TestResources.CommandLineArgumentMissing);
@@ -167,6 +231,9 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
             var provider = new CommandLineProvider();
 
             var commandLine = provider.Get(
+                Mocks.Of<IInfrastructureConfiguration>(c =>
+                    c.ErrorLog == "file.csv" &&
+                    c.OverwriteErrorLog == true).First(),
                 "TestSource",
                 new Dictionary<string, string>
                 {
@@ -178,7 +245,10 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
                     { "SinkArg1", "whatever" },
                 });
 
-            Assert.AreEqual(59, commandLine.Length, TestResources.InvalidCommandLineLength);
+            Assert.AreEqual(97, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/ErrorLog:file.csv", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/OverwriteErrorLog", TestResources.CommandLineArgumentMissing);
 
             StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/s.SwitchArg", TestResources.CommandLineArgumentMissing);

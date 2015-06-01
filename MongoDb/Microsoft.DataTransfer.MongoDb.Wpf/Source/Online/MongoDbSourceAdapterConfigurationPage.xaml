@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ebc="clr-namespace:Microsoft.DataTransfer.WpfHost.Extensibility.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Extensibility.Basics"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.MongoDb.Wpf.Shared" 
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -29,13 +29,13 @@
           <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
 
-        <ebc:StringOrFileConfigurationControl Grid.Row="0" Grid.Column="0" Style="{StaticResource OptionElement}"
+        <bc:StringOrFileConfigurationControl Grid.Row="0" Grid.Column="0" Style="{StaticResource OptionElement}"
           UseFile="{Binding UseQueryFile}"
           StringValueLabel="{DynamicResource EnterQuerySelectionKey}" StringValue="{Binding Query}"
           FileNameLabel="{DynamicResource QueryFileSelectionKey}" FileName="{Binding QueryFile}"
           FileFilter="{DynamicResource QueryFileFilterKey}" FileDefaultExtension="{DynamicResource QueryFileDefaultExtensionKey}" />
 
-        <ebc:StringOrFileConfigurationControl Grid.Row="1" Grid.Column="0" Style="{StaticResource OptionElement}"
+        <bc:StringOrFileConfigurationControl Grid.Row="1" Grid.Column="0" Style="{StaticResource OptionElement}"
           UseFile="{Binding UseProjectionFile}"
           StringValueLabel="{DynamicResource EnterProjectionSelectionKey}" StringValue="{Binding Projection}"
           FileNameLabel="{DynamicResource ProjectionFileSelectionKey}" FileName="{Binding ProjectionFile}"

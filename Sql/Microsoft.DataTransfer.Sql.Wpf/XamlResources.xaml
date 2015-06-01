@@ -1,25 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Extensibility.Basics;component/CommonStyles.xaml" />
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- String resources -->
 
-  <System:String x:Key="ConnectionStringKey">Connection String</System:String>
-  <System:String x:Key="ConnectionStringSummaryKey">Connection String:</System:String>
-  <System:String x:Key="TestConnectionKey">Verify</System:String>
+  <system:String x:Key="ConnectionStringKey">Connection String</system:String>
+  <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="TestConnectionKey">Verify</system:String>
   
-  <System:String x:Key="NestingSeparatorKey">Nesting Separator</System:String>
-  <System:String x:Key="NestingSeparatorDescriptionKey">Specify the delimiter to split column names into sub-documents</System:String>
-  <System:String x:Key="NestingSeparatorSummaryKey">Nesting Separator:</System:String>
+  <system:String x:Key="NestingSeparatorKey">Nesting Separator</system:String>
+  <system:String x:Key="NestingSeparatorDescriptionKey">Specify the delimiter to split column names into sub-documents</system:String>
+  <system:String x:Key="NestingSeparatorSummaryKey">Nesting Separator:</system:String>
 
-  <System:String x:Key="QuerySummaryKey">Query:</System:String>
-  <System:String x:Key="EnterQuerySelectionKey">Enter Query</System:String>
-  <System:String x:Key="QueryFileSelectionKey">Select Query File</System:String>
-  <System:String x:Key="QueryFileFilterKey">SQL Query|*.sql|All Files|*.*</System:String>
-  <System:String x:Key="QueryFileDefaultExtensionKey">*.sql</System:String>
+  <system:String x:Key="QuerySummaryKey">Query:</system:String>
+  <system:String x:Key="EnterQuerySelectionKey">Enter Query</system:String>
+  <system:String x:Key="QueryFileSelectionKey">Select Query File</system:String>
+  <system:String x:Key="QueryFileFilterKey">SQL Query|*.sql|All Files|*.*</system:String>
+  <system:String x:Key="QueryFileDefaultExtensionKey">*.sql</system:String>
 
 </ResourceDictionary>

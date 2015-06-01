@@ -36,9 +36,17 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.0.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.1.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.1.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
@@ -70,6 +78,7 @@
     <Compile Include="DocumentDbHelper.cs" />
     <Compile Include="DocumentDbParallelSinkAdapterTests.cs" />
     <Compile Include="DocumentDbAdapterTestBase.cs" />
+    <Compile Include="DocumentDbSinkAdapterTestBase.cs" />
     <Compile Include="DocumentDbSourceAdapterFactoryTests.cs" />
     <Compile Include="DocumentDbSourceAdapterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

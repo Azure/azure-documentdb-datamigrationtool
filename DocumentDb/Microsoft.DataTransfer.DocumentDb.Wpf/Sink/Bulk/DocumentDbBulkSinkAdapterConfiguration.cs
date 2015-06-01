@@ -1,5 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Sink.Bulk;
-using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Extensions;
+using Microsoft.DataTransfer.DocumentDb.Sink.Bulk;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 {

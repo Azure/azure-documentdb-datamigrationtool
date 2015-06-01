@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 {
     [TestClass]
-    public class DocumentDbParallelSinkAdapterTests : DocumentDbAdapterTestBase
+    public class DocumentDbParallelSinkAdapterTests : DocumentDbSinkAdapterTestBase
     {
-        [TestMethod, Timeout(120000)]
+        [TestMethod, Timeout(300000)]
         public async Task WriteSampleData_AllDataStored()
         {
             const string CollectionName = "Data";
@@ -20,19 +20,83 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == CollectionName &&
+                        m.Collection == new[] { CollectionName } &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
                     .First();
 
+            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
+
             using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
                 .CreateAsync(configuration, DataTransferContextMock.Instance))
             {
-                await WriteDataAsync(adapter, SampleData.GetSimpleDataItems(NumberOfItems));
+                await WriteDataAsync(adapter, sampleData);
             }
 
-            Assert.AreEqual(NumberOfItems, DocumentDbHelper.CountDocuments(ConnectionString, CollectionName),
-                TestResources.InvalidNumberOfDocumentsWritten);
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+        }
+
+        [TestMethod, Timeout(300000)]
+        public async Task WriteSampleData_RandomPartitioningAcrossTwoCollections_AllDataStored()
+        {
+            const int NumberOfItems = 100;
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data[0-1]" } &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100)
+                    .First();
+
+            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
+            Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
+
+            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
+            Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
+
+            VerifyData(sampleData, firstCollection.Union(secondCollection));
+        }
+
+        [TestMethod, Timeout(300000)]
+        public async Task WriteSampleData_HashPartitioningAcrossTwoCollections_AllDataStored()
+        {
+            const int NumberOfItems = 100;
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data0", "Data1" } &&
+                        m.PartitionKey == "StringProperty" &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100)
+                    .First();
+
+            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
+            Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
+
+            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
+            Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
+
+            VerifyData(sampleData, firstCollection.Union(secondCollection));
         }
     }
 }
