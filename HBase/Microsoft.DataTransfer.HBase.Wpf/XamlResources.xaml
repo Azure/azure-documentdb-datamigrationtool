@@ -1,0 +1,195 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- String resources -->
+
+  <system:String x:Key="ConnectionStringKey">Connection String</system:String>
+  <system:String x:Key="ConnectionStringDescriptionKey">
+    <![CDATA[Specify a valid HBase Stargate connection string in the following format: ServiceURL=<server-address>;Username=<username>;Password=<password>]]>
+  </system:String>
+  <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="TestConnectionKey">Verify</system:String>
+
+  <system:String x:Key="TableNameKey">Table Name</system:String>
+  <system:String x:Key="TableNameSummaryKey">Table Name:</system:String>
+  
+  <system:String x:Key="FilterSummaryKey">Filter:</system:String>
+  <system:String x:Key="EnterFilterSelectionKey">Enter Filter</system:String>
+  <system:String x:Key="FilterFileSelectionKey">Select Filter File</system:String>
+  <system:String x:Key="FilterFileFilterKey">JSON Files|*.json|All Files|*.*</system:String>
+  <system:String x:Key="FilterFileDefaultExtensionKey">*.json</system:String>
+
+  <system:String x:Key="TemplatesMenuHeader">Templates</system:String>
+
+  <system:String x:Key="FilterTemplatesMenuHeader">Filters</system:String>
+
+  <system:String x:Key="FilterListFilterTemplateMenuHeader">FilterList</system:String>
+  <system:String x:Key="FilterListFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "FilterList",
+  "op": "MUST_PASS_ALL",
+  "filters": [
+    <filter1>,
+    <filter2>
+  ]
+}]]>
+  </system:String>
+  
+  <system:String x:Key="ColumnPrefixFilterTemplateMenuHeader">ColumnPrefixFilter</system:String>
+  <system:String x:Key="ColumnPrefixFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "ColumnPrefixFilter",
+  "value": "<base64-value>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="MultipleColumnPrefixFilterTemplateMenuHeader">MultipleColumnPrefixFilter</system:String>
+  <system:String x:Key="MultipleColumnPrefixFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "MultipleColumnPrefixFilter",
+  "prefixes": [
+    "<base64-value>",
+    "<base64-value>"
+  ]
+}]]>
+  </system:String>
+
+  <system:String x:Key="ColumnRangeFilterTemplateMenuHeader">ColumnRangeFilter</system:String>
+  <system:String x:Key="ColumnRangeFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "ColumnRangeFilter",
+  "minColumn": "<base64-value>",
+  "minColumnInclusive": true,
+  "maxColumn": "<base64-value>",
+  "maxColumnInclusive": false
+}]]>
+  </system:String>
+
+  <system:String x:Key="FamilyFilterTemplateMenuHeader">FamilyFilter</system:String>
+  <system:String x:Key="FamilyFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "FamilyFilter",
+  "op": "EQUAL",
+  "comparator": <comparator>
+}]]>
+  </system:String>
+
+  <system:String x:Key="QualifierFilterTemplateMenuHeader">QualifierFilter</system:String>
+  <system:String x:Key="QualifierFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "QualifierFilter",
+  "op": "GREATER",
+  "comparator": <comparator>
+}]]>
+  </system:String>
+
+  <system:String x:Key="RowFilterTemplateMenuHeader">RowFilter</system:String>
+  <system:String x:Key="RowFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "RowFilter",
+  "op": "EQUAL",
+  "comparator": <comparator>
+}]]>
+  </system:String>
+
+  <system:String x:Key="InclusiveStopFilterTemplateMenuHeader">InclusiveStopFilter</system:String>
+  <system:String x:Key="InclusiveStopFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "InclusiveStopFilter",
+  "value": "<base64-value>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="PrefixFilterTemplateMenuHeader">PrefixFilter</system:String>
+  <system:String x:Key="PrefixFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "PrefixFilter",
+  "value": "<base64-value>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="SingleColumnValueFilterTemplateMenuHeader">SingleColumnValueFilter</system:String>
+  <system:String x:Key="SingleColumnValueFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "SingleColumnValueFilter",
+  "op": "EQUAL",
+  "family": "<base64-value>",
+  "qualifier": "<base64-value>",
+  "latestVersion": true,
+  "comparator": <comparator>
+}]]>
+  </system:String>
+
+  <system:String x:Key="TimestampsFilterTemplateMenuHeader">TimestampsFilter</system:String>
+  <system:String x:Key="TimestampsFilterTemplate" xml:space="preserve">
+<![CDATA[{
+  "type": "TimestampsFilter",
+  "timestamps": [
+    "<timestamp>"
+  ]
+}]]>
+  </system:String>
+
+  <system:String x:Key="ComparatorTemplatesMenuHeader">Comparators</system:String>
+
+  <system:String x:Key="BinaryComparatorTemplateMenuHeader">BinaryComparator</system:String>
+  <system:String x:Key="BinaryComparatorTemplate" xml:space="preserve">
+<![CDATA[{
+    "type": "BinaryComparator",
+    "value": "<base64-value>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="BinaryPrefixComparatorTemplateMenuHeader">BinaryPrefixComparator</system:String>
+  <system:String x:Key="BinaryPrefixComparatorTemplate" xml:space="preserve">
+<![CDATA[{
+    "type": "BinaryPrefixComparator",
+    "value": "<base64-value>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="BitComparatorTemplateMenuHeader">BitComparator</system:String>
+  <system:String x:Key="BitComparatorTemplate" xml:space="preserve">
+<![CDATA[{
+    "type": "BitComparator",
+    "value": "<base64-value>",
+    "bitOperator": "AND"
+}]]>
+  </system:String>
+
+  <system:String x:Key="NullComparatorTemplateMenuHeader">NullComparator</system:String>
+  <system:String x:Key="NullComparatorTemplate" xml:space="preserve">
+<![CDATA[{ "type": "NullComparator" }]]>
+  </system:String>
+
+  <system:String x:Key="RegexStringComparatorTemplateMenuHeader">RegexStringComparator</system:String>
+  <system:String x:Key="RegexStringComparatorTemplate" xml:space="preserve">
+<![CDATA[{
+    "type": "RegexStringComparator",
+    "value": "<regular-expression>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="SubstringComparatorTemplateMenuHeader">SubstringComparator</system:String>
+  <system:String x:Key="SubstringComparatorTemplate" xml:space="preserve">
+<![CDATA[{
+    "type": "SubstringComparator",
+    "value": "<substring>"
+}]]>
+  </system:String>
+
+  <system:String x:Key="ReplaceWithBase64StringMenuHeader">Base64 String</system:String>
+  <system:String x:Key="ReadStringDialogTitleKey">Insert String</system:String>
+  
+  <system:String x:Key="ExcludeRowIdKey">Exclude Row Id</system:String>
+  <system:String x:Key="ExcludeRowIdSummaryKey">Exclude Row Id:</system:String>
+  
+  <system:String x:Key="BatchSizeKey">Batch Size</system:String>
+  <system:String x:Key="BatchSizeSummaryKey">Batch Size:</system:String>
+  
+</ResourceDictionary>

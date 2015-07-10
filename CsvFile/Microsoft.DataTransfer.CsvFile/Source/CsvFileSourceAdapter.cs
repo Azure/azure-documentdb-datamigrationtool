@@ -1,8 +1,8 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Basics.Files.Source;
 using Microsoft.DataTransfer.CsvFile.Reader;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics.Source;
-using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,7 +36,7 @@ namespace Microsoft.DataTransfer.CsvFile.Source
                 if (reader == null)
                 {
                     reader = new CsvReader(
-                        await sourceStreamProvider.CreateReader(),
+                        await sourceStreamProvider.CreateReader(cancellation),
                         new CsvReaderConfiguration
                         {
                             TrimQuoted = configuration.TrimQuoted,

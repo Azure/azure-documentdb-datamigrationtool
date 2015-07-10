@@ -16,7 +16,9 @@
   <system:String x:Key="FileNameSummaryKey">File:</system:String>
   <system:String x:Key="SaveFileFilterKey">JSON Documents|*.json</system:String>
   <system:String x:Key="SaveFileDefaultExtensionKey">*.json</system:String>
-  
+
+  <system:String x:Key="OverwriteSummaryKey">Overwrite:</system:String>
+
   <system:String x:Key="PrettifyKey">Prettify JSON</system:String>
   <system:String x:Key="PrettifySummaryKey">Prettify JSON:</system:String>
 

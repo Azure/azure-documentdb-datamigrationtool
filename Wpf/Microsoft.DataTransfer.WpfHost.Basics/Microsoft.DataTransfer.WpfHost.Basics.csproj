@@ -52,6 +52,9 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CopyToClipboardCommand.cs" />
     <Compile Include="Commands\NavigateUriCommand.cs" />
+    <Compile Include="Commands\PasteToFocusedTextBoxCommand.cs" />
+    <Compile Include="Commands\ReplaceSelectionInFocusedTextBoxCommandBase.cs" />
+    <Compile Include="Commands\ReplaceIndentedTextInFocusedTextBoxCommand.cs" />
     <Compile Include="Commands\SynchronizedAsyncCommand.cs" />
     <Compile Include="Controls\EditableItemsList\AddItemCommand.cs" />
     <Compile Include="Controls\EditableItemsList\EditableItemsListViewModel.cs" />
@@ -68,32 +71,49 @@
     <Compile Include="Controls\FilesPickerControl.xaml.cs">
       <DependentUpon>FilesPickerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FilesPicker\AddBlobCommand.cs" />
     <Compile Include="Controls\FilesPicker\AddFilesCommand.cs" />
     <Compile Include="Controls\FilesPicker\AddFolderCommandBase.cs" />
     <Compile Include="Controls\FilesPicker\AddRecursiveFolderCommand.cs" />
     <Compile Include="Controls\FilesPicker\AddSingleFolderCommand.cs" />
     <Compile Include="Controls\FilesPicker\AddUrlCommand.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlViewModel.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Blob\SetBlobUrlCommand.cs" />
     <Compile Include="Controls\FilesPicker\FilesPickerViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Url\AddUrlsDialog.xaml.cs">
-      <DependentUpon>AddUrlsDialog.xaml</DependentUpon>
+    <Compile Include="Controls\FilesPicker\Urls\IValueListener.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\IValueProvider.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsDialog.xaml.cs">
+      <DependentUpon>AddHttpUrlsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FilesPicker\Url\AddUrlsViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Url\IUrlsListener.cs" />
-    <Compile Include="Controls\FilesPicker\Url\IUrlsProvider.cs" />
-    <Compile Include="Controls\FilesPicker\Url\SetUrlsCommand.cs" />
-    <Compile Include="Controls\FilesPicker\Url\UrlHelper.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsViewModel.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Http\SetHttpUrlsCommand.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\UrlHelper.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\ValueMediator.cs" />
     <Compile Include="Controls\IFileDialogConfiguration.cs" />
     <Compile Include="Controls\IFileNameListener.cs" />
+    <Compile Include="Controls\DataBoundUserControl.cs" />
     <Compile Include="Controls\OpenFileControl.xaml.cs">
       <DependentUpon>OpenFileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\OpenFile\OpenFileCommand.cs" />
     <Compile Include="Controls\OpenFile\OpenFileViewModel.cs" />
+    <Compile Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlDialog.xaml.cs">
+      <DependentUpon>AddBlobUrlDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SaveBlobFileControl.xaml.cs">
+      <DependentUpon>SaveBlobFileControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SaveFileControl.xaml.cs">
       <DependentUpon>SaveFileControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SaveFile\SaveBlobFileViewModel.cs" />
     <Compile Include="Controls\SaveFile\SaveFileCommand.cs" />
     <Compile Include="Controls\SaveFile\SaveFileViewModel.cs" />
+    <Compile Include="Controls\SaveFile\SaveLocalFileViewModel.cs" />
+    <Compile Include="Controls\SaveLocalFileControl.xaml.cs">
+      <DependentUpon>SaveLocalFileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shared\BlobUrlViewModelBase.cs" />
     <Compile Include="Controls\StringOrFileConfigurationControl.xaml.cs">
       <DependentUpon>StringOrFileConfigurationControl.xaml</DependentUpon>
     </Compile>
@@ -150,7 +170,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\FilesPicker\Url\AddUrlsDialog.xaml">
+    <Page Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -158,9 +178,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SaveBlobFileControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SaveFileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SaveLocalFileControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StringOrFileConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>

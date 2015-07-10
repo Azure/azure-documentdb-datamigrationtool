@@ -36,8 +36,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
         public async Task InitializeAsync()
         {
-            var collectionLink = await Client.GetOrCreateCollectionAsync(Configuration.Collection, Configuration.CollectionTier);
-            storedProcedureLink = await Client.CreateStoredProcedureAsync(collectionLink, Configuration.StoredProcName, Configuration.StoredProcBody);
+            var collectionLink = await Client.GetOrCreateCollectionAsync(
+                Configuration.Collection, Configuration.CollectionTier, Configuration.IndexingPolicy);
+
+            storedProcedureLink = await Client.CreateStoredProcedureAsync(
+                collectionLink, Configuration.StoredProcName, Configuration.StoredProcBody);
 
             buffer = new FastForwardBuffer<BulkItemSurrogate>();
             surrogate = new LengthCappedEnumerableSurrogate(buffer, Configuration.BatchSize, Configuration.MaxScriptSize);

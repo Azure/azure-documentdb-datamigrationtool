@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
 {
     [TestClass]
-    public class MongoDbSourceAdapterTests : DataTransferTestBase
+    public class MongoDbSourceAdapterTests : DataTransferAdapterTestBase
     {
         private const string CollectionNamePrefix = "TestCollection";
 
@@ -65,7 +65,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.Projection == "{DateTimeProperty: 1, FloatProperty: true}")
                     .First();
 
-            using (var adapter = await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 var dataItem = await adapter.ReadNextAsync(ReadOutputByRef.None, CancellationToken.None);
 
@@ -91,7 +92,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.Projection == "{DateTimeProperty: 0, FloatProperty: false}")
                     .First();
 
-            using (var adapter = await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 var dataItem = await adapter.ReadNextAsync(ReadOutputByRef.None, CancellationToken.None);
 
@@ -117,19 +119,11 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                 document["_id"] = hashDocument.Id.ToString();
             }
 
-            var readResults = new List<IDataItem>();
-            using (var adapter = await new MongoDbSourceAdapterFactory().CreateAsync(Configuration, DataTransferContextMock.Instance))
+            List<IDataItem> readResults;
+            using (var adapter = await new MongoDbSourceAdapterFactory()
+                .CreateAsync(Configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
-                var readOutput = new ReadOutputByRef();
-
-                IDataItem dataItem;
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
+                readResults = await ReadDataAsync(adapter);
             }
 
             DataItemCollectionAssert.AreEquivalent(documents, readResults, TestResources.InvalidDocumentsRead);
@@ -157,7 +151,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                 { "symbol", BsonSymbolTable.Lookup(symbolValue) }
             });
 
-            using (var adapter = await new MongoDbSourceAdapterFactory().CreateAsync(Configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new MongoDbSourceAdapterFactory()
+                .CreateAsync(Configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 var dataItem = await adapter.ReadNextAsync(ReadOutputByRef.None, CancellationToken.None);
 

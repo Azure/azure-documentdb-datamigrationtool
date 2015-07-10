@@ -49,13 +49,17 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
             Exception criticalError = null;
             try
             {
-                var statistics = statisticsFactory.Create(TransferModel.InfrastructureConfiguration);
-                operationContext = new ImportOperationContext(statistics, Presenter.DataContext as ImportViewModel);
-                operationContext.ViewModel.IsImportRunning = true;
-
                 using (var cancellation = TransferModel.ImportCancellation = new CancellationTokenSource())
                 {
-                    using (var timer = new Timer(UpdateStatistics, operationContext, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
+                    var statistics = await statisticsFactory.Create(TransferModel.InfrastructureConfiguration, cancellation.Token);
+                    UpdateStatistics(
+                        operationContext = new ImportOperationContext(statistics, Presenter.DataContext as ImportViewModel)
+                        {
+                            ViewModel = { IsImportRunning = true }
+                        });
+                
+                    using (new DisposableDispatcherTimer<ImportOperationContext>(
+                        TimeSpan.FromSeconds(1), UpdateStatistics, operationContext))
                     {
                         await Task.Run(() =>
                             transferService.TransferAsync(
@@ -90,12 +94,8 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
                 errorHandler.Handle(criticalError);
         }
 
-        private void UpdateStatistics(object state)
+        private void UpdateStatistics(ImportOperationContext context)
         {
-            var context = state as ImportOperationContext;
-            if (context == null)
-                return;
-
             var snapshot = context.Statistics.GetSnapshot();
 
             context.ViewModel.ElapsedTime = snapshot.ElapsedTime;

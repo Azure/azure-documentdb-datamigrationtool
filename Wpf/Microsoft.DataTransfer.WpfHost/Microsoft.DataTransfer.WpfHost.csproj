@@ -93,6 +93,7 @@
     <Compile Include="Shell\Navigation\NavigateToPreviousStepCommand.cs" />
     <Compile Include="Steps\AdapterSetupStepBase.cs" />
     <Compile Include="Steps\AdapterSetupViewModelBase.cs" />
+    <Compile Include="Steps\Import\DisposableDispatcherTimer.cs" />
     <Compile Include="Steps\Import\ElapsedTimeFormatValueConverter.cs" />
     <Compile Include="Steps\Import\ExportErrorsCommandBase.cs" />
     <Compile Include="Steps\Import\ExportErrorsResources.Designer.cs">
@@ -274,6 +275,22 @@
     <ProjectReference Include="..\..\DocumentDb\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj">
       <Project>{81a18d96-39fc-4165-8c52-4c887dce4a61}</Project>
       <Name>Microsoft.DataTransfer.DocumentDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DynamoDb\Microsoft.DataTransfer.DynamoDb.Wpf\Microsoft.DataTransfer.DynamoDb.Wpf.csproj">
+      <Project>{6fd86d77-5f97-45ee-aca9-4e826e288d22}</Project>
+      <Name>Microsoft.DataTransfer.DynamoDb.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DynamoDb\Microsoft.DataTransfer.DynamoDb\Microsoft.DataTransfer.DynamoDb.csproj">
+      <Project>{af2a444f-cabd-45be-9b9e-9d53501b2041}</Project>
+      <Name>Microsoft.DataTransfer.DynamoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HBase\Microsoft.DataTransfer.HBase.Wpf\Microsoft.DataTransfer.HBase.Wpf.csproj">
+      <Project>{98706c69-8f15-4d97-9dd9-d7fd6f5a038f}</Project>
+      <Name>Microsoft.DataTransfer.HBase.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj">
+      <Project>{ad24db36-8623-4e11-9995-a6eb5ef50a38}</Project>
+      <Name>Microsoft.DataTransfer.HBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\JsonFile\Microsoft.DataTransfer.JsonFile.Wpf\Microsoft.DataTransfer.JsonFile.Wpf.csproj">
       <Project>{33093ecf-9dcc-4a89-8adb-448a25a711c3}</Project>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Extensibility.Basics.Source
 {
@@ -35,10 +36,11 @@ namespace Microsoft.DataTransfer.Extensibility.Basics.Source
         /// </summary>
         /// <param name="configuration">Data source adapter configuration.</param>
         /// <param name="context">Data transfer operation context.</param>
+        /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        public Task<IDataSourceAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context)
+        public Task<IDataSourceAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Factory.CreateAsync(configuration, context);
+            return Factory.CreateAsync(configuration, context, cancellation);
         }
     }
 }

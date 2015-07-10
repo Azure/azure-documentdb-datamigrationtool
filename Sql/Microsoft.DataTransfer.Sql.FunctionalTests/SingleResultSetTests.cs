@@ -114,7 +114,8 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                     CreateTable(connection, tableName, columnMappings);
                     AddRows(connection, tableName, rows);
 
-                    using (var adapter = await new SqlDataSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+                    using (var adapter = await new SqlDataSourceAdapterFactory()
+                        .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
                     {
                         var readOutput = new ReadOutputByRef();
                         for (var rowIndex = 0; rowIndex < rows.Length; ++rowIndex)

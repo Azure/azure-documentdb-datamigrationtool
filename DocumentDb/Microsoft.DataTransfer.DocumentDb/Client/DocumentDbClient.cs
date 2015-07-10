@@ -7,11 +7,13 @@ using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
 using Microsoft.DataTransfer.DocumentDb.Client.PartitionResolvers;
 using Microsoft.DataTransfer.DocumentDb.Client.Serialization;
 using Microsoft.DataTransfer.DocumentDb.Sink;
+using Microsoft.DataTransfer.Extensibility.Basics.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Client
@@ -30,7 +32,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             this.databaseName = databaseName;
         }
 
-        public async Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier)
+        public async Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy)
         {
             Guard.NotEmpty("collectionName", collectionName);
 
@@ -43,8 +45,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
 
                 try
                 {
-                    collection = await client.CreateDocumentCollectionAsync(database.SelfLink,
-                        new DocumentCollection { Id = collectionName }, new RequestOptions { OfferType = ToOfferType(collectionTier) });
+                    var collectionDefinition = new DocumentCollection { Id = collectionName };
+                    if (indexingPolicy != null)
+                        collectionDefinition.IndexingPolicy = indexingPolicy;
+
+                    collection = await client.CreateDocumentCollectionAsync(database.SelfLink, collectionDefinition,
+                        new RequestOptions { OfferType = ToOfferType(collectionTier) });
                 }
                 catch (DocumentClientException clientException)
                 {
@@ -105,7 +111,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return client.DeleteStoredProcedureAsync(storedProcedureLink);
         }
 
-        public async Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string collectionNamePattern, string query)
+        public async Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string collectionNamePattern, string query, CancellationToken cancellation)
         {
             Guard.NotEmpty("collectionNamePattern", collectionNamePattern);
 
@@ -113,7 +119,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             if (database == null)
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
 
-            var matchingCollections = await GetMatchingCollections(database, collectionNamePattern);
+            var matchingCollections = await GetMatchingCollections(database, collectionNamePattern, cancellation);
             if (matchingCollections == null || !matchingCollections.Any())
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
 
@@ -128,16 +134,22 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return new DocumentSurrogateQueryAsyncEnumerator(documentQuery.AsDocumentQuery());
         }
 
-        private async Task<IReadOnlyList<string>> GetMatchingCollections(Database database, string collectionNamePattern)
+        private async Task<IReadOnlyList<string>> GetMatchingCollections(Database database, string collectionNamePattern, CancellationToken cancellation)
         {
             var result = new List<string>();
 
             using (var enumerator = new AsyncEnumerator<DocumentCollection>(
                 client.CreateDocumentCollectionQuery(database.CollectionsLink).AsDocumentQuery()))
             {
-                while (await enumerator.MoveNextAsync())
-                    if (Regex.IsMatch(enumerator.Current.Id, collectionNamePattern))
+                var collectionNameRegex = new Regex(collectionNamePattern, RegexOptions.Compiled);
+
+                while (await enumerator.MoveNextAsync(cancellation))
+                {
+                    var match = collectionNameRegex.Match(enumerator.Current.Id);
+                    // Make sure regex matches entire collection name and not just substring
+                    if (match.Success && String.Equals(match.Value, enumerator.Current.Id, StringComparison.InvariantCulture))
                         result.Add(enumerator.Current.SelfLink);
+                }
             }
 
             return result;

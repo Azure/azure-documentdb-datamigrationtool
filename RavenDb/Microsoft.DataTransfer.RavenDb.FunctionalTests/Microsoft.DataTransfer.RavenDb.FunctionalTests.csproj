@@ -69,6 +69,7 @@
     <Compile Include="RavenDbHelper.cs" />
     <Compile Include="RavenDbSourceAdapterComplexTests.cs" />
     <Compile Include="RavenDbSourceAdapterSimpleTests.cs" />
+    <Compile Include="RavenDbSourceAdapterTestBase.cs" />
     <Compile Include="TestResources.Designer.cs">
       <DependentUpon>TestResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -14,7 +14,9 @@
       <bc:ToolTipDecorator ToolTip="{DynamicResource ErrorLogFileNameDescriptionKey}">
         <Label Content="{DynamicResource ErrorLogFileNameKey}" />
       </bc:ToolTipDecorator>
-      <bc:SaveFileControl FileName="{Binding ErrorLog}" Filter="{DynamicResource ErrorLogFileFilterKey}" DefaultExtension="{DynamicResource ErrorLogFileDefaultExtensionKey}" />
+      
+      <bc:SaveLocalFileControl FileName="{Binding ErrorLog}"
+        Filter="{DynamicResource ErrorLogFileFilterKey}" DefaultExtension="{DynamicResource ErrorLogFileDefaultExtensionKey}" />
     </StackPanel>
   </DockPanel>
   

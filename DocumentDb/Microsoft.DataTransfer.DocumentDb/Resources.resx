@@ -225,4 +225,7 @@
   <data name="UnknownEntryAssembly" xml:space="preserve">
     <value>dtr</value>
   </data>
+  <data name="AmbiguousIndexingPolicy" xml:space="preserve">
+    <value>Both IndexingPolicy and IndexingPolicyFile cannot be set at the same time</value>
+  </data>
 </root>

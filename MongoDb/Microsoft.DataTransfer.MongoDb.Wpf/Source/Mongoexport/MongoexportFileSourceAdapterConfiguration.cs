@@ -1,13 +1,13 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.MongoDb.Source.Mongoexport;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
 {
-    sealed class MongoexportFileSourceAdapterConfiguration : ValidatableConfiguration, IMongoexportFileSourceAdapterConfiguration
+    sealed class MongoexportFileSourceAdapterConfiguration : ValidatableBindableBase, IMongoexportFileSourceAdapterConfiguration
     {
         private static readonly string EditableFilesPropertyName =
             ObjectExtensions.MemberName<MongoexportFileSourceAdapterConfiguration>(c => c.EditableFiles);

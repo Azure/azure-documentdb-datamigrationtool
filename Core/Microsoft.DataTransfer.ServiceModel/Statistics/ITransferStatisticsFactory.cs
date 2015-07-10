@@ -1,4 +1,6 @@
-﻿
+﻿using System.Threading;
+using System.Threading.Tasks;
+
 namespace Microsoft.DataTransfer.ServiceModel.Statistics
 {
     /// <summary>
@@ -9,7 +11,9 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// <summary>
         /// Creates a new instance of data transfer statistics.
         /// </summary>
-        /// <returns>New instance of data transfer statistics.</returns>
-        ITransferStatistics Create(ITransferStatisticsConfiguration configuration);
+        /// <param name="configuration">Configuration for the data transfer statistics.</param>
+        /// <param name="cancellation">Cancellation token.</param>
+        /// <returns>Task that represents asynchronous create operation.</returns>
+        Task<ITransferStatistics> Create(ITransferStatisticsConfiguration configuration, CancellationToken cancellation);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Extensibility.Basics.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
@@ -25,7 +27,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
             completed = false;
         }
 
-        public async Task<bool> MoveNextAsync()
+        public async Task<bool> MoveNextAsync(CancellationToken cancellation)
         {
             if (completed)
                 return false;

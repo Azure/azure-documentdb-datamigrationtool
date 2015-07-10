@@ -21,6 +21,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         public static readonly string CollectionTierPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.CollectionTier);
 
+        public static readonly string IndexingPolicyPropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.IndexingPolicy);
+
+        public static readonly string IndexingPolicyFilePropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.IndexingPolicyFile);
+
         public static readonly string IdFieldPropertyName = 
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.IdField);
 
@@ -33,6 +39,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         private ObservableCollection<string> collections;
         private string partitionKey;
         private CollectionPricingTier? collectionTier;
+
+        private bool useIndexingPolicyFile;
+        private string indexingPolicy;
+        private string indexingPolicyFile;
 
         private string idField;
         private bool disableIdGeneration;
@@ -71,6 +81,24 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
             set { SetProperty(ref collectionTier, value); }
         }
 
+        public bool UseIndexingPolicyFile
+        {
+            get { return useIndexingPolicyFile; }
+            set { SetProperty(ref useIndexingPolicyFile, value); }
+        }
+
+        public string IndexingPolicy
+        {
+            get { return useIndexingPolicyFile ? null : indexingPolicy; }
+            set { SetProperty(ref indexingPolicy, value); }
+        }
+
+        public string IndexingPolicyFile
+        {
+            get { return useIndexingPolicyFile ? indexingPolicyFile : null; }
+            set { SetProperty(ref indexingPolicyFile, value); }
+        }
+
         public string IdField
         {
             get { return idField; }
@@ -99,11 +127,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         private void CollectionsListChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             SetErrors(EditableCollectionsPropertyName, ValidateNonEmptyCollection(sender as IEnumerable<string>));
-        }
-
-        protected static IReadOnlyCollection<string> ValidatePositiveInteger(int? value)
-        {
-            return value > 0 ? null : new[] { Resources.PositiveNumberRequired };
         }
     }
 }

@@ -16,21 +16,8 @@ namespace Microsoft.DataTransfer.Core.Service
         {
             Guard.NotNull("source", source);
             Guard.NotNull("sink", sink);
+            Guard.NotNull("statistics", statistics);
 
-            try
-            {
-                statistics.Start();
-
-                await TransferData(source, sink, statistics, cancellation);
-            }
-            finally
-            {
-                statistics.Stop();
-            }
-        }
-
-        private static async Task TransferData(IDataSourceAdapter source, IDataSinkAdapter sink, ITransferStatistics statistics, CancellationToken cancellation)
-        {
             var writeTasks = Enumerable
                     .Range(0, sink.MaxDegreeOfParallelism)
                     .Select(i => (Task)Task.FromResult<object>(null))

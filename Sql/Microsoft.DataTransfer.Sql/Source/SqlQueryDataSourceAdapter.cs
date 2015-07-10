@@ -24,25 +24,25 @@ namespace Microsoft.DataTransfer.Sql.Source
         public SqlQueryDataSourceAdapter(ISqlDataSourceAdapterInstanceConfiguration configuration)
             : base(configuration) { }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation)
         {
-            await retryPolicy.ExecuteAsync(ExecuteCommand);
+            await retryPolicy.ExecuteAsync(() => ExecuteCommand(cancellation), cancellation);
         }
 
-        private async Task ExecuteCommand()
+        private async Task ExecuteCommand(CancellationToken cancellation)
         {
             if (Connection.State != ConnectionState.Open)
-                await Connection.OpenAsync();
+                await Connection.OpenAsync(cancellation);
 
             command = new SqlCommand(Configuration.Query, Connection);
-            dataReader = await command.ExecuteReaderAsync();
+            dataReader = await command.ExecuteReaderAsync(cancellation);
         }
 
-        public override async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellationToken)
+        public override async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture, Resources.DataItemIdFormat, ++rowNumber);
 
-            while (!await dataReader.ReadAsync(cancellationToken))
+            while (!await dataReader.ReadAsync(cancellation))
                 if (!await dataReader.NextResultAsync())
                     return null;
 

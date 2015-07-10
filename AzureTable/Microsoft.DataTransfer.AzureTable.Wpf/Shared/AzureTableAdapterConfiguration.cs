@@ -1,10 +1,10 @@
 ﻿using Microsoft.DataTransfer.AzureTable.Shared;
 using Microsoft.DataTransfer.Basics.Extensions;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 
 namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared
 {
-    abstract class AzureTableAdapterConfiguration : ValidatableConfiguration, IAzureTableAdapterConfiguration
+    abstract class AzureTableAdapterConfiguration : ValidatableBindableBase, IAzureTableAdapterConfiguration
     {
         public static readonly string ConnectionStringPropertyName =
             ObjectExtensions.MemberName<IAzureTableAdapterConfiguration>(c => c.ConnectionString);

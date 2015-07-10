@@ -24,7 +24,7 @@
         </Style.Resources>
       </Style>
 
-      <Style x:Key="QueryEditor" TargetType="TextBox">
+      <Style x:Key="StringEditor" TargetType="TextBox">
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -64,8 +64,8 @@
         Filter="{Binding FileFilter}"
         DefaultExtension="{Binding FileDefaultExtension}" />
 
-      <TextBox DockPanel.Dock="Top" Style="{StaticResource QueryEditor}"
-        Visibility="{Binding UseFile, Converter={StaticResource IsInvisible}}"
+      <TextBox DockPanel.Dock="Top" Style="{StaticResource StringEditor}"
+        Visibility="{Binding UseFile, Converter={StaticResource IsInvisible}}" ContextMenu="{Binding StringEditorContextMenu}"
         Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
     </DockPanel>
   </DockPanel>

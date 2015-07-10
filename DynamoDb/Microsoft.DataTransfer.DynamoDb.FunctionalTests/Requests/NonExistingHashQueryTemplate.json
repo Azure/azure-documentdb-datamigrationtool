@@ -1,0 +1,13 @@
+{
+    "TableName": "%TABLENAME%",
+    "Limit": 30,
+    "KeyConditionExpression": "#key = :keyvalue",
+    "ExpressionAttributeNames": {
+        "#key": "HashKey"
+    },
+    "ExpressionAttributeValues": {
+        ":keyvalue": {
+            "S": "empty"
+        }
+    }
+}

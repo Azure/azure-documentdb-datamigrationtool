@@ -75,6 +75,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">
+      <Project>{83329196-46be-4cd0-b498-74e9ac463ed9}</Project>
+      <Name>Microsoft.DataTransfer.Extensibility.Basics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
       <Project>{ACC3B08A-2706-4857-B374-8F6311DB0E6F}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>
@@ -89,6 +93,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="TestData\mongoexport_emptylines.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

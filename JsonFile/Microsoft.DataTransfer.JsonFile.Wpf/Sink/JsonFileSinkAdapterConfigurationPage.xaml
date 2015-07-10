@@ -17,10 +17,9 @@
 
   <AdornerDecorator>
     <StackPanel>
-      <StackPanel Style="{StaticResource OptionElement}">
-        <Label Content="{DynamicResource FileNameKey}" />
-        <bc:SaveFileControl FileName="{Binding File}" Filter="{DynamicResource SaveFileFilterKey}" DefaultExtension="{DynamicResource SaveFileDefaultExtensionKey}" />
-      </StackPanel>
+      <bc:SaveFileControl Style="{StaticResource OptionElement}"
+        FileName="{Binding File}" Overwrite="{Binding Overwrite}"
+        LocalFileFilter="{DynamicResource SaveFileFilterKey}" LocalFileDefaultExtension="{DynamicResource SaveFileDefaultExtensionKey}" />
 
       <CheckBox Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource PrettifyKey}" IsChecked="{Binding Prettify}" />
     </StackPanel>

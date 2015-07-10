@@ -1,28 +1,23 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
+﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Basics.Files.Sink;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Core.Statistics
 {
     sealed class TransferStatisticsFactory : ITransferStatisticsFactory
     {
-        public ITransferStatistics Create(ITransferStatisticsConfiguration configuration)
+        public async Task<ITransferStatistics> Create(ITransferStatisticsConfiguration configuration, CancellationToken cancellation)
         {
+            Guard.NotNull("configuration", configuration);
+
             return String.IsNullOrEmpty(configuration.ErrorLog)
                 ? (ITransferStatistics)new InMemoryTransferStatistics()
-                : new CsvErrorLogTransferStatistics(CreateErrorLog(configuration));
-        }
-
-        private static FileStream CreateErrorLog(ITransferStatisticsConfiguration configuration)
-        {
-            // Ensure output folder exists
-            try
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(configuration.ErrorLog));
-            }
-            catch { }
-
-            return File.Open(configuration.ErrorLog, configuration.OverwriteErrorLog ? FileMode.Create : FileMode.CreateNew);
+                : new CsvErrorLogTransferStatistics(await SinkStreamProvidersFactory.Create(
+                    configuration.ErrorLog, configuration.OverwriteErrorLog).CreateWriter(cancellation));
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Microsoft.DataTransfer.Core.Statistics
     {
         private static IReadOnlyCollection<KeyValuePair<string, Exception>> EmptyErrors = new KeyValuePair<string, Exception>[0];
 
-        private Stream errorLogStream;
-        private TextWriter errorLogWriter;
+        private StreamWriter errorLogStreamWriter;
+        private TextWriter errorLogSynchronizedWriter;
         private int errorsCount;
 
         public override int Failed
@@ -19,12 +19,12 @@ namespace Microsoft.DataTransfer.Core.Statistics
             get { return errorsCount; }
         }
 
-        public CsvErrorLogTransferStatistics(Stream errorLogStream)
+        public CsvErrorLogTransferStatistics(StreamWriter errorLogStreamWriter)
         {
-            Guard.NotNull("errorLogStream", errorLogStream);
+            Guard.NotNull("errorLogStream", errorLogStreamWriter);
 
-            this.errorLogStream = errorLogStream;
-            errorLogWriter = TextWriter.Synchronized(new StreamWriter(errorLogStream));
+            this.errorLogStreamWriter = errorLogStreamWriter;
+            errorLogSynchronizedWriter = TextWriter.Synchronized(errorLogStreamWriter);
         }
 
         public override void Start()
@@ -35,15 +35,15 @@ namespace Microsoft.DataTransfer.Core.Statistics
         public override void Stop()
         {
             base.Stop();
-            TrashCan.Throw(ref errorLogWriter);
-            TrashCan.Throw(ref errorLogStream);
+            TrashCan.Throw(ref errorLogSynchronizedWriter);
+            TrashCan.Throw(ref errorLogStreamWriter);
         }
 
         public override void AddError(string dataItemId, Exception error)
         {
             Interlocked.Increment(ref errorsCount);
 
-            var writer = errorLogWriter;
+            var writer = errorLogSynchronizedWriter;
             if (writer != null)
             {
                 writer.WriteLine(EscapeValue(dataItemId) + "," + EscapeValue(error.Message));

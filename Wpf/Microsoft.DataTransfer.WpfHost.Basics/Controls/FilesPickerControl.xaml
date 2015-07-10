@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls"
              mc:Ignorable="d"
-             d:DesignWidth="365" d:DesignHeight="100">
+             d:DesignWidth="380" d:DesignHeight="100">
 
   <UserControl.Resources>
     <ResourceDictionary>
@@ -67,6 +67,7 @@
       </local:DropDownButton>
 
       <Button Content="{DynamicResource AddUrlKey}" Command="{Binding AddUrl}" />
+      <Button Content="{DynamicResource AddBlobKey}" Command="{Binding AddBlob}" />
       <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" />
     </StackPanel>
 

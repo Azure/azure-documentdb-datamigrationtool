@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.HBase.Wpf.Source.HBaseSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:localCommands="clr-namespace:Microsoft.DataTransfer.HBase.Wpf.Source.Commands"
+             xmlns:bcmd="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.HBase.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="250" d:DesignWidth="300" MinHeight="250" MinWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <ObjectDataProvider x:Key="ReplaceIndentedTextInFocusedTextBox" ObjectType="{x:Type bcmd:ReplaceIndentedTextInFocusedTextBoxCommand}" />
+      <ObjectDataProvider x:Key="ReplaceWithBase64String" ObjectType="{x:Type localCommands:ReplaceWithBase64StringCommand}" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <shared:HBaseAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
+
+      <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource TableNameKey}" />
+        <TextBox Text="{Binding Table, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
+
+      <bc:StringOrFileConfigurationControl Grid.Row="2" Style="{StaticResource OptionElement}"
+        UseFile="{Binding UseFilterFile}"
+        StringValueLabel="{DynamicResource EnterFilterSelectionKey}" StringValue="{Binding Filter}"
+        FileNameLabel="{DynamicResource FilterFileSelectionKey}" FileName="{Binding FilterFile}"
+        FileFilter="{DynamicResource FilterFileFilterKey}" FileDefaultExtension="{DynamicResource FilterFileDefaultExtensionKey}">
+        <bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+          <ContextMenu>
+            <MenuItem Header="{DynamicResource FilterTemplatesMenuHeader}">
+              <MenuItem Header="{DynamicResource FilterListFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource FilterListFilterTemplate}" />
+              <MenuItem Header="{DynamicResource ColumnPrefixFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource ColumnPrefixFilterTemplate}" />
+              <MenuItem Header="{DynamicResource MultipleColumnPrefixFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource MultipleColumnPrefixFilterTemplate}" />
+              <MenuItem Header="{DynamicResource ColumnRangeFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource ColumnRangeFilterTemplate}" />
+              <MenuItem Header="{DynamicResource FamilyFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource FamilyFilterTemplate}" />
+              <MenuItem Header="{DynamicResource QualifierFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource QualifierFilterTemplate}" />
+              <MenuItem Header="{DynamicResource RowFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource RowFilterTemplate}" />
+              <MenuItem Header="{DynamicResource InclusiveStopFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource InclusiveStopFilterTemplate}" />
+              <MenuItem Header="{DynamicResource PrefixFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource PrefixFilterTemplate}" />
+              <MenuItem Header="{DynamicResource SingleColumnValueFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource SingleColumnValueFilterTemplate}" />
+              <MenuItem Header="{DynamicResource TimestampsFilterTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource TimestampsFilterTemplate}" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource ComparatorTemplatesMenuHeader}">
+              <MenuItem Header="{DynamicResource BinaryComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource BinaryComparatorTemplate}" />
+              <MenuItem Header="{DynamicResource BinaryPrefixComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource BinaryPrefixComparatorTemplate}" />
+              <MenuItem Header="{DynamicResource BitComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource BitComparatorTemplate}" />
+              <MenuItem Header="{DynamicResource NullComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource NullComparatorTemplate}" />
+              <MenuItem Header="{DynamicResource RegexStringComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource RegexStringComparatorTemplate}" />
+              <MenuItem Header="{DynamicResource SubstringComparatorTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource ReplaceIndentedTextInFocusedTextBox}}" CommandParameter="{DynamicResource SubstringComparatorTemplate}" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource ReplaceWithBase64StringMenuHeader}" Command="{Binding Source={StaticResource ReplaceWithBase64String}}" />
+            <Separator />
+            <MenuItem Command="ApplicationCommands.Copy" />
+            <MenuItem Command="ApplicationCommands.Cut" />
+            <MenuItem Command="ApplicationCommands.Paste" />
+          </ContextMenu>
+        </bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+      </bc:StringOrFileConfigurationControl>
+
+      <CheckBox Grid.Row="3" Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource ExcludeRowIdKey}" IsChecked="{Binding ExcludeId}" />
+      
+      <StackPanel Grid.Row="4" Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource BatchSizeKey}" />
+        <TextBox Text="{Binding BatchSize, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
+    </Grid>
+  </AdornerDecorator>
+
+</UserControl>

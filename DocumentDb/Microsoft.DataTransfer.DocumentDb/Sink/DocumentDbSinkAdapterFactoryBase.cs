@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.Basics;
+﻿using Microsoft.Azure.Documents;
+using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Basics.Collections;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.DocumentDb.Shared;
@@ -9,8 +10,11 @@ using Microsoft.DataTransfer.DocumentDb.Transformation.Dates;
 using Microsoft.DataTransfer.DocumentDb.Transformation.Remap;
 using Microsoft.DataTransfer.DocumentDb.Transformation.Stringify;
 using Microsoft.DataTransfer.Extensibility;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink
@@ -24,7 +28,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
 
         public abstract string Description { get; }
 
-        public Task<IDataSinkAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context)
+        public Task<IDataSinkAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             ValidateBaseConfiguration(configuration);
 
@@ -35,11 +39,21 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
             return CreateAsync(
                 CreateClient(configuration, context, collectionNames.Length > 1),
                 GetDataItemTransformation(configuration),
-                configuration, collectionNames);
+                configuration, collectionNames, cancellation);
         }
 
         protected abstract Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            TConfiguration configuration, IEnumerable<string> collectionNames);
+            TConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation);
+
+        protected static IndexingPolicy GetIndexingPolicy(TConfiguration configuration)
+        {
+            var policyJson = StringValueOrFile(configuration.IndexingPolicy, configuration.IndexingPolicyFile, Errors.AmbiguousIndexingPolicy);
+
+            if (String.IsNullOrEmpty(policyJson))
+                return null;
+
+            return JsonConvert.DeserializeObject<IndexingPolicy>(policyJson);
+        }
 
         private static IDataItemTransformation GetDataItemTransformation(IDocumentDbSinkAdapterConfiguration configuration)
         {

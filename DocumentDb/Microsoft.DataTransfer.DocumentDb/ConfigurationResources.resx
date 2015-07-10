@@ -156,6 +156,12 @@
   <data name="Sink_IdField" xml:space="preserve">
     <value>Optional. Name of the source field that should be treated as document ID</value>
   </data>
+  <data name="Sink_IndexingPolicy" xml:space="preserve">
+    <value>Optional. Indexing policy for the collection</value>
+  </data>
+  <data name="Sink_IndexingPolicyFile" xml:space="preserve">
+    <value>Optional. Path to the file containing indexing policy for the collection</value>
+  </data>
   <data name="Sink_PartitionKey" xml:space="preserve">
     <value>Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</value>
   </data>

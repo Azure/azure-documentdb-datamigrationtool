@@ -5,6 +5,7 @@ using Moq;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
@@ -33,7 +34,8 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
 
                 try
                 {
-                    using (var adapter = await new SqlDataSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+                    using (var adapter = await new SqlDataSourceAdapterFactory()
+                        .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
                     {
                         Assert.Fail(TestResources.AmbiguousQueryDidNotFail);
                     }

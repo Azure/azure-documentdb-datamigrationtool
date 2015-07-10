@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.HBase.Wpf.Source.HBaseSourceAdapterConfigurationSummaryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
+      
+      <converters:BooleanToVisibilityValueConverter x:Key="IsVisible" />
+      <converters:BooleanToVisibilityValueConverter x:Key="IsInvisible" True="Collapsed" False="Visible" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid Style="{StaticResource SummaryGrid}">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ConnectionStringSummaryKey}" />
+    <Label Grid.Row="0" Grid.Column="1">
+      <TextBlock Text="{Binding ConnectionString}" />
+    </Label>
+
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource TableNameSummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="{Binding Table}" />
+    </Label>
+
+    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource FilterSummaryKey}" />
+    <Label Grid.Row="2" Grid.Column="1">
+      <Grid>
+        <TextBlock Text="{Binding Filter}" Visibility="{Binding UseFilterFile, Converter={StaticResource IsInvisible}}" />
+        <TextBlock Text="{Binding FilterFile}" Visibility="{Binding UseFilterFile, Converter={StaticResource IsVisible}}" />
+      </Grid>
+    </Label>
+
+    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource ExcludeRowIdSummaryKey}" />
+    <Label Grid.Row="3" Grid.Column="1">
+      <TextBlock Text="{Binding ExcludeId, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+    
+    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource BatchSizeSummaryKey}" />
+    <Label Grid.Row="4" Grid.Column="1">
+      <TextBlock Text="{Binding BatchSize}" />
+    </Label>
+  </Grid>
+
+</UserControl>

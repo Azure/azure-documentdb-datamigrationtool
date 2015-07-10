@@ -1,10 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.JsonFile.Sink;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 
 namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
 {
-    sealed class JsonFileSinkAdapterConfiguration : ValidatableConfiguration, IJsonFileSinkAdapterConfiguration
+    sealed class JsonFileSinkAdapterConfiguration : ValidatableBindableBase, IJsonFileSinkAdapterConfiguration
     {
         public static readonly string FilePropertyName = 
             ObjectExtensions.MemberName<IJsonFileSinkAdapterConfiguration>(c => c.File);
@@ -17,6 +17,7 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
 
         private string file;
         private bool prettify;
+        private bool overwrite;
 
         public string File
         {
@@ -32,7 +33,8 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
 
         public bool Overwrite
         {
-            get { return true; }
+            get { return overwrite; }
+            set { SetProperty(ref overwrite, value); }
         }
     }
 }

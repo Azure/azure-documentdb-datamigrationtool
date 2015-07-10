@@ -2,8 +2,9 @@
 using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
 {
@@ -255,6 +256,28 @@ namespace Microsoft.DataTransfer.WpfHost.UnitTests.Model
 
             StringAssert.Contains(commandLine, "/t:TestSink", TestResources.CommandLineArgumentMissing);
             StringAssert.Contains(commandLine, "/t.SinkArg1:whatever", TestResources.CommandLineArgumentMissing);
+        }
+
+        [TestMethod]
+        public void Get_ArgumentWithNewLines_NewLinesRemoved()
+        {
+            var provider = new CommandLineProvider();
+
+            var commandLine = provider.Get(
+                null,
+                "TestSource",
+                new Dictionary<string, string>
+                {
+                    { "TestArg", "Hello" + Environment.NewLine + "World!" },
+                },
+                "TestSink", null);
+
+            Assert.AreEqual(52, commandLine.Length, TestResources.InvalidCommandLineLength);
+
+            StringAssert.Contains(commandLine, "/s:TestSource", TestResources.CommandLineArgumentMissing);
+            StringAssert.Contains(commandLine, "/s.TestArg:\"Hello World!\"", TestResources.CommandLineArgumentMissing);
+
+            StringAssert.Contains(commandLine, "/t:TestSink", TestResources.CommandLineArgumentMissing);
         }
     }
 }

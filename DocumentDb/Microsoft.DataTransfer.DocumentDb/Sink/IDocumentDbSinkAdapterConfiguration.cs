@@ -28,6 +28,18 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
         CollectionPricingTier? CollectionTier { get; }
 
         /// <summary>
+        /// Gets the document collection indexing policy.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_IndexingPolicy")]
+        string IndexingPolicy { get; }
+
+        /// <summary>
+        /// Gets the path to the file that contains collection indexing policy.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_IndexingPolicyFile")]
+        string IndexingPolicyFile { get; }
+
+        /// <summary>
         /// Gets the name of source field that should be treated as document id.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_IdField")]

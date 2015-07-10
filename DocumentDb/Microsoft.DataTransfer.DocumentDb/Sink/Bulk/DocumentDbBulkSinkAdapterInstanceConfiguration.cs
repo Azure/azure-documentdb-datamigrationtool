@@ -1,11 +1,12 @@
-﻿
+﻿using Microsoft.Azure.Documents;
+
 namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapterInstanceConfiguration : IDocumentDbBulkSinkAdapterInstanceConfiguration
     {
         public string Collection { get; set; }
         public CollectionPricingTier CollectionTier { get; set; }
-
+        public IndexingPolicy IndexingPolicy { get; set; }
         public bool DisableIdGeneration { get; set; }
         public string StoredProcName { get; set; }
         public string StoredProcBody { get; set; }

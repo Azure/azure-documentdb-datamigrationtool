@@ -130,6 +130,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Rave
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile.UnitTests", "CsvFile\Microsoft.DataTransfer.CsvFile.UnitTests\Microsoft.DataTransfer.CsvFile.UnitTests.csproj", "{F1D74F07-96B2-4150-830F-4DFB2E3A1707}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamoDb", "DynamoDb", "{2885C0CB-3878-4FB8-BA4B-F7DEAA660366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb", "DynamoDb\Microsoft.DataTransfer.DynamoDb\Microsoft.DataTransfer.DynamoDb.csproj", "{AF2A444F-CABD-45BE-9B9E-9D53501B2041}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb.FunctionalTests", "DynamoDb\Microsoft.DataTransfer.DynamoDb.FunctionalTests\Microsoft.DataTransfer.DynamoDb.FunctionalTests.csproj", "{B301926E-9833-483D-AF09-E4006FC6E663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb.Wpf", "DynamoDb\Microsoft.DataTransfer.DynamoDb.Wpf\Microsoft.DataTransfer.DynamoDb.Wpf.csproj", "{6FD86D77-5F97-45EE-ACA9-4E826E288D22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HBase", "HBase", "{1BD0D669-8E45-4E7C-A20F-707A1887E8ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase", "HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj", "{AD24DB36-8623-4E11-9995-A6EB5EF50A38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase.Wpf", "HBase\Microsoft.DataTransfer.HBase.Wpf\Microsoft.DataTransfer.HBase.Wpf.csproj", "{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase.FunctionalTests", "HBase\Microsoft.DataTransfer.HBase.FunctionalTests\Microsoft.DataTransfer.HBase.FunctionalTests.csproj", "{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Basics.Files", "Shared\Microsoft.DataTransfer.Basics.Files\Microsoft.DataTransfer.Basics.Files.csproj", "{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -294,6 +312,34 @@ Global
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -341,6 +387,13 @@ Global
 		{6E25967D-5286-47DB-AB9F-82AA7416D344} = {0D63DA64-9090-42C1-A066-172C2700F1D4}
 		{29968BB5-BC00-4976-8B78-1B0244654B5D} = {0D63DA64-9090-42C1-A066-172C2700F1D4}
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707} = {8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041} = {2885C0CB-3878-4FB8-BA4B-F7DEAA660366}
+		{B301926E-9833-483D-AF09-E4006FC6E663} = {2885C0CB-3878-4FB8-BA4B-F7DEAA660366}
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22} = {2885C0CB-3878-4FB8-BA4B-F7DEAA660366}
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38} = {1BD0D669-8E45-4E7C-A20F-707A1887E8ED}
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F} = {1BD0D669-8E45-4E7C-A20F-707A1887E8ED}
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD} = {1BD0D669-8E45-4E7C-A20F-707A1887E8ED}
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45

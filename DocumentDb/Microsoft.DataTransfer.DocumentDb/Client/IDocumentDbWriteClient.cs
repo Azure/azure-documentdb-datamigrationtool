@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Sink;
+﻿using Microsoft.Azure.Documents;
+using Microsoft.DataTransfer.DocumentDb.Sink;
 using System;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
 {
     interface IDocumentDbWriteClient : IDisposable
     {
-        Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier);
+        Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy);
         Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
 
         Task<string> CreateStoredProcedureAsync(string collectionLink, string name, string body);

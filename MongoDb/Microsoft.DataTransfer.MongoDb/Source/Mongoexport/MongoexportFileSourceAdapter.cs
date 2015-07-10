@@ -1,6 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Basics.Files.Source;
 using Microsoft.DataTransfer.Extensibility;
-using Microsoft.DataTransfer.Extensibility.Basics.Source.StreamProviders;
 using MongoDB.Bson;
 using System;
 using System.Globalization;
@@ -25,7 +25,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
         {
             if (file == null)
             {
-                file = await sourceStreamProvider.CreateReader();
+                file = await sourceStreamProvider.CreateReader(cancellation);
             }
 
             readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture,

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BlobUrlSample" xml:space="preserve">
+    <value>blobs://&lt;account-key&gt;@&lt;account-name&gt;.blob.core.windows.net/&lt;container&gt;/&lt;blob-regex&gt;</value>
+  </data>
   <data name="DefaultFalseValue" xml:space="preserve">
     <value>No</value>
   </data>
@@ -129,7 +132,27 @@
   <data name="InvalidSourceConvertionType" xml:space="preserve">
     <value>Cannot convert value from type "{0}", expected type is "{1}"</value>
   </data>
+  <data name="InvalidStorageContainerUrl" xml:space="preserve">
+    <value>Valid storage container URL should be provided</value>
+  </data>
   <data name="InvalidTargetConvertionType" xml:space="preserve">
     <value>Cannot convert value to type "{0}", expected type is "{1}"</value>
+  </data>
+  <data name="NonEmptyCollectionRequired" xml:space="preserve">
+    <value>One or more items should be added</value>
+  </data>
+  <data name="NonEmptyStringRequired" xml:space="preserve">
+    <value>Non-empty value should be provided</value>
+  </data>
+  <data name="PositiveNumberRequired" xml:space="preserve">
+    <value>Value should be greater than zero</value>
+  </data>
+  <data name="ReplaceContentConfirmation" xml:space="preserve">
+    <value>Current content of the field will be replaced.
+
+Do you want to continue?</value>
+  </data>
+  <data name="ReplaceContentConfirmationTitle" xml:space="preserve">
+    <value>Replace Content</value>
   </data>
 </root>

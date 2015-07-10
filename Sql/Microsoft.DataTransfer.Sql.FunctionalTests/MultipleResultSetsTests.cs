@@ -137,7 +137,8 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                         c.NestingSeparator == ".")
                     .First();
 
-            using (var adapter = await new SqlDataSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new SqlDataSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await VerifyRows(adapter, rows1);
                 await VerifyRows(adapter, rows2);

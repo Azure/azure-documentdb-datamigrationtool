@@ -6,6 +6,8 @@ namespace Microsoft.DataTransfer.Core
 {
     sealed class Errors : CommonErrors
     {
+        private Errors() { }
+
         public static Exception InvalidDataAdapterConfigrationType(Type expected, Type actual)
         {
             return new InvalidOperationException(FormatMessage(

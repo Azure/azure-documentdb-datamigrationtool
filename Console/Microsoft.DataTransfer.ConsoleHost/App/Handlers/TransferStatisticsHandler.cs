@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 {
@@ -15,9 +17,9 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             this.statisticsFactory = statisticsFactory;
         }
 
-        public ITransferStatistics CreateNew(ITransferStatisticsConfiguration configuration)
+        public Task<ITransferStatistics> CreateNew(ITransferStatisticsConfiguration configuration, CancellationToken cancellation)
         {
-            return statisticsFactory.Create(configuration);
+            return statisticsFactory.Create(configuration, cancellation);
         }
 
         public void PrintProgress(ITransferStatisticsSnapshot statistics)

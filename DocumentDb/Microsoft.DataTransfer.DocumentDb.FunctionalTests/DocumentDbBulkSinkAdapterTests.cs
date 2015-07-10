@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
@@ -33,7 +34,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }
@@ -59,7 +60,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }
@@ -92,7 +93,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }
@@ -125,7 +126,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }

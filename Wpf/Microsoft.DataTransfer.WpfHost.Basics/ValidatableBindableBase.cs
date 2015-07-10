@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Microsoft.DataTransfer.WpfHost.Basics
@@ -13,6 +14,9 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
     /// </summary>
     public abstract class ValidatableBindableBase : BindableBase, INotifyDataErrorInfo
     {
+        private static readonly BindingFlags FlatPropertiesBinding = BindingFlags.Instance | BindingFlags.FlattenHierarchy |
+            BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty;
+
         private Dictionary<string, IReadOnlyCollection<string>> errors;
 
         /// <summary>
@@ -34,6 +38,16 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
         protected ValidatableBindableBase()
         {
             errors = new Dictionary<string, IReadOnlyCollection<string>>();
+        }
+
+        /// <summary>
+        /// Forces validation on the current instance.
+        /// </summary>
+        public virtual void Validate()
+        {
+            foreach (var property in GetType().GetProperties(FlatPropertiesBinding))
+                if (property.GetMethod != null && property.SetMethod != null)
+                    property.SetValue(this, property.GetValue(this));
         }
 
         /// <summary>
@@ -64,13 +78,14 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
         /// <param name="value">New value for the property.</param>
         /// <param name="validator">Validation function to apply when updating the value.</param>
         /// <param name="propertyName">Name of the property.</param>
-        protected void SetProperty<T>(ref T storage, T value, Func<T, IReadOnlyCollection<string>> validator, 
+        /// <returns>true if storage value was changed; otherwise, false.</returns>
+        protected bool SetProperty<T>(ref T storage, T value, Func<T, IReadOnlyCollection<string>> validator, 
             [CallerMemberName] string propertyName = null)
         {
             Guard.NotNull("validator", validator);
 
             SetErrors(propertyName, validator(value));
-            SetProperty<T>(ref storage, value, propertyName);
+            return SetProperty<T>(ref storage, value, propertyName);
         }
 
         /// <summary>
@@ -103,5 +118,40 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
             if (handler != null)
                 handler(this, new DataErrorsChangedEventArgs(propertyName));
         }
+
+        #region Validators
+
+        /// <summary>
+        /// Verifies that provided <paramref name="value" /> is not an empty string.
+        /// </summary>
+        /// <param name="value">String to validate.</param>
+        /// <returns>Collection of validation errors if <paramref name="value" /> is an empty string; otherwise, null.</returns>
+        protected static IReadOnlyCollection<string> ValidateNonEmptyString(string value)
+        {
+            return String.IsNullOrEmpty(value) ? new[] { Resources.NonEmptyStringRequired } : null;
+        }
+
+        /// <summary>
+        /// Verifies that provided <paramref name="value" /> is not an empty collection.
+        /// </summary>
+        /// <typeparam name="T">Type of the collection element.</typeparam>
+        /// <param name="value">Collection to validate.</param>
+        /// <returns>Collection of validation errors if <paramref name="value" /> is an empty collection; otherwise, null.</returns>
+        protected static IReadOnlyCollection<string> ValidateNonEmptyCollection<T>(IEnumerable<T> value)
+        {
+            return value == null || !value.Any() ? new[] { Resources.NonEmptyCollectionRequired } : null;
+        }
+
+        /// <summary>
+        /// Verifies that provided <paramref name="value" /> is greater than zero.
+        /// </summary>
+        /// <param name="value">Number to validate.</param>
+        /// <returns>Collection of validation errors if <paramref name="value" /> is less or equal to zero; otherwise, null.</returns>
+        protected static IReadOnlyCollection<string> ValidatePositiveInteger(int? value)
+        {
+            return value > 0 ? null : new[] { Resources.PositiveNumberRequired };
+        }
+
+        #endregion Validators
     }
 }

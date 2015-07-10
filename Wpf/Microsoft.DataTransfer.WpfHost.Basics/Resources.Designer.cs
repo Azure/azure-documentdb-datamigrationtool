@@ -61,6 +61,15 @@ namespace Microsoft.DataTransfer.WpfHost.Basics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to blobs://&lt;account-key&gt;@&lt;account-name&gt;.blob.core.windows.net/&lt;container&gt;/&lt;blob-regex&gt;.
+        /// </summary>
+        internal static string BlobUrlSample {
+            get {
+                return ResourceManager.GetString("BlobUrlSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string DefaultFalseValue {
@@ -97,11 +106,67 @@ namespace Microsoft.DataTransfer.WpfHost.Basics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid storage container URL should be provided.
+        /// </summary>
+        internal static string InvalidStorageContainerUrl {
+            get {
+                return ResourceManager.GetString("InvalidStorageContainerUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot convert value to type &quot;{0}&quot;, expected type is &quot;{1}&quot;.
         /// </summary>
         internal static string InvalidTargetConvertionType {
             get {
                 return ResourceManager.GetString("InvalidTargetConvertionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more items should be added.
+        /// </summary>
+        internal static string NonEmptyCollectionRequired {
+            get {
+                return ResourceManager.GetString("NonEmptyCollectionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-empty value should be provided.
+        /// </summary>
+        internal static string NonEmptyStringRequired {
+            get {
+                return ResourceManager.GetString("NonEmptyStringRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value should be greater than zero.
+        /// </summary>
+        internal static string PositiveNumberRequired {
+            get {
+                return ResourceManager.GetString("PositiveNumberRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current content of the field will be replaced.
+        ///
+        ///Do you want to continue?.
+        /// </summary>
+        internal static string ReplaceContentConfirmation {
+            get {
+                return ResourceManager.GetString("ReplaceContentConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Content.
+        /// </summary>
+        internal static string ReplaceContentConfirmationTitle {
+            get {
+                return ResourceManager.GetString("ReplaceContentConfirmationTitle", resourceCulture);
             }
         }
     }

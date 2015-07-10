@@ -41,10 +41,13 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             if (!transferService.GetKnownSinks().TryGetValue(configuration.TargetName, out sinkDefinition))
                 throw Errors.UnknownDestination(configuration.TargetName);
 
-            var statistics = statisticsHandler.CreateNew(infrastructureConfiguration.Create(configuration.InfrastructureConfiguration));
+            ITransferStatistics statistics = null;
 
             using (var cancellation = new ConsoleCancellationSource())
             {
+                statistics = await statisticsHandler.CreateNew(
+                    infrastructureConfiguration.Create(configuration.InfrastructureConfiguration), cancellation.Token);
+
                 using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
                 {
                     await transferService
@@ -62,7 +65,8 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                 }
             }
 
-            statisticsHandler.PrintResult(statistics.GetSnapshot());
+            if (statistics != null)
+                statisticsHandler.PrintResult(statistics.GetSnapshot());
         }
 
         private void ValidateConfiguration()

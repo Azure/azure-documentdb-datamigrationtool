@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
             ReadAndVerify("IntegerValues.csv", new CsvReaderConfiguration(),
                 new[]
                 {
-                    new object[] { "Tom", "Jones", (double)10, "buyer@salesforcesample.com" },
+                    new object[] { "Tom", "Jones", (long)10, "buyer@salesforcesample.com" },
                     new object[] { "Ian", "Dury", "20", "cto@salesforcesample.com" }
                 });
         }

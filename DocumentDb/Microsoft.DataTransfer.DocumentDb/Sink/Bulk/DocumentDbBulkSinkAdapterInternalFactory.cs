@@ -6,6 +6,7 @@ using Microsoft.DataTransfer.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
@@ -18,7 +19,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         }
 
         protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            IDocumentDbBulkSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
+            IDocumentDbBulkSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation)
         {
             var sink = new DocumentDbBulkSinkAdapterDispatcher(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
             await sink.InitializeAsync();
@@ -35,6 +36,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 Collections = collectionNames,
                 PartitionKey = configuration.PartitionKey,
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
+                IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 StoredProcBody = GetStoredProcBody(configuration.StoredProcFile),
                 BatchSize = GetValueOrDefault(configuration.BatchSize,

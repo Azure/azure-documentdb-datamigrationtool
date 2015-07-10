@@ -116,7 +116,7 @@ namespace Microsoft.DataTransfer.WpfHost.Model
 
         private static string EscapeValue(string value)
         {
-            value = value.Replace("\"", "\"\"\"");
+            value = value.Replace("\r", "").Replace('\n', ' ').Replace("\"", "\"\"\"");
             return value.Contains(" ") ? "\"" + value + "\"" : value;
         }
     }

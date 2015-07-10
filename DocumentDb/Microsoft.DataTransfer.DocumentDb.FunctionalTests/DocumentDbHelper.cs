@@ -2,7 +2,6 @@
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.DataTransfer.DocumentDb.Client;
-using Microsoft.DataTransfer.Extensibility;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -28,7 +27,8 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        public static IEnumerable<IReadOnlyDictionary<string, object>> ReadDocuments(string connectionString, string collectionName)
+        public static IEnumerable<IReadOnlyDictionary<string, object>> ReadDocuments(string connectionString, string collectionName,
+            string query = "SELECT * FROM c")
         {
             var connectionSettings = DocumentDbConnectionStringBuilder.Parse(connectionString);
 
@@ -51,7 +51,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Assert.IsNotNull(collection, "Document collection does not exist.");
 
                 return client
-                    .CreateDocumentQuery<Dictionary<string, object>>(collection.DocumentsLink)
+                    .CreateDocumentQuery<Dictionary<string, object>>(collection.DocumentsLink, query)
                     .ToArray();
             }
         }

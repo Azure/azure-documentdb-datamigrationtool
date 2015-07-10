@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink"
              xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="360" d:DesignWidth="300">
   
   <UserControl.Resources>
     <ResourceDictionary>
@@ -15,6 +15,9 @@
       </ResourceDictionary.MergedDictionaries>
 
       <local:CollectionPricingTierValueConverter x:Key="CollectionTierConverter" />
+
+      <converters:BooleanToVisibilityValueConverter x:Key="IsVisible" />
+      <converters:BooleanToVisibilityValueConverter x:Key="IsInvisible" True="Collapsed" False="Visible" />
       <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
     </ResourceDictionary>
   </UserControl.Resources>
@@ -25,6 +28,7 @@
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
+      <RowDefinition />
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
@@ -88,18 +92,26 @@
       <TextBlock Text="{Binding Dates}" />
     </Label>
 
-    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
+    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource IndexingPolicySummaryKey}" />
     <Label Grid.Row="10" Grid.Column="1">
+      <Grid>
+        <TextBlock Text="{Binding IndexingPolicy}" Visibility="{Binding UseIndexingPolicyFile, Converter={StaticResource IsInvisible}}" />
+        <TextBlock Text="{Binding IndexingPolicyFile}" Visibility="{Binding UseIndexingPolicyFile, Converter={StaticResource IsVisible}}" />
+      </Grid>
+    </Label>
+
+    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
+    <Label Grid.Row="11" Grid.Column="1">
       <TextBlock Text="{Binding Retries}" />
     </Label>
 
-    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
-    <Label Grid.Row="11" Grid.Column="1">
+    <Label Grid.Row="12" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
+    <Label Grid.Row="12" Grid.Column="1">
       <TextBlock Text="{Binding RetryInterval}" />
     </Label>
 
-    <Label Grid.Row="12" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
-    <Label Grid.Row="12" Grid.Column="1">
+    <Label Grid.Row="13" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
+    <Label Grid.Row="13" Grid.Column="1">
       <TextBlock Text="{Binding ConnectionMode}" />
     </Label>
   </Grid>

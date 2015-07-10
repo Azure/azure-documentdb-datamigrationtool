@@ -4,6 +4,7 @@ using Microsoft.DataTransfer.Extensibility;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Core.FactoryAdapters
@@ -35,7 +36,7 @@ namespace Microsoft.DataTransfer.Core.FactoryAdapters
             DisplayName = displayName;
 
             ConfigurationType = GetConfigurationType(factory.GetType());
-            createMethod = factory.GetType().GetMethod("CreateAsync", new[] { ConfigurationType, typeof(IDataTransferContext) });
+            createMethod = factory.GetType().GetMethod("CreateAsync", new[] { ConfigurationType, typeof(IDataTransferContext), typeof(CancellationToken) });
         }
 
         public static Type GetConfigurationType(Type adapterFactoryType)
@@ -53,14 +54,14 @@ namespace Microsoft.DataTransfer.Core.FactoryAdapters
             return factoryInterface.GetGenericArguments()[0];
         }
 
-        public Task<TDataAdapter> CreateAsync(object configuration, IDataTransferContext context)
+        public Task<TDataAdapter> CreateAsync(object configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             if (configuration != null && !ConfigurationType.IsAssignableFrom(configuration.GetType()))
                 throw Errors.InvalidDataAdapterConfigrationType(ConfigurationType, configuration.GetType());
 
             try
             {
-                return (Task<TDataAdapter>)createMethod.Invoke(factory, new[] { configuration, context });
+                return (Task<TDataAdapter>)createMethod.Invoke(factory, new[] { configuration, context, cancellation });
             }
             catch (TargetInvocationException invocationException)
             {

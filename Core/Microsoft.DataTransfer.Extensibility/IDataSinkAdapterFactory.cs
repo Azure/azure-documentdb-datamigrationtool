@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Extensibility
 {
@@ -13,7 +14,8 @@ namespace Microsoft.DataTransfer.Extensibility
         /// </summary>
         /// <param name="configuration">Data sink adapter configuration.</param>
         /// <param name="context">Data transfer operation context.</param>
+        /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        Task<IDataSinkAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context);
+        Task<IDataSinkAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context, CancellationToken cancellation);
     }
 }

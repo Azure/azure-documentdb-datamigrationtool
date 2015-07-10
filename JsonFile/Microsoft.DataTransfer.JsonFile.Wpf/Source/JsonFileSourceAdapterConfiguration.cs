@@ -1,13 +1,13 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.JsonFile.Source;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
 {
-    sealed class JsonFileSourceAdapterConfiguration : ValidatableConfiguration, IJsonFileSourceAdapterConfiguration
+    sealed class JsonFileSourceAdapterConfiguration : ValidatableBindableBase, IJsonFileSourceAdapterConfiguration
     {
         private static readonly string EditableFilesPropertyName =
             ObjectExtensions.MemberName<JsonFileSourceAdapterConfiguration>(c => c.EditableFiles);

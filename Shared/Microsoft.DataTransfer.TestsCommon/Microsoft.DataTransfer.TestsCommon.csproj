@@ -63,7 +63,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonTestResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DataTransferSinkTestBase.cs" />
+    <Compile Include="DataTransferAdapterTestBase.cs" />
     <Compile Include="Mocks\ComparableDataItem.cs" />
     <Compile Include="DataItemAssert.cs" />
     <Compile Include="DataItemCollectionAssert.cs" />

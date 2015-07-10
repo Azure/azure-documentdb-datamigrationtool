@@ -22,6 +22,12 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         [XmlElement]
         public string RavenDbConnectionStringFormat { get; set; }
 
+        [XmlElement]
+        public string DynamoDbConnectionString { get; set; }
+
+        [XmlElement]
+        public string HBaseConnectionString { get; set; }
+
         public string DocumentDbConnectionString(string databaseName)
         {
             return String.Format(CultureInfo.InvariantCulture, DocumentDbConnectionStringFormat, databaseName);

@@ -58,15 +58,22 @@ namespace Microsoft.DataTransfer.Core.Service
                 SinkName = sinkName
             };
 
-            // Lets start timer now, since factories may take some time as well and we want to capture that
-            statistics.Start();
+            try
+            {
+                // Lets start timer now, since factories may take some time as well and we want to capture that
+                statistics.Start();
 
-            var source = sourceFactoryAdapter.CreateAsync(sourceConfiguration, context);
-            var sink = sinkFactoryAdapter.CreateAsync(sinkConfiguration, context);
+                var source = sourceFactoryAdapter.CreateAsync(sourceConfiguration, context, cancellation);
+                var sink = sinkFactoryAdapter.CreateAsync(sinkConfiguration, context, cancellation);
 
-            using (var sourceInstance = await source)
-            using (var sinkInstance = await sink)
-                await transferAction.ExecuteAsync(sourceInstance, sinkInstance, statistics, cancellation);
+                using (var sourceInstance = await source)
+                using (var sinkInstance = await sink)
+                    await transferAction.ExecuteAsync(sourceInstance, sinkInstance, statistics, cancellation);
+            }
+            finally
+            {
+                statistics.Stop();
+            }
         }
     }
 }

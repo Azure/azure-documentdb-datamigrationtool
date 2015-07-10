@@ -4,6 +4,7 @@ using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Core.UnitTests.FactoryAdapters
@@ -20,7 +21,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.FactoryAdapters
 
             var adapterFactoryMock = new Mock<IDataSourceAdapterFactory<ITestAdapterConfiguration>>();
             adapterFactoryMock
-                .Setup(f => f.CreateAsync(It.IsAny<ITestAdapterConfiguration>(), It.IsAny<IDataTransferContext>()))
+                .Setup(f => f.CreateAsync(It.IsAny<ITestAdapterConfiguration>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()))
                 .Returns(() => Task.FromResult(adapterMock));
 
             var configuration =
@@ -31,7 +32,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.FactoryAdapters
 
             var factoryAdapter = new DataSourceAdapterFactoryAdapter<ITestAdapterConfiguration>(adapterFactoryMock.Object, TestDisplayName);
 
-            var adapter = await factoryAdapter.CreateAsync(configuration, DataTransferContextMock.Instance);
+            var adapter = await factoryAdapter.CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None);
 
             Assert.AreEqual(TestDisplayName, factoryAdapter.DisplayName, TestResources.InvalidDataAdapter);
 
@@ -49,7 +50,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.FactoryAdapters
 
             var adapterFactoryMock = new Mock<IDataSinkAdapterFactory<ITestAdapterConfiguration>>();
             adapterFactoryMock
-                .Setup(f => f.CreateAsync(It.IsAny<ITestAdapterConfiguration>(), It.IsAny<IDataTransferContext>()))
+                .Setup(f => f.CreateAsync(It.IsAny<ITestAdapterConfiguration>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()))
                 .Returns(() => Task.FromResult(adapterMock));
 
             var configuration =
@@ -60,7 +61,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.FactoryAdapters
 
             var factoryAdapter = new DataSinkAdapterFactoryAdapter<ITestAdapterConfiguration>(adapterFactoryMock.Object, TestDisplayName);
 
-            var adapter = await factoryAdapter.CreateAsync(configuration, DataTransferContextMock.Instance);
+            var adapter = await factoryAdapter.CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None);
 
             Assert.AreEqual(TestDisplayName, factoryAdapter.DisplayName, TestResources.InvalidDataAdapter);
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.DataTransfer.WpfHost.Basics;
+using System.ComponentModel;
 
 namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics
 {
@@ -8,7 +9,7 @@ namespace Microsoft.DataTransfer.WpfHost.Extensibility.Basics
     /// </summary>
     /// <typeparam name="TConfiguration">Type of the configuration that this instance can provide.</typeparam>
     public abstract class DataAdapterValidatableConfigurationProviderBase<TConfiguration> : DataAdapterConfigurationProviderBase<TConfiguration>
-        where TConfiguration : ValidatableConfiguration
+        where TConfiguration : ValidatableBindableBase
     {
         /// <summary>
         /// Creates new instance of the configuration.

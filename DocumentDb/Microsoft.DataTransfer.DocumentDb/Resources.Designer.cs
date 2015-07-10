@@ -79,6 +79,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Both IndexingPolicy and IndexingPolicyFile cannot be set at the same time.
+        /// </summary>
+        internal static string AmbiguousIndexingPolicy {
+            get {
+                return ResourceManager.GetString("AmbiguousIndexingPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Both Query and QueryFile cannot be set at the same time.
         /// </summary>
         internal static string AmbiguousQuery {

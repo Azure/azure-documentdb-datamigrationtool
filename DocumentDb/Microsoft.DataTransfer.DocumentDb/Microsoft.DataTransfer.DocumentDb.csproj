@@ -31,9 +31,9 @@
   </PropertyGroup>
   <Import Project="..\..\Solution Items\CommonProperties.proj" />
   <ItemGroup>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.1.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.2.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,8 +63,6 @@
     <Compile Include="Client\Enumeration\AsyncEnumerator.cs" />
     <Compile Include="Client\Enumeration\AsyncEnumeratorBase.cs" />
     <Compile Include="Client\Enumeration\DocumentSurrogateQueryAsyncEnumerator.cs" />
-    <Compile Include="Client\Enumeration\EmptyAsyncEnumerator.cs" />
-    <Compile Include="Client\Enumeration\IAsyncEnumerator.cs" />
     <Compile Include="Client\Serialization\DictionaryCreationConverter.cs" />
     <Compile Include="Client\Serialization\DocumentSurrogate.cs" />
     <Compile Include="Client\Serialization\DocumentSurrogateJsonConverter.cs" />
@@ -195,8 +193,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BulkTransformationInsert.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BulkInsert.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

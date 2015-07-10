@@ -5,16 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:sink="clr-namespace:Microsoft.DataTransfer.DocumentDb.Sink;assembly=Microsoft.DataTransfer.DocumentDb"
+             xmlns:bcmd="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared"
              mc:Ignorable="d" x:ClassModifier="internal"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="300">
 
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="..\XamlResources.xaml"/>
       </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="IndexingPolicyEditor" TargetType="bc:StringOrFileConfigurationControl" BasedOn="{StaticResource OptionElement}">
+        <Setter Property="Height" Value="150" />
+      </Style>
+
+      <ObjectDataProvider x:Key="PasteToFocusedTextBox" ObjectType="{x:Type bcmd:PasteToFocusedTextBoxCommand}" />
+      <ObjectDataProvider x:Key="ReplaceIndentedTextInFocusedTextBox" ObjectType="{x:Type bcmd:ReplaceIndentedTextInFocusedTextBoxCommand}" />
 
       <ObjectDataProvider x:Key="DateTimeHandlingValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
         <ObjectDataProvider.MethodParameters>
@@ -33,7 +41,28 @@
       <Label Content="{DynamicResource DatesHandlingKey}" />
       <ComboBox ItemsSource="{Binding Source={StaticResource DateTimeHandlingValues}}" SelectedValue="{Binding Dates}" />
     </StackPanel>
-    
+
+    <bc:StringOrFileConfigurationControl Style="{StaticResource IndexingPolicyEditor}"
+      UseFile="{Binding UseIndexingPolicyFile}"
+      StringValueLabel="{DynamicResource EnterIndexingPolicySelectionKey}" StringValue="{Binding IndexingPolicy}"
+      FileNameLabel="{DynamicResource IndexingPolicyFileSelectionKey}" FileName="{Binding IndexingPolicyFile}"
+      FileFilter="{DynamicResource IndexingPolicyFileFilterKey}" FileDefaultExtension="{DynamicResource IndexingPolicyFileDefaultExtensionKey}">
+      <bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+        <ContextMenu>
+          <MenuItem Header="{DynamicResource IndexingPolicyDefaultTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyDefaultTemplate}" />
+          <MenuItem Header="{DynamicResource IndexingPolicyAllHashTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllHashTemplate}" />
+          <MenuItem Header="{DynamicResource IndexingPolicyAllRangeTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllRangeTemplate}" />
+          <Separator />
+          <MenuItem Command="ApplicationCommands.Copy" />
+          <MenuItem Command="ApplicationCommands.Cut" />
+          <MenuItem Command="ApplicationCommands.Paste" />
+        </ContextMenu>
+      </bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+    </bc:StringOrFileConfigurationControl>
+
     <shared:DocumentDbAdapterAdvancedConfigurationControl DataContext="{Binding}" />
   </StackPanel>
   

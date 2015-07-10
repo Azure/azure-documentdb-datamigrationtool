@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 {
     [TestClass]
-    public class DocumentDbParallelSinkAdapterTests : DataTransferSinkTestBase
+    public class DocumentDbParallelSinkAdapterTests : DataTransferAdapterTestBase
     {
         [TestMethod]
         public async Task WriteSampleData_AllDataStored()

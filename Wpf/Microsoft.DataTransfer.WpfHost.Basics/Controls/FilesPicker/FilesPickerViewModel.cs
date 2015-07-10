@@ -10,6 +10,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
         private EditItemsCollectionCommandBase<string> addSingleFolder;
         private EditItemsCollectionCommandBase<string> addRecursiveFolder;
         private EditItemsCollectionCommandBase<string> addUrl;
+        private EditItemsCollectionCommandBase<string> addBlob;
         private EditItemsCollectionCommandBase<string> removeFiles;
 
         private IList<string> files;
@@ -20,7 +21,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
             set
             {
                 SetProperty(ref files, value);
-                addFiles.Items = addSingleFolder.Items = addUrl.Items =
+                addFiles.Items = addSingleFolder.Items = addUrl.Items = addBlob.Items =
                     addRecursiveFolder.Items = removeFiles.Items = files;
             }
         }
@@ -45,6 +46,11 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
             get { return addUrl; }
         }
 
+        public ICommand AddBlob
+        {
+            get { return addBlob; }
+        }
+
         public ICommand RemoveFiles
         {
             get { return removeFiles; }
@@ -56,6 +62,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
             addSingleFolder = new AddSingleFolderCommand();
             addRecursiveFolder = new AddRecursiveFolderCommand();
             addUrl = new AddUrlCommand();
+            addBlob = new AddBlobCommand();
             removeFiles = new RemoveItemsCommand<string>(selectedItemsProvider);
         }
     }

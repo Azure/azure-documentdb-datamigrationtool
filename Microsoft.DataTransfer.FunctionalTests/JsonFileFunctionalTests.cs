@@ -33,9 +33,13 @@ namespace Microsoft.DataTransfer.FunctionalTests
                         c.Prettify == true)
                     .First();
 
-            using (var source = await new JsonFileSourceAdapterFactory().CreateAsync(sourceConfiguration, DataTransferContextMock.Instance))
-            using (var sink = await new JsonFileSinkAdapterFactory().CreateAsync(sinkConfiguration, DataTransferContextMock.Instance))
+            using (var source = await new JsonFileSourceAdapterFactory()
+                .CreateAsync(sourceConfiguration, DataTransferContextMock.Instance, CancellationToken.None))
+            using (var sink = await new JsonFileSinkAdapterFactory()
+                .CreateAsync(sinkConfiguration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
                 await transfer.ExecuteAsync(source, sink, new DummyTransferStatisticsMock(), CancellationToken.None);
+            }
 
             var resultFile = new FileInfo(@"OutputData\Test.json");
             Assert.IsTrue(resultFile.Exists, TestResources.OutputFileMissing);

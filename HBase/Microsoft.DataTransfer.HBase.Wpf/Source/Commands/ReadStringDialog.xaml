@@ -1,0 +1,58 @@
+﻿<Window x:Class="Microsoft.DataTransfer.HBase.Wpf.Source.Commands.ReadStringDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        Title="{DynamicResource ReadStringDialogTitleKey}"
+        ResizeMode="NoResize" SizeToContent="Height" Width="500" MinWidth="200"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
+
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style x:Key="Container" TargetType="StackPanel">
+        <Setter Property="Margin" Value="5" />
+      </Style>
+
+      <Style x:Key="ButtonsPane" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,5,0,0" />
+        <Style.Resources>
+          <Style TargetType="Button">
+            <Setter Property="Padding" Value="0,3" />
+            <Setter Property="Width" Value="75" />
+          </Style>
+
+          <Style x:Key="OkButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="IsDefault" Value="True" />
+          </Style>
+
+          <Style x:Key="CancelButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="IsCancel" Value="True" />
+          </Style>
+        </Style.Resources>
+      </Style>
+    </ResourceDictionary>
+  </Window.Resources>
+
+  <StackPanel x:Name="LayoutRoot" Style="{StaticResource Container}" FocusManager.FocusedElement="{Binding ElementName=txtInput}">
+    <TextBox x:Name="txtInput" Text="{Binding InputString, UpdateSourceTrigger=PropertyChanged}" />
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Grid.Column="1" Style="{StaticResource ButtonsPane}">
+        <Button Style="{DynamicResource OkButton}" Content="{DynamicResource OkKey}" Command="{Binding SetOkDialogResult}" />
+        <Button Style="{DynamicResource CancelButton}" Content="{DynamicResource CancelKey}" />
+      </StackPanel>
+    </Grid>
+  </StackPanel>
+
+</Window>

@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.RavenDb.Wpf.Source
     public sealed class RavenDbSourceAdapterConfigurationProvider : DataAdapterConfigurationProviderWrapper
     {
         /// <summary>
-        /// Creates a new instnace of <see cref="RavenDbSourceAdapterConfigurationProvider" />.
+        /// Creates a new instance of <see cref="RavenDbSourceAdapterConfigurationProvider" />.
         /// </summary>
         public RavenDbSourceAdapterConfigurationProvider()
             : base(new RavenDbSourceAdapterInternalConfigurationProvider()) { }

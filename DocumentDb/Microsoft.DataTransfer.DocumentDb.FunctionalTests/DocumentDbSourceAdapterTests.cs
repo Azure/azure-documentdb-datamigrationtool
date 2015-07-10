@@ -4,9 +4,7 @@ using Microsoft.DataTransfer.TestsCommon;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,19 +38,11 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                         c.InternalFields == false)
                     .First();
 
-            var readResults = new List<IDataItem>();
+            List<IDataItem> readResults;
             using (var adapter = await new DocumentDbSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
-                IDataItem dataItem;
-                var readOutput = new ReadOutputByRef();
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
+                readResults = await ReadDataAsync(adapter);
             }
 
             DataItemCollectionAssert.AreEquivalent(sampleData, readResults, TestResources.InvalidDocumentsRead);

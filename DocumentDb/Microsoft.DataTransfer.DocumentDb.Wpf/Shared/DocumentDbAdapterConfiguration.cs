@@ -1,12 +1,12 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.DocumentDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 using System;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
 {
-    abstract class DocumentDbAdapterConfiguration : ValidatableConfiguration, IDocumentDbAdapterConfiguration
+    abstract class DocumentDbAdapterConfiguration : ValidatableBindableBase, IDocumentDbAdapterConfiguration
     {
         public static readonly string ConnectionStringPropertyName =
             ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.ConnectionString);

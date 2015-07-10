@@ -1,0 +1,32 @@
+{
+  "indexingMode": "consistent",
+  "automatic": true,
+  "includedPaths": [
+    {
+      "path": "/*",
+      "indexes": [
+        {
+          "kind": "Range",
+          "dataType": "Number",
+          "precision": -1
+        },
+        {
+          "kind": "Hash",
+          "dataType": "String",
+          "precision": 3
+        }
+      ]
+    },
+    {
+      "path": "/IntegerProperty/?",
+      "indexes": [
+        {
+          "kind": "Range",
+          "dataType": "Number",
+          "precision": -1
+        }
+      ]
+    }
+  ],
+  "excludedPaths": []
+}

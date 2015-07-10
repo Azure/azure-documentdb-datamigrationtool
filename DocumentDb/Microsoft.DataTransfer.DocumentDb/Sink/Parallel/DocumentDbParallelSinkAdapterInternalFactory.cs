@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
@@ -15,7 +16,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
         }
 
         protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
+            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation)
         {
             var sink = new DocumentDbParallelSinkAdapter(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
             await sink.InitializeAsync();
@@ -31,6 +32,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             {
                 Collections = collectionNames,
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
+                IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 NumberOfParallelRequests = GetValueOrDefault(configuration.ParallelRequests,
                     Defaults.Current.ParallelSinkNumberOfParallelRequests, Errors.InvalidNumberOfParallelRequests)

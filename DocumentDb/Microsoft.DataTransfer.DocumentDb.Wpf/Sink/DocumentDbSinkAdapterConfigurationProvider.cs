@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
+﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         {
             base.PopulateCommandLineArguments(configuration, arguments);
 
+            Guard.NotNull("configuration", configuration);
+            Guard.NotNull("arguments", arguments);
+
             arguments.Add(DocumentDbSinkAdapterConfiguration.CollectionPropertyName, AsCollectionArgument(configuration.Collection));
 
             if (!String.IsNullOrEmpty(configuration.PartitionKey))
@@ -18,6 +22,17 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
             if (configuration.CollectionTier.HasValue && configuration.CollectionTier.Value != Defaults.Current.SinkCollectionTier)
                 arguments.Add(DocumentDbSinkAdapterConfiguration.CollectionTierPropertyName, configuration.CollectionTier.Value.ToString());
+
+            if (configuration.UseIndexingPolicyFile)
+            {
+                if (!String.IsNullOrEmpty(configuration.IndexingPolicyFile))
+                    arguments.Add(DocumentDbSinkAdapterConfiguration.IndexingPolicyFilePropertyName, configuration.IndexingPolicyFile);
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(configuration.IndexingPolicy))
+                    arguments.Add(DocumentDbSinkAdapterConfiguration.IndexingPolicyPropertyName, configuration.IndexingPolicy);
+            }
 
             if (!String.IsNullOrEmpty(configuration.IdField))
                 arguments.Add(DocumentDbSinkAdapterConfiguration.IdFieldPropertyName, configuration.IdField);

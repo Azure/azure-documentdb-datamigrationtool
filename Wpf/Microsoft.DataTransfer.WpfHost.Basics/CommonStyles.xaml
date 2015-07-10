@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls">
 
   <Style TargetType="bc:TitleControl">
@@ -88,5 +89,10 @@
       <TextBlock Text="?" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Center" />
     </Grid>
   </ControlTemplate>
+
+  <!-- COmmon strings -->
+
+  <system:String x:Key="OkKey">OK</system:String>
+  <system:String x:Key="CancelKey">Cancel</system:String>
 
 </ResourceDictionary>

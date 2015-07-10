@@ -33,6 +33,13 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls
             new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
+        /// Identifies the <see cref="StringOrFileConfigurationControl.StringEditorContextMenu" /> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty StringEditorContextMenuProperty = DependencyProperty.Register(
+            ObjectExtensions.MemberName<StringOrFileConfigurationControl>(c => c.StringEditorContextMenu),
+            typeof(ContextMenu), typeof(StringOrFileConfigurationControl));
+
+        /// <summary>
         /// Identifies the <see cref="StringOrFileConfigurationControl.FileNameLabel" /> dependency property.
         /// </summary>
         public static readonly DependencyProperty FileNameLabelProperty = DependencyProperty.Register(
@@ -83,6 +90,15 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls
         {
             get { return (string)GetValue(StringValueProperty); }
             set { SetValue(StringValueProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the string editor context menu.
+        /// </summary>
+        public ContextMenu StringEditorContextMenu
+        {
+            get { return (ContextMenu)GetValue(StringEditorContextMenuProperty); }
+            set { SetValue(StringEditorContextMenuProperty, value); }
         }
 
         /// <summary>

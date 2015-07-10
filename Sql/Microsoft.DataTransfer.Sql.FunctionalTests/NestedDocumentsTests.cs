@@ -123,7 +123,8 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
 
             var expectedTopLevelColumns = new[] { "IntColumn", "NVarCharMaxColumn", "Nested", "AnotherNested" };
 
-            using (var adapter = await new SqlDataSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new SqlDataSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 for (var rowIndex = 0; rowIndex < rows.Length; ++rowIndex)
                 {
@@ -161,7 +162,8 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
 
             var expectedTopLevelColumns = new[] { "IntColumn", "NVarCharMaxColumn", "FirstNested" };
 
-            using (var adapter = await new SqlDataSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance))
+            using (var adapter = await new SqlDataSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 for (var rowIndex = 0; rowIndex < rows.Length; ++rowIndex)
                 {

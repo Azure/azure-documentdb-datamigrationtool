@@ -7,6 +7,8 @@ namespace Microsoft.DataTransfer.DocumentDb
 {
     sealed class Errors : CommonErrors
     {
+        private Errors() { }
+
         public static Exception ConnectionStringMissing()
         {
             return new ArgumentException(Resources.ConnectionStringMissing);
@@ -30,6 +32,11 @@ namespace Microsoft.DataTransfer.DocumentDb
         public static Exception DatabaseNameMissing()
         {
             return new ArgumentException(Resources.DatabaseNameMissing);
+        }
+
+        public static Exception AmbiguousIndexingPolicy()
+        {
+            return new ArgumentException(Resources.AmbiguousIndexingPolicy);
         }
 
         public static Exception InvalidNumberOfParallelRequests()

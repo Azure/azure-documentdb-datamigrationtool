@@ -1,7 +1,9 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.Basics.Files.Sink;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.Extensibility.Basics;
 using Microsoft.DataTransfer.JsonFile.Serialization;
-using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.JsonFile.Sink
@@ -9,7 +11,7 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
     /// <summary>
     /// Provides data sink adapters capable of writing data to JSON file.
     /// </summary>
-    public sealed class JsonFileSinkAdapterFactory : IDataSinkAdapterFactory<IJsonFileSinkAdapterConfiguration>
+    public sealed class JsonFileSinkAdapterFactory : DataAdapterFactoryBase, IDataSinkAdapterFactory<IJsonFileSinkAdapterConfiguration>
     {
         /// <summary>
         /// Gets the description of the data adapter.
@@ -24,25 +26,14 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
         /// </summary>
         /// <param name="configuration">Data sink adapter configuration.</param>
         /// <param name="context">Data transfer operation context.</param>
+        /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        public Task<IDataSinkAdapter> CreateAsync(IJsonFileSinkAdapterConfiguration configuration, IDataTransferContext context)
-        {
-            return Task.Factory.StartNew(() => Create(configuration));
-        }
-
-        private static IDataSinkAdapter Create(IJsonFileSinkAdapterConfiguration configuration)
+        public async Task<IDataSinkAdapter> CreateAsync(IJsonFileSinkAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             Guard.NotNull("configuration", configuration);
 
-            // Ensure output folder exists
-            try
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(configuration.File));
-            }
-            catch { }
-
             return new JsonFileSinkAdapter(
-                File.Open(configuration.File, configuration.Overwrite ? FileMode.Create : FileMode.CreateNew),
+                await SinkStreamProvidersFactory.Create(configuration.File, configuration.Overwrite).CreateWriter(cancellation),
                 JsonSerializersFactory.Create(configuration.Prettify));
         }
     }

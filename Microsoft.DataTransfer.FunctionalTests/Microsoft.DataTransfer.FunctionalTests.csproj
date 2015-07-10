@@ -82,6 +82,10 @@
       <Project>{01631f6d-813c-47d7-9ca7-3a6e493356f5}</Project>
       <Name>Microsoft.DataTransfer.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">
+      <Project>{83329196-46be-4cd0-b498-74e9ac463ed9}</Project>
+      <Name>Microsoft.DataTransfer.Extensibility.Basics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
       <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>

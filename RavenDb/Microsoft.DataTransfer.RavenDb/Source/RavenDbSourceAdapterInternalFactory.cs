@@ -1,8 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.RavenDb.Shared;
-using System;
-using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.RavenDb.Source
@@ -14,9 +13,9 @@ namespace Microsoft.DataTransfer.RavenDb.Source
             get { return Resources.SourceDescription; }
         }
 
-        public Task<IDataSourceAdapter> CreateAsync(IRavenDbSourceAdapterConfiguration configuration, IDataTransferContext context)
+        public Task<IDataSourceAdapter> CreateAsync(IRavenDbSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew(() => Create(configuration));
+            return Task.Factory.StartNew(() => Create(configuration), cancellation);
         }
 
         private IDataSourceAdapter Create(IRavenDbSourceAdapterConfiguration configuration)
@@ -33,23 +32,10 @@ namespace Microsoft.DataTransfer.RavenDb.Source
             return new RavenDbSourceAdapterInstanceConfiguration
             {
                 ConnectionString = configuration.ConnectionString,
-                Query = GetQuery(configuration),
+                Query = StringValueOrFile(configuration.Query, configuration.QueryFile, Errors.AmbiguousQuery),
                 Index = configuration.Index ?? Defaults.Current.SourceIndex,
                 ExcludeIdField = configuration.ExcludeId
             };
-        }
-
-        private static string GetQuery(IRavenDbSourceAdapterConfiguration configuration)
-        {
-            var isQuerySet = !String.IsNullOrEmpty(configuration.Query);
-            var isQueryFileSet = !String.IsNullOrEmpty(configuration.QueryFile);
-
-            if (isQuerySet && isQueryFileSet)
-                throw Errors.AmbiguousQuery();
-
-            var query = isQueryFileSet ? File.ReadAllText(configuration.QueryFile) : configuration.Query;
-
-            return query;
         }
     }
 }

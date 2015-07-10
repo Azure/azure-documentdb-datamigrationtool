@@ -1,14 +1,18 @@
 ﻿using Microsoft.DataTransfer.CsvFile.Source;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.TestsCommon;
+using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
 {
     [TestClass]
-    public class CsvFileSourceAdapterTests
+    public class CsvFileSourceAdapterTests : DataTransferAdapterTestBase
     {
         [TestMethod, Timeout(120000)]
         [DeploymentItem(@"TestData\BasicTest.csv", @"InputData")]
@@ -19,10 +23,10 @@ namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
                         c.Files == new[] { @"InputData\BasicTest.csv" })
                     .First();
 
-            var records = await CsvFileHelper.ReadCsv(configuration);
+            var readResults = await ReadData(configuration);
 
-            Assert.AreEqual(3, records.Count, TestResources.UnexpectedRecordsProcessed);
-            Assert.AreEqual(6, records[0].GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
+            Assert.AreEqual(3, readResults.Count, TestResources.UnexpectedRecordsProcessed);
+            Assert.AreEqual(6, readResults[0].GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
         }
 
         [TestMethod, Timeout(120000)]
@@ -34,10 +38,10 @@ namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
                         c.Files == new[] { @"InputData\MalformedTest.csv" })
                     .First();
 
-            var records = await CsvFileHelper.ReadCsv(configuration);
+            var readResults = await ReadData(configuration);
 
-            Assert.AreEqual(3, records.Count, TestResources.UnexpectedRecordsProcessed);
-            Assert.AreEqual(6, records[0].GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
+            Assert.AreEqual(3, readResults.Count, TestResources.UnexpectedRecordsProcessed);
+            Assert.AreEqual(6, readResults[0].GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
         }
 
         [TestMethod, Timeout(120000)]
@@ -52,19 +56,28 @@ namespace Microsoft.DataTransfer.CsvFile.FunctionalTests
                         c.NestingSeparator == ".")
                     .First();
 
-            var records = await CsvFileHelper.ReadCsv(configuration);
+            var readResults = await ReadData(configuration);
 
-            Assert.AreEqual(4, records.Count, TestResources.UnexpectedRecordsProcessed);
+            Assert.AreEqual(4, readResults.Count, TestResources.UnexpectedRecordsProcessed);
 
-            var fields = records[0].GetFieldNames().ToArray();
+            var fields = readResults[0].GetFieldNames().ToArray();
 
             Assert.AreEqual(6, fields.Count(), TestResources.UnexpectedFieldsProcessed);
             CollectionAssert.Contains(fields, NestedDocumentFieldName, TestResources.NestedDocumentFieldNotProcessed);
 
-            var nestedDocument = records[0].GetValue(NestedDocumentFieldName) as IDataItem;
+            var nestedDocument = readResults[0].GetValue(NestedDocumentFieldName) as IDataItem;
 
             Assert.IsNotNull(nestedDocument, TestResources.NestedDocumentFieldNotProcessed);
             Assert.AreEqual(2, nestedDocument.GetFieldNames().Count(), TestResources.UnexpectedFieldsProcessed);
+        }
+
+        private async Task<List<IDataItem>> ReadData(ICsvFileSourceAdapterConfiguration configuration)
+        {
+            using (var adapter = await new CsvFileSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                return await ReadDataAsync(adapter);
+            }
         }
     }
 }

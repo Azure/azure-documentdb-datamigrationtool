@@ -28,7 +28,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             var collectionLinks = new List<string>();
 
             foreach (var collection in Configuration.Collections)
-                collectionLinks.Add(await Client.GetOrCreateCollectionAsync(collection, Configuration.CollectionTier));
+                collectionLinks.Add(await Client.GetOrCreateCollectionAsync(
+                    collection, Configuration.CollectionTier, Configuration.IndexingPolicy));
 
             partitionResolver = PartitionResolverFactory.Instance.Create(Configuration.PartitionKey, collectionLinks);
         }

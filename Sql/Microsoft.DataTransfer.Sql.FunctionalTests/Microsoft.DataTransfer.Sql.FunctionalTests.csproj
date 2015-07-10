@@ -72,6 +72,10 @@
     <Compile Include="MultipleResultSetsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">
+      <Project>{83329196-46be-4cd0-b498-74e9ac463ed9}</Project>
+      <Name>Microsoft.DataTransfer.Extensibility.Basics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
       <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>

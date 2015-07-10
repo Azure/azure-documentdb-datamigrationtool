@@ -105,6 +105,14 @@
       <Project>{81a18d96-39fc-4165-8c52-4c887dce4a61}</Project>
       <Name>Microsoft.DataTransfer.DocumentDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DynamoDb\Microsoft.DataTransfer.DynamoDb\Microsoft.DataTransfer.DynamoDb.csproj">
+      <Project>{af2a444f-cabd-45be-9b9e-9d53501b2041}</Project>
+      <Name>Microsoft.DataTransfer.DynamoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj">
+      <Project>{ad24db36-8623-4e11-9995-a6eb5ef50a38}</Project>
+      <Name>Microsoft.DataTransfer.HBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj">
       <Project>{782ce839-40a8-4c47-9998-c3b0b7c3d2a1}</Project>
       <Name>Microsoft.DataTransfer.MongoDb</Name>

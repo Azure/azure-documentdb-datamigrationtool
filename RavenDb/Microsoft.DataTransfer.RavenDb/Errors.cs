@@ -5,6 +5,8 @@ namespace Microsoft.DataTransfer.RavenDb
 {
     sealed class Errors : CommonErrors
     {
+        private Errors() { }
+
         public static Exception ConnectionStringMissing()
         {
             return new ArgumentException(Resources.ConnectionStringMissing);

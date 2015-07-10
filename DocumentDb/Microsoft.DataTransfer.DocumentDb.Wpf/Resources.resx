@@ -132,9 +132,6 @@
   <data name="InvalidRetryInterval" xml:space="preserve">
     <value>Non-negative retry interval should be provided</value>
   </data>
-  <data name="PositiveNumberRequired" xml:space="preserve">
-    <value>Value should be greater than zero</value>
-  </data>
   <data name="TestConnectionResultTitle" xml:space="preserve">
     <value>Verify Connection</value>
   </data>

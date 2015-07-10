@@ -5,6 +5,7 @@ using Moq;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
@@ -37,7 +38,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 try
                 {
                     using (var adapter = await new DocumentDbSourceAdapterFactory()
-                        .CreateAsync(configuration, DataTransferContextMock.Instance))
+                        .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
                     {
                         Assert.Fail(TestResources.AmbiguousQueryDidNotFail);
                     }

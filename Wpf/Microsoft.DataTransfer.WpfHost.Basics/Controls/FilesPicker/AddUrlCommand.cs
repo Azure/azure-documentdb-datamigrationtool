@@ -1,5 +1,5 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics.Controls.EditableItemsList;
-using Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker.Url;
+using Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker.Urls.Http;
 using System.Windows;
 
 namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.FilesPicker
     {
         public override void Execute(object parameter)
         {
-            var dialog = new AddUrlsDialog
+            var dialog = new AddHttpUrlsDialog
             {
                 Owner = Application.Current.MainWindow
             };

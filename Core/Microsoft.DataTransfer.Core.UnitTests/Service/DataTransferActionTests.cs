@@ -56,9 +56,11 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                 });
 
             var statistics = new InMemoryTransferStatistics();
+            statistics.Start();
             using (var source = new DataSourceAdapterMock(sourceData))
             using (var sink = sinkMock)
                 await action.ExecuteAsync(source, sink, statistics, CancellationToken.None);
+            statistics.Stop();
 
             var receivedData = sinkMock.ReceivedData;
 
@@ -94,9 +96,11 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
             var sinkMock = new DataSinkAdapterMock();
 
             var statistics = new InMemoryTransferStatistics();
+            statistics.Start();
             using (var source = sourceMock)
             using (var sink = sinkMock)
                 await action.ExecuteAsync(source, sink, statistics, CancellationToken.None);
+            statistics.Stop();
 
             var receivedData = sinkMock.ReceivedData;
 

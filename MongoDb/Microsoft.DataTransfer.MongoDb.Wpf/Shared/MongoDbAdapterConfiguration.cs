@@ -1,10 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.MongoDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 
 namespace Microsoft.DataTransfer.MongoDb.Wpf.Shared
 {
-    abstract class MongoDbAdapterConfiguration : ValidatableConfiguration, IMongoDbAdapterConfiguration
+    abstract class MongoDbAdapterConfiguration : ValidatableBindableBase, IMongoDbAdapterConfiguration
     {
         public static readonly string ConnectionStringPropertyName =
             ObjectExtensions.MemberName<IMongoDbAdapterConfiguration>(c => c.ConnectionString);

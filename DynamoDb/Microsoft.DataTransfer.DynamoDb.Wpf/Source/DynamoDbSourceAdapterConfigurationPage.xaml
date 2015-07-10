@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.DynamoDb.Wpf.Source.DynamoDbSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bcmd="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Commands;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.DynamoDb.Wpf.Shared" 
+             mc:Ignorable="d" x:ClassModifier="internal"
+             d:DesignHeight="150" d:DesignWidth="300" MinHeight="150" MinWidth="300">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <ObjectDataProvider x:Key="PasteToFocusedTextBox" ObjectType="{x:Type bcmd:PasteToFocusedTextBoxCommand}" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <AdornerDecorator>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <shared:DynamoDbAdapterConnectionConfigurationControl Grid.Row="0" Configuration="{Binding}" />
+
+      <bc:StringOrFileConfigurationControl Grid.Row="1" Style="{StaticResource OptionElement}"
+        UseFile="{Binding UseRequestFile}"
+        StringValueLabel="{DynamicResource EnterRequestSelectionKey}" StringValue="{Binding Request}"
+        FileNameLabel="{DynamicResource RequestFileSelectionKey}" FileName="{Binding RequestFile}"
+        FileFilter="{DynamicResource RequestFileFilterKey}" FileDefaultExtension="{DynamicResource RequestFileDefaultExtensionKey}">
+        <bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+          <ContextMenu>
+            <MenuItem Header="{DynamicResource RequestTemplatesMenuHeader}">
+              <MenuItem Header="{DynamicResource ScanRequestTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource ScanRequestTemplate}" />
+              <MenuItem Header="{DynamicResource FilteredScanRequestTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource FilteredScanRequestTemplate}" />
+              <Separator />
+              <MenuItem Header="{DynamicResource QueryRequestTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource QueryRequestTemplate}" />
+              <MenuItem Header="{DynamicResource FilteredQueryRequestTemplateMenuHeader}"
+                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource FilteredQueryRequestTemplate}" />
+            </MenuItem>
+            <Separator />
+            <MenuItem Command="ApplicationCommands.Copy" />
+            <MenuItem Command="ApplicationCommands.Cut" />
+            <MenuItem Command="ApplicationCommands.Paste" />
+          </ContextMenu>
+        </bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+      </bc:StringOrFileConfigurationControl>
+    </Grid>
+  </AdornerDecorator>
+
+</UserControl>

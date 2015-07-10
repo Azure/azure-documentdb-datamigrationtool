@@ -25,6 +25,7 @@
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource FileNameSummaryKey}" />
@@ -32,8 +33,13 @@
       <TextBlock Text="{Binding File}" />
     </Label>
 
-    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource PrettifySummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource OverwriteSummaryKey}" />
     <Label Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="{Binding Overwrite, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+    
+    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource PrettifySummaryKey}" />
+    <Label Grid.Row="2" Grid.Column="1">
       <TextBlock Text="{Binding Prettify, Converter={StaticResource YesNoConverter}}" />
     </Label>
   </Grid>

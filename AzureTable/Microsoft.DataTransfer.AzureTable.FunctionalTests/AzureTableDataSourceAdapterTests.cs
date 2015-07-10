@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
 {
     [TestClass]
-    public class AzureTableDataSourceAdapterTests : DataTransferTestBase
+    public class AzureTableDataSourceAdapterTests : DataTransferAdapterTestBase
     {
         private const int NumberOfItems = 2000;
 
@@ -46,22 +46,8 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                         c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
-            var readResults = new List<IDataItem>();
-            using (var adapter = await new AzureTableSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
-            {
-                IDataItem dataItem;
-                var readOutput = new ReadOutputByRef();
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
-            }
-
-            DataItemCollectionAssert.AreEquivalent(sampleData, readResults, TestResources.InvalidDocumentsRead);
+            DataItemCollectionAssert.AreEquivalent(sampleData,
+                await ReadData(configuration), TestResources.InvalidDocumentsRead);
         }
 
         [TestMethod, Timeout(120000)]
@@ -77,22 +63,8 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                         c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
-            var readResults = new List<IDataItem>();
-            using (var adapter = await new AzureTableSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
-            {
-                IDataItem dataItem;
-                var readOutput = new ReadOutputByRef();
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
-            }
-
-            DataItemCollectionAssert.AreEquivalent(sampleData.Where(e => (int)e[IntegerPropertyName] < 100), readResults, TestResources.InvalidDocumentsRead);
+            DataItemCollectionAssert.AreEquivalent(sampleData.Where(e => (int)e[IntegerPropertyName] < 100),
+                await ReadData(configuration), TestResources.InvalidDocumentsRead);
         }
 
         [TestMethod, Timeout(120000)]
@@ -108,26 +80,11 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                         c.InternalFields == AzureTableInternalFields.None)
                     .First();
 
-            var readResults = new List<IDataItem>();
-            using (var adapter = await new AzureTableSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
-            {
-                IDataItem dataItem;
-                var readOutput = new ReadOutputByRef();
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
-            }
-
             DataItemCollectionAssert.AreEquivalent(
                 sampleData
                     .Select(i => new Dictionary<string, object> { { StringPropertyName, i[StringPropertyName] } })
                     .ToArray(),
-                readResults,
+                await ReadData(configuration),
                 TestResources.InvalidDocumentsRead);
         }
 
@@ -157,10 +114,19 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
             await ReadAndVerifyFields(configuration, new[] { "RowKey", "PartitionKey", "Timestamp" });
         }
 
+        private async Task<List<IDataItem>> ReadData(IAzureTableSourceAdapterConfiguration configuration)
+        {
+            using (var adapter = await new AzureTableSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                return await ReadDataAsync(adapter);
+            }
+        }
+
         private static async Task ReadAndVerifyFields(IAzureTableSourceAdapterConfiguration configuration, string[] expectedInternalProperties)
         {
             using (var adapter = await new AzureTableSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 IDataItem dataItem;
                 var readOutput = new ReadOutputByRef();

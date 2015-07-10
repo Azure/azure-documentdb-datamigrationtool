@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
 {
     [TestClass]
-    public sealed class MongoexportFileSourceAdapterTests : DataTransferTestBase
+    public sealed class MongoexportFileSourceAdapterTests : DataTransferAdapterTestBase
     {
         private static readonly Dictionary<string, object>[] ExpectedData = new[]
             {
@@ -49,30 +49,18 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                 ExpectedData, await ReadData(@"InputData\mongoexport_emptylines.json"), TestResources.InvalidDocumentsRead);
         }
 
-        private static async Task<List<IDataItem>> ReadData(string fileName)
+        private async Task<List<IDataItem>> ReadData(string fileName)
         {
             var configuration = Mocks
                     .Of<IMongoexportFileSourceAdapterConfiguration>(c =>
                         c.Files == new[] { fileName })
                     .First();
 
-            var readResults = new List<IDataItem>();
             using (var adapter = await (new MongoexportFileSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance)))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)))
             {
-                var readOutput = new ReadOutputByRef();
-
-                IDataItem dataItem;
-                while ((dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None)) != null)
-                {
-                    readResults.Add(dataItem);
-
-                    Assert.IsNotNull(readOutput.DataItemId, CommonTestResources.MissingDataItemId);
-                    readOutput.Wipe();
-                }
+                return await ReadDataAsync(adapter);
             }
-
-            return readResults;
         }
     }
 }

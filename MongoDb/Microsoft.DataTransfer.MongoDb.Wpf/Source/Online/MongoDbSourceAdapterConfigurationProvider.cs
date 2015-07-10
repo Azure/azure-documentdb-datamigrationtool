@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Online
     public sealed class MongoDbSourceAdapterConfigurationProvider : DataAdapterConfigurationProviderWrapper
     {
         /// <summary>
-        /// Creates a new instnace of <see cref="MongoDbSourceAdapterConfigurationProvider" />.
+        /// Creates a new instance of <see cref="MongoDbSourceAdapterConfigurationProvider" />.
         /// </summary>
         public MongoDbSourceAdapterConfigurationProvider()
             : base(new MongoDbSourceAdapterInternalConfigurationProvider()) { }

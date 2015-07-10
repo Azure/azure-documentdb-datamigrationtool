@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
-using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
+using Microsoft.DataTransfer.Extensibility.Basics.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
@@ -19,7 +20,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
             this.enumerator = enumerator;
         }
 
-        public Task<bool> MoveNextAsync()
+        public Task<bool> MoveNextAsync(CancellationToken cancellation)
         {
             return Task.FromResult(enumerator.MoveNext());
         }

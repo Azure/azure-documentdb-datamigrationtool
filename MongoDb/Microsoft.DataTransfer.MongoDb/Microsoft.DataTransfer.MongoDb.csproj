@@ -89,6 +89,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
       <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics.Files\Microsoft.DataTransfer.Basics.Files.csproj">
+      <Project>{da182d5c-79f4-4af6-bf15-6e4496353a6a}</Project>
+      <Name>Microsoft.DataTransfer.Basics.Files</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
       <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>

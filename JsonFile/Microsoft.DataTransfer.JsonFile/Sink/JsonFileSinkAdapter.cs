@@ -2,6 +2,7 @@
 using Microsoft.DataTransfer.Basics.Threading;
 using Microsoft.DataTransfer.Extensibility;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,29 +13,27 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
     {
         private JsonSerializer serializer;
 
-        private FileStream fileStream;
         private StreamWriter streamWriter;
         private JsonTextWriter jsonWriter;
 
         public int MaxDegreeOfParallelism { get { return 1; } }
 
-        public JsonFileSinkAdapter(FileStream fileStream, JsonSerializer serializer)
+        public JsonFileSinkAdapter(StreamWriter streamWriter, JsonSerializer serializer)
         {
-            Guard.NotNull("fileStream", fileStream);
+            Guard.NotNull("streamWriter", streamWriter);
             Guard.NotNull("serializer", serializer);
 
-            this.fileStream = fileStream;
+            this.streamWriter = streamWriter;
             this.serializer = serializer;
 
-            streamWriter = new StreamWriter(fileStream);
             jsonWriter = new JsonTextWriter(streamWriter);
             jsonWriter.WriteStartArray();
         }
 
-        public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
+        public Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
         {
             serializer.Serialize(jsonWriter, dataItem);
-            await streamWriter.FlushAsync();
+            return Task.FromResult<object>(null);
         }
 
         public Task CompleteAsync(CancellationToken cancellation)
@@ -44,21 +43,15 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
             return TaskHelper.NoOp;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "jsonWriter",
-            Justification = "Disposed through TrashCan helper")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "streamWriter",
-            Justification = "Disposed through TrashCan helper")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "fileStream",
-            Justification = "Disposed through TrashCan helper")]
         public void Dispose()
         {
-            TrashCan.Throw(ref jsonWriter, w => 
-                {
-                    w.WriteEndArray();
-                    w.Close();
-                });
-            TrashCan.Throw(ref streamWriter, w => w.Close());
-            TrashCan.Throw(ref fileStream, s => s.Close());
+            /*
+             * Don't do this in try-catch as we want to get a BlobAlreadyExists exception from
+             * BLOB storage, that only happens on commit (dispose of the stream).
+            */ 
+            jsonWriter.WriteEndArray();
+            ((IDisposable)jsonWriter).Dispose();
+            streamWriter.Dispose();
         }
     }
 }

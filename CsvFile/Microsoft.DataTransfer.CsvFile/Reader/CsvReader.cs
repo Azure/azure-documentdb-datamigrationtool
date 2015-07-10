@@ -125,9 +125,13 @@ namespace Microsoft.DataTransfer.CsvFile.Reader
             if (String.IsNullOrEmpty(value))
                 return null;
 
-            double number;
-            if (double.TryParse(value, out number))
+            long number;
+            if (long.TryParse(value, out number))
                 return number;
+
+            double doubleNumber;
+            if (double.TryParse(value, out doubleNumber))
+                return doubleNumber;
 
             DateTime dateTime;
             if (DateTime.TryParse(value, CultureInfo.InvariantCulture,

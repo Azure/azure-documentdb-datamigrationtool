@@ -1,7 +1,8 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.Extensibility.Basics;
 using System;
-using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.MongoDb.Source.Online
@@ -9,7 +10,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
     /// <summary>
     /// Provides data source adapters capable of reading data from MongoDB instance.
     /// </summary>
-    public sealed class MongoDbSourceAdapterFactory : IDataSourceAdapterFactory<IMongoDbSourceAdapterConfiguration>
+    public sealed class MongoDbSourceAdapterFactory : DataAdapterFactoryBase, IDataSourceAdapterFactory<IMongoDbSourceAdapterConfiguration>
     {
         /// <summary>
         /// Gets the description of the data adapter.
@@ -24,10 +25,11 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
         /// </summary>
         /// <param name="configuration">Data source adapter configuration.</param>
         /// <param name="context">Data transfer operation context.</param>
+        /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        public Task<IDataSourceAdapter> CreateAsync(IMongoDbSourceAdapterConfiguration configuration, IDataTransferContext context)
+        public Task<IDataSourceAdapter> CreateAsync(IMongoDbSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew(() => Create(configuration));
+            return Task.Factory.StartNew(() => Create(configuration), cancellation);
         }
 
         private IDataSourceAdapter Create(IMongoDbSourceAdapterConfiguration configuration)
@@ -40,12 +42,6 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
             if (String.IsNullOrEmpty(configuration.Collection))
                 throw Errors.CollectionNameMissing();
 
-            if (!String.IsNullOrEmpty(configuration.QueryFile) && !String.IsNullOrEmpty(configuration.Query))
-                throw Errors.AmbiguousQuery();
-
-            if (!String.IsNullOrEmpty(configuration.ProjectionFile) && !String.IsNullOrEmpty(configuration.Projection))
-                throw Errors.AmbiguousProjection();
-
             var adapter = new MongoDbSourceAdapter(GetInstanceConfiguration(configuration));
             adapter.Initialize();
             return adapter;
@@ -57,10 +53,8 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
             {
                 ConnectionString = configuration.ConnectionString,
                 Collection = configuration.Collection,
-                Query = String.IsNullOrEmpty(configuration.QueryFile) ? 
-                    configuration.Query : File.ReadAllText(configuration.QueryFile),
-                Projection = String.IsNullOrEmpty(configuration.ProjectionFile) ? 
-                    configuration.Projection : File.ReadAllText(configuration.ProjectionFile)
+                Query = StringValueOrFile(configuration.Query, configuration.QueryFile, Errors.AmbiguousQuery),
+                Projection = StringValueOrFile(configuration.Projection, configuration.ProjectionFile, Errors.AmbiguousProjection)
             };
         }
     }

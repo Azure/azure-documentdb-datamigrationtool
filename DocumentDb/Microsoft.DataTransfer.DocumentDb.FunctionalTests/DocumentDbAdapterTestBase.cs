@@ -5,7 +5,7 @@ using System;
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 {
     [TestClass]
-    public abstract class DocumentDbAdapterTestBase : DataTransferSinkTestBase
+    public abstract class DocumentDbAdapterTestBase : DataTransferAdapterTestBase
     {
         protected string ConnectionString { get; private set; }
 

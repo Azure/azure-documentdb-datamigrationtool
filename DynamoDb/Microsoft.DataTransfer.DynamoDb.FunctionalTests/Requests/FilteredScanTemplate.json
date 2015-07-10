@@ -1,0 +1,13 @@
+{
+    "TableName": "%TABLENAME%",
+    "Limit": 30,
+    "FilterExpression": "#int > :val",
+    "ExpressionAttributeNames": {
+        "#int": "IntegerProperty"
+    },
+    "ExpressionAttributeValues": {
+        ":val": { 
+            "N": "50"
+        }
+    }
+}

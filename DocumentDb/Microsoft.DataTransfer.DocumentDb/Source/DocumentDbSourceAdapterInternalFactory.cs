@@ -5,6 +5,7 @@ using Microsoft.DataTransfer.DocumentDb.Transformation.Filter;
 using Microsoft.DataTransfer.Extensibility;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Source
@@ -18,7 +19,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
             get { return Resources.SourceDescription; }
         }
 
-        public async Task<IDataSourceAdapter> CreateAsync(IDocumentDbSourceAdapterConfiguration configuration, IDataTransferContext context)
+        public async Task<IDataSourceAdapter> CreateAsync(IDocumentDbSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             Guard.NotNull("configuration", configuration);
 
@@ -29,7 +30,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
                 GetDataItemTransformation(configuration),
                 GetInstanceConfiguration(configuration));
 
-            await source.InitializeAsync();
+            await source.InitializeAsync(cancellation);
 
             return source;
         }

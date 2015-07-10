@@ -8,19 +8,26 @@
 
   <!-- String resources-->
 
-  <system:String x:Key="OkKey">OK</system:String>
-  <system:String x:Key="CancelKey">Cancel</system:String>
-
   <system:String x:Key="AddFilesKey">Add Files</system:String>
   <system:String x:Key="AddFolderKey">Add Folder</system:String>
   <system:String x:Key="AddSingleFolderKey">Single</system:String>
   <system:String x:Key="AddRecursiveFolderKey">Recursive</system:String>
   <system:String x:Key="AddUrlKey">Add URL(s)</system:String>
+  <system:String x:Key="AddBlobKey">Add BLOB(s)</system:String>
   <system:String x:Key="RemoveFilesKey">Remove</system:String>
 
-  <system:String x:Key="AddUrlDialogTitleKey">Add URL(s)</system:String>
+  <system:String x:Key="AddHttpUrlDialogTitleKey">Add URL(s)</system:String>
+  
+  <system:String x:Key="AddBlobUrlDialogTitleKey">Add BLOB(s)</system:String>
+  <system:String x:Key="BlobContainerUrlKey">Container URL</system:String>
+  <system:String x:Key="BlobAccountKeyKey">Account Key</system:String>
+  <system:String x:Key="BlobNameRegexKey">BLOB Name Regular Expression</system:String>
 
+  <system:String x:Key="SaveLocalFileKey">Local file</system:String>
+  <system:String x:Key="SaveBlobFileKey">BLOB</system:String>
   <system:String x:Key="SelectFileKey">Select...</system:String>
+  <system:String x:Key="BlobNameKey">BLOB Name</system:String>
+  <system:String x:Key="OverwriteKey">Overwrite if exists</system:String>
 
   <system:String x:Key="AddItemKey">Add</system:String>
   <system:String x:Key="RemoveItemsKey">Remove</system:String>

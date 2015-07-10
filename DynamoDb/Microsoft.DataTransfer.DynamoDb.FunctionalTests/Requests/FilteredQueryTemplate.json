@@ -1,0 +1,18 @@
+{
+    "TableName": "%TABLENAME%",
+    "Limit": 30,
+    "KeyConditionExpression": "#key = :keyvalue",
+    "FilterExpression": "#int > :val",
+    "ExpressionAttributeNames": {
+        "#key": "HashKey",
+        "#int": "IntegerProperty"
+    },
+    "ExpressionAttributeValues": {
+        ":keyvalue": {
+            "S": "test"
+        },
+        ":val": {
+            "N": "50"
+        }
+    }
+}

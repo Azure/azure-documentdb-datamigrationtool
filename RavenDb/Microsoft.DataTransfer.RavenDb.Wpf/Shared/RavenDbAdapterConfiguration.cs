@@ -1,10 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.RavenDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+using Microsoft.DataTransfer.WpfHost.Basics;
 
 namespace Microsoft.DataTransfer.RavenDb.Wpf.Shared
 {
-    abstract class RavenDbAdapterConfiguration : ValidatableConfiguration, IRavenDbAdapterConfiguration
+    abstract class RavenDbAdapterConfiguration : ValidatableBindableBase, IRavenDbAdapterConfiguration
     {
         public static readonly string ConnectionStringPropertyName =
             ObjectExtensions.MemberName<IRavenDbAdapterConfiguration>(c => c.ConnectionString);

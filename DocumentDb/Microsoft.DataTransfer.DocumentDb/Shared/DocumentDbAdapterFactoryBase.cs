@@ -3,6 +3,7 @@ using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.DataTransfer.Extensibility.Basics;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using System;
 using System.Globalization;
@@ -10,7 +11,7 @@ using System.Reflection;
 
 namespace Microsoft.DataTransfer.DocumentDb.Shared
 {
-    abstract class DocumentDbAdapterFactoryBase
+    abstract class DocumentDbAdapterFactoryBase : DataAdapterFactoryBase
     {
         protected static void ValidateBaseConfiguration(IDocumentDbAdapterConfiguration configuration)
         {

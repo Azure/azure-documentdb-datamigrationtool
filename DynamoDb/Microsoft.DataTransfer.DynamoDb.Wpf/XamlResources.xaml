@@ -1,0 +1,94 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="/Microsoft.DataTransfer.WpfHost.Basics;component/CommonStyles.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- String resources -->
+
+  <system:String x:Key="ConnectionStringKey">Connection String</system:String>
+  <system:String x:Key="ConnectionStringDescriptionKey">
+    <![CDATA[Specify a valid DynamoDB connection string in the following format: ServiceURL=<server-address>;AccessKey=<access-key>;SecretKey=<secret-key>]]>
+  </system:String>
+  <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="TestConnectionKey">Verify</system:String>
+
+  <system:String x:Key="RequestSummaryKey">Request:</system:String>
+  <system:String x:Key="EnterRequestSelectionKey">Enter Request</system:String>
+  <system:String x:Key="RequestFileSelectionKey">Select Request File</system:String>
+  <system:String x:Key="RequestFileFilterKey">JSON Files|*.json|All Files|*.*</system:String>
+  <system:String x:Key="RequestFileDefaultExtensionKey">*.json</system:String>
+
+  <system:String x:Key="RequestTemplatesMenuHeader">Templates</system:String>
+  
+  <system:String x:Key="ScanRequestTemplateMenuHeader">Scan</system:String>
+  <system:String x:Key="ScanRequestTemplate" xml:space="preserve">
+<![CDATA[{
+  "TableName": "<table-name>"
+}]]>
+  </system:String>
+  
+  <system:String x:Key="FilteredScanRequestTemplateMenuHeader">Filtered Scan</system:String>
+  <system:String x:Key="FilteredScanRequestTemplate" xml:space="preserve">
+<![CDATA[{
+  "TableName": "<table-name>"
+  "FilterExpression": "#attr1 = :string and #attr2 > :number",
+  "ExpressionAttributeNames": {
+    "#attr1": "<attribute1-name>",
+    "#attr2": "<attribute2-name>"
+  },
+  "ExpressionAttributeValues": {
+    ":string": { 
+      "S": "<string-value>"
+    },
+    ":number": { 
+      "N": "<number-value>"
+    }
+  }
+}]]>
+  </system:String>
+
+  <system:String x:Key="QueryRequestTemplateMenuHeader">Query</system:String>
+  <system:String x:Key="QueryRequestTemplate" xml:space="preserve">
+<![CDATA[{
+  "TableName": "<table-name>"
+  "KeyConditionExpression": "#keyattr = :keyvalue",
+  "ExpressionAttributeNames": {
+    "#keyattr": "<key-attribute-name>"
+  },
+  "ExpressionAttributeValues": {
+    ":keyvalue": { 
+      "S": "<key-attribute-value>"
+    }
+  }
+}]]>
+  </system:String>
+
+  <system:String x:Key="FilteredQueryRequestTemplateMenuHeader">Filtered Query</system:String>
+  <system:String x:Key="FilteredQueryRequestTemplate" xml:space="preserve">
+<![CDATA[{
+  "TableName": "<table-name>"
+  "KeyConditionExpression": "#keyattr = :keyvalue",
+  "FilterExpression": "#attr1 = :string and #attr2 > :number",
+  "ExpressionAttributeNames": {
+    "#keyattr": "<key-attribute-name>"
+    "#attr1": "<attribute1-name>",
+    "#attr2": "<attribute2-name>"
+  },
+  "ExpressionAttributeValues": {
+    ":keyvalue": { 
+      "S": "<key-attribute-value>"
+    },
+    ":string": { 
+      "S": "<string-value>"
+    },
+    ":number": { 
+      "N": "<number-value>"
+    }
+  }
+}]]>
+  </system:String>
+  
+</ResourceDictionary>

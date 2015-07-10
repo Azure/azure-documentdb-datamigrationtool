@@ -1,0 +1,38 @@
+﻿<local:DataBoundUserControl
+  x:Class="Microsoft.DataTransfer.WpfHost.Basics.Controls.SaveBlobFileControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls"
+  mc:Ignorable="d" 
+  d:DesignHeight="150" d:DesignWidth="300">
+
+  <local:DataBoundUserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\XamlResources.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </local:DataBoundUserControl.Resources>
+  
+  <AdornerDecorator>
+    <StackPanel x:Name="LayoutRoot">
+      <StackPanel>
+        <Label Content="{DynamicResource BlobContainerUrlKey}" />
+        <TextBox Text="{Binding ContainerUrl, UpdateSourceTrigger=PropertyChanged}" />
+      </StackPanel>
+
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource BlobAccountKeyKey}" />
+        <TextBox Text="{Binding AccountKey, UpdateSourceTrigger=PropertyChanged}" />
+      </StackPanel>
+
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource BlobNameKey}" />
+        <TextBox Text="{Binding BlobName, UpdateSourceTrigger=PropertyChanged}" />
+      </StackPanel>
+    </StackPanel>
+  </AdornerDecorator>
+
+</local:DataBoundUserControl>

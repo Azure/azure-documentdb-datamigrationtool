@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
@@ -28,12 +29,42 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }
 
             VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+        }
+
+        [TestMethod, Timeout(300000)]
+        [DeploymentItem(@"IndexingPolicies\IntegerPropertyRangeIndex.json", "IndexingPolicies")]
+        public async Task WriteSampleData_RangeIndexOnIntegerProperty_IntegerRangeFilterCanBeUsed()
+        {
+            const string CollectionName = "Data";
+            const int NumberOfItems = 42;
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { CollectionName } &&
+                        m.IndexingPolicyFile == @"IndexingPolicies\IntegerPropertyRangeIndex.json" &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100)
+                    .First();
+
+            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            VerifyData(
+                sampleData.Where(i => (int)i.GetValue("IntegerProperty") < 20).ToArray(),
+                DocumentDbHelper.ReadDocuments(ConnectionString, "Data", "SELECT * FROM c WHERE c.IntegerProperty < 20"));
         }
 
         [TestMethod, Timeout(300000)]
@@ -53,7 +84,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }
@@ -85,7 +116,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
 
             using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance))
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
             {
                 await WriteDataAsync(adapter, sampleData);
             }

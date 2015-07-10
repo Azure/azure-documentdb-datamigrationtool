@@ -43,12 +43,14 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                     new Dictionary<string, IDataSourceAdapterFactoryAdapter>
                     {
                         { SourceAdapterName, Mocks.Of<IDataSourceAdapterFactoryAdapter>()
-                            .Where(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>()) == Task.FromResult(sourceMock.Object)).First() }
+                            .Where(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()) ==
+                                Task.FromResult(sourceMock.Object)).First() }
                     },
                     new Dictionary<string, IDataSinkAdapterFactoryAdapter>
                     {
                         { SinkAdapterName, Mocks.Of<IDataSinkAdapterFactoryAdapter>()
-                            .Where(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>()) == Task.FromResult(sinkMock.Object)).First() }
+                            .Where(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()) ==
+                                Task.FromResult(sinkMock.Object)).First() }
                     },
                     Mocks.Of<IDataTransferAction>()
                         .Where(a => a.ExecuteAsync(
@@ -84,15 +86,15 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
 
             var sourceFactoryMock = new Mock<IDataSourceAdapterFactoryAdapter>();
             sourceFactoryMock
-                .Setup(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>()))
-                .Callback<object, IDataTransferContext>((_, c) => 
+                .Setup(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()))
+                .Callback<object, IDataTransferContext, CancellationToken>((a, c, ct) => 
                     Assert.AreEqual(SourceAdapterName, c.SourceName, TestResources.InvalidDataSourceNameInTransferContext))
                 .Returns(Task.FromResult(sourceMock.Object));
 
             var sinkFactoryMock = new Mock<IDataSinkAdapterFactoryAdapter>();
             sinkFactoryMock
-                .Setup(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>()))
-                .Callback<object, IDataTransferContext>((_, c) => 
+                .Setup(m => m.CreateAsync(It.IsAny<object>(), It.IsAny<IDataTransferContext>(), It.IsAny<CancellationToken>()))
+                .Callback<object, IDataTransferContext, CancellationToken>((a, c, ct) => 
                     Assert.AreEqual(SinkAdapterName, c.SinkName, TestResources.InvalidDataSinkNameInTransferContext))
                 .Returns(Task.FromResult(sinkMock.Object));
 

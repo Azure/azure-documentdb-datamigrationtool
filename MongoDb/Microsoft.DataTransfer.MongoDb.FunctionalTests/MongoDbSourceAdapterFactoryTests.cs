@@ -7,6 +7,7 @@ using Moq;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
@@ -29,7 +30,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.QueryFile == "testQueryFile.txt")
                     .First();
 
-            using (await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance)) { }
+            using (await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
         }
 
         [TestMethod]
@@ -44,7 +46,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.QueryFile == "nonexisting")
                     .First();
 
-            using (await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance)) { }
+            using (await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
         }
 
         [TestMethod]
@@ -60,7 +63,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.ProjectionFile == "testProjectionFile.txt")
                     .First();
 
-            using (await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance)) { }
+            using (await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
         }
 
         [TestMethod]
@@ -75,7 +79,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.Projection == "{regex: 0, script: 1}")
                     .First();
 
-            using (await new MongoDbSourceAdapterFactory().CreateAsync(configuration, DataTransferContextMock.Instance)) { }
+            using (await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
         }
     }
 }
