@@ -74,6 +74,7 @@
     <Compile Include="Service\DataSourceAdapterMock.cs" />
     <Compile Include="Service\DataTransferActionTests.cs" />
     <Compile Include="Service\DataTransferServiceTests.cs" />
+    <Compile Include="Service\ErrorDetailsProviderMock.cs" />
     <Compile Include="Service\TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,6 +83,7 @@
     <Compile Include="Service\TransferStatisticsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

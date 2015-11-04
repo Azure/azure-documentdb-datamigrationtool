@@ -95,12 +95,12 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                 connection.Open();
 
                 CreateTable(connection, tableName1, ColumnMappings1);
-                AddRows(connection, tableName1, rows1);
+                AddRows(connection, tableName1, rows1, false);
 
                 CreateTable(connection, emptyTableName1, ColumnMappings1);
 
                 CreateTable(connection, tableName2, ColumnMappings2);
-                AddRows(connection, tableName2, rows2);
+                AddRows(connection, tableName2, rows2, false);
 
                 CreateTable(connection, emptyTableName2, ColumnMappings2);
             }

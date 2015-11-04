@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.WpfHost.Extensibility;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Controls;
@@ -7,6 +8,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
 {
     sealed class DocumentDbParallelSinkAdapterInternalConfigurationProvider : DocumentDbSinkAdapterConfigurationProvider<DocumentDbParallelSinkAdapterConfiguration>
     {
+        public DocumentDbParallelSinkAdapterInternalConfigurationProvider(IImportSharedStorage sharedStorage)
+            : base(sharedStorage) { }
+
         protected override UserControl CreatePresenter(DocumentDbParallelSinkAdapterConfiguration configuration)
         {
             return new DocumentDbParallelSinkAdapterConfigurationPage { DataContext = configuration };
@@ -19,7 +23,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
 
         protected override DocumentDbParallelSinkAdapterConfiguration CreateValidatableConfiguration()
         {
-            return new DocumentDbParallelSinkAdapterConfiguration();
+            return new DocumentDbParallelSinkAdapterConfiguration(GetSharedConfiguration());
         }
 
         protected override void PopulateCommandLineArguments(DocumentDbParallelSinkAdapterConfiguration configuration, IDictionary<string, string> arguments)

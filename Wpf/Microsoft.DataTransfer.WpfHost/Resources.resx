@@ -120,9 +120,6 @@
   <data name="CriticalErrorCaption" xml:space="preserve">
     <value>Critical error</value>
   </data>
-  <data name="CriticalErrorFormat" xml:space="preserve">
-    <value>{0}</value>
-  </data>
   <data name="NewImportDialogText" xml:space="preserve">
     <value>Do you want to reset import settings?</value>
   </data>

@@ -65,6 +65,9 @@
     <Compile Include="Shared\DocumentDbAdapterConfiguration.cs" />
     <Compile Include="Shared\DocumentDbAdapterConfigurationProvider.cs" />
     <Compile Include="Shared\DocumentDbAdapterConnectionConfigurationViewModel.cs" />
+    <Compile Include="Shared\ISharedDocumentDbAdapterConfiguration.cs" />
+    <Compile Include="Shared\SharedDocumentDbAdapterConfiguration.cs" />
+    <Compile Include="Shared\SharedDocumentDbAdapterConfigurationProperties.cs" />
     <Compile Include="Shared\TestConnectionCommand.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfiguration.cs" />
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationPage.xaml.cs">
@@ -87,6 +90,7 @@
       <DependentUpon>DocumentDbAdapterConnectionConfigurationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sink\DocumentDbSinkAdapterConfigurationProvider.cs" />
+    <Compile Include="Sink\ISharedDocumentDbSinkAdapterConfiguration.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfiguration.cs" />
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationPage.xaml.cs">
       <DependentUpon>DocumentDbParallelSinkAdapterConfigurationPage.xaml</DependentUpon>
@@ -96,6 +100,9 @@
     <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationSummaryPage.xaml.cs">
       <DependentUpon>DocumentDbParallelSinkAdapterConfigurationSummaryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfiguration.cs" />
+    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfigurationKey.cs" />
+    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfigurationProperties.cs" />
     <Compile Include="Source\DocumentDbSourceAdapterConfiguration.cs" />
     <Compile Include="Source\DocumentDbSourceAdapterConfigurationPage.xaml.cs">
       <DependentUpon>DocumentDbSourceAdapterConfigurationPage.xaml</DependentUpon>

@@ -10,5 +10,8 @@ namespace Microsoft.DataTransfer.WpfHost.Helpers
 
         public static readonly string OverwriteErrorLog =
             ObjectExtensions.MemberName<IInfrastructureConfiguration>(m => m.OverwriteErrorLog);
+
+        public static readonly string ErrorDetails =
+            ObjectExtensions.MemberName<IInfrastructureConfiguration>(m => m.ErrorDetails);
     }
 }

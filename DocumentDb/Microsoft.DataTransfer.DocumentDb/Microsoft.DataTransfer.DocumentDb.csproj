@@ -31,13 +31,13 @@
   </PropertyGroup>
   <Import Project="..\..\Solution Items\CommonProperties.proj" />
   <ItemGroup>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.2.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.5.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.1.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.2.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -52,6 +52,10 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
@@ -68,6 +72,7 @@
     <Compile Include="Client\Serialization\DocumentSurrogateJsonConverter.cs" />
     <Compile Include="Client\IDocumentDbConnectionSettings.cs" />
     <Compile Include="Client\IDocumentDbReadClient.cs" />
+    <Compile Include="Client\StoredProcedureResult.cs" />
     <Compile Include="ConfigurationResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

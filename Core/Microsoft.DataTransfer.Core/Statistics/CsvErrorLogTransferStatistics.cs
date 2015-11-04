@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ namespace Microsoft.DataTransfer.Core.Statistics
 {
     sealed class CsvErrorLogTransferStatistics : ThreadSafeTransferStatisticsBase, IDisposable
     {
-        private static IReadOnlyCollection<KeyValuePair<string, Exception>> EmptyErrors = new KeyValuePair<string, Exception>[0];
+        private static IReadOnlyCollection<KeyValuePair<string, string>> NoErrors = new KeyValuePair<string, string>[0];
 
         private StreamWriter errorLogStreamWriter;
         private TextWriter errorLogSynchronizedWriter;
@@ -19,7 +20,8 @@ namespace Microsoft.DataTransfer.Core.Statistics
             get { return errorsCount; }
         }
 
-        public CsvErrorLogTransferStatistics(StreamWriter errorLogStreamWriter)
+        public CsvErrorLogTransferStatistics(StreamWriter errorLogStreamWriter, IErrorDetailsProvider errorDetailsProvider)
+            : base(errorDetailsProvider)
         {
             Guard.NotNull("errorLogStream", errorLogStreamWriter);
 
@@ -39,21 +41,18 @@ namespace Microsoft.DataTransfer.Core.Statistics
             TrashCan.Throw(ref errorLogStreamWriter);
         }
 
-        public override void AddError(string dataItemId, Exception error)
+        protected override void AddError(string dataItemId, string error)
         {
             Interlocked.Increment(ref errorsCount);
 
             var writer = errorLogSynchronizedWriter;
             if (writer != null)
-            {
-                writer.WriteLine(EscapeValue(dataItemId) + "," + EscapeValue(error.Message));
-                writer.Flush();
-            }
+                writer.WriteLine(EscapeValue(dataItemId) + "," + EscapeValue(error));
         }
 
-        public override IReadOnlyCollection<KeyValuePair<string, Exception>> GetErrors()
+        public override IReadOnlyCollection<KeyValuePair<string, string>> GetErrors()
         {
-            return EmptyErrors;
+            return NoErrors;
         }
 
         private static string EscapeValue(string value)

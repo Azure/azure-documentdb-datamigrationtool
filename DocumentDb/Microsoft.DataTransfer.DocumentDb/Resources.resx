@@ -228,4 +228,7 @@
   <data name="AmbiguousIndexingPolicy" xml:space="preserve">
     <value>Both IndexingPolicy and IndexingPolicyFile cannot be set at the same time</value>
   </data>
+  <data name="ImportErrorActivityIdFormat" xml:space="preserve">
+    <value>{0}ActivityId: {1}</value>
+  </data>
 </root>

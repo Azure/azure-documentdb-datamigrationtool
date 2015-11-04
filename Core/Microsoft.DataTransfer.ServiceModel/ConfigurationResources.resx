@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Errors_DetailsFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Specifies that detailed error information should be displayed for the following errors: {1}</value>
+  </data>
   <data name="Statistics_ErrorLog" xml:space="preserve">
     <value>Optional. Name of the CSV file to redirect data transfer failures</value>
   </data>

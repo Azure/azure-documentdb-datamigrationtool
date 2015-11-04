@@ -129,5 +129,28 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 
             VerifyData(sampleData, firstCollection.Union(secondCollection));
         }
+
+        [TestMethod, Timeout(300000)]
+        public async Task WriteGeospatialData_AllDataStored()
+        {
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data" } &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100)
+                    .First();
+
+            var sampleData = GetSampleGeospatialDataItems();
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
+﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.ServiceModel.Errors;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +10,8 @@ namespace Microsoft.DataTransfer.Core.Statistics
 {
     abstract class ThreadSafeTransferStatisticsBase : ITransferStatistics, ITransferStatisticsSnapshot
     {
+        private readonly IErrorDetailsProvider errorDetailsProvider;
+
         private Stopwatch timer;
         private int transferred;
 
@@ -23,8 +27,11 @@ namespace Microsoft.DataTransfer.Core.Statistics
 
         public abstract int Failed { get; }
 
-        public ThreadSafeTransferStatisticsBase()
+        public ThreadSafeTransferStatisticsBase(IErrorDetailsProvider errorDetailsProvider)
         {
+            Guard.NotNull("errorDetailsProvider", errorDetailsProvider);
+
+            this.errorDetailsProvider = errorDetailsProvider;
             timer = new Stopwatch();
         }
 
@@ -43,13 +50,18 @@ namespace Microsoft.DataTransfer.Core.Statistics
             Interlocked.Increment(ref transferred);
         }
 
-        public abstract void AddError(string dataItemId, Exception error);
+        public void AddError(string dataItemId, Exception error)
+        {
+            AddError(dataItemId, errorDetailsProvider.Get(error));
+        }
+
+        protected abstract void AddError(string dataItemId, string error);
 
         public ITransferStatisticsSnapshot GetSnapshot()
         {
             return this;
         }
 
-        public abstract IReadOnlyCollection<KeyValuePair<string, Exception>> GetErrors();
+        public abstract IReadOnlyCollection<KeyValuePair<string, string>> GetErrors();
     }
 }

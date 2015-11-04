@@ -50,6 +50,8 @@
     <Compile Include="Autofac\DataAdapterFactoryAdaptersRegistrationSource.cs" />
     <Compile Include="CoreServiceImplementation.cs" />
     <Compile Include="Errors.cs" />
+    <Compile Include="ErrorsImplementation\ErrorDetailsProviderFactory.cs" />
+    <Compile Include="ErrorsImplementation\ErrorDetailsProvider.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

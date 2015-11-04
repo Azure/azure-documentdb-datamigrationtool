@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
+    [DeploymentItem("SqlServerTypes", "SqlServerTypes")]
     public class SqlTestsBase : DataTransferTestBase
     {
         protected string ConnectionString { get { return Settings.SqlConnectionString; } }
@@ -39,7 +40,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
             }
         }
 
-        protected static void AddRows(SqlConnection connection, string tableName, IDictionary<string, object>[] rows)
+        protected static void AddRows(SqlConnection connection, string tableName, IDictionary<string, object>[] rows, bool useRawValues)
         {
             using (var command = new SqlCommand())
             {
@@ -50,7 +51,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                     command.CommandText = String.Format(TestResources.InsertRowsCommandFormat,
                         tableName,
                         String.Join(",", row.Keys.Select(k => AsIdentifier(k))),
-                        String.Join(",", row.Values.Select(v => AsValue(v))));
+                        String.Join(",", useRawValues ? (IEnumerable<object>)row.Values : row.Values.Select(v => AsValue(v))));
 
                     command.ExecuteNonQuery();
                 }

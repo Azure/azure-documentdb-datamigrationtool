@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Statistics;
+﻿using Microsoft.DataTransfer.ServiceModel.Errors;
+using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,16 +11,18 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 {
     sealed class TransferStatisticsHandler : ITransferStatisticsHandler
     {
-        private ITransferStatisticsFactory statisticsFactory;
+        private readonly ITransferStatisticsFactory statisticsFactory;
+        private readonly IErrorDetailsProvider errorDetailsProvider;
 
-        public TransferStatisticsHandler(ITransferStatisticsFactory statisticsFactory)
+        public TransferStatisticsHandler(ITransferStatisticsFactory statisticsFactory, IErrorDetailsProvider errorDetailsProvider)
         {
             this.statisticsFactory = statisticsFactory;
+            this.errorDetailsProvider = errorDetailsProvider;
         }
 
         public Task<ITransferStatistics> CreateNew(ITransferStatisticsConfiguration configuration, CancellationToken cancellation)
         {
-            return statisticsFactory.Create(configuration, cancellation);
+            return statisticsFactory.Create(errorDetailsProvider, configuration, cancellation);
         }
 
         public void PrintProgress(ITransferStatisticsSnapshot statistics)
@@ -40,7 +43,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             PrintFailures(statistics.GetErrors());
         }
 
-        private static void PrintFailures(IReadOnlyCollection<KeyValuePair<string, Exception>> errors)
+        private static void PrintFailures(IReadOnlyCollection<KeyValuePair<string, string>> errors)
         {
             if (errors == null || errors.Count <= 0)
                 return;
@@ -48,8 +51,8 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             Console.WriteLine();
             Console.WriteLine(Resources.StatisticsFailuresHeader);
             Console.WriteLine(String.Join(Environment.NewLine, 
-                errors.Select(e => String.Format(CultureInfo.InvariantCulture, 
-                    Resources.StatisticsFailureItemFormat, e.Key, e.Value.Message))));
+                errors.Select(e => String.Format(CultureInfo.InvariantCulture,
+                    Resources.StatisticsFailureItemFormat, e.Key, e.Value))));
         }
     }
 }

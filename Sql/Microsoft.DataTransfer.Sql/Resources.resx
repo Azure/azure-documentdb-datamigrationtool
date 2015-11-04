@@ -120,6 +120,9 @@
   <data name="AmbiguousQuery" xml:space="preserve">
     <value>Both Query and QueryFile cannot be set at the same time</value>
   </data>
+  <data name="CircularArcGeometryNotSupported" xml:space="preserve">
+    <value>Circular arc geometry element is not supported</value>
+  </data>
   <data name="ConnectionStringMissing" xml:space="preserve">
     <value>SQL connection string cannot be empty</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="DataSourceDescription" xml:space="preserve">
     <value>Reads data from SQL database</value>
+  </data>
+  <data name="ErrorLoadingNativeBinariesFormat" xml:space="preserve">
+    <value>Error loading {0} (ErrorCode: {1})</value>
   </data>
   <data name="QueryMissing" xml:space="preserve">
     <value>Non-empty query should be provided</value>

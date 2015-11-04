@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.WpfHost.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,6 +9,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapterInternalConfigurationProvider : DocumentDbSinkAdapterConfigurationProvider<DocumentDbBulkSinkAdapterConfiguration>
     {
+        public DocumentDbBulkSinkAdapterInternalConfigurationProvider(IImportSharedStorage sharedStorage)
+            : base(sharedStorage) { }
+
         protected override UserControl CreatePresenter(DocumentDbBulkSinkAdapterConfiguration configuration)
         {
             return new DocumentDbBulkSinkAdapterConfigurationPage { DataContext = configuration };
@@ -20,7 +24,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 
         protected override DocumentDbBulkSinkAdapterConfiguration CreateValidatableConfiguration()
         {
-            return new DocumentDbBulkSinkAdapterConfiguration();
+            return new DocumentDbBulkSinkAdapterConfiguration(GetSharedConfiguration());
         }
 
         protected override void PopulateCommandLineArguments(DocumentDbBulkSinkAdapterConfiguration configuration, IDictionary<string, string> arguments)

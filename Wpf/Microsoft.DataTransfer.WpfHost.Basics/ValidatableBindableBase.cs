@@ -27,7 +27,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
         /// <summary>
         /// Gets a value that indicates whether the entity has validation errors.
         /// </summary>
-        public bool HasErrors
+        public virtual bool HasErrors
         {
             get { return errors.Values.Any(e => e != null && e.Any()); }
         }
@@ -58,7 +58,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
         /// to retrieve entity-level errors.
         /// </param>
         /// <returns>The validation errors for the property or entity.</returns>
-        public IEnumerable GetErrors(string propertyName)
+        public virtual IEnumerable GetErrors(string propertyName)
         {
             if (propertyName == null)
                 return null;

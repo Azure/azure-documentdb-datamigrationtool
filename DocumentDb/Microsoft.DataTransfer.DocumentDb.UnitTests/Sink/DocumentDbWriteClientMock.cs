@@ -56,7 +56,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
             return Task.FromResult(name);
         }
 
-        public Task<TResult> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args)
+        public Task<StoredProcedureResult<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args)
         {
             throw new NotSupportedException();
         }

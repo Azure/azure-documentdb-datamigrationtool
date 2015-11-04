@@ -70,6 +70,8 @@
       <system:String x:Key="ErrorLogFileFilterKey">CSV Files|*.csv</system:String>
       <system:String x:Key="ErrorLogFileDefaultExtensionKey">*.csv</system:String>
 
+      <system:String x:Key="ErrorDetailsKey">Detailed Error Information</system:String>
+
       <!-- Step: Summary -->
       <system:String x:Key="SummaryPageTitleKey">Confirm import settings</system:String>
       <system:String x:Key="GenerateCommandLineKey">View Command</system:String>
@@ -79,6 +81,7 @@
       
       <system:String x:Key="InfrastructureSetupSummarySubtitleKey">Advanced</system:String>
       <system:String x:Key="ErrorLogFileNameSummaryKey">Error Log File:</system:String>
+      <system:String x:Key="ErrorDetailsSummaryKey">Detailed Error Information:</system:String>
 
       <!-- Step: Import -->
       <system:String x:Key="ImportPageTitleKey">Import results</system:String>

@@ -17,7 +17,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
     {
         [TestMethod, Timeout(300000)]
         [DeploymentItem("BulkInsert.js")]
-        public async Task WriteSampleData_AllDataStored()
+        public async Task BulkWriteSampleData_AllDataStored()
         {
             const string CollectionName = "Data";
             const int NumberOfItems = 42;
@@ -44,7 +44,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 
         [TestMethod, Timeout(300000)]
         [DeploymentItem("BulkInsert.js")]
-        public async Task WriteSampleData_RandomPartitioningAcrossTwoCollections_AllDataStored()
+        public async Task BulkWriteSampleData_RandomPartitioningAcrossTwoCollections_AllDataStored()
         {
             const int NumberOfItems = 100;
 
@@ -76,7 +76,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 
         [TestMethod, Timeout(300000)]
         [DeploymentItem("BulkInsert.js")]
-        public async Task WriteSampleData_HashPartitioningAcrossTwoCollections_AllDataStored()
+        public async Task BulkWriteSampleData_HashPartitioningAcrossTwoCollections_AllDataStored()
         {
             const int NumberOfItems = 100;
 
@@ -109,7 +109,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 
         [TestMethod, Timeout(300000)]
         [DeploymentItem("BulkInsert.js")]
-        public async Task WriteSampleData_HashPartitioningAcrossTwoCollectionsOnNonStringField_AllDataStored()
+        public async Task BulkWriteSampleData_HashPartitioningAcrossTwoCollectionsOnNonStringField_AllDataStored()
         {
             const int NumberOfItems = 100;
 
@@ -138,6 +138,30 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
             VerifyData(sampleData, firstCollection.Union(secondCollection));
+        }
+
+        [TestMethod, Timeout(300000)]
+        [DeploymentItem("BulkInsert.js")]
+        public async Task BulkWriteGeospatialData_AllDataStored()
+        {
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbBulkSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data" } &&
+                        m.BatchSize == 10 &&
+                        m.MaxScriptSize == 1024)
+                    .First();
+
+            var sampleData = GetSampleGeospatialDataItems();
+
+            using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
         }
     }
 }

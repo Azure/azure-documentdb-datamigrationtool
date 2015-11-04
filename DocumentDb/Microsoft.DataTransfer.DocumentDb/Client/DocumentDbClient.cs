@@ -101,9 +101,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return response.Resource.SelfLink;
         }
 
-        public async Task<TResult> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args)
+        public async Task<StoredProcedureResult<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args)
         {
-            return (await client.ExecuteStoredProcedureAsync<TResult>(storedProcedureLink, args)).Response;
+            var result = await client.ExecuteStoredProcedureAsync<TResult>(storedProcedureLink, args);
+            return new StoredProcedureResult<TResult>(result.ActivityId, result.Response);
         }
 
         public Task DeleteStoredProcedureAsync(string storedProcedureLink)

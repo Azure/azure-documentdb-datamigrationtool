@@ -1,13 +1,13 @@
-﻿using Microsoft.DataTransfer.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Collections;
+using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.DocumentDb.Sink;
 using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
-    abstract class DocumentDbSinkAdapterConfiguration : DocumentDbAdapterConfiguration, IDocumentDbSinkAdapterConfiguration
+    abstract class DocumentDbSinkAdapterConfiguration : DocumentDbAdapterConfiguration<ISharedDocumentDbSinkAdapterConfiguration>, IDocumentDbSinkAdapterConfiguration
     {
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.Collection);
@@ -36,97 +36,82 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         public static readonly string DatesPropertyName = 
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.Dates);
 
-        private ObservableCollection<string> collections;
-        private string partitionKey;
-        private CollectionPricingTier? collectionTier;
-
-        private bool useIndexingPolicyFile;
-        private string indexingPolicy;
-        private string indexingPolicyFile;
-
-        private string idField;
-        private bool disableIdGeneration;
-
-        private DateTimeHandling? dates;
+        private static readonly string UseIndexingPolicyFilePropertyName = 
+            ObjectExtensions.MemberName<DocumentDbSinkAdapterConfiguration>(c => c.UseIndexingPolicyFile);
 
         public IEnumerable<string> Collection
         {
-            get { return collections; }
+            get { return SharedConfiguration.Collections; }
         }
 
         public ObservableCollection<string> EditableCollections
         {
-            get { return collections; }
-            private set
-            {
-                if (collections != null)
-                    collections.CollectionChanged -= CollectionsListChanged;
-
-                SetProperty(ref collections, value, ValidateNonEmptyCollection);
-
-                if (collections != null)
-                    collections.CollectionChanged += CollectionsListChanged;
-            }
+            get { return SharedConfiguration.Collections; }
         }
 
         public string PartitionKey
         {
-            get { return partitionKey; }
-            set { SetProperty(ref partitionKey, value); }
+            get { return SharedConfiguration.PartitionKey; }
+            set { SharedConfiguration.PartitionKey = value; }
         }
 
         public CollectionPricingTier? CollectionTier
         {
-            get { return collectionTier; }
-            set { SetProperty(ref collectionTier, value); }
+            get { return SharedConfiguration.CollectionTier; }
+            set { SharedConfiguration.CollectionTier = value; }
         }
 
         public bool UseIndexingPolicyFile
         {
-            get { return useIndexingPolicyFile; }
-            set { SetProperty(ref useIndexingPolicyFile, value); }
+            get { return SharedConfiguration.UseIndexingPolicyFile; }
+            set { SharedConfiguration.UseIndexingPolicyFile = value; }
         }
 
         public string IndexingPolicy
         {
-            get { return useIndexingPolicyFile ? null : indexingPolicy; }
-            set { SetProperty(ref indexingPolicy, value); }
+            get { return SharedConfiguration.IndexingPolicy; }
+            set { SharedConfiguration.IndexingPolicy = value; }
         }
 
         public string IndexingPolicyFile
         {
-            get { return useIndexingPolicyFile ? indexingPolicyFile : null; }
-            set { SetProperty(ref indexingPolicyFile, value); }
+            get { return SharedConfiguration.IndexingPolicyFile; }
+            set { SharedConfiguration.IndexingPolicyFile = value; }
         }
 
         public string IdField
         {
-            get { return idField; }
-            set { SetProperty(ref idField, value); }
+            get { return SharedConfiguration.IdField; }
+            set { SharedConfiguration.IdField = value; }
         }
 
         public bool DisableIdGeneration
         {
-            get { return disableIdGeneration; }
-            set { SetProperty(ref disableIdGeneration, value); }
+            get { return SharedConfiguration.DisableIdGeneration; }
+            set { SharedConfiguration.DisableIdGeneration = value; }
         }
 
         public DateTimeHandling? Dates
         {
-            get { return dates; }
-            set { SetProperty(ref dates, value); }
+            get { return SharedConfiguration.Dates; }
+            set { SharedConfiguration.Dates = value; }
         }
 
-        public DocumentDbSinkAdapterConfiguration()
-        {
-            EditableCollections = new ObservableCollection<string>();
-            CollectionTier = Defaults.Current.SinkCollectionTier;
-            Dates = Defaults.Current.SinkDateTimeHandling;
-        }
+        public DocumentDbSinkAdapterConfiguration(ISharedDocumentDbSinkAdapterConfiguration sharedConfiguration)
+            : base(sharedConfiguration) { }
 
-        private void CollectionsListChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected override Map<string, string> GetSharedPropertiesMapping()
         {
-            SetErrors(EditableCollectionsPropertyName, ValidateNonEmptyCollection(sender as IEnumerable<string>));
+            var mapping = base.GetSharedPropertiesMapping();
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.Collections, EditableCollectionsPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.PartitionKey, PartitionKeyPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.CollectionTier, CollectionTierPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.UseIndexingPolicyFile, UseIndexingPolicyFilePropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicy, IndexingPolicyPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicyFile, IndexingPolicyFilePropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IdField, IdFieldPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.DisableIdGeneration, DisableIdGenerationPropertyName);
+            return mapping;
         }
     }
 }

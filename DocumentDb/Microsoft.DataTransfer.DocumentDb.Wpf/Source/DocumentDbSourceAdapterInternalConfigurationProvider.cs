@@ -6,7 +6,8 @@ using System.Windows.Controls;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
 {
-    sealed class DocumentDbSourceAdapterInternalConfigurationProvider : DocumentDbAdapterConfigurationProvider<DocumentDbSourceAdapterConfiguration>
+    sealed class DocumentDbSourceAdapterInternalConfigurationProvider : 
+        DocumentDbAdapterConfigurationProvider<DocumentDbSourceAdapterConfiguration, ISharedDocumentDbAdapterConfiguration>
     {
         protected override UserControl CreatePresenter(DocumentDbSourceAdapterConfiguration configuration)
         {
@@ -20,7 +21,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
 
         protected override DocumentDbSourceAdapterConfiguration CreateValidatableConfiguration()
         {
-            return new DocumentDbSourceAdapterConfiguration();
+            return new DocumentDbSourceAdapterConfiguration(new SharedDocumentDbAdapterConfiguration());
         }
 
         protected override void PopulateCommandLineArguments(DocumentDbSourceAdapterConfiguration configuration, IDictionary<string, string> arguments)

@@ -32,4 +32,6 @@
   <system:String x:Key="AddItemKey">Add</system:String>
   <system:String x:Key="RemoveItemsKey">Remove</system:String>
 
+  <system:String x:Key="TechnicalDetailsKey">Technical details</system:String>
+
 </ResourceDictionary>

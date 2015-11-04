@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,7 +6,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
 {
     sealed class ExportErrorsToFileCommand : ExportErrorsCommandBase
     {
-        protected override void PersistErrors(IReadOnlyCollection<KeyValuePair<string, Exception>> errors)
+        protected override void PersistErrors(IReadOnlyCollection<KeyValuePair<string, string>> errors)
         {
             var dialog = new SaveFileDialog
             {
@@ -26,7 +25,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
                 file.WriteLine(ExportErrorsResources.CsvFileHeader);
 
                 foreach (var error in errors)
-                    file.WriteLine(EscapeValue(error.Key) + "," + EscapeValue(error.Value.Message));
+                    file.WriteLine(EscapeValue(error.Key) + "," + EscapeValue(error.Value));
             }
         }
 

@@ -74,8 +74,10 @@
     <Compile Include="Model\CommandLineProvider.cs" />
     <Compile Include="Model\DataAdapterConfigurationProvidersCollection.cs" />
     <Compile Include="Model\ErrorHandler.cs" />
+    <Compile Include="Model\ImportSharedStorage.cs" />
     <Compile Include="Model\Statistics\ObservableErrorsTransferStatistics.cs" />
     <Compile Include="Model\Statistics\ObservableErrorsTransferStatisticsFactory.cs" />
+    <Compile Include="Model\TaskBarService.cs" />
     <Compile Include="Shell\IMainWindowViewModel.cs" />
     <Compile Include="Shell\Navigation\ActionCommand.cs" />
     <Compile Include="Shell\Navigation\CancelImportCommand.cs" />

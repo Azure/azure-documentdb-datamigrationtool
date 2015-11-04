@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Microsoft.DataTransfer.ServiceModel.Errors;
+using System;
 
 namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 {
     sealed class ErrorHandler : IErrorHandler
     {
         private readonly IHelpHandler helpHandler;
+        private readonly IErrorDetailsProvider errorDetailsProvider;
 
-        public ErrorHandler(IHelpHandler helpHandler)
+        public ErrorHandler(IHelpHandler helpHandler, IErrorDetailsProvider errorDetailsProvider)
         {
             this.helpHandler = helpHandler;
+            this.errorDetailsProvider = errorDetailsProvider;
         }
 
         public int Handle(Exception error)
@@ -21,11 +24,11 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             if (error is AggregateException)
             {
                 foreach (var exception in ((AggregateException)error).Flatten().InnerExceptions)
-                    Console.WriteLine(exception.Message);
+                    Console.WriteLine(errorDetailsProvider.GetCritical(exception));
             }
             else
             {
-                Console.WriteLine(error.Message);
+                Console.WriteLine(errorDetailsProvider.GetCritical(error));
             }
 
             Console.WriteLine();

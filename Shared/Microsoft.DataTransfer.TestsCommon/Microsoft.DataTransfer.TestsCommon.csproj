@@ -39,6 +39,10 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
@@ -77,6 +81,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SampleData\GeospatialSampleDataProvider.cs" />
+    <Compile Include="SampleData\IGeospatialSampleDataProvider.cs" />
     <Compile Include="SampleData\ISampleDataProvider.cs" />
     <Compile Include="SampleData\SampleDataProvider.cs" />
     <Compile Include="Settings\ITestSettings.cs" />

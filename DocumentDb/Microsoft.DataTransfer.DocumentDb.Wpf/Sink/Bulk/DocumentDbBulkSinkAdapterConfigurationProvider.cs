@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
+﻿using Microsoft.DataTransfer.WpfHost.Extensibility;
+using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 {
@@ -10,7 +11,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
         /// <summary>
         /// Creates a new instance of <see cref="DocumentDbBulkSinkAdapterConfigurationProvider" />.
         /// </summary>
-        public DocumentDbBulkSinkAdapterConfigurationProvider()
-            : base(new DocumentDbBulkSinkAdapterInternalConfigurationProvider()) { }
+        /// <param name="sharedStorage">Storage to share some configuration values for current import.</param>
+        public DocumentDbBulkSinkAdapterConfigurationProvider(IImportSharedStorage sharedStorage)
+            : base(new DocumentDbBulkSinkAdapterInternalConfigurationProvider(sharedStorage)) { }
     }
 }

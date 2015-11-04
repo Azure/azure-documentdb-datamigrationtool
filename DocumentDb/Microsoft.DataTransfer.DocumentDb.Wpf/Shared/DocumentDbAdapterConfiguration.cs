@@ -1,12 +1,13 @@
-﻿using Microsoft.DataTransfer.Basics.Extensions;
+﻿using Microsoft.DataTransfer.Basics.Collections;
+using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.DocumentDb.Shared;
-using Microsoft.DataTransfer.WpfHost.Basics;
+using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
 using System;
-using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
 {
-    abstract class DocumentDbAdapterConfiguration : ValidatableBindableBase, IDocumentDbAdapterConfiguration
+    abstract class DocumentDbAdapterConfiguration<TShared> : ShareableDataAdapterConfigurationBase<TShared>, IDocumentDbAdapterConfiguration
+        where TShared : class, ISharedDocumentDbAdapterConfiguration
     {
         public static readonly string ConnectionStringPropertyName =
             ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.ConnectionString);
@@ -20,51 +21,42 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
         public static readonly string RetryIntervalPropertyName =
             ObjectExtensions.MemberName<IDocumentDbAdapterConfiguration>(c => c.RetryInterval);
 
-        private string connectionString;
-        private DocumentDbConnectionMode? connectionMode;
-
-        private int? retries;
-        private TimeSpan? retryInterval;
-
         public string ConnectionString
         {
-            get { return connectionString; }
-            set { SetProperty(ref connectionString, value, ValidateNonEmptyString); }
+            get { return SharedConfiguration.ConnectionString; }
+            set { SharedConfiguration.ConnectionString = value; }
         }
 
         public DocumentDbConnectionMode? ConnectionMode
         {
-            get { return connectionMode; }
-            set { SetProperty(ref connectionMode, value); }
+            get { return SharedConfiguration.ConnectionMode; }
+            set { SharedConfiguration.ConnectionMode = value; }
         }
 
         public int? Retries
         {
-            get { return retries; }
-            set { SetProperty(ref retries, value, ValidateRetries); }
+            get { return SharedConfiguration.Retries; }
+            set { SharedConfiguration.Retries = value; }
         }
 
         public TimeSpan? RetryInterval
         {
-            get { return retryInterval; }
-            set { SetProperty(ref retryInterval, value, ValidateRetryInterval); }
+            get { return SharedConfiguration.RetryInterval; }
+            set { SharedConfiguration.RetryInterval = value; }
         }
 
-        public DocumentDbAdapterConfiguration()
-        {
-            ConnectionMode = Defaults.Current.ConnectionMode;
-            Retries = Defaults.Current.NumberOfRetries;
-            RetryInterval = Defaults.Current.RetryInterval;
-        }
+        public DocumentDbAdapterConfiguration(TShared sharedConfiguration)
+            : base(sharedConfiguration) { }
 
-        private static IReadOnlyCollection<string> ValidateRetries(int? value)
+        protected override Map<string, string> GetSharedPropertiesMapping()
         {
-            return value >= 0 ? null : new[] { Resources.InvalidNumberOfRetries };
-        }
-
-        private static IReadOnlyCollection<string> ValidateRetryInterval(TimeSpan? value)
-        {
-            return value >= TimeSpan.Zero ? null : new[] { Resources.InvalidRetryInterval };
+            return new Map<string, string>
+            {
+                { SharedDocumentDbAdapterConfigurationProperties.ConnectionString, ConnectionStringPropertyName },
+                { SharedDocumentDbAdapterConfigurationProperties.ConnectionMode, ConnectionModePropertyName },
+                { SharedDocumentDbAdapterConfigurationProperties.Retries, RetriesPropertyName },
+                { SharedDocumentDbAdapterConfigurationProperties.RetryInterval, RetryIntervalPropertyName }
+            };
         }
     }
 }

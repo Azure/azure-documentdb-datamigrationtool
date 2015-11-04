@@ -32,9 +32,9 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
             return this;
         }
 
-        public IReadOnlyCollection<KeyValuePair<string, Exception>> GetErrors()
+        public IReadOnlyCollection<KeyValuePair<string, string>> GetErrors()
         {
-            return new KeyValuePair<string, Exception>[0];
+            return new KeyValuePair<string, string>[0];
         }
     }
 }

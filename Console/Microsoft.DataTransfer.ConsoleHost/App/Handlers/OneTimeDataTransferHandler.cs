@@ -14,18 +14,18 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
     {
         private readonly IDataTransferService transferService;
         private readonly IDataAdapterConfigurationFactory dataAdapterConfiguration;
-        private readonly IInfrastructureConfigurationFactory infrastructureConfiguration;
         private readonly ITransferStatisticsHandler statisticsHandler;
+        private readonly ITransferStatisticsConfiguration statisticsConfiguration;
 
         private readonly IOneTimeDataTransferConfiguration configuration;
 
         public OneTimeDataTransferHandler(IDataTransferService transferService, IDataAdapterConfigurationFactory dataAdapterConfiguration,
-            IInfrastructureConfigurationFactory infrastructureConfiguration, ITransferStatisticsHandler statisticsHandler, IOneTimeDataTransferConfiguration configuration)
+            ITransferStatisticsHandler statisticsHandler, ITransferStatisticsConfiguration statisticsConfiguration, IOneTimeDataTransferConfiguration configuration)
         {
             this.transferService = transferService;
             this.dataAdapterConfiguration = dataAdapterConfiguration;
-            this.infrastructureConfiguration = infrastructureConfiguration;
             this.statisticsHandler = statisticsHandler;
+            this.statisticsConfiguration = statisticsConfiguration;
             this.configuration = configuration;
         }
 
@@ -45,8 +45,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             using (var cancellation = new ConsoleCancellationSource())
             {
-                statistics = await statisticsHandler.CreateNew(
-                    infrastructureConfiguration.Create(configuration.InfrastructureConfiguration), cancellation.Token);
+                statistics = await statisticsHandler.CreateNew(statisticsConfiguration, cancellation.Token);
 
                 using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
                 {

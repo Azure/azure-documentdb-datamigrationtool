@@ -85,13 +85,13 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                 connection.Open();
 
                 CreateTable(connection, tableName, ColumnMappings);
-                AddRows(connection, tableName, rows);
+                AddRows(connection, tableName, rows, false);
 
                 CreateTable(connection, nestedTableName, ColumnMappings);
-                AddRows(connection, nestedTableName, nestedRows);
+                AddRows(connection, nestedTableName, nestedRows, false);
 
                 CreateTable(connection, anotherNestedTableName, ColumnMappings);
-                AddRows(connection, anotherNestedTableName, anotherNestedRows);
+                AddRows(connection, anotherNestedTableName, anotherNestedRows, false);
             }
         }
 

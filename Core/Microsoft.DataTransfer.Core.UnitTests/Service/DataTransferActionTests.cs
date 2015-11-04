@@ -55,7 +55,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                         throw new Exception();
                 });
 
-            var statistics = new InMemoryTransferStatistics();
+            var statistics = new InMemoryTransferStatistics(ErrorDetailsProviderMock.Instance);
             statistics.Start();
             using (var source = new DataSourceAdapterMock(sourceData))
             using (var sink = sinkMock)
@@ -95,7 +95,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                 });
             var sinkMock = new DataSinkAdapterMock();
 
-            var statistics = new InMemoryTransferStatistics();
+            var statistics = new InMemoryTransferStatistics(ErrorDetailsProviderMock.Instance);
             statistics.Start();
             using (var source = sourceMock)
             using (var sink = sinkMock)

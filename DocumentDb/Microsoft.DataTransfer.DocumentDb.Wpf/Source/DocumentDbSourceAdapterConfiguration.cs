@@ -1,11 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics.Extensions;
 using Microsoft.DataTransfer.DocumentDb.Source;
 using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
-using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
 {
-    sealed class DocumentDbSourceAdapterConfiguration : DocumentDbAdapterConfiguration, IDocumentDbSourceAdapterConfiguration
+    sealed class DocumentDbSourceAdapterConfiguration : DocumentDbAdapterConfiguration<ISharedDocumentDbAdapterConfiguration>, IDocumentDbSourceAdapterConfiguration
     {
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.Collection);
@@ -56,5 +55,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
             get { return queryFile; }
             set { SetProperty(ref queryFile, value); }
         }
+
+        public DocumentDbSourceAdapterConfiguration(ISharedDocumentDbAdapterConfiguration sharedConfiguration)
+            : base(sharedConfiguration) { }
     }
 }

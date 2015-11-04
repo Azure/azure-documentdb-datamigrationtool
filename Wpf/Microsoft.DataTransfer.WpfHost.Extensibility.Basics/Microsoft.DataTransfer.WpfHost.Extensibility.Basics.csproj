@@ -52,6 +52,7 @@
     <Compile Include="DataAdapterConfigurationProviderWrapper.cs" />
     <Compile Include="DataAdapterValidatableConfigurationProviderBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShareableDataAdapterConfigurationBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">

@@ -9,7 +9,11 @@ namespace Microsoft.DataTransfer.JsonFile.Serialization
         {
             return JsonSerializer.CreateDefault(new JsonSerializerSettings
             {
-                Converters = { new DataItemJsonConverter() },
+                Converters =
+                {
+                    DataItemJsonConverter.Instance,
+                    GeoJsonConverter.Instance
+                },
                 Formatting = prettify ? Formatting.Indented : Formatting.None
             });
         }

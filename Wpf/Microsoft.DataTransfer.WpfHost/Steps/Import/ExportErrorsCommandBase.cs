@@ -1,5 +1,4 @@
 ﻿using Microsoft.DataTransfer.WpfHost.Basics.Commands;
-using System;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.WpfHost.Steps.Import
@@ -13,13 +12,13 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
 
         public override void Execute(object parameter)
         {
-            var errors = parameter as IReadOnlyCollection<KeyValuePair<string, Exception>>;
+            var errors = parameter as IReadOnlyCollection<KeyValuePair<string, string>>;
             if (errors == null)
                 return;
 
             PersistErrors(errors);
         }
 
-        protected abstract void PersistErrors(IReadOnlyCollection<KeyValuePair<string, Exception>> errors);
+        protected abstract void PersistErrors(IReadOnlyCollection<KeyValuePair<string, string>> errors);
     }
 }

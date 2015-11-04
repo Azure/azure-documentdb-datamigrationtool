@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Autofac.Configuration;
 using Microsoft.DataTransfer.Core.Autofac;
+using Microsoft.DataTransfer.Core.ErrorsImplementation;
 using Microsoft.DataTransfer.Core.Service;
 using Microsoft.DataTransfer.Core.Statistics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 using Microsoft.DataTransfer.ServiceModel.Statistics;
 
 namespace Microsoft.DataTransfer.Core
@@ -25,6 +27,11 @@ namespace Microsoft.DataTransfer.Core
                 .RegisterModule(new TypeLimitedComponentsConfigurationSettingsReader("dataTransfer.sinks", typeof(IDataSinkAdapterFactory<>)));
             builder
                 .RegisterSource(new DataAdapterFactoryAdaptersRegistrationSource());
+
+            builder
+                .RegisterType<ErrorDetailsProviderFactory>()
+                .As<IErrorDetailsProviderFactory>()
+                .SingleInstance();
 
             builder
                 .RegisterType<TransferStatisticsFactory>()

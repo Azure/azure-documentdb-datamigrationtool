@@ -1,7 +1,9 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
+using Microsoft.SqlServer.Types;
 using System;
 using System.Data.SqlClient;
+using System.Spatial;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,6 +27,7 @@ namespace Microsoft.DataTransfer.Sql.Shared
 
             Configuration = configuration;
             connection = new Lazy<SqlConnection>(CreateConnection);
+            InitializeSqlTypesLibrary();
         }
 
         private SqlConnection CreateConnection()
@@ -32,7 +35,23 @@ namespace Microsoft.DataTransfer.Sql.Shared
             return new SqlConnection(Configuration.ConnectionString);
         }
 
+        private static void InitializeSqlTypesLibrary()
+        {
+            SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
+        }
+
         public abstract Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation);
+
+        protected object AsPublicType(object input)
+        {
+            var spatial = input as SqlGeography;
+            if (spatial == null)
+                return input;
+
+            var builder = SpatialImplementation.CurrentImplementation.CreateBuilder();
+            spatial.Populate(new SystemSpatialGeographySink(builder.GeographyPipeline));
+            return builder.ConstructedGeography;
+        }
 
         public virtual void Dispose()
         {

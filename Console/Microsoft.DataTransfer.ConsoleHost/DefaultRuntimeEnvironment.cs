@@ -5,6 +5,7 @@ using Microsoft.DataTransfer.ConsoleHost.Configuration;
 using Microsoft.DataTransfer.ConsoleHost.DataAdapters;
 using Microsoft.DataTransfer.ConsoleHost.Extensibility;
 using Microsoft.DataTransfer.Core;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 
 namespace Microsoft.DataTransfer.ConsoleHost
 {
@@ -32,6 +33,21 @@ namespace Microsoft.DataTransfer.ConsoleHost
             builder
                 .RegisterType<InfrastructureConfigurationFactory>()
                 .As<IInfrastructureConfigurationFactory>()
+                .SingleInstance();
+
+            // Since console application can only be run once - lets take a shortcut and register
+            // some components right away. As opposed to WPF, where we allow to restart the import,
+            // in which case these will have to be created per every import operation.
+            builder
+                .Register(c => c
+                    .Resolve<IInfrastructureConfigurationFactory>()
+                    .Create(c.Resolve<IOneTimeDataTransferConfiguration>().InfrastructureConfiguration))
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder
+                .Register(c => c.Resolve<IErrorDetailsProviderFactory>().Create(c.Resolve<IErrorDetailsConfiguration>()))
+                .As<IErrorDetailsProvider>()
                 .SingleInstance();
 
             builder.RegisterAggregationDecorator<IDataAdapterConfigurationFactory>(

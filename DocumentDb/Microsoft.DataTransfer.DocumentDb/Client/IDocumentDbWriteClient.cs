@@ -11,7 +11,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
         Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
 
         Task<string> CreateStoredProcedureAsync(string collectionLink, string name, string body);
-        Task<TResult> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args);
+        Task<StoredProcedureResult<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args);
         Task DeleteStoredProcedureAsync(string storedProcedureLink);
     }
 }

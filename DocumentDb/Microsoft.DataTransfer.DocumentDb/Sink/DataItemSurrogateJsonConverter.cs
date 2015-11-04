@@ -9,7 +9,14 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
     sealed class DataItemSurrogateJsonConverter : JsonConverter
     {
         private static readonly JsonSerializer DataItemSerializer =
-            JsonSerializer.CreateDefault(new JsonSerializerSettings { Converters = { DataItemJsonConverter.Instance } });
+            JsonSerializer.CreateDefault(new JsonSerializerSettings
+            {
+                Converters =
+                    {
+                        DataItemJsonConverter.Instance,
+                        GeoJsonConverter.Instance
+                    }
+            });
 
         public override bool CanConvert(Type objectType)
         {

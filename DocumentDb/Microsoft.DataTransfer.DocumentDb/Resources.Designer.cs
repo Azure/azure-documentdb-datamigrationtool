@@ -241,6 +241,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}ActivityId: {1}.
+        /// </summary>
+        internal static string ImportErrorActivityIdFormat {
+            get {
+                return ResourceManager.GetString("ImportErrorActivityIdFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch size should be greater than zero.
         /// </summary>
         internal static string InvalidBatchSize {

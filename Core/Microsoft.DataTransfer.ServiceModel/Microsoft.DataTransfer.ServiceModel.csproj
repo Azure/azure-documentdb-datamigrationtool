@@ -49,6 +49,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfigurationResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Errors\IErrorDetailsProviderFactory.cs" />
+    <Compile Include="InfrastructureDefaults.cs" />
+    <Compile Include="DynamicConfigurationResources.cs" />
+    <Compile Include="Errors\ErrorDetails.cs" />
+    <Compile Include="Errors\IErrorDetailsConfiguration.cs" />
+    <Compile Include="Errors\IErrorDetailsProvider.cs" />
+    <Compile Include="IInfrastructureDefaults.cs" />
     <Compile Include="Statistics\ITransferStatisticsConfiguration.cs" />
     <Compile Include="Entities\IDataAdapterDefinition.cs" />
     <Compile Include="Statistics\ITransferStatistics.cs" />
@@ -59,6 +66,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
+      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
+      <Name>Microsoft.DataTransfer.Basics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
       <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
       <Name>Microsoft.DataTransfer.Extensibility</Name>

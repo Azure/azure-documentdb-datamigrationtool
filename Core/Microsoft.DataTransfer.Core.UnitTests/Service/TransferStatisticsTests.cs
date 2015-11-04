@@ -20,7 +20,7 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
                 new KeyValuePair<string, Exception>("3", new KeyNotFoundException())
             };
 
-            var statistics = new InMemoryTransferStatistics();
+            var statistics = new InMemoryTransferStatistics(ErrorDetailsProviderMock.Instance);
 
             statistics.Start();
 
@@ -38,7 +38,8 @@ namespace Microsoft.DataTransfer.Core.UnitTests.Service
             Assert.AreNotEqual(TimeSpan.Zero, result.ElapsedTime, TestResources.StatisticsElapsedTimeIsEmpty);
             Assert.AreEqual(NumberOfItems, result.Transferred, TestResources.StatisticsInvalidTransferredCount);
             Assert.AreEqual(errors.Length, result.Failed, TestResources.StatisticsInvalidFailedCount);
-            CollectionAssert.AreEquivalent(errors, result.GetErrors().ToArray(), TestResources.StatisticsInvalidErrors);
+            CollectionAssert.AreEquivalent(errors.ToDictionary(e => e.Key, e => ErrorDetailsProviderMock.Instance.Get(e.Value)), result.GetErrors().ToArray(),
+                TestResources.StatisticsInvalidErrors);
         } 
     }
 }

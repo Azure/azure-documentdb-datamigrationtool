@@ -3,10 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:errors="clr-namespace:Microsoft.DataTransfer.ServiceModel.Errors;assembly=Microsoft.DataTransfer.ServiceModel"
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
   
+  <UserControl.Resources>
+    <ObjectDataProvider x:Key="ErrorDetailsValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="errors:ErrorDetails" />
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+  </UserControl.Resources>
+
   <DockPanel>
     <bc:TitleControl DockPanel.Dock="Top" Text="{DynamicResource InfrastructureSetupPageTitleKey}" />
 
@@ -17,6 +27,11 @@
       
       <bc:SaveLocalFileControl FileName="{Binding ErrorLog}"
         Filter="{DynamicResource ErrorLogFileFilterKey}" DefaultExtension="{DynamicResource ErrorLogFileDefaultExtensionKey}" />
+    </StackPanel>
+
+    <StackPanel Style="{StaticResource OptionElement}">
+      <Label Content="{DynamicResource ErrorDetailsKey}" />
+      <ComboBox ItemsSource="{Binding Source={StaticResource ErrorDetailsValues}}" SelectedValue="{Binding ErrorDetails}" />
     </StackPanel>
   </DockPanel>
   

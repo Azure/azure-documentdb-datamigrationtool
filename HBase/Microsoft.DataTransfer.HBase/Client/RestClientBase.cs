@@ -93,6 +93,8 @@ namespace Microsoft.DataTransfer.HBase.Client
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times",
+            Justification = "As per .NET framework design guidelines Dispose method should be re-entrant")]
         protected TResult HandleJsonResponse<TResult>(HttpWebResponse response)
         {
             Guard.NotNull("response", response);

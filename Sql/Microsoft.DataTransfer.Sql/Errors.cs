@@ -21,5 +21,15 @@ namespace Microsoft.DataTransfer.Sql
         {
             return new ArgumentException(Resources.AmbiguousQuery);
         }
+
+        public static Exception CircularArcGeometryNotSupported()
+        {
+            return new NotSupportedException(Resources.CircularArcGeometryNotSupported);
+        }
+
+        public static Exception ErrorLoadingNativeBinaries(string assemblyName, int errorCode)
+        {
+            return new Exception(FormatMessage(Resources.ErrorLoadingNativeBinariesFormat, assemblyName, errorCode));
+        }
     }
 }

@@ -112,7 +112,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                 try
                 {
                     CreateTable(connection, tableName, columnMappings);
-                    AddRows(connection, tableName, rows);
+                    AddRows(connection, tableName, rows, false);
 
                     using (var adapter = await new SqlDataSourceAdapterFactory()
                         .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))

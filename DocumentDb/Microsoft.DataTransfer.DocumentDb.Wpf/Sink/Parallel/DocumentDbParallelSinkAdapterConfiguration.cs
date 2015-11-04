@@ -16,7 +16,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
             set { SetProperty(ref parallelRequests, value, ValidatePositiveInteger); }
         }
 
-        public DocumentDbParallelSinkAdapterConfiguration()
+        public DocumentDbParallelSinkAdapterConfiguration(ISharedDocumentDbSinkAdapterConfiguration sharedConfiguration)
+            : base(sharedConfiguration)
         {
             ParallelRequests = Defaults.Current.ParallelSinkNumberOfParallelRequests;
         }

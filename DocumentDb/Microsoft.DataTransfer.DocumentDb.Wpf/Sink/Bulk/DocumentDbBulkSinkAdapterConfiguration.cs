@@ -36,7 +36,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             set { SetProperty(ref maxScriptSize, value, ValidatePositiveInteger); }
         }
 
-        public DocumentDbBulkSinkAdapterConfiguration()
+        public DocumentDbBulkSinkAdapterConfiguration(ISharedDocumentDbSinkAdapterConfiguration sharedConfiguration)
+            : base(sharedConfiguration)
         {
             BatchSize = Defaults.Current.BulkSinkBatchSize;
             MaxScriptSize = Defaults.Current.BulkSinkMaxScriptSize;

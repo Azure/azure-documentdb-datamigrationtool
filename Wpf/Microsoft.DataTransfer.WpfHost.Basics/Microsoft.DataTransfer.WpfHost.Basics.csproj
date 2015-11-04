@@ -35,6 +35,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -100,6 +101,7 @@
     <Compile Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlDialog.xaml.cs">
       <DependentUpon>AddBlobUrlDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CollapseExpanderContentContainer.cs" />
     <Compile Include="Controls\SaveBlobFileControl.xaml.cs">
       <DependentUpon>SaveBlobFileControl.xaml</DependentUpon>
     </Compile>
@@ -124,6 +126,11 @@
     <Compile Include="Controls\ToolTipDecorator.xaml.cs">
       <DependentUpon>ToolTipDecorator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ExceptionDialog.xaml.cs">
+      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExceptionDialogViewModel.cs" />
+    <Compile Include="Dialogs\ExceptionMessageBox.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="ValidatableBindableBase.cs" />
     <Compile Include="Extensions\NotifyPropertyChangedExtensions.cs" />
@@ -203,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ToolTipDecorator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\ExceptionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

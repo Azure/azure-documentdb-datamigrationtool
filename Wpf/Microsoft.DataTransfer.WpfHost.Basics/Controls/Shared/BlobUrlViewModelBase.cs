@@ -55,6 +55,11 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.Controls.Shared
             Validate();
         }
 
+        public sealed override void Validate()
+        {
+            base.Validate();
+        }
+
         protected void PopulateFromBlobUrl(string url)
         {
             BlobUri blobUri;

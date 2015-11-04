@@ -151,7 +151,7 @@ csx/
 AppPackages/
 
 # Others
-sql/
+# sql/ # It is in the default list, but we actually have such folder with source code
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*

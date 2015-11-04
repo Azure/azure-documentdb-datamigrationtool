@@ -55,6 +55,10 @@
           "kind": "Hash",
           "dataType": "String",
           "precision": 3
+        },
+        {
+          "kind": "Spatial",
+          "dataType": "Point"
         }
       ]
     },
@@ -63,44 +67,13 @@
       "indexes": [
         {
           "kind": "Range",
-          "dataType": "Number",
-          "precision": -1
-        }
-      ]
-    }
-  ],
-  "excludedPaths": []
-}]]>
-  </system:String>
-  
-  <system:String x:Key="IndexingPolicyAllHashTemplateMenuHeader">Hash</system:String>
-  <system:String x:Key="IndexingPolicyAllHashTemplate" xml:space="preserve">
-<![CDATA[{
-  "indexingMode": "consistent",
-  "automatic": true,
-  "includedPaths": [
-    {
-      "path": "/*",
-      "indexes": [
-        {
-          "kind": "Hash",
           "dataType": "Number",
           "precision": -1
         },
         {
           "kind": "Hash",
           "dataType": "String",
-          "precision": -1
-        }
-      ]
-    },
-    {
-      "path": "/_ts/?",
-      "indexes": [
-        {
-          "kind": "Range",
-          "dataType": "Number",
-          "precision": -1
+          "precision": 3
         }
       ]
     }
@@ -127,6 +100,10 @@
           "kind": "Range",
           "dataType": "String",
           "precision": -1
+        },
+        {
+          "kind": "Spatial",
+          "dataType": "Point"
         }
       ]
     },
@@ -137,6 +114,11 @@
           "kind": "Range",
           "dataType": "Number",
           "precision": -1
+        },
+        {
+          kind: "Hash",
+          dataType: "String",
+          precision: 3
         }
       ]
     }

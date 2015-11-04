@@ -46,6 +46,11 @@ namespace Microsoft.DataTransfer.WpfHost
                 .As<ITransferStatisticsFactory>();
 
             builder
+                .RegisterType<ImportSharedStorage>()
+                .As<IImportSharedStorage>()
+                .InstancePerLifetimeScope();
+
+            builder
                 .RegisterType<DataAdapterConfigurationProvidersCollection>()
                 .As<IDataAdapterConfigurationProvidersCollection>()
                 .InstancePerLifetimeScope();
@@ -68,6 +73,11 @@ namespace Microsoft.DataTransfer.WpfHost
             builder
                 .RegisterType<ErrorHandler>()
                 .As<IErrorHandler>()
+                .SingleInstance();
+
+            builder
+                .RegisterType<TaskBarService>()
+                .As<ITaskBarService>()
                 .SingleInstance();
         }
 

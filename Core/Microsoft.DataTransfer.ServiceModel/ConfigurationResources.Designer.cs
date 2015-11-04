@@ -61,6 +61,15 @@ namespace Microsoft.DataTransfer.ServiceModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional, default is {0}. Specifies that detailed error information should be displayed for the following errors: {1}.
+        /// </summary>
+        public static string Errors_DetailsFormat {
+            get {
+                return ResourceManager.GetString("Errors_DetailsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional. Name of the CSV file to redirect data transfer failures.
         /// </summary>
         public static string Statistics_ErrorLog {

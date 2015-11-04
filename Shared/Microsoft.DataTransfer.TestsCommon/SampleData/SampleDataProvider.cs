@@ -8,10 +8,16 @@ namespace Microsoft.DataTransfer.TestsCommon.SampleData
 {
     sealed class SampleDataProvider : ISampleDataProvider
     {
+        public IGeospatialSampleDataProvider Geospatial { get; private set; }
+
+        public SampleDataProvider()
+        {
+            Geospatial = new GeospatialSampleDataProvider();
+        }
+
         public IDataItem[] GetSimpleDataItems(int count)
         {
-            var items = GetSimpleDocuments(count);
-            return items.Select(i => new DictionaryDataItem(i)).ToArray();
+            return GetSimpleDocuments(count).Select(i => new DictionaryDataItem(i)).ToArray();
         }
 
         public Dictionary<string, object>[] GetSimpleDocuments(int count)

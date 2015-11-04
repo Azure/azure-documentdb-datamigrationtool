@@ -1,4 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
+using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 using Microsoft.DataTransfer.WpfHost.Helpers;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
 using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
@@ -37,20 +39,24 @@ namespace Microsoft.DataTransfer.WpfHost.Model
             return commandLine.ToString();
         }
 
-        private bool AppendInfrastructureConfiguration(StringBuilder commandLine, IInfrastructureConfiguration infrastructureConfiguration)
+        private bool AppendInfrastructureConfiguration(StringBuilder commandLine, IInfrastructureConfiguration configuration)
         {
-            if (infrastructureConfiguration == null)
+            if (configuration == null)
                 return false;
 
-            var arguments = new Dictionary<string, string>(2);
+            var arguments = new Dictionary<string, string>(3);
 
-            if (!String.IsNullOrEmpty(infrastructureConfiguration.ErrorLog))
+            if (!String.IsNullOrEmpty(configuration.ErrorLog))
             {
-                arguments.Add(InfrastructureConfigurationProperties.ErrorLog, infrastructureConfiguration.ErrorLog);
+                arguments.Add(InfrastructureConfigurationProperties.ErrorLog, configuration.ErrorLog);
 
-                if (infrastructureConfiguration.OverwriteErrorLog)
+                if (configuration.OverwriteErrorLog)
                     arguments.Add(InfrastructureConfigurationProperties.OverwriteErrorLog, null);
             }
+
+            if (configuration.ErrorDetails.HasValue && configuration.ErrorDetails.Value != InfrastructureDefaults.Current.ErrorDetails)
+                arguments.Add(InfrastructureConfigurationProperties.ErrorDetails, 
+                    Enum.GetName(typeof(ErrorDetails), configuration.ErrorDetails));
 
             return AppendConfiguration(commandLine, AppendInfrastructureConfigurationArgumentName, arguments);
         }

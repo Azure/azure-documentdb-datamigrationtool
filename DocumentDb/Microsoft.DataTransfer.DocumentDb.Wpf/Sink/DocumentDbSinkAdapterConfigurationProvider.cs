@@ -1,13 +1,22 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
+using Microsoft.DataTransfer.WpfHost.Extensibility;
 using System;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
-    abstract class DocumentDbSinkAdapterConfigurationProvider<TConfiguration> : DocumentDbAdapterConfigurationProvider<TConfiguration>
+    abstract class DocumentDbSinkAdapterConfigurationProvider<TConfiguration> : DocumentDbAdapterConfigurationProvider<TConfiguration, ISharedDocumentDbSinkAdapterConfiguration>
         where TConfiguration : DocumentDbSinkAdapterConfiguration
     {
+        private readonly IImportSharedStorage sharedStorage;
+
+        public DocumentDbSinkAdapterConfigurationProvider(IImportSharedStorage sharedStorage)
+        {
+            Guard.NotNull("sharedStorage", sharedStorage);
+            this.sharedStorage = sharedStorage;
+        }
+
         protected override void PopulateCommandLineArguments(TConfiguration configuration, IDictionary<string, string> arguments)
         {
             base.PopulateCommandLineArguments(configuration, arguments);
@@ -42,6 +51,17 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
             if (configuration.Dates.HasValue && configuration.Dates.Value != Defaults.Current.SinkDateTimeHandling)
                 arguments.Add(DocumentDbSinkAdapterConfiguration.DatesPropertyName, configuration.Dates.Value.ToString());
+        }
+
+        protected ISharedDocumentDbSinkAdapterConfiguration GetSharedConfiguration()
+        {
+            return sharedStorage.GetOrAdd<ISharedDocumentDbSinkAdapterConfiguration>(
+                SharedDocumentDbSinkAdapterConfigurationKey.Value, CreateNewSharedConfiguration);
+        }
+
+        private static ISharedDocumentDbSinkAdapterConfiguration CreateNewSharedConfiguration(object key)
+        {
+            return new SharedDocumentDbSinkAdapterConfiguration();
         }
     }
 }

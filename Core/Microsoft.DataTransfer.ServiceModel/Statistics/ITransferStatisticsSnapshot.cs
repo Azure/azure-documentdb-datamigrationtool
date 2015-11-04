@@ -27,6 +27,6 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// Gets the collection of failed data artifacts with error information.
         /// </summary>
         /// <returns>Collection of failed data artifacts.</returns>
-        IReadOnlyCollection<KeyValuePair<string, Exception>> GetErrors();
+        IReadOnlyCollection<KeyValuePair<string, string>> GetErrors();
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.DataTransfer.Extensibility;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading;
@@ -152,11 +153,21 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
         private async Task<IEnumerable<BulkInsertItemState>> FlushCurrentBufferAsync()
         {
-            IEnumerable<BulkInsertItemState> response = null;
+            IEnumerable<BulkInsertItemState> result = null;
             try
             {
-                response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(
+                var response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(
                     storedProcedureLink, surrogate, Configuration.DisableIdGeneration ? 1 : 0);
+
+                result = response.Data;
+
+                // Append global ActivityId to all error messages
+                foreach (var item in result)
+                {
+                    if (!String.IsNullOrEmpty(item.ErrorMessage))
+                        item.ErrorMessage += String.Format(CultureInfo.InvariantCulture,
+                            Resources.ImportErrorActivityIdFormat, Environment.NewLine, response.ActivityId);
+                }
             }
             catch (DocumentSizeExceedsScriptSizeLimitException documentTooLarge)
             {
@@ -166,7 +177,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 var firstDocument = buffer.FirstOrDefault();
                 if (firstDocument != null)
                 {
-                    response = new BulkInsertItemState[] 
+                    result = new BulkInsertItemState[] 
                     {
                         new BulkInsertItemState
                         {
@@ -196,10 +207,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                     };
                 }
 
-                response = responseArray;
+                result = responseArray;
             }
 
-            return response ?? Enumerable.Empty<BulkInsertItemState>();
+            return result ?? Enumerable.Empty<BulkInsertItemState>();
         }
 
         private void ReportTasksStatus(IEnumerable<BulkInsertItemState> response)

@@ -51,8 +51,6 @@
         <ContextMenu>
           <MenuItem Header="{DynamicResource IndexingPolicyDefaultTemplateMenuHeader}"
                 Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyDefaultTemplate}" />
-          <MenuItem Header="{DynamicResource IndexingPolicyAllHashTemplateMenuHeader}"
-                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllHashTemplate}" />
           <MenuItem Header="{DynamicResource IndexingPolicyAllRangeTemplateMenuHeader}"
                 Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllRangeTemplate}" />
           <Separator />

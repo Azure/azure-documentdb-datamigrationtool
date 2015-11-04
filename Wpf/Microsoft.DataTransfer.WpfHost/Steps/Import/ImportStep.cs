@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 using Microsoft.DataTransfer.ServiceModel.Statistics;
 using Microsoft.DataTransfer.WpfHost.Basics.Extensions;
 using Microsoft.DataTransfer.WpfHost.ServiceModel;
@@ -13,20 +14,26 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
     sealed class ImportStep : NavigationStepBase, IActionStep
     {
         private IDataTransferService transferService;
+        private IErrorDetailsProviderFactory errorDetailsProviderFactory;
         private ITransferStatisticsFactory statisticsFactory;
         private IErrorHandler errorHandler;
+        private ITaskBarService taskBarService;
 
         public override string Title
         {
             get { return StepsResources.ImportStepTitle; }
         }
 
-        public ImportStep(IDataTransferService transferService, ITransferStatisticsFactory statisticsFactory, IErrorHandler errorHandler, IDataTransferModel transferModel)
-            : base(transferModel)
+        public ImportStep(IDataTransferService transferService, IErrorDetailsProviderFactory errorDetailsProviderFactory,
+            ITransferStatisticsFactory statisticsFactory, IErrorHandler errorHandler, ITaskBarService taskBarService,
+            IDataTransferModel transferModel)
+                : base(transferModel)
         {
             this.transferService = transferService;
+            this.errorDetailsProviderFactory = errorDetailsProviderFactory;
             this.statisticsFactory = statisticsFactory;
             this.errorHandler = errorHandler;
+            this.taskBarService = taskBarService;
 
             transferModel.Subscribe(m => m.HasImportStarted, OnImportStateChanged);
         }
@@ -51,7 +58,9 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
             {
                 using (var cancellation = TransferModel.ImportCancellation = new CancellationTokenSource())
                 {
-                    var statistics = await statisticsFactory.Create(TransferModel.InfrastructureConfiguration, cancellation.Token);
+                    var statistics = await statisticsFactory.Create(errorDetailsProviderFactory.Create(TransferModel.InfrastructureConfiguration),
+                        TransferModel.InfrastructureConfiguration, cancellation.Token);
+
                     UpdateStatistics(
                         operationContext = new ImportOperationContext(statistics, Presenter.DataContext as ImportViewModel)
                         {
@@ -89,6 +98,8 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
                     UpdateStatistics(operationContext);
                 }
             }
+
+            taskBarService.Notify();
 
             if (criticalError != null)
                 errorHandler.Handle(criticalError);

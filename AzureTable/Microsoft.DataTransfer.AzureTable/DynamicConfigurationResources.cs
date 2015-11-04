@@ -1,13 +1,13 @@
 ﻿using Microsoft.DataTransfer.AzureTable.Source;
+using Microsoft.DataTransfer.Basics;
 using System;
-using System.Globalization;
 
 namespace Microsoft.DataTransfer.AzureTable
 {
     /// <summary>
     /// Contains dynamic resources for data adapters configuration.
     /// </summary>
-    public static class DynamicConfigurationResources
+    public sealed class DynamicConfigurationResources : DynamicResourcesBase
     {
         /// <summary>
         /// Gets the description for source internal fields configuration property.
@@ -21,9 +21,6 @@ namespace Microsoft.DataTransfer.AzureTable
             }
         }
         
-        private static string Format(string format, params object[] args)
-        {
-            return String.Format(CultureInfo.InvariantCulture, format, args);
-        }
+        private DynamicConfigurationResources() { }
     }
 }

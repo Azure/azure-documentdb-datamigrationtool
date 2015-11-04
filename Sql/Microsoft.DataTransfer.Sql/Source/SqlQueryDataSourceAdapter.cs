@@ -51,7 +51,7 @@ namespace Microsoft.DataTransfer.Sql.Source
             for (var fieldIndex = 0; fieldIndex < dataReader.FieldCount; ++fieldIndex)
                 dataItem.AddProperty(
                     dataReader.GetName(fieldIndex),
-                    dataReader.GetValue(fieldIndex));
+                    AsPublicType(dataReader.GetValue(fieldIndex)));
 
             return dataItem;
         }
