@@ -35,7 +35,10 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
         public void PrintResult(ITransferStatisticsSnapshot statistics)
         {
-            Console.Write("\r{0}\r", new String(' ', Console.WindowWidth - 1));
+            if (Console.IsOutputRedirected)
+                Console.WriteLine();
+            else
+                Console.Write("\r{0}\r", new String(' ', Console.WindowWidth - 1));
 
             Console.WriteLine(String.Format(CultureInfo.InvariantCulture, Resources.StatisticsResultFormat,
                 statistics.Transferred, statistics.Failed, statistics.ElapsedTime));
