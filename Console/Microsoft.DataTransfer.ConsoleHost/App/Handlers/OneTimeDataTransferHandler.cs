@@ -7,6 +7,7 @@ using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 {
@@ -47,7 +48,9 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             {
                 statistics = await statisticsHandler.CreateNew(statisticsConfiguration, cancellation.Token);
 
-                using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
+				TimeSpan progressInterval = GetProgressInterval();
+
+				using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, progressInterval))
                 {
                     await transferService
                         .TransferAsync(
@@ -67,6 +70,17 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             if (statistics != null)
                 statisticsHandler.PrintResult(statistics.GetSnapshot());
         }
+
+		private TimeSpan GetProgressInterval()
+		{
+			string value = ConfigurationManager.AppSettings["ProgressUpdateIntervalSeconds"];
+
+			int interval;
+
+			if (int.TryParse(value, out interval)) return TimeSpan.FromSeconds(interval);
+
+			return TimeSpan.FromSeconds(1);
+		}
 
         private void ValidateConfiguration()
         {
