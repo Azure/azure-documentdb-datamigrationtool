@@ -16,8 +16,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
         public int Handle(Exception error)
         {
-            if (Console.CursorLeft != 0)
-                Console.WriteLine();
+            Console.WriteLine();
 
             Console.Write(Resources.CriticalFailurePrefix);
 
