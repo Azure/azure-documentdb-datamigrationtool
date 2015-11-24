@@ -72,6 +72,9 @@
 
       <system:String x:Key="ErrorDetailsKey">Detailed Error Information</system:String>
 
+      <system:String x:Key="ProgressUpdateIntervalKey">Progress Update Interval</system:String>
+      <system:String x:Key="ProgressUpdateIntervalDescriptionKey">How often on-screen data transfer progress should be updated</system:String>
+
       <!-- Step: Summary -->
       <system:String x:Key="SummaryPageTitleKey">Confirm import settings</system:String>
       <system:String x:Key="GenerateCommandLineKey">View Command</system:String>
@@ -82,6 +85,7 @@
       <system:String x:Key="InfrastructureSetupSummarySubtitleKey">Advanced</system:String>
       <system:String x:Key="ErrorLogFileNameSummaryKey">Error Log File:</system:String>
       <system:String x:Key="ErrorDetailsSummaryKey">Detailed Error Information:</system:String>
+      <system:String x:Key="ProgressUpdateIntervalSummaryKey">Progress Update Interval:</system:String>
 
       <!-- Step: Import -->
       <system:String x:Key="ImportPageTitleKey">Import results</system:String>

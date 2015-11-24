@@ -140,6 +140,10 @@
   <system:String x:Key="DisableIdGenerationDescriptionKey">If every document to be imported contains an unique id field, then selecting this option can increase performance. Documents without an unique id field will not be imported</system:String>
   <system:String x:Key="DisableIdGenerationSummaryKey">Disable Automatic Id Generation:</system:String>
 
+  <system:String x:Key="UpdateExistingKey">Update Existing Documents</system:String>
+  <system:String x:Key="UpdateExistingDescriptionKey">Update existing documents with the same id</system:String>
+  <system:String x:Key="UpdateExistingSummaryKey">Update Existing Documents:</system:String>
+  
   <system:String x:Key="DatesHandlingKey">Persist Date and Time as</system:String>
   <system:String x:Key="DatesHandlingSummaryKey">Persist Date and Time as:</system:String>
   

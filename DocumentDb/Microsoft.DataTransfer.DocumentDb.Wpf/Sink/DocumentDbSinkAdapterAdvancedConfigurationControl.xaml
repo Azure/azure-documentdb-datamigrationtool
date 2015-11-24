@@ -36,7 +36,11 @@
     <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource DisableIdGenerationDescriptionKey}">
       <CheckBox Content="{DynamicResource DisableIdGenerationKey}" IsChecked="{Binding DisableIdGeneration}" />
     </bc:ToolTipDecorator>
-    
+
+    <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource UpdateExistingDescriptionKey}">
+      <CheckBox Content="{DynamicResource UpdateExistingKey}" IsChecked="{Binding UpdateExisting}" />
+    </bc:ToolTipDecorator>
+
     <StackPanel Style="{StaticResource OptionElement}">
       <Label Content="{DynamicResource DatesHandlingKey}" />
       <ComboBox ItemsSource="{Binding Source={StaticResource DateTimeHandlingValues}}" SelectedValue="{Binding Dates}" />

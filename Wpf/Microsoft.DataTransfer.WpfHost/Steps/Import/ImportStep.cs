@@ -68,7 +68,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
                         });
                 
                     using (new DisposableDispatcherTimer<ImportOperationContext>(
-                        TimeSpan.FromSeconds(1), UpdateStatistics, operationContext))
+                        GetProgressUpdateInterval(TransferModel.InfrastructureConfiguration), UpdateStatistics, operationContext))
                     {
                         await Task.Run(() =>
                             transferService.TransferAsync(
@@ -103,6 +103,12 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.Import
 
             if (criticalError != null)
                 errorHandler.Handle(criticalError);
+        }
+
+        private static TimeSpan GetProgressUpdateInterval(ITransferStatisticsConfiguration statisticsConfiguration)
+        {
+            return statisticsConfiguration.ProgressUpdateInterval
+                ?? InfrastructureDefaults.Current.ProgressUpdateInterval;
         }
 
         private void UpdateStatistics(ImportOperationContext context)

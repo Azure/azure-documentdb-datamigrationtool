@@ -52,6 +52,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
         bool DisableIdGeneration { get; }
 
         /// <summary>
+        /// Gets the value that indicates whether documents with the same id should be updated.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_UpdateExisting")]
+        bool UpdateExisting { get; }
+
+        /// <summary>
         /// Gets the DocumentDB date and time handling strategy.
         /// </summary>
         [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Sink_Dates")]

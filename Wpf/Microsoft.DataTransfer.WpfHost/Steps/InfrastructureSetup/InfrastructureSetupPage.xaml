@@ -17,10 +17,10 @@
     </ObjectDataProvider>
   </UserControl.Resources>
 
-  <DockPanel>
-    <bc:TitleControl DockPanel.Dock="Top" Text="{DynamicResource InfrastructureSetupPageTitleKey}" />
+  <StackPanel>
+    <bc:TitleControl Text="{DynamicResource InfrastructureSetupPageTitleKey}" />
 
-    <StackPanel DockPanel.Dock="Top" Style="{StaticResource OptionElement}">
+    <StackPanel Style="{StaticResource OptionElement}">
       <bc:ToolTipDecorator ToolTip="{DynamicResource ErrorLogFileNameDescriptionKey}">
         <Label Content="{DynamicResource ErrorLogFileNameKey}" />
       </bc:ToolTipDecorator>
@@ -33,6 +33,13 @@
       <Label Content="{DynamicResource ErrorDetailsKey}" />
       <ComboBox ItemsSource="{Binding Source={StaticResource ErrorDetailsValues}}" SelectedValue="{Binding ErrorDetails}" />
     </StackPanel>
-  </DockPanel>
+
+    <StackPanel Style="{StaticResource OptionElement}">
+      <bc:ToolTipDecorator ToolTip="{DynamicResource ProgressUpdateIntervalDescriptionKey}">
+        <Label Content="{DynamicResource ProgressUpdateIntervalKey}" />
+      </bc:ToolTipDecorator>
+      <TextBox Text="{Binding ProgressUpdateInterval, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+  </StackPanel>
   
 </UserControl>

@@ -23,6 +23,45 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             DataItemCollectionAssert.AreEquivalent(expected, persistedData, TestResources.InvalidDocumentsPersisted);
         }
 
+        protected static IDataItem[] GetSampleDuplicateDataItems()
+        {
+            return new[]
+            {
+                new DictionaryDataItem(new Dictionary<string, object>
+                {
+                    { "id", "item1" },
+                    { "value", 10 }
+                }),
+                new DictionaryDataItem(new Dictionary<string, object>
+                {
+                    { "id", "item2" },
+                    { "value", 20 }
+                }),
+                new DictionaryDataItem(new Dictionary<string, object>
+                {
+                    { "id", "item1" },
+                    { "value", 30 }
+                })
+            };
+        }
+
+        protected static IDataItem[] GetExpectedDuplicateDataItems()
+        {
+            return new[]
+            {
+                new DictionaryDataItem(new Dictionary<string, object>
+                {
+                    { "id", "item1" },
+                    { "value", 30 }
+                }),
+                new DictionaryDataItem(new Dictionary<string, object>
+                {
+                    { "id", "item2" },
+                    { "value", 20 }
+                })
+            };
+        }
+
         protected IDataItem[] GetSampleGeospatialDataItems()
         {
             return new[]

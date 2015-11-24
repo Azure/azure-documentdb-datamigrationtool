@@ -21,8 +21,9 @@ namespace Microsoft.DataTransfer.ConsoleHost
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .Register(c => CommandLineOneTimeTransferConfiguration.Parse(arguments))
+                .Register(c => CommandLineConfiguration.Parse(arguments))
                 .As<IOneTimeDataTransferConfiguration>()
+                .As<IRawInfrastructureConfiguration>()
                 .SingleInstance();
 
             builder
@@ -41,7 +42,7 @@ namespace Microsoft.DataTransfer.ConsoleHost
             builder
                 .Register(c => c
                     .Resolve<IInfrastructureConfigurationFactory>()
-                    .Create(c.Resolve<IOneTimeDataTransferConfiguration>().InfrastructureConfiguration))
+                    .Create(c.Resolve<IRawInfrastructureConfiguration>().InfrastructureConfiguration))
                 .AsImplementedInterfaces()
                 .SingleInstance();
 

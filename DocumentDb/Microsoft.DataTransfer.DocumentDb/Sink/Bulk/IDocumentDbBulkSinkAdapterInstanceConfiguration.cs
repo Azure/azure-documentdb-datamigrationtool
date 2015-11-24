@@ -8,6 +8,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         CollectionPricingTier CollectionTier { get; }
         IndexingPolicy IndexingPolicy { get; }
         bool DisableIdGeneration { get; }
+        bool UpdateExisting { get; }
         string StoredProcName { get; }
         string StoredProcBody { get; }
         int BatchSize { get; }

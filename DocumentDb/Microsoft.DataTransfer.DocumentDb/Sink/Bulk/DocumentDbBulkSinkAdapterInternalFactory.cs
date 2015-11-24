@@ -38,6 +38,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
+                UpdateExisting = configuration.UpdateExisting,
                 StoredProcBody = GetStoredProcBody(configuration.StoredProcFile),
                 BatchSize = GetValueOrDefault(configuration.BatchSize,
                     Defaults.Current.BulkSinkBatchSize, Errors.InvalidBatchSize),

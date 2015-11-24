@@ -9,6 +9,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
     {
         Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy);
         Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
+        Task UpsertDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
 
         Task<string> CreateStoredProcedureAsync(string collectionLink, string name, string body);
         Task<StoredProcedureResult<TResult>> ExecuteStoredProcedureAsync<TResult>(string storedProcedureLink, params dynamic[] args);

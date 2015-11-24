@@ -201,4 +201,16 @@
   <data name="InvalidFieldValue" xml:space="preserve">
     <value>Data item has invalid field value</value>
   </data>
+  <data name="MissingCollectionLinkInUpsertDocumentAsync" xml:space="preserve">
+    <value>Empty collection link passed to UpsertDocumentAsync of DocumentDB client</value>
+  </data>
+  <data name="MissingDocumentInUpsertDocumentAsync" xml:space="preserve">
+    <value>Document passed to UpsertDocumentAsync of DocumentDB client is null</value>
+  </data>
+  <data name="AllDocumentShouldBeUpserted" xml:space="preserve">
+    <value>Some documents were created when upsert was requested</value>
+  </data>
+  <data name="NoDocumentsShouldBeUpserted" xml:space="preserve">
+    <value>Some documents were upserted when create only was requested</value>
+  </data>
 </root>

@@ -14,6 +14,7 @@
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ErrorLogFileNameSummaryKey}" />
@@ -24,6 +25,11 @@
     <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource ErrorDetailsSummaryKey}" />
     <Label Grid.Row="1" Grid.Column="1">
       <TextBlock Text="{Binding ErrorDetails}" />
+    </Label>
+
+    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource ProgressUpdateIntervalSummaryKey}" />
+    <Label Grid.Row="2" Grid.Column="1">
+      <TextBlock Text="{Binding ProgressUpdateInterval}" />
     </Label>
   </Grid>
 

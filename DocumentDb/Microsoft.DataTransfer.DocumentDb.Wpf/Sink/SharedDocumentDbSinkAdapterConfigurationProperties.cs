@@ -28,6 +28,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         public static readonly string DisableIdGeneration =
             ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.DisableIdGeneration);
 
+        public static readonly string UpdateExisting =
+            ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.UpdateExisting);
+
         public static readonly string Dates =
             ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.Dates);
     }

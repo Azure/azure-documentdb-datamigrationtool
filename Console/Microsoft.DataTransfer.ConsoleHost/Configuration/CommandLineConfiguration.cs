@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.DataTransfer.ConsoleHost.Configuration
 {
-    sealed class CommandLineOneTimeTransferConfiguration : IOneTimeDataTransferConfiguration
+    sealed class CommandLineConfiguration : IOneTimeDataTransferConfiguration, IRawInfrastructureConfiguration
     {
         public const string SwitchCharacter = "/";
         public const string SourceSwitch = "s";
@@ -23,9 +23,9 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
         public string TargetName { get; private set; }
         public IReadOnlyDictionary<string, string> TargetConfiguration { get; private set; }
 
-        private CommandLineOneTimeTransferConfiguration() { }
+        private CommandLineConfiguration() { }
 
-        public static CommandLineOneTimeTransferConfiguration Parse(string[] arguments)
+        public static CommandLineConfiguration Parse(string[] arguments)
         {
             var infrastructureConfiguration = new Dictionary<string, string>();
             var sourceConfiguration = new Dictionary<string, string>();
@@ -62,7 +62,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
             if (targetConfiguration.TryGetValue(String.Empty, out targetName))
                 targetConfiguration.Remove(String.Empty);
 
-            return new CommandLineOneTimeTransferConfiguration
+            return new CommandLineConfiguration
             {
                 InfrastructureConfiguration = infrastructureConfiguration,
                 SourceName = sourceName,

@@ -18,6 +18,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         private string idField;
         private bool disableIdGeneration;
+        private bool updateExisting;
 
         private DateTimeHandling? dates;
 
@@ -76,6 +77,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         {
             get { return disableIdGeneration; }
             set { SetProperty(ref disableIdGeneration, value); }
+        }
+
+        public bool UpdateExisting
+        {
+            get { return updateExisting; }
+            set { SetProperty(ref updateExisting, value); }
         }
 
         public DateTimeHandling? Dates

@@ -7,6 +7,7 @@ using Microsoft.DataTransfer.WpfHost.ServiceModel.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
 
 namespace Microsoft.DataTransfer.WpfHost.Model
 {
@@ -57,6 +58,11 @@ namespace Microsoft.DataTransfer.WpfHost.Model
             if (configuration.ErrorDetails.HasValue && configuration.ErrorDetails.Value != InfrastructureDefaults.Current.ErrorDetails)
                 arguments.Add(InfrastructureConfigurationProperties.ErrorDetails, 
                     Enum.GetName(typeof(ErrorDetails), configuration.ErrorDetails));
+
+            if (configuration.ProgressUpdateInterval.HasValue && configuration.ProgressUpdateInterval.Value != InfrastructureDefaults.Current.ProgressUpdateInterval)
+                arguments.Add(
+                    InfrastructureConfigurationProperties.ProgressUpdateInterval,
+                    configuration.ProgressUpdateInterval.Value.ToString("c", CultureInfo.InvariantCulture));
 
             return AppendConfiguration(commandLine, AppendInfrastructureConfigurationArgumentName, arguments);
         }

@@ -47,7 +47,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             {
                 statistics = await statisticsHandler.CreateNew(statisticsConfiguration, cancellation.Token);
 
-                using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, TimeSpan.FromSeconds(1)))
+                using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, GetProgressUpdateInterval()))
                 {
                     await transferService
                         .TransferAsync(
@@ -66,6 +66,12 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             if (statistics != null)
                 statisticsHandler.PrintResult(statistics.GetSnapshot());
+        }
+
+        private TimeSpan GetProgressUpdateInterval()
+        {
+            return statisticsConfiguration.ProgressUpdateInterval 
+                ?? InfrastructureDefaults.Current.ProgressUpdateInterval;
         }
 
         private void ValidateConfiguration()

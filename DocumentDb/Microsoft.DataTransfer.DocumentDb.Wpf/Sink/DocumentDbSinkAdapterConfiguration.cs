@@ -33,6 +33,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         public static readonly string DisableIdGenerationPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.DisableIdGeneration);
 
+        public static readonly string UpdateExistingPropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.UpdateExisting);
+
         public static readonly string DatesPropertyName = 
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.Dates);
 
@@ -91,6 +94,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
             set { SharedConfiguration.DisableIdGeneration = value; }
         }
 
+        public bool UpdateExisting
+        {
+            get { return SharedConfiguration.UpdateExisting; }
+            set { SharedConfiguration.UpdateExisting = value; }
+        }
+
         public DateTimeHandling? Dates
         {
             get { return SharedConfiguration.Dates; }
@@ -111,6 +120,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicyFile, IndexingPolicyFilePropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IdField, IdFieldPropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.DisableIdGeneration, DisableIdGenerationPropertyName);
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.UpdateExisting, UpdateExistingPropertyName);
             return mapping;
         }
     }

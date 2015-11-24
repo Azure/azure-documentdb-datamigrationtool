@@ -4,8 +4,6 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
 {
     interface IOneTimeDataTransferConfiguration
     {
-        IReadOnlyDictionary<string, string> InfrastructureConfiguration { get; }
-
         string SourceName { get; }
         IReadOnlyDictionary<string, string> SourceConfiguration { get; }
 

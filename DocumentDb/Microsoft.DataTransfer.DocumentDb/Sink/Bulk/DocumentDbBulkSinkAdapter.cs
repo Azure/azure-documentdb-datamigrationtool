@@ -157,7 +157,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             try
             {
                 var response = await Client.ExecuteStoredProcedureAsync<IEnumerable<BulkInsertItemState>>(
-                    storedProcedureLink, surrogate, Configuration.DisableIdGeneration ? 1 : 0);
+                    storedProcedureLink, surrogate, Configuration.UpdateExisting ? 1 : 0, Configuration.DisableIdGeneration ? 1 : 0);
 
                 result = response.Data;
 

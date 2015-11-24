@@ -40,6 +40,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ConnectionStringSummaryKey}" />
@@ -74,32 +75,37 @@
     <Label Grid.Row="6" Grid.Column="1">
       <TextBlock Text="{Binding DisableIdGeneration, Converter={StaticResource YesNoConverter}}" />
     </Label>
-    
-    <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource DatesHandlingSummaryKey}" />
+
+    <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource UpdateExistingSummaryKey}" />
     <Label Grid.Row="7" Grid.Column="1">
+      <TextBlock Text="{Binding UpdateExisting, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+
+    <Label Grid.Row="8" Grid.Column="0" Content="{DynamicResource DatesHandlingSummaryKey}" />
+    <Label Grid.Row="8" Grid.Column="1">
       <TextBlock Text="{Binding Dates}" />
     </Label>
 
-    <Label Grid.Row="8" Grid.Column="0" Content="{DynamicResource IndexingPolicySummaryKey}" />
-    <Label Grid.Row="8" Grid.Column="1">
+    <Label Grid.Row="9" Grid.Column="0" Content="{DynamicResource IndexingPolicySummaryKey}" />
+    <Label Grid.Row="9" Grid.Column="1">
       <Grid>
         <TextBlock Text="{Binding IndexingPolicy}" Visibility="{Binding UseIndexingPolicyFile, Converter={StaticResource IsInvisible}}" />
         <TextBlock Text="{Binding IndexingPolicyFile}" Visibility="{Binding UseIndexingPolicyFile, Converter={StaticResource IsVisible}}" />
       </Grid>
     </Label>
     
-    <Label Grid.Row="9" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
-    <Label Grid.Row="9" Grid.Column="1">
+    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource RetriesSummaryKey}" />
+    <Label Grid.Row="10" Grid.Column="1">
       <TextBlock Text="{Binding Retries}" />
     </Label>
 
-    <Label Grid.Row="10" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
-    <Label Grid.Row="10" Grid.Column="1">
+    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource RetryIntervalSummaryKey}" />
+    <Label Grid.Row="11" Grid.Column="1">
       <TextBlock Text="{Binding RetryInterval}" />
     </Label>
 
-    <Label Grid.Row="11" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
-    <Label Grid.Row="11" Grid.Column="1">
+    <Label Grid.Row="12" Grid.Column="0" Content="{DynamicResource ConnectionModeSummaryKey}" />
+    <Label Grid.Row="12" Grid.Column="1">
       <TextBlock Text="{Binding ConnectionMode}" />
     </Label>
   </Grid>

@@ -13,5 +13,8 @@ namespace Microsoft.DataTransfer.WpfHost.Helpers
 
         public static readonly string ErrorDetails =
             ObjectExtensions.MemberName<IInfrastructureConfiguration>(m => m.ErrorDetails);
+
+        public static readonly string ProgressUpdateInterval =
+            ObjectExtensions.MemberName<IInfrastructureConfiguration>(m => m.ProgressUpdateInterval);
     }
 }

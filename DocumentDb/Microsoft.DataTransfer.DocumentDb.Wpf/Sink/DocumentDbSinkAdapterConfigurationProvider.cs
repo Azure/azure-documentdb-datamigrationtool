@@ -49,6 +49,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
             if (configuration.DisableIdGeneration)
                 arguments.Add(DocumentDbSinkAdapterConfiguration.DisableIdGenerationPropertyName, null);
 
+            if (configuration.UpdateExisting)
+                arguments.Add(DocumentDbSinkAdapterConfiguration.UpdateExistingPropertyName, null);
+
             if (configuration.Dates.HasValue && configuration.Dates.Value != Defaults.Current.SinkDateTimeHandling)
                 arguments.Add(DocumentDbSinkAdapterConfiguration.DatesPropertyName, configuration.Dates.Value.ToString());
         }

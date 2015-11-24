@@ -43,6 +43,8 @@ namespace Microsoft.DataTransfer.ServiceModel
         private sealed class LibraryDefaults : IInfrastructureDefaults
         {
             public ErrorDetails ErrorDetails { get { return ErrorDetails.None; } }
+
+            public TimeSpan ProgressUpdateInterval { get { return TimeSpan.FromSeconds(1); } }
         }
     }
 }

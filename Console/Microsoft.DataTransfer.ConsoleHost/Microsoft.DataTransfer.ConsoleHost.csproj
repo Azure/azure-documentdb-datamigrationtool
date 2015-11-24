@@ -53,6 +53,7 @@
     <Compile Include="Configuration\InfrastructureConfigurationFactory.cs" />
     <Compile Include="Configuration\IInfrastructureConfiguration.cs" />
     <Compile Include="Configuration\IInfrastructureConfigurationFactory.cs" />
+    <Compile Include="Configuration\IRawInfrastructureConfiguration.cs" />
     <Compile Include="Helpers\ConsoleCancellationSource.cs" />
     <Compile Include="App\Handlers\ErrorHandler.cs" />
     <Compile Include="App\Handlers\IErrorHandler.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="App\Handlers\ITransferStatisticsHandler.cs" />
     <Compile Include="App\Handlers\TransferStatisticsHandler.cs" />
     <Compile Include="App\Host.cs" />
-    <Compile Include="Configuration\CommandLineOneTimeTransferConfiguration.cs" />
+    <Compile Include="Configuration\CommandLineConfiguration.cs" />
     <Compile Include="App\Handlers\HelpHandler.cs" />
     <Compile Include="Configuration\IOneTimeDataTransferConfiguration.cs" />
     <Compile Include="DataAdapters\DataAdapterConfigurationFactoryDispatcher.cs" />

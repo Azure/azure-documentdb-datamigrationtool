@@ -12,9 +12,11 @@
     This version of the stored procedure allows to perform custom document transformation.
     Look for transformDocument(...) function for additional information.
 */
-function BulkImport(items, disableAutomaticIdGeneration) {
+function BulkImport(items, updateExisting, disableAutomaticIdGeneration) {
     var collection = getContext().getCollection();
     var collectionLink = collection.getSelfLink();
+
+    var createDocumentFunction = updateExisting != 0 ? collection.upsertDocument : collection.createDocument;
 
     var itemsState = [];
 
@@ -52,7 +54,7 @@ function BulkImport(items, disableAutomaticIdGeneration) {
 
     function tryCreate(item, callback) {
         try {
-            if (!collection.createDocument(collectionLink, transformDocument(item.d), options,
+            if (!createDocumentFunction(collectionLink, transformDocument(item.d), options,
                     function (error, doc, options) { callback(item.i, error); })) {
                 // If request was not accepted, return the results of bulk operation right away
                 getContext().getResponse().setBody(itemsState);

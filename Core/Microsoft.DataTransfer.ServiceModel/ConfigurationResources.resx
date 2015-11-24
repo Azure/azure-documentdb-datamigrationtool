@@ -126,4 +126,7 @@
   <data name="Statistics_OverwriteErrorLog" xml:space="preserve">
     <value>Optional. Overwrite error log file</value>
   </data>
+  <data name="Statistics_ProgressUpdateIntervalFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Time interval to refresh on-screen data transfer progress</value>
+  </data>
 </root>

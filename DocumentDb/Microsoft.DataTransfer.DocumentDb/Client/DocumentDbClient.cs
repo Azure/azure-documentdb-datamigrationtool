@@ -89,7 +89,17 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             Guard.NotEmpty("collectionLink", collectionLink);
             Guard.NotNull("document", document);
 
-            return client.CreateDocumentAsync(collectionLink, document, null, disableAutomaticIdGeneration);
+            return client.CreateDocumentAsync(collectionLink, document,
+                disableAutomaticIdGeneration: disableAutomaticIdGeneration);
+        }
+
+        public Task UpsertDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration)
+        {
+            Guard.NotEmpty("collectionLink", collectionLink);
+            Guard.NotNull("document", document);
+
+            return client.UpsertDocumentAsync(collectionLink, document,
+                disableAutomaticIdGeneration: disableAutomaticIdGeneration);
         }
 
         public async Task<string> CreateStoredProcedureAsync(string collectionLink, string name, string body)

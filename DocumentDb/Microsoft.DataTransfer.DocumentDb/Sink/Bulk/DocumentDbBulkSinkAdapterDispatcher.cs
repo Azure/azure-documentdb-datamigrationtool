@@ -58,6 +58,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 CollectionTier = Configuration.CollectionTier,
                 IndexingPolicy = Configuration.IndexingPolicy,
                 DisableIdGeneration = Configuration.DisableIdGeneration,
+                UpdateExisting = Configuration.UpdateExisting,
                 StoredProcName = storedProcName,
                 StoredProcBody = Configuration.StoredProcBody,
                 BatchSize = Configuration.BatchSize,

@@ -10,5 +10,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
         public CollectionPricingTier CollectionTier { get; set; }
         public IndexingPolicy IndexingPolicy { get; set; }
         public bool DisableIdGeneration { get; set; }
+        public bool UpdateExisting { get; set; }
     }
 }

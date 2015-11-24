@@ -165,6 +165,9 @@
   <data name="Sink_PartitionKey" xml:space="preserve">
     <value>Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</value>
   </data>
+  <data name="Sink_UpdateExisting" xml:space="preserve">
+    <value>Optional. Update existing documents with the same ID</value>
+  </data>
   <data name="Source_Collection" xml:space="preserve">
     <value>Regex pattern to match one or more documents collection name</value>
   </data>

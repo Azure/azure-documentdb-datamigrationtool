@@ -32,10 +32,10 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             PrintUsage();
             Console.WriteLine();
 
-            PrintAdapters(Resources.HelpKnownSourcesHeader, CommandLineOneTimeTransferConfiguration.SourceSwitch, service.GetKnownSources());
+            PrintAdapters(Resources.HelpKnownSourcesHeader, CommandLineConfiguration.SourceSwitch, service.GetKnownSources());
             Console.WriteLine();
 
-            PrintAdapters(Resources.HelpKnownTargetsHeader, CommandLineOneTimeTransferConfiguration.TargetSwitch, service.GetKnownSinks());
+            PrintAdapters(Resources.HelpKnownTargetsHeader, CommandLineConfiguration.TargetSwitch, service.GetKnownSinks());
         }
 
         private void PrintUsage()
@@ -43,9 +43,9 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             Console.WriteLine(Resources.HelpUsageExampleHeader);
             Console.WriteLine();
             WriteLineSection(1, Resources.HelpUsageExample, 
-                CommandLineOneTimeTransferConfiguration.SwitchCharacter,
-                CommandLineOneTimeTransferConfiguration.SourceSwitch,
-                CommandLineOneTimeTransferConfiguration.TargetSwitch);
+                CommandLineConfiguration.SwitchCharacter,
+                CommandLineConfiguration.SourceSwitch,
+                CommandLineConfiguration.TargetSwitch);
             Console.WriteLine();
 
             Console.WriteLine(Resources.HelpConfigurationHeader);
@@ -71,7 +71,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             foreach (var option in options)
             {
                 WriteLineSection(IndentLevel, Resources.HelpConfigurationOptionFormat,
-                    CommandLineOneTimeTransferConfiguration.SwitchCharacter, option.Key, option.Value);
+                    CommandLineConfiguration.SwitchCharacter, option.Key, option.Value);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             {
                 Console.WriteLine();
                 WriteLineSection(IndentLevel, Resources.HelpKnownAdapterFormat, 
-                    CommandLineOneTimeTransferConfiguration.SwitchCharacter, adapterCharacter,
+                    CommandLineConfiguration.SwitchCharacter, adapterCharacter,
                     adapter.Key, adapter.Value.Description);
                 PrintAdapterOptions(adapterCharacter, adapter.Value.ConfigurationType);
             }
@@ -108,7 +108,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             foreach (var option in options)
             {
                 WriteLineSection(IndentLevel, Resources.HelpAdapterConfigurationOptionFormat,
-                    CommandLineOneTimeTransferConfiguration.SwitchCharacter, adapterCharacter,
+                    CommandLineConfiguration.SwitchCharacter, adapterCharacter,
                     option.Key, option.Value);
             }
         }

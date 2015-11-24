@@ -52,7 +52,7 @@ namespace Microsoft.DataTransfer.DocumentDb
             public DateTimeHandling SinkDateTimeHandling { get { return DateTimeHandling.String; } }
 
             public int BulkSinkBatchSize { get { return 50; } }
-            public int BulkSinkMaxScriptSize { get { return 512 * 1024 - 8; } } // Allow 8 bytes for additional stored procedure overhead
+            public int BulkSinkMaxScriptSize { get { return 512 * 1024 - 10; } } // Allow 10 bytes for additional stored procedure overhead
             public string BulkSinkStoredProcFile { get { return "BulkInsert.js"; } }
 
             public int ParallelSinkNumberOfParallelRequests { get { return 2; } }

@@ -16,6 +16,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         string IdField { get; set; }
         bool DisableIdGeneration { get; set; }
+        bool UpdateExisting { get; set; }
         DateTimeHandling? Dates { get; set; }
     }
 }

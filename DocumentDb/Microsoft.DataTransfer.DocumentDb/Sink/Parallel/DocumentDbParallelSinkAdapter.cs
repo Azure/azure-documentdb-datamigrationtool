@@ -42,10 +42,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             dataItem = Transformation.Transform(dataItem);
             var partitionKey = partitionResolver.GetPartitionKey(dataItem);
 
-            return Client.CreateDocumentAsync(
-                partitionResolver.ResolveForCreate(partitionKey),
-                new DataItemSurrogate(dataItem),
-                Configuration.DisableIdGeneration);
+            var collectionLink = partitionResolver.ResolveForCreate(partitionKey);
+            var dataItemSurrogate = new DataItemSurrogate(dataItem);
+
+            return Configuration.UpdateExisting
+                ? Client.UpsertDocumentAsync(collectionLink, dataItemSurrogate, Configuration.DisableIdGeneration)
+                : Client.CreateDocumentAsync(collectionLink, dataItemSurrogate, Configuration.DisableIdGeneration);
         }
 
         public Task CompleteAsync(CancellationToken cancellation)

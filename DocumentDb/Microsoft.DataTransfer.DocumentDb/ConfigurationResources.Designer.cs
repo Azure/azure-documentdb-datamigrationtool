@@ -205,6 +205,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional. Update existing documents with the same ID.
+        /// </summary>
+        public static string Sink_UpdateExisting {
+            get {
+                return ResourceManager.GetString("Sink_UpdateExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regex pattern to match one or more documents collection name.
         /// </summary>
         public static string Source_Collection {

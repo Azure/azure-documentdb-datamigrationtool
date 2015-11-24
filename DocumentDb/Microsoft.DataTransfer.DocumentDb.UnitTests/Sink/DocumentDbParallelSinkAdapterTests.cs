@@ -12,7 +12,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
     public class DocumentDbParallelSinkAdapterTests : DataTransferAdapterTestBase
     {
         [TestMethod]
-        public async Task WriteSampleData_AllDataStored()
+        public async Task WriteSampleData_Create_AllDataStored()
         {
             const string CollectionName = "TestCollection";
             const int NumberOfItems = 10;
@@ -34,6 +34,35 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 
             CollectionAssert.AreEquivalent(new [] { CollectionName }, clientMock.CreatedCollections.ToArray(), TestResources.CollectionWasNotCreated);
             Assert.AreEqual(NumberOfItems, clientMock.NumberOfDocumentsCreated, TestResources.InvalidNumberOfDataItemsTransferred);
+            Assert.AreEqual(0, clientMock.NumberOfDocumentsUpserted, TestResources.NoDocumentsShouldBeUpserted);
+            Assert.AreEqual(0, clientMock.CreatedStoredProcedures.Count, TestResources.ParallelSinkAdapterCreatedStoredProcedure);
+        }
+
+        [TestMethod]
+        public async Task WriteSampleData_Upsert_AllDataStored()
+        {
+            const string CollectionName = "TestCollection";
+            const int NumberOfItems = 10;
+
+            var clientMock = new DocumentDbWriteClientMock();
+
+            var configuration = Mocks
+                    .Of<IDocumentDbParallelSinkAdapterInstanceConfiguration>()
+                    .Where(m =>
+                        m.Collections == new[] { CollectionName } &&
+                        m.UpdateExisting == true &&
+                        m.NumberOfParallelRequests == 2)
+                    .First();
+
+            using (var adapter = new DocumentDbParallelSinkAdapter(clientMock, PassThroughTransformation.Instance, configuration))
+            {
+                await adapter.InitializeAsync();
+                await WriteDataAsync(adapter, SampleData.GetSimpleDataItems(NumberOfItems));
+            }
+
+            CollectionAssert.AreEquivalent(new[] { CollectionName }, clientMock.CreatedCollections.ToArray(), TestResources.CollectionWasNotCreated);
+            Assert.AreEqual(0, clientMock.NumberOfDocumentsCreated, TestResources.AllDocumentShouldBeUpserted);
+            Assert.AreEqual(NumberOfItems, clientMock.NumberOfDocumentsUpserted, TestResources.InvalidNumberOfDataItemsTransferred);
             Assert.AreEqual(0, clientMock.CreatedStoredProcedures.Count, TestResources.ParallelSinkAdapterCreatedStoredProcedure);
         }
     }

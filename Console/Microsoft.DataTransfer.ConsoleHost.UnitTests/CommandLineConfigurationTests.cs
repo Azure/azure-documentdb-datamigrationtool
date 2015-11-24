@@ -14,7 +14,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_SourceAndTargetNameSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/s:TestSource",
                     "/t:TestTarget"
@@ -31,7 +31,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_SimpleSourceConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/s:TestSource",
                     "/s.Property1:value1",
@@ -58,7 +58,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_CompexSourceConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/s:TestSource",
                     "/s.Property1:semi-colon : \"quotes\" and spaces",
@@ -87,7 +87,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_SimpleTargetConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/t:TestTarget",
                     "/t.Property1:value1",
@@ -113,7 +113,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_ComplexTargetConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/t:TestTarget",
                     "/t.Property1:with semi-colon :, spaces",
@@ -141,7 +141,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_BothSourceAndTargetConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/s:SomeSource",
                     "/s.Property1:source value",
@@ -178,7 +178,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         [TestMethod]
         public void Parse_SimpleInfrastructureConfigurationSet_ConfigurationParsed()
         {
-            var configuration = CommandLineOneTimeTransferConfiguration.Parse(new[]
+            var configuration = CommandLineConfiguration.Parse(new[]
                 {
                     "/Property1:Hello World!",
                     "/Switch",

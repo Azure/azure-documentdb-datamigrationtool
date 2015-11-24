@@ -31,7 +31,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
             if (configuration.RetryInterval.HasValue && configuration.RetryInterval.Value != Defaults.Current.RetryInterval)
                 arguments.Add(
                     DocumentDbAdapterConfiguration<ISharedDocumentDbAdapterConfiguration>.RetryIntervalPropertyName,
-                    configuration.RetryInterval.Value.ToString());
+                    configuration.RetryInterval.Value.ToString("c", CultureInfo.InvariantCulture));
         }
     }
 }

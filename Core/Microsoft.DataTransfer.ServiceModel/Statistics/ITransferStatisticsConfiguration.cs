@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.ServiceModel.Statistics
 {
@@ -18,5 +19,11 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_OverwriteErrorLog")]
         bool OverwriteErrorLog { get; }
+
+        /// <summary>
+        /// Gets the data transfer progress update interval.
+        /// </summary>
+        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Statistics_ProgressUpdateInterval")]
+        TimeSpan? ProgressUpdateInterval { get; }
     }
 }

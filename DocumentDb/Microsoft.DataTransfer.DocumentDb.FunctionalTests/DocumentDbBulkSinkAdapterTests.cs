@@ -1,7 +1,6 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Sink.Bulk;
-using Microsoft.DataTransfer.Extensibility;
+﻿using Microsoft.DataTransfer.DocumentDb.Exceptions;
+using Microsoft.DataTransfer.DocumentDb.Sink.Bulk;
 using Microsoft.DataTransfer.Extensibility.Basics.Source;
-using Microsoft.DataTransfer.TestsCommon;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -162,6 +161,58 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
 
             VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+        }
+
+        [TestMethod, Timeout(300000)]
+        [DeploymentItem("BulkInsert.js")]
+        [ExpectedException(typeof(FailedToCreateDocumentException))]
+        public async Task BulkWriteSampleData_CreateDuplicates_FailsToCreateDocumentWithSameId()
+        {
+            const string CollectionName = "Data";
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbBulkSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { CollectionName } &&
+                        m.BatchSize == 10 &&
+                        m.MaxScriptSize == 1024)
+                    .First();
+
+            var sampleData = GetSampleDuplicateDataItems();
+
+            using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+        }
+
+        [TestMethod, Timeout(300000)]
+        [DeploymentItem("BulkInsert.js")]
+        public async Task BulkWriteSampleData_UpsertDuplicates_AllDataStored()
+        {
+            const string CollectionName = "Data";
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbBulkSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { CollectionName } &&
+                        m.BatchSize == 10 &&
+                        m.MaxScriptSize == 1024 &&
+                        m.UpdateExisting == true)
+                    .First();
+
+            var sampleData = GetSampleDuplicateDataItems();
+
+            using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
         }
     }
 }

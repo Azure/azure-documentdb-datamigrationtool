@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.ServiceModel.Errors;
+using System;
 
 namespace Microsoft.DataTransfer.ServiceModel
 {
@@ -11,5 +12,10 @@ namespace Microsoft.DataTransfer.ServiceModel
         /// Gets the default data transfer error details configuration.
         /// </summary>
         ErrorDetails ErrorDetails { get; }
+
+        /// <summary>
+        /// Gets the default data transfer progress update interval.
+        /// </summary>
+        TimeSpan ProgressUpdateInterval { get; }
     }
 }

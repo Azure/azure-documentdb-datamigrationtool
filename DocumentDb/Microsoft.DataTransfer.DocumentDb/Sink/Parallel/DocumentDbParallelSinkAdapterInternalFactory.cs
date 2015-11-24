@@ -34,6 +34,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
                 CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
+                UpdateExisting = configuration.UpdateExisting,
                 NumberOfParallelRequests = GetValueOrDefault(configuration.ParallelRequests,
                     Defaults.Current.ParallelSinkNumberOfParallelRequests, Errors.InvalidNumberOfParallelRequests)
             };

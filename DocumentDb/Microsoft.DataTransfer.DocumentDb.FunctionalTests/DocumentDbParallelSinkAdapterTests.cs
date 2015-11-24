@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Sink.Parallel;
+﻿using Microsoft.Azure.Documents;
+using Microsoft.DataTransfer.DocumentDb.Sink.Parallel;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -151,6 +152,53 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
 
             VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+        }
+
+        [TestMethod, Timeout(300000)]
+        // Throws ConflictException, but since it's private - expect base class
+        [ExpectedException(typeof(DocumentClientException), AllowDerivedTypes = true)]
+        public async Task WriteSampleData_CreateDuplicates_FailsToCreateDocumentWithSameId()
+        {
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data" } &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100)
+                    .First();
+
+            var sampleData = GetSampleDuplicateDataItems();
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+        }
+
+        [TestMethod, Timeout(300000)]
+        public async Task WriteSampleData_CreateDuplicates_AllDataStored()
+        {
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { "Data" } &&
+                        m.ParallelRequests == 1 &&
+                        m.Retries == 100 &&
+                        m.UpdateExisting == true)
+                    .First();
+
+            var sampleData = GetSampleDuplicateDataItems();
+
+            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
+
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
         }
     }
 }

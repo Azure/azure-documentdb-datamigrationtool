@@ -86,5 +86,14 @@ namespace Microsoft.DataTransfer.ServiceModel {
                 return ResourceManager.GetString("Statistics_OverwriteErrorLog", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, default is {0}. Time interval to refresh on-screen data transfer progress.
+        /// </summary>
+        public static string Statistics_ProgressUpdateIntervalFormat {
+            get {
+                return ResourceManager.GetString("Statistics_ProgressUpdateIntervalFormat", resourceCulture);
+            }
+        }
     }
 }
