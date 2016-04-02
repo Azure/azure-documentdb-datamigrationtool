@@ -1,8 +1,7 @@
 ﻿using Microsoft.DataTransfer.Basics;
-using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
-using System.Collections.Generic;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,23 +14,32 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             get { return Resources.ParallelSinkDescription; }
         }
 
-        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation)
+        protected override async Task<IDataSinkAdapter> CreateAsync(IDataTransferContext context, IDataItemTransformation transformation,
+            IDocumentDbParallelSinkAdapterConfiguration configuration, CancellationToken cancellation)
         {
-            var sink = new DocumentDbParallelSinkAdapter(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
+            if (String.IsNullOrEmpty(configuration.Collection))
+                throw Errors.CollectionNameMissing();
+
+            var sink = new DocumentDbParallelSinkAdapter(
+                CreateClient(configuration, context, false), transformation,
+                GetInstanceConfiguration(configuration));
+
             await sink.InitializeAsync();
+
             return sink;
         }
 
         private static DocumentDbParallelSinkAdapterInstanceConfiguration GetInstanceConfiguration(
-            IDocumentDbParallelSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames)
+            IDocumentDbParallelSinkAdapterConfiguration configuration)
         {
             Guard.NotNull("configuration", configuration);
 
             return new DocumentDbParallelSinkAdapterInstanceConfiguration
             {
-                Collections = collectionNames,
-                CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
+                Collection = configuration.Collection,
+                PartitionKey = configuration.PartitionKey,
+                CollectionThroughput = GetValueOrDefault(configuration.CollectionThroughput,
+                    Defaults.Current.ParallelSinkCollectionThroughput, Errors.InvalidCollectionThroughput),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 UpdateExisting = configuration.UpdateExisting,

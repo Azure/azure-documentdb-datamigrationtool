@@ -22,7 +22,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { CollectionName } &&
+                        m.Collection == CollectionName &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
                     .First();
@@ -35,7 +35,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -49,7 +49,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { CollectionName } &&
+                        m.Collection == CollectionName &&
                         m.IndexingPolicyFile == @"IndexingPolicies\IntegerPropertyRangeIndex.json" &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
@@ -65,19 +65,22 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 
             VerifyData(
                 sampleData.Where(i => (int)i.GetValue("IntegerProperty") < 20).ToArray(),
-                DocumentDbHelper.ReadDocuments(ConnectionString, "Data", "SELECT * FROM c WHERE c.IntegerProperty < 20"));
+                DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName, "SELECT * FROM c WHERE c.IntegerProperty < 20"));
         }
 
         [TestMethod, Timeout(300000)]
-        public async Task WriteSampleData_RandomPartitioningAcrossTwoCollections_AllDataStored()
+        public async Task WriteSampleData_HashPartitioning_AllDataStored()
         {
+            const string CollectionName = "ElasticData";
             const int NumberOfItems = 100;
 
             var configuration =
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data[0-1]" } &&
+                        m.Collection == CollectionName &&
+                        m.CollectionThroughput == 20000 && // 20k should be equivalent to 2 partitions
+                        m.PartitionKey == "/StringProperty" &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
                     .First();
@@ -90,55 +93,19 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
-            Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
-
-            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
-            Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
-
-            VerifyData(sampleData, firstCollection.Union(secondCollection));
-        }
-
-        [TestMethod, Timeout(300000)]
-        public async Task WriteSampleData_HashPartitioningAcrossTwoCollections_AllDataStored()
-        {
-            const int NumberOfItems = 100;
-
-            var configuration =
-                Mocks
-                    .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
-                        m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data0", "Data1" } &&
-                        m.PartitionKey == "StringProperty" &&
-                        m.ParallelRequests == 1 &&
-                        m.Retries == 100)
-                    .First();
-
-            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
-
-            using (var adapter = await new DocumentDbParallelSinkAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
-            {
-                await WriteDataAsync(adapter, sampleData);
-            }
-
-            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
-            Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
-
-            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
-            Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
-
-            VerifyData(sampleData, firstCollection.Union(secondCollection));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
         public async Task WriteGeospatialData_AllDataStored()
         {
+            const string CollectionName = "Data";
+
             var configuration =
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data" } &&
+                        m.Collection == CollectionName &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
                     .First();
@@ -151,7 +118,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -159,11 +126,13 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [ExpectedException(typeof(DocumentClientException), AllowDerivedTypes = true)]
         public async Task WriteSampleData_CreateDuplicates_FailsToCreateDocumentWithSameId()
         {
+            const string CollectionName = "DuplicatesData";
+
             var configuration =
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data" } &&
+                        m.Collection == CollectionName &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100)
                     .First();
@@ -180,11 +149,13 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [TestMethod, Timeout(300000)]
         public async Task WriteSampleData_CreateDuplicates_AllDataStored()
         {
+            const string CollectionName = "DuplicatesData";
+
             var configuration =
                 Mocks
                     .Of<IDocumentDbParallelSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data" } &&
+                        m.Collection == CollectionName &&
                         m.ParallelRequests == 1 &&
                         m.Retries == 100 &&
                         m.UpdateExisting == true)
@@ -198,7 +169,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
     }
 }

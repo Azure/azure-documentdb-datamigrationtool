@@ -10,24 +10,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
     public interface IDocumentDbSinkAdapterConfiguration : IDocumentDbAdapterConfiguration
     {
         /// <summary>
-        /// Gets the documents collection name patterns.
-        /// </summary>
-        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_Collection")]
-        IEnumerable<string> Collection { get; }
-
-        /// <summary>
-        /// Gets the name of the property used as partition key.
-        /// </summary>
-        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_PartitionKey")]
-        string PartitionKey { get; }
-
-        /// <summary>
-        /// Gets the documents collection pricing tier.
-        /// </summary>
-        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Sink_CollectionTier")]
-        CollectionPricingTier? CollectionTier { get; }
-
-        /// <summary>
         /// Gets the document collection indexing policy.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_IndexingPolicy")]

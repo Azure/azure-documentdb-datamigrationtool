@@ -45,17 +45,18 @@ namespace Microsoft.DataTransfer.DocumentDb
         {
             public DocumentDbConnectionMode ConnectionMode { get { return DocumentDbConnectionMode.DirectTcp; } }
 
-            public int NumberOfRetries { get { return 10; } }
+            public int NumberOfRetries { get { return 30; } }
             public TimeSpan RetryInterval { get { return TimeSpan.FromSeconds(1); } }
 
-            public CollectionPricingTier SinkCollectionTier { get { return CollectionPricingTier.S2; } }
             public DateTimeHandling SinkDateTimeHandling { get { return DateTimeHandling.String; } }
 
+            public CollectionPricingTier BulkSinkCollectionTier { get { return CollectionPricingTier.S2; } }
             public int BulkSinkBatchSize { get { return 50; } }
             public int BulkSinkMaxScriptSize { get { return 512 * 1024 - 10; } } // Allow 10 bytes for additional stored procedure overhead
             public string BulkSinkStoredProcFile { get { return "BulkInsert.js"; } }
 
-            public int ParallelSinkNumberOfParallelRequests { get { return 2; } }
+            public int ParallelSinkNumberOfParallelRequests { get { return 10; } }
+            public int ParallelSinkCollectionThroughput { get { return 1000; } }
         }
     }
 }

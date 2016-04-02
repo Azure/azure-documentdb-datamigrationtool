@@ -31,7 +31,7 @@ namespace Microsoft.DataTransfer.WpfHost.Basics.ValueConverters
         /// <summary>
         /// Converts enum values to user-friendly display names based on the provided mapping.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Enum type to convert.</typeparam>
         public abstract class Base<T> : DisplayNameValueConverter<T>
             where T : struct, TEnum
         {

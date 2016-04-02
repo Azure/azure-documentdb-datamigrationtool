@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
@@ -7,6 +8,24 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
     /// </summary>
     public interface IDocumentDbBulkSinkAdapterConfiguration : IDocumentDbSinkAdapterConfiguration
     {
+        /// <summary>
+        /// Gets the documents collection name patterns.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_Collection")]
+        IEnumerable<string> Collection { get; }
+
+        /// <summary>
+        /// Gets the documents collection pricing tier.
+        /// </summary>
+        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "BulkSink_CollectionTier")]
+        CollectionPricingTier? CollectionTier { get; }
+
+        /// <summary>
+        /// Gets the name of the property used as partition key.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_PartitionKey")]
+        string PartitionKey { get; }
+
         /// <summary>
         /// Gets the bulk import stored procedure file name.
         /// </summary>

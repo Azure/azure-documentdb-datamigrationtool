@@ -2,7 +2,7 @@
 using Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;
 using System.Collections.Generic;
 
-namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
+namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 {
     sealed class CollectionPricingTierValueConverter : EnumDisplayNameValueConverter.Base<CollectionPricingTier>
     {

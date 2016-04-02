@@ -37,21 +37,24 @@ namespace Microsoft.DataTransfer.DocumentDb
         }
 
         /// <summary>
-        /// Gets the description for collection pricing tier configuration property.
-        /// </summary>
-        public static string Sink_CollectionTier
-        {
-            get { return Format(ConfigurationResources.Sink_CollectionTierFormat, Defaults.Current.SinkCollectionTier,
-                    String.Join(", ", Enum.GetNames(typeof(CollectionPricingTier)))); }
-        }
-
-        /// <summary>
         /// Gets the description for date and time handling configuration property.
         /// </summary>
         public static string Sink_Dates
         {
             get { return Format(ConfigurationResources.Sink_DatesFormat, Defaults.Current.SinkDateTimeHandling,
                 String.Join(", ", Enum.GetNames(typeof(DateTimeHandling)))); }
+        }
+
+        /// <summary>
+        /// Gets the description for collection pricing tier configuration property.
+        /// </summary>
+        public static string BulkSink_CollectionTier
+        {
+            get
+            {
+                return Format(ConfigurationResources.BulkSink_CollectionTierFormat, Defaults.Current.BulkSinkCollectionTier,
+                  String.Join(", ", Enum.GetNames(typeof(CollectionPricingTier))));
+            }
         }
 
         /// <summary>
@@ -84,6 +87,14 @@ namespace Microsoft.DataTransfer.DocumentDb
         public static string ParallelSink_ParallelRequests
         {
             get { return Format(ConfigurationResources.ParallelSink_ParallelRequestsFormat, Defaults.Current.ParallelSinkNumberOfParallelRequests); }
+        }
+
+        /// <summary>
+        /// Gets the description for collection throughput configuration property.
+        /// </summary>
+        public static string ParallelSink_CollectionThroughput
+        {
+            get { return Format(ConfigurationResources.ParallelSink_CollectionThroughputFormat, Defaults.Current.ParallelSinkCollectionThroughput); }
         }
 
         private DynamicConfigurationResources() { }

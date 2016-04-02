@@ -4,15 +4,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     static class SharedDocumentDbSinkAdapterConfigurationProperties
     {
-        public static readonly string Collections =
-            ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.Collections);
-
-        public static readonly string PartitionKey =
-            ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.PartitionKey);
-
-        public static readonly string CollectionTier =
-            ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.CollectionTier);
-
         public static readonly string UseIndexingPolicyFile =
             ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.UseIndexingPolicyFile);
 

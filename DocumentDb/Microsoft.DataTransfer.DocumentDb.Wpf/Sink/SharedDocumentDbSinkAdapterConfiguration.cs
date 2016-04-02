@@ -8,10 +8,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     sealed class SharedDocumentDbSinkAdapterConfiguration : SharedDocumentDbAdapterConfiguration, ISharedDocumentDbSinkAdapterConfiguration
     {
-        private ObservableCollection<string> collections;
-        private string partitionKey;
-        private CollectionPricingTier? collectionTier;
-
         private bool useIndexingPolicyFile;
         private string indexingPolicy;
         private string indexingPolicyFile;
@@ -21,33 +17,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         private bool updateExisting;
 
         private DateTimeHandling? dates;
-
-        public ObservableCollection<string> Collections
-        {
-            get { return collections; }
-            private set
-            {
-                if (collections != null)
-                    collections.CollectionChanged -= CollectionsListChanged;
-
-                SetProperty(ref collections, value, ValidateNonEmptyCollection);
-
-                if (collections != null)
-                    collections.CollectionChanged += CollectionsListChanged;
-            }
-        }
-
-        public string PartitionKey
-        {
-            get { return partitionKey; }
-            set { SetProperty(ref partitionKey, value); }
-        }
-
-        public CollectionPricingTier? CollectionTier
-        {
-            get { return collectionTier; }
-            set { SetProperty(ref collectionTier, value); }
-        }
 
         public bool UseIndexingPolicyFile
         {
@@ -93,15 +62,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         public SharedDocumentDbSinkAdapterConfiguration()
         {
-            Collections = new ObservableCollection<string>();
-            CollectionTier = Defaults.Current.SinkCollectionTier;
             Dates = Defaults.Current.SinkDateTimeHandling;
-        }
-
-        private void CollectionsListChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            SetErrors(SharedDocumentDbSinkAdapterConfigurationProperties.Collections,
-                ValidateNonEmptyCollection(sender as IEnumerable<string>));
         }
     }
 }

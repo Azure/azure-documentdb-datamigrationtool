@@ -43,6 +43,14 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
             return Task.FromResult(collectionName);
         }
 
+        public Task<string> GetOrCreateElasticCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy)
+        {
+            Assert.IsFalse(String.IsNullOrEmpty(collectionName), TestResources.MissingCollectionNameInGetOrCreateCollection);
+
+            createdCollections.Add(collectionName);
+            return Task.FromResult(collectionName);
+        }
+
         public Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration)
         {
             Assert.IsFalse(String.IsNullOrEmpty(collectionLink), TestResources.MissingCollectionLinkInCreateDocumentAsync);

@@ -4,9 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink"
-             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
-             xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared" 
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -15,42 +12,10 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="..\XamlResources.xaml"/>
       </ResourceDictionary.MergedDictionaries>
-
-      <Style x:Key="CollectionsList" TargetType="bc:EditableStringsListControl">
-        <Setter Property="Height" Value="75" />
-      </Style>
-      
-      <ObjectDataProvider x:Key="CollectionTierValues" ObjectType="{x:Type local:CollectionPricingTierValueConverter}" MethodName="GetDisplayNames" />
     </ResourceDictionary>
   </UserControl.Resources>
   
   <StackPanel>
-    <shared:DocumentDbAdapterConnectionConfigurationControl Configuration="{Binding}" />
-
-    <DockPanel Style="{StaticResource OptionElement}">
-      <bc:ToolTipDecorator DockPanel.Dock="Top" ToolTip="{DynamicResource CollectionsDescriptionKey}">
-        <Label Content="{DynamicResource CollectionsKey}" />
-      </bc:ToolTipDecorator>
-      <bc:EditableStringsListControl DockPanel.Dock="Bottom" Style="{StaticResource CollectionsList}" Items="{Binding EditableCollections}" />
-    </DockPanel>
-
-    <StackPanel Style="{StaticResource OptionElement}">
-      <bc:ToolTipDecorator ToolTip="{DynamicResource PartitionKeyDescriptionKey}">
-        <Label Content="{DynamicResource PartitionKeyKey}" />
-      </bc:ToolTipDecorator>
-      <TextBox Text="{Binding PartitionKey, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
-    </StackPanel>
-    
-    <StackPanel Style="{StaticResource OptionElement}">
-      <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionTierDescriptionKey}">
-        <Label Content="{DynamicResource CollectionTierKey}" />
-      </bc:ToolTipDecorator>
-      <ComboBox
-        ItemsSource="{Binding Source={StaticResource CollectionTierValues}}"
-        SelectedValue="{Binding CollectionTier}" SelectedValuePath="Key"
-        DisplayMemberPath="Value" />
-    </StackPanel>
-    
     <StackPanel Style="{StaticResource OptionElement}">
       <Label Content="{DynamicResource IdFieldKey}" />
       <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />

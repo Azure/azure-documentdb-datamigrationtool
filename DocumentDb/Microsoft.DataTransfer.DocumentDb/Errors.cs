@@ -39,6 +39,11 @@ namespace Microsoft.DataTransfer.DocumentDb
             return new ArgumentException(Resources.AmbiguousIndexingPolicy);
         }
 
+        public static Exception InvalidCollectionThroughput()
+        {
+            return new ArgumentException(Resources.InvalidCollectionThroughput);
+        }
+
         public static Exception InvalidNumberOfParallelRequests()
         {
             return new ArgumentException(Resources.InvalidNumberOfParallelRequests);

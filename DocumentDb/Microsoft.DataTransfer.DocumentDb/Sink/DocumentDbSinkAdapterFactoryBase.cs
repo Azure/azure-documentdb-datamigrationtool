@@ -24,26 +24,19 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
     {
         private const string DocumentDbIdField = "id";
 
-        private static readonly ISubstitutionResolver substitutions = new RangeSubstitutionResolver();
-
         public abstract string Description { get; }
 
         public Task<IDataSinkAdapter> CreateAsync(TConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             ValidateBaseConfiguration(configuration);
 
-            var collectionNames = ResolveCollectionNames(configuration.Collection);
-            if (!collectionNames.Any())
-                throw Errors.CollectionNameMissing();
-
             return CreateAsync(
-                CreateClient(configuration, context, collectionNames.Length > 1),
-                GetDataItemTransformation(configuration),
-                configuration, collectionNames, cancellation);
+                context, GetDataItemTransformation(configuration),
+                configuration, cancellation);
         }
 
-        protected abstract Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            TConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation);
+        protected abstract Task<IDataSinkAdapter> CreateAsync(IDataTransferContext context, IDataItemTransformation transformation,
+            TConfiguration configuration, CancellationToken cancellation);
 
         protected static IndexingPolicy GetIndexingPolicy(TConfiguration configuration)
         {
@@ -69,11 +62,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
             transformations.Add(new StringifyFieldsTransformation(new[] { DocumentDbIdField }));
 
             return new TransformationPipeline(transformations);
-        }
-
-        private static string[] ResolveCollectionNames(IEnumerable<string> collectionNamePatterns)
-        {
-            return collectionNamePatterns.AsParallel().SelectMany(p => substitutions.Resolve(p)).Distinct().ToArray();
         }
     }
 }

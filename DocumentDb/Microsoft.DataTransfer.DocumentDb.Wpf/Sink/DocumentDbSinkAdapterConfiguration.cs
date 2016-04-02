@@ -9,18 +9,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     abstract class DocumentDbSinkAdapterConfiguration : DocumentDbAdapterConfiguration<ISharedDocumentDbSinkAdapterConfiguration>, IDocumentDbSinkAdapterConfiguration
     {
-        public static readonly string CollectionPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.Collection);
-
-        private static readonly string EditableCollectionsPropertyName =
-            ObjectExtensions.MemberName<DocumentDbSinkAdapterConfiguration>(c => c.EditableCollections);
-
-        public static readonly string PartitionKeyPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.PartitionKey);
-
-        public static readonly string CollectionTierPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.CollectionTier);
-
         public static readonly string IndexingPolicyPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.IndexingPolicy);
 
@@ -41,28 +29,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         private static readonly string UseIndexingPolicyFilePropertyName = 
             ObjectExtensions.MemberName<DocumentDbSinkAdapterConfiguration>(c => c.UseIndexingPolicyFile);
-
-        public IEnumerable<string> Collection
-        {
-            get { return SharedConfiguration.Collections; }
-        }
-
-        public ObservableCollection<string> EditableCollections
-        {
-            get { return SharedConfiguration.Collections; }
-        }
-
-        public string PartitionKey
-        {
-            get { return SharedConfiguration.PartitionKey; }
-            set { SharedConfiguration.PartitionKey = value; }
-        }
-
-        public CollectionPricingTier? CollectionTier
-        {
-            get { return SharedConfiguration.CollectionTier; }
-            set { SharedConfiguration.CollectionTier = value; }
-        }
 
         public bool UseIndexingPolicyFile
         {
@@ -112,9 +78,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         protected override Map<string, string> GetSharedPropertiesMapping()
         {
             var mapping = base.GetSharedPropertiesMapping();
-            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.Collections, EditableCollectionsPropertyName);
-            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.PartitionKey, PartitionKeyPropertyName);
-            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.CollectionTier, CollectionTierPropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.UseIndexingPolicyFile, UseIndexingPolicyFilePropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicy, IndexingPolicyPropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicyFile, IndexingPolicyFilePropertyName);

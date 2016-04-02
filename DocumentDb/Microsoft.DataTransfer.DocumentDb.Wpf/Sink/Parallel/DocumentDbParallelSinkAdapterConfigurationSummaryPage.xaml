@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink"
              xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -14,8 +13,6 @@
         <ResourceDictionary Source="..\..\XamlResources.xaml"/>
       </ResourceDictionary.MergedDictionaries>
 
-      <local:CollectionPricingTierValueConverter x:Key="CollectionTierConverter" />
-      
       <converters:BooleanToVisibilityValueConverter x:Key="IsVisible" />
       <converters:BooleanToVisibilityValueConverter x:Key="IsInvisible" True="Collapsed" False="Visible" />
       <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
@@ -48,17 +45,19 @@
       <TextBlock Text="{Binding ConnectionString}" />
     </Label>
 
-    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionsSummaryKey}" />
-    <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Collection}" />
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource CollectionSummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="{Binding Collection}" />
+    </Label>
 
     <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource PartitionKeySummaryKey}" />
     <Label Grid.Row="2" Grid.Column="1">
       <TextBlock Text="{Binding PartitionKey}" />
     </Label>
     
-    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource CollectionTierSummaryKey}" />
+    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource CollectionThroughputSummaryKey}" />
     <Label Grid.Row="3" Grid.Column="1">
-      <TextBlock Text="{Binding CollectionTier, Converter={StaticResource CollectionTierConverter}}" />
+      <TextBlock Text="{Binding CollectionThroughput}" />
     </Label>
     
     <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource IdFieldSummaryKey}" />

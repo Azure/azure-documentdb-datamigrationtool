@@ -32,7 +32,20 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             this.databaseName = databaseName;
         }
 
-        public async Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy)
+        public Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy)
+        {
+            return GetOrCreateCollectionAsyncInternal(collectionName, null,
+                new RequestOptions { OfferType = ToOfferType(collectionTier) }, indexingPolicy);
+        }
+
+        public Task<string> GetOrCreateElasticCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy)
+        {
+            return GetOrCreateCollectionAsyncInternal(collectionName, partitionKey,
+                new RequestOptions { OfferThroughput = desiredThroughput }, indexingPolicy);
+        }
+
+        public async Task<string> GetOrCreateCollectionAsyncInternal(
+            string collectionName, string partitionKey, RequestOptions requestOptions, IndexingPolicy indexingPolicy)
         {
             Guard.NotEmpty("collectionName", collectionName);
 
@@ -46,11 +59,15 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
                 try
                 {
                     var collectionDefinition = new DocumentCollection { Id = collectionName };
+
+                    if (!String.IsNullOrEmpty(partitionKey))
+                        collectionDefinition.PartitionKey.Paths.Add(partitionKey);
+
                     if (indexingPolicy != null)
                         collectionDefinition.IndexingPolicy = indexingPolicy;
 
-                    collection = await client.CreateDocumentCollectionAsync(database.SelfLink, collectionDefinition,
-                        new RequestOptions { OfferType = ToOfferType(collectionTier) });
+                    collection = await client.CreateDocumentCollectionAsync(
+                        database.SelfLink, collectionDefinition, requestOptions);
                 }
                 catch (DocumentClientException clientException)
                 {
@@ -137,10 +154,16 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             // Use SDK to query multiple collections, client will not be thread-safe
             client.UnderlyingClient.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
 
+            var feedOptions = new FeedOptions
+            {
+                EnableCrossPartitionQuery = true,
+                MaxItemCount = -1
+            };
+
             var documentQuery = 
                 String.IsNullOrEmpty(query)
-                    ? client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink)
-                    : client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink, query);
+                    ? client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink, feedOptions)
+                    : client.CreateDocumentQuery<DocumentSurrogate>(database.SelfLink, query, feedOptions);
 
             return new DocumentSurrogateQueryAsyncEnumerator(documentQuery.AsDocumentQuery());
         }

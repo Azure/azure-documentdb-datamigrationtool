@@ -34,6 +34,14 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
+            arguments.Add(DocumentDbBulkSinkAdapterConfiguration.CollectionPropertyName, AsCollectionArgument(configuration.Collection));
+
+            if (!String.IsNullOrEmpty(configuration.PartitionKey))
+                arguments.Add(DocumentDbBulkSinkAdapterConfiguration.PartitionKeyPropertyName, configuration.PartitionKey);
+
+            if (configuration.CollectionTier.HasValue && configuration.CollectionTier.Value != Defaults.Current.BulkSinkCollectionTier)
+                arguments.Add(DocumentDbBulkSinkAdapterConfiguration.CollectionTierPropertyName, configuration.CollectionTier.Value.ToString());
+
             if (!String.IsNullOrEmpty(configuration.StoredProcFile))
                 arguments.Add(DocumentDbBulkSinkAdapterConfiguration.StoredProcFilePropertyName, configuration.StoredProcFile);
 

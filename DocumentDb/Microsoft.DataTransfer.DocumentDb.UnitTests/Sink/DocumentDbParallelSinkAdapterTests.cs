@@ -22,7 +22,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
             var configuration = Mocks
                     .Of<IDocumentDbParallelSinkAdapterInstanceConfiguration>()
                     .Where(m => 
-                        m.Collections == new[] { CollectionName } &&
+                        m.Collection == CollectionName &&
                         m.NumberOfParallelRequests == 2)
                     .First();
 
@@ -49,7 +49,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
             var configuration = Mocks
                     .Of<IDocumentDbParallelSinkAdapterInstanceConfiguration>()
                     .Where(m =>
-                        m.Collections == new[] { CollectionName } &&
+                        m.Collection == CollectionName &&
                         m.UpdateExisting == true &&
                         m.NumberOfParallelRequests == 2)
                     .First();

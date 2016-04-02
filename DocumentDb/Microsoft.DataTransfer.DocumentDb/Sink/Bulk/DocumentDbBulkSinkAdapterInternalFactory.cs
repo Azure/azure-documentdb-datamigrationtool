@@ -1,11 +1,13 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Basics.IO;
-using Microsoft.DataTransfer.DocumentDb.Client;
+using Microsoft.DataTransfer.DocumentDb.Sink.Substitutions;
+using Microsoft.DataTransfer.DocumentDb.Sink.Substitutions.Range;
 using Microsoft.DataTransfer.DocumentDb.Transformation;
 using Microsoft.DataTransfer.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,16 +15,26 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapterInternalFactory : DocumentDbSinkAdapterFactoryBase<IDocumentDbBulkSinkAdapterConfiguration>
     {
+        private static readonly ISubstitutionResolver substitutions = new RangeSubstitutionResolver();
+
         public override string Description
         {
             get { return Resources.BulkSinkDescription; }
         }
 
-        protected override async Task<IDataSinkAdapter> CreateAsync(DocumentDbClient client, IDataItemTransformation transformation,
-            IDocumentDbBulkSinkAdapterConfiguration configuration, IEnumerable<string> collectionNames, CancellationToken cancellation)
+        protected override async Task<IDataSinkAdapter> CreateAsync(IDataTransferContext context, IDataItemTransformation transformation,
+            IDocumentDbBulkSinkAdapterConfiguration configuration, CancellationToken cancellation)
         {
-            var sink = new DocumentDbBulkSinkAdapterDispatcher(client, transformation, GetInstanceConfiguration(configuration, collectionNames));
+            var collectionNames = ResolveCollectionNames(configuration.Collection);
+            if (!collectionNames.Any())
+                throw Errors.CollectionNameMissing();
+
+            var sink = new DocumentDbBulkSinkAdapterDispatcher(
+                CreateClient(configuration, context, collectionNames.Count() > 1),
+                transformation, GetInstanceConfiguration(configuration, collectionNames));
+
             await sink.InitializeAsync();
+
             return sink;
         }
 
@@ -35,7 +47,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             {
                 Collections = collectionNames,
                 PartitionKey = configuration.PartitionKey,
-                CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.SinkCollectionTier),
+                CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.BulkSinkCollectionTier),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 UpdateExisting = configuration.UpdateExisting,
@@ -52,6 +64,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             return String.IsNullOrEmpty(storedProcFile)
                 ? File.ReadAllText(PathHelper.Combine(AppDomain.CurrentDomain.BaseDirectory, Defaults.Current.BulkSinkStoredProcFile))
                 : File.ReadAllText(storedProcFile);
+        }
+
+        private static string[] ResolveCollectionNames(IEnumerable<string> collectionNamePatterns)
+        {
+            return collectionNamePatterns.AsParallel().SelectMany(p => substitutions.Resolve(p)).Distinct().ToArray();
         }
     }
 }

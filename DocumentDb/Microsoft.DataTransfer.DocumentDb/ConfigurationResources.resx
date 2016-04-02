@@ -120,8 +120,17 @@
   <data name="BulkSink_BatchSizeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Number of documents in one batch</value>
   </data>
+  <data name="BulkSink_Collection" xml:space="preserve">
+    <value>One or more documents collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2</value>
+  </data>
+  <data name="BulkSink_CollectionTierFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}</value>
+  </data>
   <data name="BulkSink_MaxScriptSizeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Size (in bytes) of the bulk insertion JSON array</value>
+  </data>
+  <data name="BulkSink_PartitionKey" xml:space="preserve">
+    <value>Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</value>
   </data>
   <data name="BulkSink_StoredProcFileFormat" xml:space="preserve">
     <value>Optional, default is {0}. Name of the file containing bulk insert stored procedure</value>
@@ -132,20 +141,23 @@
   <data name="ConnectionString" xml:space="preserve">
     <value>Connection string (example: "AccountEndpoint=xyz;AccountKey=xyz;Database=xyz")</value>
   </data>
+  <data name="ParallelSink_Collection" xml:space="preserve">
+    <value>Name of the documents collection</value>
+  </data>
+  <data name="ParallelSink_CollectionThroughputFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Specifies maximum throughput of the collection</value>
+  </data>
   <data name="ParallelSink_ParallelRequestsFormat" xml:space="preserve">
     <value>Optional, default is {0}. Number of parallel document create requests</value>
+  </data>
+  <data name="ParallelSink_PartitionKey" xml:space="preserve">
+    <value>Optional. Path to the property to use as hash partitioning key (example: "/deviceId")</value>
   </data>
   <data name="RetriesFormat" xml:space="preserve">
     <value>Optional, default is {0}. Number of retries on transient failures</value>
   </data>
   <data name="RetryIntervalFormat" xml:space="preserve">
     <value>Optional, default is {0}. Retry interval on transient failures</value>
-  </data>
-  <data name="Sink_Collection" xml:space="preserve">
-    <value>One or more documents collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2</value>
-  </data>
-  <data name="Sink_CollectionTierFormat" xml:space="preserve">
-    <value>Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}</value>
   </data>
   <data name="Sink_DatesFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies how timestamps should be persisted: {1}</value>
@@ -162,14 +174,11 @@
   <data name="Sink_IndexingPolicyFile" xml:space="preserve">
     <value>Optional. Path to the file containing indexing policy for the collection</value>
   </data>
-  <data name="Sink_PartitionKey" xml:space="preserve">
-    <value>Optional. Name of the property to use as hash partitioning key. If not provided - records will be randomly distributed across all target collections</value>
-  </data>
   <data name="Sink_UpdateExisting" xml:space="preserve">
     <value>Optional. Update existing documents with the same ID</value>
   </data>
   <data name="Source_Collection" xml:space="preserve">
-    <value>Regex pattern to match one or more documents collection name</value>
+    <value>Regex pattern to match one or more documents collection names</value>
   </data>
   <data name="Source_InternalFields" xml:space="preserve">
     <value>Optional. Preserve internal DocumentDB fields in the output</value>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.WpfHost.Extensibility;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Controls;
@@ -32,6 +33,16 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
 
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
+
+            arguments.Add(DocumentDbParallelSinkAdapterConfiguration.CollectionPropertyName, configuration.Collection);
+
+            if (!String.IsNullOrEmpty(configuration.PartitionKey))
+                arguments.Add(DocumentDbParallelSinkAdapterConfiguration.PartitionKeyPropertyName, configuration.PartitionKey);
+
+            if (configuration.CollectionThroughput.HasValue && configuration.CollectionThroughput.Value != Defaults.Current.ParallelSinkCollectionThroughput)
+                arguments.Add(
+                    DocumentDbParallelSinkAdapterConfiguration.CollectionThroughputPropertyName,
+                    configuration.CollectionThroughput.Value.ToString(CultureInfo.InvariantCulture));
 
             if (configuration.ParallelRequests.HasValue && configuration.ParallelRequests.Value != Defaults.Current.ParallelSinkNumberOfParallelRequests)
                 arguments.Add(

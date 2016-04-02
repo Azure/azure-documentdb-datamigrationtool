@@ -51,7 +51,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 Assert.IsNotNull(collection, "Document collection does not exist.");
 
                 return client
-                    .CreateDocumentQuery<Dictionary<string, object>>(collection.DocumentsLink, query)
+                    .CreateDocumentQuery<Dictionary<string, object>>(collection.DocumentsLink, query, new FeedOptions { EnableCrossPartitionQuery = true })
                     .ToArray();
             }
         }

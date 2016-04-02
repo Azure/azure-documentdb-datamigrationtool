@@ -38,7 +38,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -143,11 +143,13 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [DeploymentItem("BulkInsert.js")]
         public async Task BulkWriteGeospatialData_AllDataStored()
         {
+            const string CollectionName = "GeoData";
+
             var configuration =
                 Mocks
                     .Of<IDocumentDbBulkSinkAdapterConfiguration>(m =>
                         m.ConnectionString == ConnectionString &&
-                        m.Collection == new[] { "Data" } &&
+                        m.Collection == new[] { CollectionName } &&
                         m.BatchSize == 10 &&
                         m.MaxScriptSize == 1024)
                     .First();
@@ -160,7 +162,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -168,7 +170,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [ExpectedException(typeof(FailedToCreateDocumentException))]
         public async Task BulkWriteSampleData_CreateDuplicates_FailsToCreateDocumentWithSameId()
         {
-            const string CollectionName = "Data";
+            const string CollectionName = "DuplicatesData";
 
             var configuration =
                 Mocks
@@ -192,7 +194,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [DeploymentItem("BulkInsert.js")]
         public async Task BulkWriteSampleData_UpsertDuplicates_AllDataStored()
         {
-            const string CollectionName = "Data";
+            const string CollectionName = "DupicatesData";
 
             var configuration =
                 Mocks
@@ -212,7 +214,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, "Data"));
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
         }
     }
 }
