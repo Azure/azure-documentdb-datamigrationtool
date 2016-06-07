@@ -11,5 +11,10 @@ namespace Microsoft.DataTransfer.AzureTable
         /// Gets the default value that indicates which internal Azure Table fields should be preserved in the source adapter output.
         /// </summary>
         AzureTableInternalFields SourceInternalFields { get; }
+
+        /// <summary>
+        /// Get the default value that indicated which location mode should be used 
+        /// </summary>
+        AzureTableLocationMode SourceLocationMode { get; }
     }
 }

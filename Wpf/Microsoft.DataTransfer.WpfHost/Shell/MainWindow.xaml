@@ -5,7 +5,7 @@
         x:ClassModifier="internal"
         Title="{DynamicResource MainWindowTitleKey}" Icon="..\Icon.ico"
         MinHeight="480" MinWidth="640"
-        Height="600" Width="800">
+        Height="610" Width="800">
   
   <Window.Resources>
     <Style x:Key="DefaultBorderStyle" TargetType="Border">

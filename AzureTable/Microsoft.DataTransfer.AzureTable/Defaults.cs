@@ -43,6 +43,8 @@ namespace Microsoft.DataTransfer.AzureTable
         private sealed class LibraryDefaults : IDefaults
         {
             public AzureTableInternalFields SourceInternalFields { get { return AzureTableInternalFields.All; } }
+
+            public AzureTableLocationMode SourceLocationMode { get { return AzureTableLocationMode.PrimaryOnly; } }
         }
     }
 }

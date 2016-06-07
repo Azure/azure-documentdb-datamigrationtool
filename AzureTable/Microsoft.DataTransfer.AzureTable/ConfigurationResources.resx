@@ -132,4 +132,7 @@
   <data name="Source_Table" xml:space="preserve">
     <value>Name of the Azure Table</value>
   </data>
+  <data name="Source_LocationMode" xml:space="preserve">
+    <value>Optional, choose which location mode to use</value>
+  </data>
 </root>

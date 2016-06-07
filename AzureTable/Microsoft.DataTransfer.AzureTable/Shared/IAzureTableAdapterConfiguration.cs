@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.DataTransfer.AzureTable.Source;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.AzureTable.Shared
 {
@@ -12,5 +13,11 @@ namespace Microsoft.DataTransfer.AzureTable.Shared
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "ConnectionString")]
         string ConnectionString { get; }
+
+        /// <summary>
+        /// Gets the value that indicates which location mode to use when accessing data from azure tables.
+        /// </summary>
+        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Source_LocationMode")]
+        AzureTableLocationMode LocationMode { get; }
     }
 }

@@ -16,6 +16,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
         private readonly TableQuery query;
+        private readonly TableRequestOptions tRequestOptions;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
@@ -25,10 +26,35 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             this.configuration = configuration;
 
             table = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient().GetTableReference(configuration.Table);
+
+            tRequestOptions = new TableRequestOptions();
+
+            switch (configuration.LocationMode)
+            {
+                case AzureTableLocationMode.PrimaryOnly:
+                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.PrimaryOnly;
+                    break;
+
+                case AzureTableLocationMode.PrimaryThenSecondary:
+                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.PrimaryThenSecondary;
+                    break;
+
+                case AzureTableLocationMode.SecondaryOnly:
+                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.SecondaryOnly;
+                    break;
+
+                case AzureTableLocationMode.SecondaryThenPrimary:
+                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.SecondaryThenPrimary;
+                    break;
+
+                default:
+                    break;
+            }      
+
             query = new TableQuery
             {
                 FilterString = configuration.Filter,
-                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)
+                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)                
             };
         }
 
@@ -83,7 +109,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         private void MoveToNextSegment(TableContinuationToken continuationToken, CancellationToken cancellation)
         {
-            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, cancellation);
+            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, tRequestOptions, null, cancellation);
             currentEntityIndex = 0;
         }
 
