@@ -133,6 +133,6 @@
     <value>Name of the Azure Table</value>
   </data>
   <data name="Source_LocationMode" xml:space="preserve">
-    <value>Optional, choose which location mode to use</value>
+    <value>Optional, default {0}. Specifies which Location Mode to use</value>
   </data>
 </root>

@@ -14,7 +14,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared
             ObjectExtensions.MemberName<IAzureTableAdapterConfiguration>(c => c.LocationMode);
 
         private string connectionString;
-        private AzureTableLocationMode locationMode;
+        private AzureTableLocationMode? locationMode;
 
         public string ConnectionString
         {
@@ -22,7 +22,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared
             set { SetProperty(ref connectionString, value, ValidateNonEmptyString); }
         }
 
-        public AzureTableLocationMode LocationMode
+        public AzureTableLocationMode? LocationMode
         {
             get { return locationMode; }
             set { SetProperty(ref locationMode, value); }

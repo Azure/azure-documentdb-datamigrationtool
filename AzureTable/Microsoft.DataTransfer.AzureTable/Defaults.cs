@@ -44,7 +44,7 @@ namespace Microsoft.DataTransfer.AzureTable
         {
             public AzureTableInternalFields SourceInternalFields { get { return AzureTableInternalFields.All; } }
 
-            public AzureTableLocationMode SourceLocationMode { get { return AzureTableLocationMode.PrimaryOnly; } }
+            public AzureTableLocationMode? SourceLocationMode { get { return null; } }
         }
     }
 }

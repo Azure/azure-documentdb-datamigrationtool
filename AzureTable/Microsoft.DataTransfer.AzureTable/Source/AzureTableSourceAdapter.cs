@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.Extensibility;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
         private readonly TableQuery query;
-        private readonly TableRequestOptions tRequestOptions;
+        private readonly TableRequestOptions requestOptions;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
@@ -26,36 +27,38 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             this.configuration = configuration;
 
             table = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient().GetTableReference(configuration.Table);
-
-            tRequestOptions = new TableRequestOptions();
-
-            switch (configuration.LocationMode)
+            
+            requestOptions = new TableRequestOptions
             {
-                case AzureTableLocationMode.PrimaryOnly:
-                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.PrimaryOnly;
-                    break;
-
-                case AzureTableLocationMode.PrimaryThenSecondary:
-                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.PrimaryThenSecondary;
-                    break;
-
-                case AzureTableLocationMode.SecondaryOnly:
-                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.SecondaryOnly;
-                    break;
-
-                case AzureTableLocationMode.SecondaryThenPrimary:
-                    tRequestOptions.LocationMode = Microsoft.WindowsAzure.Storage.RetryPolicies.LocationMode.SecondaryThenPrimary;
-                    break;
-
-                default:
-                    break;
-            }      
-
+                LocationMode = ToAzureLocationMode(configuration.LocationMode)
+            };
+          
             query = new TableQuery
             {
                 FilterString = configuration.Filter,
-                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)                
+                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)  
             };
+        }
+
+        public LocationMode? ToAzureLocationMode(AzureTableLocationMode? mode)
+        {
+            switch (configuration.LocationMode)
+            {
+                case AzureTableLocationMode.PrimaryOnly:
+                    return LocationMode.PrimaryOnly;
+                    
+                case AzureTableLocationMode.PrimaryThenSecondary:
+                    return LocationMode.PrimaryThenSecondary;                    
+
+                case AzureTableLocationMode.SecondaryOnly:
+                    return LocationMode.SecondaryOnly;                    
+
+                case AzureTableLocationMode.SecondaryThenPrimary:
+                    return LocationMode.SecondaryThenPrimary;
+                    
+                default:
+                    return null;
+            }      
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
@@ -109,7 +112,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         private void MoveToNextSegment(TableContinuationToken continuationToken, CancellationToken cancellation)
         {
-            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, tRequestOptions, null, cancellation);
+            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, requestOptions, null, cancellation);
             currentEntityIndex = 0;
         }
 

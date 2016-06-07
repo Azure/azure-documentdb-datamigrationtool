@@ -13,8 +13,8 @@ namespace Microsoft.DataTransfer.AzureTable
         AzureTableInternalFields SourceInternalFields { get; }
 
         /// <summary>
-        /// Get the default value that indicated which location mode should be used 
+        /// Get the default value that indicates which Location Mode should be used.
         /// </summary>
-        AzureTableLocationMode SourceLocationMode { get; }
+        AzureTableLocationMode? SourceLocationMode { get; }
     }
 }

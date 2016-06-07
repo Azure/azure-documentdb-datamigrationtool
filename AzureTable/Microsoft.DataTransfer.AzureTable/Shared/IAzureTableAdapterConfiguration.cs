@@ -15,9 +15,9 @@ namespace Microsoft.DataTransfer.AzureTable.Shared
         string ConnectionString { get; }
 
         /// <summary>
-        /// Gets the value that indicates which location mode to use when accessing data from azure tables.
+        /// Gets the value that indicates which Location Mode to use when accessing data from Azure Tables.
         /// </summary>
         [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Source_LocationMode")]
-        AzureTableLocationMode LocationMode { get; }
+        AzureTableLocationMode? LocationMode { get; }
     }
 }

@@ -88,7 +88,7 @@ namespace Microsoft.DataTransfer.AzureTable {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional, choose which location mode to use.
+        ///   Looks up a localized string similar to Optional, default {0}. Specifies which Location Mode to use.
         /// </summary>
         public static string Source_LocationMode {
             get {

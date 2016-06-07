@@ -9,6 +9,6 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         public AzureTableInternalFields InternalFields { get; set; }
         public string Filter { get; set; }
         public IEnumerable<string> Projection { get; set; }
-        public AzureTableLocationMode LocationMode { get; set; }
+        public AzureTableLocationMode? LocationMode { get; set; }
     }
 }
