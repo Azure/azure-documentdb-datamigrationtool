@@ -12,22 +12,22 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="..\XamlResources.xaml"/>
+              <ResourceDictionary Source="..\XamlResources.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
 
             <ObjectDataProvider x:Key="LocationModeValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="source:AzureTableLocationMode" />
-                </ObjectDataProvider.MethodParameters>
+              <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="source:AzureTableLocationMode" />
+              </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
             <Style x:Key="ConnectionStringConfiguration" TargetType="Grid">
-                <Style.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Margin" Value="5,0,0,0" />
-                        <Setter Property="Padding" Value="10,0" />
-                    </Style>
-                </Style.Resources>
+              <Style.Resources>
+                <Style TargetType="Button">
+                  <Setter Property="Margin" Value="5,0,0,0" />
+                  <Setter Property="Padding" Value="10,0" />
+                </Style>
+              </Style.Resources>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -35,21 +35,21 @@
     <StackPanel x:Name="LayoutRoot" Style="{StaticResource OptionElement}">
         <Label Content="{DynamicResource ConnectionStringKey}" />
         <TextBox Text="{Binding Configuration.ConnectionString, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" Margin="0,0,0,0"/>
-
-        <bc:ToolTipDecorator ToolTip="{DynamicResource LocationModeDescriptionKey}">
-            <Label Content="{DynamicResource LocationModeKey}" />
+        
+        <bc:ToolTipDecorator ToolTip="{DynamicResource LocationModeDescriptionKey}">        
+          <Label Content="{DynamicResource LocationModeKey}" />
         </bc:ToolTipDecorator>
 
         <Grid Style="{StaticResource ConnectionStringConfiguration}" Height="22">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />                
             </Grid.ColumnDefinitions>
-
+            
             <ComboBox Grid.Column="0" Grid.ColumnSpan="1"
                ItemsSource="{Binding Source={StaticResource LocationModeValues}}" 
                SelectedValue="{Binding Configuration.LocationMode}" 
-               SelectedIndex="1" />
+               SelectedIndex="1" />                            
 
             <Button Width="100"
                Validation.ErrorTemplate="{x:Null}"

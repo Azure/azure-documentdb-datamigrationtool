@@ -12,7 +12,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Source
             ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.Table);
 
         public static readonly string InternalFieldsPropertyName =
-            ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.InternalFields);     
+            ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.InternalFields);
 
         public static readonly string FilterPropertyName =
             ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.Filter);
@@ -21,7 +21,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Source
             ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.Projection);
 
         private string table;
-        private AzureTableInternalFields? internalFields;        
+        private AzureTableInternalFields? internalFields;
         private string filter;
         private ObservableCollection<string> projection;
 
