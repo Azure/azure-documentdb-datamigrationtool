@@ -27,11 +27,15 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             this.configuration = configuration;
 
             table = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient().GetTableReference(configuration.Table);
-            
-            requestOptions = new TableRequestOptions
+
+            /// If the location mode passed is null (the user has left it at default settings, do not bother changing LocationMode on the client.
+            if (configuration.LocationMode != null)
             {
-                LocationMode = ToAzureLocationMode(configuration.LocationMode)
-            };
+                requestOptions = new TableRequestOptions
+                    {
+                        LocationMode = AzureTableSourceAdapter.ToAzureLocationMode(configuration.LocationMode)
+                    };
+            }
           
             query = new TableQuery
             {
@@ -40,9 +44,9 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             };
         }
 
-        public LocationMode? ToAzureLocationMode(AzureTableLocationMode? mode)
+        public static LocationMode? ToAzureLocationMode(AzureTableLocationMode? mode)
         {
-            switch (configuration.LocationMode)
+            switch (mode)
             {
                 case AzureTableLocationMode.PrimaryOnly:
                     return LocationMode.PrimaryOnly;

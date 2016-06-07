@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:source="clr-namespace:Microsoft.DataTransfer.AzureTable.Source;assembly=Microsoft.DataTransfer.AzureTable"
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.AzureTable.Wpf.Shared" 
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" x:ClassModifier="internal"
@@ -14,6 +15,8 @@
             <ResourceDictionary.MergedDictionaries>
               <ResourceDictionary Source="..\XamlResources.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
+
+            <shared:VerifyButtonBindingConverter x:Key="verifyButtonBindingConverter" />
 
             <ObjectDataProvider x:Key="LocationModeValues" ObjectType="{x:Type system:Enum}" MethodName="GetValues">
               <ObjectDataProvider.MethodParameters>
@@ -49,12 +52,19 @@
             <ComboBox Grid.Column="0" Grid.ColumnSpan="1"
                ItemsSource="{Binding Source={StaticResource LocationModeValues}}" 
                SelectedValue="{Binding Configuration.LocationMode}" 
-               SelectedIndex="1" />                            
+               SelectedIndex="1" />
 
             <Button Width="100"
                Validation.ErrorTemplate="{x:Null}"
                Content="{DynamicResource TestConnectionKey}"
-               Command="{Binding TestConnection}" CommandParameter="{Binding Configuration.ConnectionString}" Margin="10,0,0,0" Grid.Column="1" />
+               Command="{Binding TestConnection}" Margin="10,0,0,0" Grid.Column="1">
+              <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource verifyButtonBindingConverter}">
+                  <Binding Path="Configuration.ConnectionString"/>
+                  <Binding Path="Configuration.LocationMode"/>
+                </MultiBinding>
+              </Button.CommandParameter>                                       
+            </Button>
         </Grid>
     </StackPanel>
 </UserControl>

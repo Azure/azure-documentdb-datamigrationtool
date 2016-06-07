@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Shared\AzureTableAdapterConnectionConfigurationViewModel.cs" />
     <Compile Include="Shared\TestConnectionCommand.cs" />
+    <Compile Include="Shared\VerifyButtonBindingConverter.cs" />
     <Compile Include="Source\AzureTableSourceAdapterConfiguration.cs" />
     <Compile Include="Source\AzureTableSourceAdapterConfigurationPage.xaml.cs">
       <DependentUpon>AzureTableSourceAdapterConfigurationPage.xaml</DependentUpon>

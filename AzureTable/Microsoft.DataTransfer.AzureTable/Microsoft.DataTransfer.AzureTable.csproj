@@ -87,6 +87,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shared\AzureTableProbeClientParameter.cs" />
     <Compile Include="Shared\IAzureTableAdapterConfiguration.cs" />
     <Compile Include="Source\AzureTableLocationMode.cs" />
     <Compile Include="Source\AzureTableInternalFields.cs" />
@@ -106,6 +107,7 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
