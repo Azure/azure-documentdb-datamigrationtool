@@ -21,7 +21,7 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Source
             ObjectExtensions.MemberName<IAzureTableSourceAdapterConfiguration>(c => c.Projection);
 
         private string table;
-        private AzureTableInternalFields? internalFields;        
+        private AzureTableInternalFields? internalFields;
         private string filter;
         private ObservableCollection<string> projection;
 
