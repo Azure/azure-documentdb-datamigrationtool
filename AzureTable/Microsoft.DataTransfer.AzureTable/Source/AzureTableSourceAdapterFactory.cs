@@ -49,6 +49,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 ConnectionString = configuration.ConnectionString,
                 Table = configuration.Table,
                 InternalFields = configuration.InternalFields ?? Defaults.Current.SourceInternalFields,
+                LocationMode = configuration.LocationMode,
                 Filter = configuration.Filter,
                 Projection = configuration.Projection
             };

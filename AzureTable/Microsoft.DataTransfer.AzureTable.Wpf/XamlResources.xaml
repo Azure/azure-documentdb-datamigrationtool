@@ -10,6 +10,9 @@
 
   <system:String x:Key="ConnectionStringKey">Connection String</system:String>
   <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
+  <system:String x:Key="LocationModeKey">Location Mode</system:String>
+  <system:String x:Key="LocationModeSummaryKey">Location Mode:</system:String>
+  <system:String x:Key="LocationModeDescriptionKey">Choose which Location Mode to use. Unless you have secondary Azure Storage configured, leave this blank or use PrimaryOnly</system:String>
   <system:String x:Key="TestConnectionKey">Verify</system:String>
 
   <system:String x:Key="TableNameKey">Table Name</system:String>

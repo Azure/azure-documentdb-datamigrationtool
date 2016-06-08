@@ -16,5 +16,10 @@ namespace Microsoft.DataTransfer.AzureTable
         {
             return new InvalidOperationException(Resources.EmptyResponseReceived);
         }
+
+        public static Exception SecondaryNotDefined(string message)
+        {
+            return new InvalidOperationException(string.Format("{0}, Inner Exception: {1}", Resources.SecondaryNotDefined, message));
+        }
     }
 }

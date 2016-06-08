@@ -126,4 +126,7 @@
   <data name="EmptyResponseReceived" xml:space="preserve">
     <value>Empty response was received from Azure Table storage</value>
   </data>
+  <data name="SecondaryNotDefined" xml:space="preserve">
+    <value>Secondary is not defined or defined incorrectly for this Azure Table storage account</value>
+  </data>
 </root>

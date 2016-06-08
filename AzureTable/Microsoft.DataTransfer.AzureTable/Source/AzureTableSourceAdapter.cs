@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.Extensibility;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
         private readonly TableQuery query;
+        private readonly TableRequestOptions requestOptions;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
@@ -25,11 +27,42 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             this.configuration = configuration;
 
             table = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient().GetTableReference(configuration.Table);
+
+            /// If the location mode passed is null (the user has left it at default settings, do not bother changing LocationMode on the client.
+            if (configuration.LocationMode != null)
+            {
+                requestOptions = new TableRequestOptions
+                    {
+                        LocationMode = AzureTableSourceAdapter.ToAzureLocationMode(configuration.LocationMode)
+                    };
+            }
+          
             query = new TableQuery
             {
                 FilterString = configuration.Filter,
-                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)
+                SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)  
             };
+        }
+
+        public static LocationMode? ToAzureLocationMode(AzureTableLocationMode? mode)
+        {
+            switch (mode)
+            {
+                case AzureTableLocationMode.PrimaryOnly:
+                    return LocationMode.PrimaryOnly;
+                    
+                case AzureTableLocationMode.PrimaryThenSecondary:
+                    return LocationMode.PrimaryThenSecondary;                    
+
+                case AzureTableLocationMode.SecondaryOnly:
+                    return LocationMode.SecondaryOnly;                    
+
+                case AzureTableLocationMode.SecondaryThenPrimary:
+                    return LocationMode.SecondaryThenPrimary;
+                    
+                default:
+                    return null;
+            }      
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
@@ -83,7 +116,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         private void MoveToNextSegment(TableContinuationToken continuationToken, CancellationToken cancellation)
         {
-            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, cancellation);
+            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, requestOptions, null, cancellation);
             currentEntityIndex = 0;
         }
 

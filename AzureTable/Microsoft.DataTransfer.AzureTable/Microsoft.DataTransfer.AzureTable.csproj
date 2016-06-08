@@ -87,7 +87,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shared\AzureTableProbeClientParameter.cs" />
     <Compile Include="Shared\IAzureTableAdapterConfiguration.cs" />
+    <Compile Include="Source\AzureTableLocationMode.cs" />
     <Compile Include="Source\AzureTableInternalFields.cs" />
     <Compile Include="Source\AzureTableSourceAdapter.cs" />
     <Compile Include="Source\AzureTableSourceAdapterFactory.cs" />
@@ -100,10 +102,12 @@
     <EmbeddedResource Include="ConfigurationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfigurationResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

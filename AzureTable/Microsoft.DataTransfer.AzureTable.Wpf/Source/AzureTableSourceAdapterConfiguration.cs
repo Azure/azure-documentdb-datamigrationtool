@@ -59,6 +59,8 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Source
             EditableProjection = new ObservableCollection<string>();
 
             InternalFields = Defaults.Current.SourceInternalFields;
+
+            LocationMode = Defaults.Current.SourceLocationMode;
         }
     }
 }

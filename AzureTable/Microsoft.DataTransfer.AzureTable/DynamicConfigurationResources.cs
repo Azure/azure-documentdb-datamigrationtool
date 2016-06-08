@@ -20,6 +20,18 @@ namespace Microsoft.DataTransfer.AzureTable
                     String.Join(", ", Enum.GetNames(typeof(AzureTableInternalFields))));
             }
         }
+
+        /// <summary>
+        /// Gets the description for source internal fields configuration property.
+        /// </summary>
+        public static string Source_LocationMode
+        {
+            get
+            {
+                return Format(ConfigurationResources.Source_LocationMode, Defaults.Current.SourceLocationMode,
+                    String.Join(", ", Enum.GetNames(typeof(AzureTableLocationMode))));
+            }
+        }
         
         private DynamicConfigurationResources() { }
     }
