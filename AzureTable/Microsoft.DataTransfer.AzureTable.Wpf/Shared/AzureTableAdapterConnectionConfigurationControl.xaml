@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-              <ResourceDictionary Source="..\XamlResources.xaml"/>                
+              <ResourceDictionary Source="..\XamlResources.xaml"/> 
             </ResourceDictionary.MergedDictionaries>
 
             <shared:VerifyButtonBindingConverter x:Key="verifyButtonBindingConverter" />
@@ -38,7 +38,7 @@
     <StackPanel x:Name="LayoutRoot" Style="{StaticResource OptionElement}">
         <Label Content="{DynamicResource ConnectionStringKey}" />
         <TextBox Text="{Binding Configuration.ConnectionString, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" Margin="0,0,0,0"/>
-        
+
         <bc:ToolTipDecorator ToolTip="{DynamicResource LocationModeDescriptionKey}">        
           <Label Content="{DynamicResource LocationModeKey}" />
         </bc:ToolTipDecorator>
@@ -46,7 +46,7 @@
         <Grid Style="{StaticResource ConnectionStringConfiguration}" Height="22">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />                
+              <ColumnDefinition Width="Auto" />           
             </Grid.ColumnDefinitions>
             
             <ComboBox Grid.Column="0" Grid.ColumnSpan="1"
