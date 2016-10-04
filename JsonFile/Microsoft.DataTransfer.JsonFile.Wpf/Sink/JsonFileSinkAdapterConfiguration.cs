@@ -15,9 +15,13 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
         public static readonly string OverwritePropertyName = 
             ObjectExtensions.MemberName<IJsonFileSinkAdapterConfiguration>(c => c.Overwrite);
 
+        public static readonly string CompressPropertyName =
+            ObjectExtensions.MemberName<IJsonFileSinkAdapterConfiguration>(c => c.Compress);
+
         private string file;
         private bool prettify;
         private bool overwrite;
+        private bool compress;
 
         public string File
         {
@@ -35,6 +39,12 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
         {
             get { return overwrite; }
             set { SetProperty(ref overwrite, value); }
+        }
+
+        public bool Compress
+        {
+            get { return compress; }
+            set { SetProperty(ref compress, value); }
         }
     }
 }

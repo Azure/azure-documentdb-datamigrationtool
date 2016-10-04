@@ -9,7 +9,7 @@
   <!-- String resources -->
 
   <system:String x:Key="FilesSummaryKey">Files:</system:String>
-  <system:String x:Key="OpenFilesFilterKey">CSV Files|*.csv|All Files|*.*</system:String>
+  <system:String x:Key="OpenFilesFilterKey">CSV Files|*.csv|GZip Files|*.gz|All Files|*.*</system:String>
   <system:String x:Key="OpenFilesDefaultExtensionKey">*.csv</system:String>
 
   <system:String x:Key="NestingSeparatorKey">Nesting Separator</system:String>
@@ -21,5 +21,17 @@
 
   <system:String x:Key="NoUnquotedNullsKey">Treat unquoted NULL as string</system:String>
   <system:String x:Key="NoUnquotedNullsSummaryKey">Unquoted NULL is string:</system:String>
+
+  <system:String x:Key="UseRegionalSettingsKey">Use regional format settings</system:String>
+  <system:String x:Key="UseRegionalSettingsDescriptionKey">
+    Some applications may export CSV files using current regional format settings. This includes such settings as list separator, number, date and time format.
+    By default, all CSV files are assumed to be comma-separated and use "." as a decimal separator. Select this option, if input file was exported with current
+    regional format settings
+  </system:String>
+  <system:String x:Key="UseRegionalSettingsSummaryKey">Use regional format settings:</system:String>
+
+  <system:String x:Key="DecompressKey">Decompress data</system:String>
+  <system:String x:Key="DecompressDescriptionKey">Data from the source files will be decompressed with GZip</system:String>
+  <system:String x:Key="DecompressSummaryKey">Decompress data:</system:String>
 
 </ResourceDictionary>

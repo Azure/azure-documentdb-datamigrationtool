@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
             return new AggregateDataSourceAdapter(
                 configuration.Files
                     .SelectMany(f => SourceStreamProvidersFactory
-                        .Create(f)
+                        .Create(f, configuration.Decompress)
                         .Select(p => new MongoexportFileSourceAdapter(p))));
         }
     }

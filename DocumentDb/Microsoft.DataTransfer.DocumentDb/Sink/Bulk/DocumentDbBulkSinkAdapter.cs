@@ -35,10 +35,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         public DocumentDbBulkSinkAdapter(IDocumentDbWriteClient client, IDataItemTransformation transformation, IDocumentDbBulkSinkAdapterInstanceConfiguration configuration)
             : base(client, transformation, configuration) { }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation)
         {
             var collectionLink = await Client.GetOrCreateCollectionAsync(
-                Configuration.Collection, Configuration.CollectionTier, Configuration.IndexingPolicy);
+                Configuration.Collection, null, Configuration.CollectionThroughput, Configuration.IndexingPolicy, cancellation);
 
             storedProcedureLink = await Client.CreateStoredProcedureAsync(
                 collectionLink, Configuration.StoredProcName, Configuration.StoredProcBody);

@@ -13,5 +13,11 @@ namespace Microsoft.DataTransfer.JsonFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Files")]
         IEnumerable<string> Files { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether input files should be decompressed.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Decompress")]
+        bool Decompress { get; }
     }
 }

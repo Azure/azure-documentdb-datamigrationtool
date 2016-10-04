@@ -38,6 +38,12 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
 
             if (configuration.NoUnquotedNulls)
                 arguments.Add(CsvFileSourceAdapterConfiguration.NoUnquotedNullsPropertyName, null);
+
+            if (configuration.UseRegionalSettings)
+                arguments.Add(CsvFileSourceAdapterConfiguration.UseRegionalSettingsPropertyName, null);
+
+            if (configuration.Decompress)
+                arguments.Add(CsvFileSourceAdapterConfiguration.DecompressPropertyName, null);
         }
     }
 }

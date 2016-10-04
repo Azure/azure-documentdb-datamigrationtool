@@ -1,14 +1,13 @@
 ﻿using Microsoft.Azure.Documents;
-using Microsoft.DataTransfer.DocumentDb.Sink;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.Client
 {
     interface IDocumentDbWriteClient : IDisposable
     {
-        Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy);
-        Task<string> GetOrCreateElasticCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy);
+        Task<string> GetOrCreateCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation);
         Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
         Task UpsertDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
 

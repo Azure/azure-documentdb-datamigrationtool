@@ -68,7 +68,6 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MongoQueryException))]
         public async Task CreateAsync_AmbiguousProjection_MongoQueryExceptionThrown()
         {
             var configuration =
@@ -79,8 +78,22 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                         c.Projection == "{regex: 0, script: 1}")
                     .First();
 
-            using (await new MongoDbSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
+            try
+            {
+                using (await new MongoDbSourceAdapterFactory()
+                    .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None)) { }
+
+                Assert.Fail("Expected exception was not thrown");
+            }
+            catch (Exception error)
+            {
+                // Depending on which version of mongodb you are connecting to, you will get different exceptions.
+                // Since we are trying to be as transparent with the user as possible in terms of error messages and
+                // don't wrap them in the product code - we should expect either of them.
+                Assert.IsTrue(
+                    error is MongoQueryException || error is MongoCommandException,
+                    "Invalid exception was thrown");
+            }
         }
     }
 }

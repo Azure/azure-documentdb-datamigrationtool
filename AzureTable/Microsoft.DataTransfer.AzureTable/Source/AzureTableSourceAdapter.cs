@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.Extensibility;
+﻿using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.Extensibility;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
@@ -24,7 +25,12 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         {
             this.configuration = configuration;
 
-            table = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient().GetTableReference(configuration.Table);
+            var client = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient();
+
+            client.DefaultRequestOptions.LocationMode =
+                AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);
+
+            table = client.GetTableReference(configuration.Table);
             query = new TableQuery
             {
                 FilterString = configuration.Filter,

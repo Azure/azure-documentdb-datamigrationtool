@@ -29,7 +29,11 @@
   <system:String x:Key="ProjectionFileDefaultExtensionKey">*.json</system:String>
 
   <system:String x:Key="FilesSummaryKey">Files:</system:String>
-  <system:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|All Files|*.*</system:String>
+  <system:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|GZip Files|*.gz|All Files|*.*</system:String>
   <system:String x:Key="OpenFilesDefaultExtensionKey">*.json</system:String>
-  
+
+  <system:String x:Key="DecompressKey">Decompress data</system:String>
+  <system:String x:Key="DecompressDescriptionKey">Data from the source files will be decompressed with GZip</system:String>
+  <system:String x:Key="DecompressSummaryKey">Decompress data:</system:String>
+
 </ResourceDictionary>

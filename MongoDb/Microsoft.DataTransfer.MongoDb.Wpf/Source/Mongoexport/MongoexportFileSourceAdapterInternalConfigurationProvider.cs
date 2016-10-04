@@ -1,8 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
@@ -30,6 +28,9 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
             Guard.NotNull("arguments", arguments);
 
             arguments.Add(MongoexportFileSourceAdapterConfiguration.FilesPropertyName, AsCollectionArgument(configuration.Files));
+
+            if (configuration.Decompress)
+                arguments.Add(MongoexportFileSourceAdapterConfiguration.DecompressPropertyName, null);
         }
     }
 }

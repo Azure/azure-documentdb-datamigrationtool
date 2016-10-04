@@ -1,5 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.MongoDb.Client
 {
@@ -8,18 +11,23 @@ namespace Microsoft.DataTransfer.MongoDb.Client
     /// </summary>
     public sealed class MongoDbProbeClient
     {
+        private static readonly Command<BsonDocument> PingCommand = "{ping:1}";
+
         /// <summary>
         /// Tests the MongoDB connection.
         /// </summary>
         /// <param name="connectionString">MongoDB connection string to use to connect.</param>
-        public void TestConnection(string connectionString)
+        /// <param name="cancellation">Cancellation token</param>
+        public async Task TestConnection(string connectionString, CancellationToken cancellation)
         {
             if (String.IsNullOrEmpty(connectionString))
                 throw Errors.ConnectionStringMissing();
-            
-            var server = new MongoClient(connectionString).GetServer();
-            server.Connect();
-            server.Disconnect();
+
+            var url = new MongoUrl(connectionString);
+
+            await new MongoClient(connectionString)
+                .GetDatabase(url.DatabaseName)
+                .RunCommandAsync(PingCommand);
         }
     }
 }

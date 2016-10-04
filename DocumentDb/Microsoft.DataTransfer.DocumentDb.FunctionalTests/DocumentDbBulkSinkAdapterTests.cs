@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.DocumentDb.Exceptions;
+﻿using Microsoft.Azure.Documents;
+using Microsoft.DataTransfer.DocumentDb.Exceptions;
 using Microsoft.DataTransfer.DocumentDb.Sink.Bulk;
 using Microsoft.DataTransfer.Extensibility.Basics.Source;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
@@ -215,6 +216,33 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
 
             VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+        }
+
+        [TestMethod, Timeout(300000)]
+        [DeploymentItem("BulkInsert.js")]
+        [ExpectedException(typeof(DocumentClientException))]
+        public async Task BulkWriteSampleData_PartitionedCollection_ThrowsException()
+        {
+            const string CollectionName = "Data";
+            const int NumberOfItems = 42;
+
+            var configuration =
+                Mocks
+                    .Of<IDocumentDbBulkSinkAdapterConfiguration>(m =>
+                        m.ConnectionString == ConnectionString &&
+                        m.Collection == new[] { CollectionName } &&
+                        m.CollectionThroughput == 10100 && // 10000 RUs is the current threshold for single partition collections
+                        m.BatchSize == 10 &&
+                        m.MaxScriptSize == 1024)
+                    .First();
+
+            var sampleData = SampleData.GetSimpleDataItems(NumberOfItems);
+
+            using (var adapter = await new DocumentDbBulkSinkAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                await WriteDataAsync(adapter, sampleData);
+            }
         }
     }
 }

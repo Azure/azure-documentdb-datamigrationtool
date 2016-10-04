@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.DataTransfer.Basics.Threading;
 using Microsoft.DataTransfer.DocumentDb.Client;
-using Microsoft.DataTransfer.DocumentDb.Sink;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -35,15 +34,8 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
             deletedStoredProcedures = new HashSet<string>();
         }
 
-        public Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy)
-        {
-            Assert.IsFalse(String.IsNullOrEmpty(collectionName), TestResources.MissingCollectionNameInGetOrCreateCollection);
-
-            createdCollections.Add(collectionName);
-            return Task.FromResult(collectionName);
-        }
-
-        public Task<string> GetOrCreateElasticCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy)
+        public Task<string> GetOrCreateCollectionAsync(
+            string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
             Assert.IsFalse(String.IsNullOrEmpty(collectionName), TestResources.MissingCollectionNameInGetOrCreateCollection);
 

@@ -15,7 +15,11 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
         public static readonly string FilesPropertyName =
             ObjectExtensions.MemberName<IMongoexportFileSourceAdapterConfiguration>(c => c.Files);
 
+        public static readonly string DecompressPropertyName =
+            ObjectExtensions.MemberName<IMongoexportFileSourceAdapterConfiguration>(c => c.Decompress);
+
         private ObservableCollection<string> files;
+        private bool decompress;
 
         public IEnumerable<string> Files
         {
@@ -26,6 +30,12 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Source.Mongoexport
         {
             get { return files; }
             private set { SetProperty(ref files, value, ValidateNonEmptyCollection); }
+        }
+
+        public bool Decompress
+        {
+            get { return decompress; }
+            set { SetProperty(ref decompress, value); }
         }
 
         public MongoexportFileSourceAdapterConfiguration()

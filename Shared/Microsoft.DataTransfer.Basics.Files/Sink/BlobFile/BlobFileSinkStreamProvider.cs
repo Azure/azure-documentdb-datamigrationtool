@@ -19,14 +19,14 @@ namespace Microsoft.DataTransfer.Basics.Files.Sink.BlobFile
             this.overwrite = overwrite;
         }
 
-        public async Task<StreamWriter> CreateWriter(CancellationToken cancellation)
+        public async Task<Stream> CreateStream(CancellationToken cancellation)
         {
             if (await blob.ExistsAsync() && !overwrite)
                 throw Errors.BlobAlreadyExists(blob.Uri.ToString());
 
             await blob.Container.CreateIfNotExistsAsync(cancellation);
 
-            return new BlobStreamWriter(
+            return new BlobStream(
                 await blob.OpenWriteAsync(
                     overwrite ? null : AccessCondition.GenerateIfNoneMatchCondition("*"), null, null, cancellation),
                 blob.Uri.ToString());

@@ -33,7 +33,7 @@ namespace Microsoft.DataTransfer.JsonFile.Source
             {
                 if (file == null)
                 {
-                    file = await sourceStreamProvider.CreateReader(cancellation);
+                    file = new StreamReader(await sourceStreamProvider.CreateStream(cancellation));
                     jsonReader = new JsonTextReader(file) { SupportMultipleContent = true };
                 }
 

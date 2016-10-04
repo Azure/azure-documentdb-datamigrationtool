@@ -17,7 +17,7 @@ namespace Microsoft.DataTransfer.Basics.Files.Sink.LocalFile
             this.overwrite = overwrite;
         }
 
-        public Task<StreamWriter> CreateWriter(CancellationToken cancellation)
+        public Task<Stream> CreateStream(CancellationToken cancellation)
         {
             // Ensure output folder exists
             try
@@ -26,8 +26,8 @@ namespace Microsoft.DataTransfer.Basics.Files.Sink.LocalFile
             }
             catch { }
 
-            return Task.FromResult(new StreamWriter(
-                File.Open(fileName, overwrite ? FileMode.Create : FileMode.CreateNew, FileAccess.Write, FileShare.Read)));
+            return Task.FromResult<Stream>(
+                File.Open(fileName, overwrite ? FileMode.Create : FileMode.CreateNew, FileAccess.Write, FileShare.Read));
         }
     }
 }

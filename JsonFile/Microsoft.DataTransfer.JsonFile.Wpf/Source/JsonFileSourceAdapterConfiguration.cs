@@ -15,7 +15,11 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
         public static readonly string FilesPropertyName =
             ObjectExtensions.MemberName<IJsonFileSourceAdapterConfiguration>(c => c.Files);
 
-        private ObservableCollection<string> files; 
+        public static readonly string DecompressPropertyName =
+            ObjectExtensions.MemberName<IJsonFileSourceAdapterConfiguration>(c => c.Decompress);
+
+        private ObservableCollection<string> files;
+        private bool decompress;
 
         public IEnumerable<string> Files
         {
@@ -26,6 +30,12 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
         {
             get { return files; }
             private set { SetProperty(ref files, value, ValidateNonEmptyCollection); }
+        }
+
+        public bool Decompress
+        {
+            get { return decompress; }
+            set { SetProperty(ref decompress, value); }
         }
 
         public JsonFileSourceAdapterConfiguration()

@@ -34,10 +34,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
 
             if (chunkDownloadTask == null)
             {
-                RequestNextChunk();
+                RequestNextChunk(cancellation);
             }
 
-            var currentCursor = await GetCurrentChunkCursor();
+            var currentCursor = await GetCurrentChunkCursor(cancellation);
             if (currentCursor == null)
                 return false;
 
@@ -45,7 +45,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
 
             if (!currentCursor.MoveNext() && !(completed = !documentQuery.HasMoreResults))
             {
-                RequestNextChunk();
+                RequestNextChunk(cancellation);
             }
 
             return true;
@@ -53,7 +53,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
 
         protected abstract TOut ToOutputItem(TIn input);
 
-        private async Task<IEnumerator<TIn>> GetCurrentChunkCursor()
+        private async Task<IEnumerator<TIn>> GetCurrentChunkCursor(CancellationToken cancellation)
         {
             if (chunkCursor == null)
             {
@@ -63,7 +63,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
                 var hasData = false;
                 while (!(hasData = chunkCursor.MoveNext()) && documentQuery.HasMoreResults)
                 {
-                    RequestNextChunk();
+                    RequestNextChunk(cancellation);
                     chunkCursor = (await chunkDownloadTask).GetEnumerator();
                 }
 
@@ -75,10 +75,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Enumeration
             return chunkCursor;
         }
 
-        private void RequestNextChunk()
+        private void RequestNextChunk(CancellationToken cancellation)
         {
             TrashCan.Throw(ref chunkCursor);
-            chunkDownloadTask = documentQuery.ExecuteNextAsync<TIn>();
+            chunkDownloadTask = documentQuery.ExecuteNextAsync<TIn>(cancellation);
         }
 
         public virtual void Dispose()

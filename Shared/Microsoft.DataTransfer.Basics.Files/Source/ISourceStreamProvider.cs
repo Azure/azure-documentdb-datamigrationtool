@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Basics.Files.Source
 {
     /// <summary>
-    /// Provides <see cref="StreamReader" /> instance to read data from the source stream.
+    /// Provides <see cref="Stream" /> instance to read the data from the source.
     /// </summary>
     public interface ISourceStreamProvider
     {
@@ -15,10 +15,10 @@ namespace Microsoft.DataTransfer.Basics.Files.Source
         string Id { get; }
 
         /// <summary>
-        /// Creates a new <see cref="StreamReader" /> to read data from the stream.
+        /// Creates a new <see cref="Stream" /> to read the data.
         /// </summary>
         /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        Task<StreamReader> CreateReader(CancellationToken cancellation);
+        Task<Stream> CreateStream(CancellationToken cancellation);
     }
 }

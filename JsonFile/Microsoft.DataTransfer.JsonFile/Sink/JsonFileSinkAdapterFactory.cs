@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.Basics.Files.Sink;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics;
 using Microsoft.DataTransfer.JsonFile.Serialization;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +34,9 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
             Guard.NotNull("configuration", configuration);
 
             return new JsonFileSinkAdapter(
-                await SinkStreamProvidersFactory.Create(configuration.File, configuration.Overwrite).CreateWriter(cancellation),
+                new StreamWriter(
+                    await SinkStreamProvidersFactory.Create(configuration.File, configuration.Compress, configuration.Overwrite)
+                        .CreateStream(cancellation)),
                 JsonSerializersFactory.Create(configuration.Prettify));
         }
     }

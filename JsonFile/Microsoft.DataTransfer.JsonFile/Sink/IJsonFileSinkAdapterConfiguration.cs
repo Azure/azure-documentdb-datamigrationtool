@@ -24,5 +24,11 @@ namespace Microsoft.DataTransfer.JsonFile.Sink
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_Overwrite")]
         bool Overwrite { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether target file should be compressed.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Sink_Compress")]
+        bool Compress { get; }
     }
 }

@@ -6,5 +6,6 @@ namespace Microsoft.DataTransfer.CsvFile.Source
         string NestingSeparator { get; }
         bool TrimQuoted { get; }
         bool NoUnquotedNulls { get; }
+        bool UseRegionalSettings { get; }
     }
 }

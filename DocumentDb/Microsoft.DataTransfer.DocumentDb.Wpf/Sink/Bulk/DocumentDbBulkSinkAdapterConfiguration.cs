@@ -18,9 +18,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
         public static readonly string PartitionKeyPropertyName =
             ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.PartitionKey);
 
-        public static readonly string CollectionTierPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.CollectionTier);
-
         public static readonly string StoredProcFilePropertyName =
             ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.StoredProcFile);
 
@@ -32,7 +29,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 
         private ObservableCollection<string> collections;
         private string partitionKey;
-        private CollectionPricingTier? collectionTier;
 
         private string storedProcFile;
         private int? batchSize;
@@ -64,12 +60,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             set { SetProperty(ref partitionKey, value); }
         }
 
-        public CollectionPricingTier? CollectionTier
-        {
-            get { return collectionTier; }
-            set { SetProperty(ref collectionTier, value); }
-        }
-
         public string StoredProcFile
         {
             get { return storedProcFile; }
@@ -92,7 +82,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             : base(sharedConfiguration)
         {
             EditableCollections = new ObservableCollection<string>();
-            CollectionTier = Defaults.Current.BulkSinkCollectionTier;
             BatchSize = Defaults.Current.BulkSinkBatchSize;
             MaxScriptSize = Defaults.Current.BulkSinkMaxScriptSize;
         }

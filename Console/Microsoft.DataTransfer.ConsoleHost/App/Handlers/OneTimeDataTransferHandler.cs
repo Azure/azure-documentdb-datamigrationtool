@@ -29,7 +29,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             this.configuration = configuration;
         }
 
-        public async Task RunAsync()
+        public async Task<TransferResult> RunAsync()
         {
             ValidateConfiguration();
 
@@ -64,8 +64,13 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                 }
             }
 
-            if (statistics != null)
-                statisticsHandler.PrintResult(statistics.GetSnapshot());
+            if (statistics == null)
+                return TransferResult.Empty;
+
+            var statisticsSnapshot = statistics.GetSnapshot();
+            statisticsHandler.PrintResult(statisticsSnapshot);
+
+            return new TransferResult(statisticsSnapshot.Transferred, statisticsSnapshot.Failed);
         }
 
         private TimeSpan GetProgressUpdateInterval()

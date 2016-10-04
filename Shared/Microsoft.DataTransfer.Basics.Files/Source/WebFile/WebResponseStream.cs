@@ -1,13 +1,14 @@
-﻿using System.IO;
+﻿using Microsoft.DataTransfer.Basics.Files.Shared;
+using System.IO;
 using System.Net;
 
 namespace Microsoft.DataTransfer.Basics.Files.Source.WebFile
 {
-    sealed class ResponseStreamReader : StreamReader
+    sealed class WebResponseStream : WrapperStream
     {
         private WebResponse response;
 
-        public ResponseStreamReader(WebResponse response)
+        public WebResponseStream(WebResponse response)
             : base(GetResponseStream(response))
         {
             this.response = response;
@@ -17,6 +18,12 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.WebFile
         {
             Guard.NotNull("response", response);
             return response.GetResponseStream();
+        }
+
+        public override void Close()
+        {
+            base.Close();
+            response.Close();
         }
 
         protected override void Dispose(bool disposing)

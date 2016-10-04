@@ -39,11 +39,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
             if (!String.IsNullOrEmpty(configuration.PartitionKey))
                 arguments.Add(DocumentDbParallelSinkAdapterConfiguration.PartitionKeyPropertyName, configuration.PartitionKey);
 
-            if (configuration.CollectionThroughput.HasValue && configuration.CollectionThroughput.Value != Defaults.Current.ParallelSinkCollectionThroughput)
-                arguments.Add(
-                    DocumentDbParallelSinkAdapterConfiguration.CollectionThroughputPropertyName,
-                    configuration.CollectionThroughput.Value.ToString(CultureInfo.InvariantCulture));
-
             if (configuration.ParallelRequests.HasValue && configuration.ParallelRequests.Value != Defaults.Current.ParallelSinkNumberOfParallelRequests)
                 arguments.Add(
                     DocumentDbParallelSinkAdapterConfiguration.ParallelRequestsPropertyName,

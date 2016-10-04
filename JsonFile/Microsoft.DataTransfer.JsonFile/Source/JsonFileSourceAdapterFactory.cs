@@ -53,7 +53,7 @@ namespace Microsoft.DataTransfer.JsonFile.Source
             return new AggregateDataSourceAdapter(
                 configuration.Files
                     .SelectMany(f => SourceStreamProvidersFactory
-                        .Create(f)
+                        .Create(f, configuration.Decompress)
                         .Select(p => new JsonFileSourceAdapter(p, serializer))));
         }
     }

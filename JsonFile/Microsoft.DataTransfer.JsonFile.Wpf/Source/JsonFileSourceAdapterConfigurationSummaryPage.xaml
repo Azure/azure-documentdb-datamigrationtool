@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="100" d:DesignWidth="300">
   
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\XamlResources.xaml"/>
+        <ResourceDictionary Source="..\XamlResources.xaml" />
       </ResourceDictionary.MergedDictionaries>
+
+      <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -21,10 +24,16 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource FilesSummaryKey}" />
     <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Files}" />
+
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource DecompressSummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="{Binding Decompress, Converter={StaticResource YesNoConverter}}" />
+    </Label>
   </Grid>
   
 </UserControl>

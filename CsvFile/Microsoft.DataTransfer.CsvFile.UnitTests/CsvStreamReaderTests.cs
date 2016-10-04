@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -14,7 +15,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\SimpleQuotedValues.csv")]
         public void Read_SimpleQuotedValues_AllValuesRead()
         {
-            ReadAndVerify("SimpleQuotedValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "SimpleQuotedValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", "Senior Director", "buyer@salesforcesample.com" },
@@ -26,7 +32,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\ComplexQuotedValues.csv")]
         public void Read_ComplexQuotedValues_AllValuesRead()
         {
-            ReadAndVerify("ComplexQuotedValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "ComplexQuotedValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", "Senior\" Director", "buyer@salesforcesample.com" },
@@ -38,7 +49,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\IntegerValues.csv")]
         public void Read_IntegerValues_AllValuesRead()
         {
-            ReadAndVerify("IntegerValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "IntegerValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", (long)10, "buyer@salesforcesample.com" },
@@ -50,7 +66,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\FloatingPointValues.csv")]
         public void Read_FloatingPointValues_AllValuesRead()
         {
-            ReadAndVerify("FloatingPointValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "FloatingPointValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", (double)10.1, "buyer@salesforcesample.com" },
@@ -62,7 +83,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\BooleanValues.csv")]
         public void Read_BooleanValues_AllValuesRead()
         {
-            ReadAndVerify("BooleanValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "BooleanValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", true, "buyer@salesforcesample.com" },
@@ -74,7 +100,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\DateTimeValues.csv")]
         public void Read_DateTimeValues_AllValuesRead()
         {
-            ReadAndVerify("DateTimeValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "DateTimeValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", new DateTime(2015, 4, 15, 20, 0, 15, DateTimeKind.Utc), "buyer@salesforcesample.com" },
@@ -86,7 +117,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\UnquotedNulls.csv")]
         public void Read_UnquotedNulls_NullsReadAsNullsByDefault()
         {
-            ReadAndVerify("UnquotedNulls.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "UnquotedNulls.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", null, "Senior Director", "buyer@salesforcesample.com" },
@@ -98,7 +134,13 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\UnquotedNulls.csv")]
         public void Read_UnquotedNulls_NullsReadAsStrings()
         {
-            ReadAndVerify("UnquotedNulls.csv", new CsvReaderConfiguration { IgnoreUnquotedNulls = true },
+            ReadAndVerify(
+                "UnquotedNulls.csv",
+                new CsvReaderConfiguration
+                {
+                    IgnoreUnquotedNulls = true,
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "NULL", "Senior Director", "buyer@salesforcesample.com" },
@@ -110,7 +152,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\EmptyLines.csv")]
         public void Read_EmptyLines_TreatedAsSingleNullValues()
         {
-            ReadAndVerify("EmptyLines.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "EmptyLines.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { null },
@@ -122,7 +169,12 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\EmptySpaceQuotedValues.csv")]
         public void Read_EmptySpaceInQuotes_EmptySpaceIsNotTrimmedByDefault()
         {
-            ReadAndVerify("EmptySpaceQuotedValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "EmptySpaceQuotedValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "  Jones  ", "Senior Director", "buyer@salesforcesample.com" },
@@ -134,7 +186,13 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\EmptySpaceQuotedValues.csv")]
         public void Read_EmptySpaceInQuotes_EmptySpaceIsTrimmed()
         {
-            ReadAndVerify("EmptySpaceQuotedValues.csv", new CsvReaderConfiguration { TrimQuoted = true },
+            ReadAndVerify(
+                "EmptySpaceQuotedValues.csv",
+                new CsvReaderConfiguration
+                {
+                    TrimQuoted = true,
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", "Senior Director", "buyer@salesforcesample.com" },
@@ -146,11 +204,39 @@ namespace Microsoft.DataTransfer.CsvFile.UnitTests
         [DeploymentItem(@"TestData\EmptySpaceUnquotedValues.csv")]
         public void Read_EmptySpaceInUnquotedValues_EmptySpaceIsTrimmed()
         {
-            ReadAndVerify("EmptySpaceUnquotedValues.csv", new CsvReaderConfiguration(),
+            ReadAndVerify(
+                "EmptySpaceUnquotedValues.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = CultureInfo.InvariantCulture
+                },
                 new[]
                 {
                     new object[] { "Tom", "Jones", "Senior Director", "buyer@salesforcesample.com" },
                     new object[] { "Ian", "Dury", "Chief Imagineer", "cto@salesforcesample.com" }
+                });
+        }
+
+        [TestMethod]
+        [DeploymentItem(@"TestData\CustomCulture.csv")]
+        public void Read_CustomCulture_AllValuesRead()
+        {
+            var customCulture = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            customCulture.TextInfo.ListSeparator = "|";
+            customCulture.NumberFormat.NumberDecimalSeparator = ",";
+            customCulture.NumberFormat.NumberGroupSeparator = " ";
+
+            ReadAndVerify(
+                "CustomCulture.csv",
+                new CsvReaderConfiguration
+                {
+                    ParserCulture = customCulture
+                },
+                new[]
+                {
+                    new object[] { "Jessica", "Simpson", (double)10.2, "jess@sample.com" },
+                    new object[] { "Mark", "Doe", false, "mark@sample.com" },
+                    new object[] { "Chris", "Johnson", (double)1050.10, "chris@sample.com" },
                 });
         }
 

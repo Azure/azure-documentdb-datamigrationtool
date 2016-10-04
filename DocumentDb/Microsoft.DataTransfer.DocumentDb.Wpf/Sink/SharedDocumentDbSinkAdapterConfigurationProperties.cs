@@ -4,6 +4,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     static class SharedDocumentDbSinkAdapterConfigurationProperties
     {
+        public static readonly string CollectionThroughput =
+            ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.CollectionThroughput);
+
         public static readonly string UseIndexingPolicyFile =
             ObjectExtensions.MemberName<ISharedDocumentDbSinkAdapterConfiguration>(c => c.UseIndexingPolicyFile);
 

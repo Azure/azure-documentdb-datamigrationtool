@@ -27,12 +27,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
         /// <param name="context">Data transfer operation context.</param>
         /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        public Task<IDataSourceAdapter> CreateAsync(IMongoDbSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
-        {
-            return Task.Factory.StartNew(() => Create(configuration), cancellation);
-        }
-
-        private IDataSourceAdapter Create(IMongoDbSourceAdapterConfiguration configuration)
+        public async Task<IDataSourceAdapter> CreateAsync(IMongoDbSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
             Guard.NotNull("configuration", configuration);
 
@@ -43,7 +38,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
                 throw Errors.CollectionNameMissing();
 
             var adapter = new MongoDbSourceAdapter(GetInstanceConfiguration(configuration));
-            adapter.Initialize();
+            await adapter.Initialize(cancellation);
             return adapter;
         }
 

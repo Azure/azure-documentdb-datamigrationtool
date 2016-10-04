@@ -39,9 +39,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             if (!String.IsNullOrEmpty(configuration.PartitionKey))
                 arguments.Add(DocumentDbBulkSinkAdapterConfiguration.PartitionKeyPropertyName, configuration.PartitionKey);
 
-            if (configuration.CollectionTier.HasValue && configuration.CollectionTier.Value != Defaults.Current.BulkSinkCollectionTier)
-                arguments.Add(DocumentDbBulkSinkAdapterConfiguration.CollectionTierPropertyName, configuration.CollectionTier.Value.ToString());
-
             if (!String.IsNullOrEmpty(configuration.StoredProcFile))
                 arguments.Add(DocumentDbBulkSinkAdapterConfiguration.StoredProcFilePropertyName, configuration.StoredProcFile);
 

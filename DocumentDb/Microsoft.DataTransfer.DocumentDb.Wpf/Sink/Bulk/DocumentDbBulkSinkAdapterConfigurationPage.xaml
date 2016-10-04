@@ -7,7 +7,6 @@
              xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              xmlns:shared="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Shared"
              xmlns:sink="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink"
-             xmlns:local="clr-namespace:Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
   
@@ -20,8 +19,6 @@
       <Style x:Key="CollectionsList" TargetType="bc:EditableStringsListControl">
         <Setter Property="Height" Value="75" />
       </Style>
-
-      <ObjectDataProvider x:Key="CollectionTierValues" ObjectType="{x:Type local:CollectionPricingTierValueConverter}" MethodName="GetDisplayNames" />
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -44,16 +41,6 @@
           <TextBox Text="{Binding PartitionKey, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
         </StackPanel>
 
-        <StackPanel Style="{StaticResource OptionElement}">
-          <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionTierDescriptionKey}">
-            <Label Content="{DynamicResource CollectionTierKey}" />
-          </bc:ToolTipDecorator>
-          <ComboBox
-            ItemsSource="{Binding Source={StaticResource CollectionTierValues}}"
-            SelectedValue="{Binding CollectionTier}" SelectedValuePath="Key"
-            DisplayMemberPath="Value" />
-        </StackPanel>
-
         <sink:DocumentDbSinkAdapterCommonConfigurationControl DataContext="{Binding}" />
 
         <Expander Style="{DynamicResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
@@ -71,12 +58,12 @@
             
             <StackPanel Style="{StaticResource OptionElement}">
               <Label Content="{DynamicResource BatchSizeKey}" />
-              <TextBox Text="{Binding BatchSize, UpdateSourceTrigger=PropertyChanged}" />
+              <TextBox Text="{Binding BatchSize, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
             </StackPanel>
 
             <StackPanel Style="{StaticResource OptionElement}">
               <Label Content="{DynamicResource MaxScriptSizeKey}" />
-              <TextBox Text="{Binding MaxScriptSize, UpdateSourceTrigger=PropertyChanged}" />
+              <TextBox Text="{Binding MaxScriptSize, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
             </StackPanel>
 
             <sink:DocumentDbSinkAdapterAdvancedConfigurationControl DataContext="{Binding}" />

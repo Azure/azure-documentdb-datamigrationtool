@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 {
     [TestClass]
+    [DeploymentItem("DocumentDB.Spatial.Sql.dll")]
+    [DeploymentItem("Microsoft.Azure.Documents.ServiceInterop.dll")]
     public class DocumentDbParallelSinkAdapterTests : DocumentDbSinkAdapterTestBase
     {
         [TestMethod, Timeout(300000)]

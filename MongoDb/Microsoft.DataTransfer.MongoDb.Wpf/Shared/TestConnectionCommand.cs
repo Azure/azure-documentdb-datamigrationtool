@@ -2,6 +2,7 @@
 using Microsoft.DataTransfer.MongoDb.Client;
 using Microsoft.DataTransfer.WpfHost.Basics.Commands;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,7 +19,7 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Shared
 
         protected override async Task ExecuteAsync(object parameter)
         {
-            await Task.Run(() => probeClient.TestConnection(parameter as string));
+            await probeClient.TestConnection(parameter as string, CancellationToken.None);
 
             MessageBox.Show(
                 Resources.TestConnectionSuccessMessage,

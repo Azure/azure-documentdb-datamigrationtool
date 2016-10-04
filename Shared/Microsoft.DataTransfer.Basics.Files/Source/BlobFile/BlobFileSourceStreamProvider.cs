@@ -20,9 +20,9 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
             this.blob = blob;
         }
 
-        public async Task<StreamReader> CreateReader(CancellationToken cancellation)
+        public Task<Stream> CreateStream(CancellationToken cancellation)
         {
-            return new StreamReader(await blob.OpenReadAsync(cancellation));
+            return blob.OpenReadAsync(cancellation);
         }
     }
 }

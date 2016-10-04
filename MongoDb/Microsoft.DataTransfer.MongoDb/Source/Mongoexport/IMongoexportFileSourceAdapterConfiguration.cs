@@ -13,5 +13,11 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "MongoexportSource_Files")]
         IEnumerable<string> Files { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether input files should be decompressed.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "MongoexportSource_Decompress")]
+        bool Decompress { get; }
     }
 }

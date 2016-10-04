@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shared\AzureStorageLocationModeValueConverter.cs" />
     <Compile Include="Shared\AzureTableAdapterConfiguration.cs" />
     <Compile Include="Shared\AzureTableAdapterConfigurationProvider.cs" />
     <Compile Include="Shared\AzureTableAdapterConnectionConfigurationControl.xaml.cs">

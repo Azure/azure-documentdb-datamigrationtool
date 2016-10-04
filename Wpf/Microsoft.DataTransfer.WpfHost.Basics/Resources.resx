@@ -144,6 +144,9 @@
   <data name="NonEmptyStringRequired" xml:space="preserve">
     <value>Non-empty value should be provided</value>
   </data>
+  <data name="NonNegativeNumberRequired" xml:space="preserve">
+    <value>Non-negative value should be provided</value>
+  </data>
   <data name="PositiveNumberRequired" xml:space="preserve">
     <value>Value should be greater than zero</value>
   </data>

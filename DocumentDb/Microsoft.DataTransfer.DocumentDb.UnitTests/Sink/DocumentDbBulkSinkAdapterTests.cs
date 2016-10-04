@@ -26,7 +26,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 
             using (var adapter = new DocumentDbBulkSinkAdapter(clientMock, PassThroughTransformation.Instance, configurationMock))
             {
-                await adapter.InitializeAsync();
+                await adapter.InitializeAsync(CancellationToken.None);
                 await adapter.CompleteAsync(CancellationToken.None);
             }
 

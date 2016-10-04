@@ -26,6 +26,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource FileNameSummaryKey}" />
@@ -41,6 +42,11 @@
     <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource PrettifySummaryKey}" />
     <Label Grid.Row="2" Grid.Column="1">
       <TextBlock Text="{Binding Prettify, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+
+    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource CompressSummaryKey}" />
+    <Label Grid.Row="3" Grid.Column="1">
+      <TextBlock Text="{Binding Compress, Converter={StaticResource YesNoConverter}}" />
     </Label>
   </Grid>
   

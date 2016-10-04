@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -14,12 +15,21 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
-  
-  <StackPanel>
-    <StackPanel Style="{StaticResource OptionElement}">
-      <Label Content="{DynamicResource IdFieldKey}" />
-      <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+
+  <AdornerDecorator>
+    <StackPanel>
+      <StackPanel Style="{StaticResource OptionElement}">
+        <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionThroughputDescriptionKey}">
+          <Label Content="{DynamicResource CollectionThroughputKey}" />
+        </bc:ToolTipDecorator>
+        <TextBox Text="{Binding CollectionThroughput, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
+
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource IdFieldKey}" />
+        <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
     </StackPanel>
-  </StackPanel>
-  
+  </AdornerDecorator>
+
 </UserControl>

@@ -25,14 +25,14 @@ namespace Microsoft.DataTransfer.DocumentDb
         TimeSpan RetryInterval { get; }
 
         /// <summary>
+        /// Gets the default collection throughput.
+        /// </summary>
+        int SinkCollectionThroughput { get; }
+
+        /// <summary>
         /// Gets the default date and time handling strategy.
         /// </summary>
         DateTimeHandling SinkDateTimeHandling { get; }
-
-        /// <summary>
-        /// Gets the default collection pricing tier.
-        /// </summary>
-        CollectionPricingTier BulkSinkCollectionTier { get; }
 
         /// <summary>
         /// Gets the default bulk import stored procedure file name.
@@ -53,10 +53,5 @@ namespace Microsoft.DataTransfer.DocumentDb
         /// Gets the default maximum number of parallel insert operations.
         /// </summary>
         int ParallelSinkNumberOfParallelRequests { get; }
-
-        /// <summary>
-        /// Gets the default collection throughput for V2 collections.
-        /// </summary>
-        int ParallelSinkCollectionThroughput { get; }
     }
 }

@@ -120,6 +120,9 @@
   <data name="ConnectionString" xml:space="preserve">
     <value>Connection string for the Azure Table storage</value>
   </data>
+  <data name="LocationModeFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Specifies which location mode to use when connecting to Azure Table storage: {1}</value>
+  </data>
   <data name="Source_Filter" xml:space="preserve">
     <value>Optional. Filter string to apply</value>
   </data>

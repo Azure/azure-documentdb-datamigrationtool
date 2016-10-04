@@ -57,6 +57,7 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App\Handlers\TransferResult.cs" />
     <Compile Include="Configuration\InfrastructureConfigurationFactory.cs" />
     <Compile Include="Configuration\IInfrastructureConfiguration.cs" />
     <Compile Include="Configuration\IInfrastructureConfigurationFactory.cs" />

@@ -123,9 +123,6 @@
   <data name="BulkSink_Collection" xml:space="preserve">
     <value>One or more documents collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2</value>
   </data>
-  <data name="BulkSink_CollectionTierFormat" xml:space="preserve">
-    <value>Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}</value>
-  </data>
   <data name="BulkSink_MaxScriptSizeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Size (in bytes) of the bulk insertion JSON array</value>
   </data>
@@ -144,9 +141,6 @@
   <data name="ParallelSink_Collection" xml:space="preserve">
     <value>Name of the documents collection</value>
   </data>
-  <data name="ParallelSink_CollectionThroughputFormat" xml:space="preserve">
-    <value>Optional, default is {0}. Specifies maximum throughput of the collection</value>
-  </data>
   <data name="ParallelSink_ParallelRequestsFormat" xml:space="preserve">
     <value>Optional, default is {0}. Number of parallel document create requests</value>
   </data>
@@ -158,6 +152,9 @@
   </data>
   <data name="RetryIntervalFormat" xml:space="preserve">
     <value>Optional, default is {0}. Retry interval on transient failures</value>
+  </data>
+  <data name="Sink_CollectionThroughputFormat" xml:space="preserve">
+    <value>Optional, default is {0}. Specifies maximum throughput of the collection</value>
   </data>
   <data name="Sink_DatesFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies how timestamps should be persisted: {1}</value>

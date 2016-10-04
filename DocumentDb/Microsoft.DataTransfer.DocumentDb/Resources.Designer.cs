@@ -106,7 +106,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploads data into one or more legacy DocumentDB collections in batches.
+        ///   Looks up a localized string similar to Uploads data into one or more single partition DocumentDB collections in batches.
         /// </summary>
         internal static string BulkSinkDescription {
             get {

@@ -9,6 +9,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     abstract class DocumentDbSinkAdapterConfiguration : DocumentDbAdapterConfiguration<ISharedDocumentDbSinkAdapterConfiguration>, IDocumentDbSinkAdapterConfiguration
     {
+        public static readonly string CollectionThroughputPropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.CollectionThroughput);
+
         public static readonly string IndexingPolicyPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSinkAdapterConfiguration>(c => c.IndexingPolicy);
 
@@ -29,6 +32,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         private static readonly string UseIndexingPolicyFilePropertyName = 
             ObjectExtensions.MemberName<DocumentDbSinkAdapterConfiguration>(c => c.UseIndexingPolicyFile);
+
+        public int? CollectionThroughput
+        {
+            get { return SharedConfiguration.CollectionThroughput; }
+            set { SharedConfiguration.CollectionThroughput = value; }
+        }
 
         public bool UseIndexingPolicyFile
         {
@@ -78,6 +87,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         protected override Map<string, string> GetSharedPropertiesMapping()
         {
             var mapping = base.GetSharedPropertiesMapping();
+            mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.CollectionThroughput, CollectionThroughputPropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.UseIndexingPolicyFile, UseIndexingPolicyFilePropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicy, IndexingPolicyPropertyName);
             mapping.Add(SharedDocumentDbSinkAdapterConfigurationProperties.IndexingPolicyFile, IndexingPolicyFilePropertyName);

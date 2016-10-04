@@ -24,10 +24,18 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
         public static readonly string NoUnquotedNullsPropertyName =
             ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.NoUnquotedNulls);
 
+        public static readonly string UseRegionalSettingsPropertyName =
+            ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.UseRegionalSettings);
+
+        public static readonly string DecompressPropertyName =
+            ObjectExtensions.MemberName<ICsvFileSourceAdapterConfiguration>(c => c.Decompress);
+
         private ObservableCollection<string> files;
         private string nestingSeparator;
         private bool trimQuoted;
         private bool noUnquotedNulls;
+        private bool useRegionalSettings;
+        private bool decompress;
 
         public IEnumerable<string> Files
         {
@@ -56,6 +64,18 @@ namespace Microsoft.DataTransfer.CsvFile.Wpf.Source
         {
             get { return noUnquotedNulls; }
             set { SetProperty(ref noUnquotedNulls, value); }
+        }
+
+        public bool UseRegionalSettings
+        {
+            get { return useRegionalSettings; }
+            set { SetProperty(ref useRegionalSettings, value); }
+        }
+
+        public bool Decompress
+        {
+            get { return decompress; }
+            set { SetProperty(ref decompress, value); }
         }
 
         public CsvFileSourceAdapterConfiguration()

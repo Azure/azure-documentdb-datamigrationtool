@@ -26,7 +26,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
             ValidateBaseConfiguration(configuration);
 
             var source = new DocumentDbSourceAdapter(
-                CreateClient(configuration, context, false),
+                CreateClient(configuration, context, false, null),
                 GetDataItemTransformation(configuration),
                 GetInstanceConfiguration(configuration));
 

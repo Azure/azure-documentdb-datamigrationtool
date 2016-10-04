@@ -14,13 +14,13 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.WebFile
             Id = url;
         }
 
-        public async Task<StreamReader> CreateReader(CancellationToken cancellation)
+        public async Task<Stream> CreateStream(CancellationToken cancellation)
         {
-            var request = HttpWebRequest.CreateHttp(Id);
+            var request = WebRequest.CreateHttp(Id);
 
             try
             {
-                return new ResponseStreamReader(await request.GetResponseAsync());
+                return new WebResponseStream(await request.GetResponseAsync());
             }
             catch (WebException webException)
             {

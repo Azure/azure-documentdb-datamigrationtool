@@ -21,11 +21,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
         public DocumentDbParallelSinkAdapter(IDocumentDbWriteClient client, IDataItemTransformation transformation, IDocumentDbParallelSinkAdapterInstanceConfiguration configuration)
             : base(client, transformation, configuration) { }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation)
         {
-            collectionLink = await Client.GetOrCreateElasticCollectionAsync(
+            collectionLink = await Client.GetOrCreateCollectionAsync(
                 Configuration.Collection, Configuration.PartitionKey,
-                Configuration.CollectionThroughput, Configuration.IndexingPolicy);
+                Configuration.CollectionThroughput, Configuration.IndexingPolicy,
+                cancellation);
         }
 
         public Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)

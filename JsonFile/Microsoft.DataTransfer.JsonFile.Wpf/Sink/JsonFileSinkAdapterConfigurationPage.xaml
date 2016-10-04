@@ -22,6 +22,10 @@
         LocalFileFilter="{DynamicResource SaveFileFilterKey}" LocalFileDefaultExtension="{DynamicResource SaveFileDefaultExtensionKey}" />
 
       <CheckBox Style="{StaticResource SingleLineOptionElement}" Content="{DynamicResource PrettifyKey}" IsChecked="{Binding Prettify}" />
+
+      <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource CompressDescriptionKey}">
+        <CheckBox Content="{DynamicResource CompressKey}" IsChecked="{Binding Compress}" />
+      </bc:ToolTipDecorator>
     </StackPanel>
   </AdornerDecorator>
   

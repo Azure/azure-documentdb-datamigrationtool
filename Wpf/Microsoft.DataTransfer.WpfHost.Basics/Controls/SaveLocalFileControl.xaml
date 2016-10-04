@@ -20,19 +20,21 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <Grid x:Name="LayoutRoot">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="Auto" />
-    </Grid.ColumnDefinitions>
+  <AdornerDecorator>
+    <Grid x:Name="LayoutRoot">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
 
-    <TextBox Grid.Column="0" DockPanel.Dock="Left"
-      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-      Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      <TextBox Grid.Column="0" DockPanel.Dock="Left"
+        Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+        Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
 
-    <Button Grid.Column="1" DockPanel.Dock="Right" Style="{StaticResource SelectButton}" 
-      Content="{DynamicResource SelectFileKey}"
-      Command="{Binding SelectFile}" />
-  </Grid>
+      <Button Grid.Column="1" DockPanel.Dock="Right" Style="{StaticResource SelectButton}" 
+        Content="{DynamicResource SelectFileKey}"
+        Command="{Binding SelectFile}" />
+    </Grid>
+  </AdornerDecorator>
 
 </UserControl>

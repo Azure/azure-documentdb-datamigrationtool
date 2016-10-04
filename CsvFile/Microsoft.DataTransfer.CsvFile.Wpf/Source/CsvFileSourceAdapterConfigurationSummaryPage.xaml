@@ -10,7 +10,7 @@
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\XamlResources.xaml"/>
+        <ResourceDictionary Source="..\XamlResources.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
       <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
@@ -23,6 +23,8 @@
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
@@ -45,6 +47,16 @@
     <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource NoUnquotedNullsSummaryKey}" />
     <Label Grid.Row="3" Grid.Column="1">
       <TextBlock Text="{Binding NoUnquotedNulls, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+
+    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource UseRegionalSettingsSummaryKey}" />
+    <Label Grid.Row="4" Grid.Column="1">
+      <TextBlock Text="{Binding UseRegionalSettings, Converter={StaticResource YesNoConverter}}" />
+    </Label>
+
+    <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource DecompressSummaryKey}" />
+    <Label Grid.Row="5" Grid.Column="1">
+      <TextBlock Text="{Binding Decompress, Converter={StaticResource YesNoConverter}}" />
     </Label>
   </Grid>
 

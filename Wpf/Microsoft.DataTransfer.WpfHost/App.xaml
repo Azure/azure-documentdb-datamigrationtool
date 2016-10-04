@@ -40,13 +40,23 @@
         <LineBreak />
         <Span>
           For help using the tool, please see the online documentation located
-          <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/">here</Hyperlink>.
+          <Hyperlink
+            Command="{Binding Source={StaticResource NavigateUri}}"
+            CommandParameter="https://go.microsoft.com/fwlink/?LinkId=827805"
+            ToolTip="{Binding CommandParameter, RelativeSource={RelativeSource Self}}">
+            here
+          </Hyperlink>.
         </Span>
         <LineBreak />
         <LineBreak />
         <Span>
           Feel free to suggest and vote for new features by posting
-          <Hyperlink Command="{Binding Source={StaticResource NavigateUri}}" CommandParameter="http://feedback.azure.com/forums/263030-documentdb">here</Hyperlink>.
+          <Hyperlink
+            Command="{Binding Source={StaticResource NavigateUri}}"
+            CommandParameter="https://go.microsoft.com/fwlink/?LinkId=827806"
+            ToolTip="{Binding CommandParameter, RelativeSource={RelativeSource Self}}">
+            here
+          </Hyperlink>.
         </Span>
       </Span>
 
@@ -80,7 +90,7 @@
       <system:String x:Key="GenerateCommandLineKey">View Command</system:String>
       <system:String x:Key="CommandLinePreviewWindowTitleKey">Command Line Preview</system:String>
       <system:String x:Key="SourceSummarySubtitleFormatKey">Source ({0})</system:String>
-      <system:String x:Key="SinkSummarySubtitleFormatKey">Sink ({0})</system:String>
+      <system:String x:Key="SinkSummarySubtitleFormatKey">Target ({0})</system:String>
       
       <system:String x:Key="InfrastructureSetupSummarySubtitleKey">Advanced</system:String>
       <system:String x:Key="ErrorLogFileNameSummaryKey">Error Log File:</system:String>

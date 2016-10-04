@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Sink_Compress" xml:space="preserve">
+    <value>Optional. If target file should be compressed with GZip</value>
+  </data>
   <data name="Sink_File" xml:space="preserve">
     <value>Path to the file to write data to</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="Sink_Prettify" xml:space="preserve">
     <value>Optional. If JSON in the target file should be indented</value>
+  </data>
+  <data name="Source_Decompress" xml:space="preserve">
+    <value>Optional. If source files should be decompressed with GZip</value>
   </data>
   <data name="Source_Files" xml:space="preserve">
     <value>One or more file search patterns to read JSON from</value>

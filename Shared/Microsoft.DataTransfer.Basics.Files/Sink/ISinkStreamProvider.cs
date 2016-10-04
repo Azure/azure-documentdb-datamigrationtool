@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Basics.Files.Sink
 {
     /// <summary>
-    /// Provides <see cref="StreamWriter" /> instance to write data to the target stream.
+    /// Provides <see cref="Stream" /> instance to write the data to the target.
     /// </summary>
     public interface ISinkStreamProvider
     {
         /// <summary>
-        /// Creates a new <see cref="StreamWriter" /> to write data to the stream.
+        /// Creates a new <see cref="Stream" /> to write the data.
         /// </summary>
         /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous create operation.</returns>
-        Task<StreamWriter> CreateWriter(CancellationToken cancellation);
+        Task<Stream> CreateStream(CancellationToken cancellation);
     }
 }

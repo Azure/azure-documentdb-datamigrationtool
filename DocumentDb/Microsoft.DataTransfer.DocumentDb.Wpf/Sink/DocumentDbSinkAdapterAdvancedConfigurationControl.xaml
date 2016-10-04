@@ -32,40 +32,42 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <StackPanel>
-    <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource DisableIdGenerationDescriptionKey}">
-      <CheckBox Content="{DynamicResource DisableIdGenerationKey}" IsChecked="{Binding DisableIdGeneration}" />
-    </bc:ToolTipDecorator>
+  <AdornerDecorator>
+    <StackPanel>
+      <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource DisableIdGenerationDescriptionKey}">
+        <CheckBox Content="{DynamicResource DisableIdGenerationKey}" IsChecked="{Binding DisableIdGeneration}" />
+      </bc:ToolTipDecorator>
 
-    <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource UpdateExistingDescriptionKey}">
-      <CheckBox Content="{DynamicResource UpdateExistingKey}" IsChecked="{Binding UpdateExisting}" />
-    </bc:ToolTipDecorator>
+      <bc:ToolTipDecorator Style="{StaticResource SingleLineOptionElement}" ToolTip="{DynamicResource UpdateExistingDescriptionKey}">
+        <CheckBox Content="{DynamicResource UpdateExistingKey}" IsChecked="{Binding UpdateExisting}" />
+      </bc:ToolTipDecorator>
 
-    <StackPanel Style="{StaticResource OptionElement}">
-      <Label Content="{DynamicResource DatesHandlingKey}" />
-      <ComboBox ItemsSource="{Binding Source={StaticResource DateTimeHandlingValues}}" SelectedValue="{Binding Dates}" />
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource DatesHandlingKey}" />
+        <ComboBox ItemsSource="{Binding Source={StaticResource DateTimeHandlingValues}}" SelectedValue="{Binding Dates}" />
+      </StackPanel>
+
+      <bc:StringOrFileConfigurationControl Style="{StaticResource IndexingPolicyEditor}"
+        UseFile="{Binding UseIndexingPolicyFile}"
+        StringValueLabel="{DynamicResource EnterIndexingPolicySelectionKey}" StringValue="{Binding IndexingPolicy}"
+        FileNameLabel="{DynamicResource IndexingPolicyFileSelectionKey}" FileName="{Binding IndexingPolicyFile}"
+        FileFilter="{DynamicResource IndexingPolicyFileFilterKey}" FileDefaultExtension="{DynamicResource IndexingPolicyFileDefaultExtensionKey}">
+        <bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+          <ContextMenu>
+            <MenuItem Header="{DynamicResource IndexingPolicyDefaultTemplateMenuHeader}"
+              Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyDefaultTemplate}" />
+            <MenuItem Header="{DynamicResource IndexingPolicyAllRangeTemplateMenuHeader}"
+              Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllRangeTemplate}" />
+            <Separator />
+            <MenuItem Command="ApplicationCommands.Copy" />
+            <MenuItem Command="ApplicationCommands.Cut" />
+            <MenuItem Command="ApplicationCommands.Paste" />
+          </ContextMenu>
+        </bc:StringOrFileConfigurationControl.StringEditorContextMenu>
+      </bc:StringOrFileConfigurationControl>
+
+      <shared:DocumentDbAdapterAdvancedConfigurationControl DataContext="{Binding}" />
     </StackPanel>
+  </AdornerDecorator>
 
-    <bc:StringOrFileConfigurationControl Style="{StaticResource IndexingPolicyEditor}"
-      UseFile="{Binding UseIndexingPolicyFile}"
-      StringValueLabel="{DynamicResource EnterIndexingPolicySelectionKey}" StringValue="{Binding IndexingPolicy}"
-      FileNameLabel="{DynamicResource IndexingPolicyFileSelectionKey}" FileName="{Binding IndexingPolicyFile}"
-      FileFilter="{DynamicResource IndexingPolicyFileFilterKey}" FileDefaultExtension="{DynamicResource IndexingPolicyFileDefaultExtensionKey}">
-      <bc:StringOrFileConfigurationControl.StringEditorContextMenu>
-        <ContextMenu>
-          <MenuItem Header="{DynamicResource IndexingPolicyDefaultTemplateMenuHeader}"
-                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyDefaultTemplate}" />
-          <MenuItem Header="{DynamicResource IndexingPolicyAllRangeTemplateMenuHeader}"
-                Command="{Binding Source={StaticResource PasteToFocusedTextBox}}" CommandParameter="{DynamicResource IndexingPolicyAllRangeTemplate}" />
-          <Separator />
-          <MenuItem Command="ApplicationCommands.Copy" />
-          <MenuItem Command="ApplicationCommands.Cut" />
-          <MenuItem Command="ApplicationCommands.Paste" />
-        </ContextMenu>
-      </bc:StringOrFileConfigurationControl.StringEditorContextMenu>
-    </bc:StringOrFileConfigurationControl>
-
-    <shared:DocumentDbAdapterAdvancedConfigurationControl DataContext="{Binding}" />
-  </StackPanel>
-  
 </UserControl>

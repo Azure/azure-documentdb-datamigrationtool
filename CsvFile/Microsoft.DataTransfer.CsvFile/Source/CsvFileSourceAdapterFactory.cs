@@ -43,7 +43,7 @@ namespace Microsoft.DataTransfer.CsvFile.Source
             return new AggregateDataSourceAdapter(
                 configuration.Files
                     .SelectMany(f => SourceStreamProvidersFactory
-                        .Create(f)
+                        .Create(f, configuration.Decompress)
                         .Select(p => new CsvFileSourceAdapter(p, instanceConfiguration))));
         }
 
@@ -53,7 +53,8 @@ namespace Microsoft.DataTransfer.CsvFile.Source
             {
                 NestingSeparator = configuration.NestingSeparator,
                 TrimQuoted = configuration.TrimQuoted,
-                NoUnquotedNulls = configuration.NoUnquotedNulls
+                NoUnquotedNulls = configuration.NoUnquotedNulls,
+                UseRegionalSettings = configuration.UseRegionalSettings
             };
         }
     }

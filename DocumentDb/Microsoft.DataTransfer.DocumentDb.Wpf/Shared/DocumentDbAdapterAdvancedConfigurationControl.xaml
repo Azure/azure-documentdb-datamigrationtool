@@ -22,24 +22,26 @@
       </ObjectDataProvider>
     </ResourceDictionary>
   </UserControl.Resources>
-  
-  <StackPanel>
-    <StackPanel Style="{StaticResource OptionElement}">
-      <Label Content="{DynamicResource RetriesKey}" />
-      <TextBox Text="{Binding Retries, UpdateSourceTrigger=PropertyChanged}" />
-    </StackPanel>
 
-    <StackPanel Style="{StaticResource OptionElement}">
-      <Label Content="{DynamicResource RetryIntervalKey}" />
-      <TextBox Text="{Binding RetryInterval, UpdateSourceTrigger=PropertyChanged}" />
-    </StackPanel>
+  <AdornerDecorator>
+    <StackPanel>
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource RetriesKey}" />
+        <TextBox Text="{Binding Retries, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </StackPanel>
 
-    <StackPanel Style="{StaticResource OptionElement}">
-      <bc:ToolTipDecorator ToolTip="{DynamicResource ConnectionModeDescriptionKey}">
-        <Label Content="{DynamicResource ConnectionModeKey}" />
-      </bc:ToolTipDecorator>
-      <ComboBox ItemsSource="{Binding Source={StaticResource ConnectionModeValues}}" SelectedValue="{Binding ConnectionMode}" />
+      <StackPanel Style="{StaticResource OptionElement}">
+        <Label Content="{DynamicResource RetryIntervalKey}" />
+        <TextBox Text="{Binding RetryInterval, UpdateSourceTrigger=PropertyChanged}" />
+      </StackPanel>
+
+      <StackPanel Style="{StaticResource OptionElement}">
+        <bc:ToolTipDecorator ToolTip="{DynamicResource ConnectionModeDescriptionKey}">
+          <Label Content="{DynamicResource ConnectionModeKey}" />
+        </bc:ToolTipDecorator>
+        <ComboBox ItemsSource="{Binding Source={StaticResource ConnectionModeValues}}" SelectedValue="{Binding ConnectionMode}" />
+      </StackPanel>
     </StackPanel>
-  </StackPanel>
-  
+  </AdornerDecorator>
+
 </UserControl>

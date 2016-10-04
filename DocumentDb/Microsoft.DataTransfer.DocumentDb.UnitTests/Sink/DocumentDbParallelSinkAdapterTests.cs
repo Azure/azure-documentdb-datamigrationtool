@@ -4,6 +4,7 @@ using Microsoft.DataTransfer.TestsCommon;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
@@ -28,7 +29,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 
             using (var adapter = new DocumentDbParallelSinkAdapter(clientMock, PassThroughTransformation.Instance, configuration))
             {
-                await adapter.InitializeAsync();
+                await adapter.InitializeAsync(CancellationToken.None);
                 await WriteDataAsync(adapter, SampleData.GetSimpleDataItems(NumberOfItems));
             }
 
@@ -56,7 +57,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
 
             using (var adapter = new DocumentDbParallelSinkAdapter(clientMock, PassThroughTransformation.Instance, configuration))
             {
-                await adapter.InitializeAsync();
+                await adapter.InitializeAsync(CancellationToken.None);
                 await WriteDataAsync(adapter, SampleData.GetSimpleDataItems(NumberOfItems));
             }
 

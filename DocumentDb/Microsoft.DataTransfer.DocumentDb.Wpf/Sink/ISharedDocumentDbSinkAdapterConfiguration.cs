@@ -5,6 +5,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     interface ISharedDocumentDbSinkAdapterConfiguration : ISharedDocumentDbAdapterConfiguration
     {
+        int? CollectionThroughput { get; set; }
         bool UseIndexingPolicyFile { get; set; }
         string IndexingPolicy { get; set; }
         string IndexingPolicyFile { get; set; }

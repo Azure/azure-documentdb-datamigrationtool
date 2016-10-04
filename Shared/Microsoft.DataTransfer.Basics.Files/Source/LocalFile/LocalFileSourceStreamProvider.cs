@@ -13,9 +13,9 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.LocalFile
             Id = fileName;
         }
 
-        public Task<StreamReader> CreateReader(CancellationToken cancellation)
+        public Task<Stream> CreateStream(CancellationToken cancellation)
         {
-            return Task.FromResult(File.OpenText(Id));
+            return Task.FromResult<Stream>(File.OpenRead(Id));
         }
     }
 }

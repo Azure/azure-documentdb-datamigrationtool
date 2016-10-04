@@ -20,14 +20,16 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <DockPanel x:Name="LayoutRoot">
-    <Button DockPanel.Dock="Right" Style="{StaticResource SelectButton}" 
-      Content="{DynamicResource SelectFileKey}"
-      Command="{Binding SelectFile}" />
+  <AdornerDecorator>
+    <DockPanel x:Name="LayoutRoot">
+      <Button DockPanel.Dock="Right" Style="{StaticResource SelectButton}" 
+        Content="{DynamicResource SelectFileKey}"
+        Command="{Binding SelectFile}" />
 
-    <TextBox DockPanel.Dock="Left"
-      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-      Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
-  </DockPanel>
+      <TextBox DockPanel.Dock="Left"
+        Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+        Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+    </DockPanel>
+  </AdornerDecorator>
 
 </UserControl>

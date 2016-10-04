@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:shared="clr-namespace:Microsoft.DataTransfer.AzureTable.Wpf.Shared"
              mc:Ignorable="d" x:ClassModifier="internal"
              d:DesignHeight="300" d:DesignWidth="300">
   
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\XamlResources.xaml"/>
+        <ResourceDictionary Source="..\XamlResources.xaml" />
       </ResourceDictionary.MergedDictionaries>
+
+      <shared:AzureStorageLocationModeValueConverter x:Key="LocationModeConverter" />
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -25,6 +28,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource ConnectionStringSummaryKey}" />
@@ -32,23 +36,28 @@
       <TextBlock Text="{Binding ConnectionString}" />
     </Label>
 
-    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource TableNameSummaryKey}" />
+    <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource LocationModeSummaryKey}" />
     <Label Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="{Binding LocationMode, Converter={StaticResource LocationModeConverter}}" />
+    </Label>
+
+    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource TableNameSummaryKey}" />
+    <Label Grid.Row="2" Grid.Column="1">
       <TextBlock Text="{Binding Table}" />
     </Label>
 
-    <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource InternalFieldsSummaryKey}" />
-    <Label Grid.Row="2" Grid.Column="1">
+    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource InternalFieldsSummaryKey}" />
+    <Label Grid.Row="3" Grid.Column="1">
       <TextBlock Text="{Binding InternalFields}" />
     </Label>
 
-    <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource FilterSummaryKey}" />
-    <Label Grid.Row="3" Grid.Column="1">
+    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource FilterSummaryKey}" />
+    <Label Grid.Row="4" Grid.Column="1">
       <TextBlock Text="{Binding Filter}" />
     </Label>
     
-    <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource ProjectionSummaryKey}" />
-    <ItemsControl Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Projection}" />
+    <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource ProjectionSummaryKey}" />
+    <ItemsControl Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Projection}" />
   </Grid>
   
 </UserControl>

@@ -21,9 +21,9 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         private const string CollectionNamePrefix = "TestCollection";
 
         private IMongoDbSourceAdapterConfiguration Configuration;
-        private MongoDatabase Database;
+        private IMongoDatabase Database;
         private string CollectionName;
-        private MongoCollection Collection;
+        private IMongoCollection<BsonDocument> Collection;
 
         [TestInitialize]
         public void Initialize()
@@ -38,10 +38,9 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
                     .First();
 
             Database = new MongoClient(Configuration.ConnectionString)
-                .GetServer()
                 .GetDatabase(new MongoUrl(Configuration.ConnectionString).DatabaseName);
 
-            Collection = Database.GetCollection(Configuration.Collection);
+            Collection = Database.GetCollection<BsonDocument>(Configuration.Collection);
         }
 
         [TestCleanup]
@@ -55,7 +54,8 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         {
             var expectedFields = new[] { "_id", "DateTimeProperty", "FloatProperty" };
 
-            Collection.Insert(new MongoDocument(SampleData.GetSimpleDocuments(1)[0]));
+            await Collection.InsertOneAsync(
+                new BsonDocument(SampleData.GetSimpleDocuments(1)[0]));
 
             var configuration =
                 Mocks
@@ -82,7 +82,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var excludedProperties = new[] { "DateTimeProperty", "FloatProperty" };
 
             var document = SampleData.GetSimpleDocuments(1)[0];
-            Collection.Insert(new MongoDocument(document));
+            await Collection.InsertOneAsync(new BsonDocument(document));
 
             var configuration =
                 Mocks
@@ -108,15 +108,15 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         }
 
         [TestMethod, Timeout(120000)]
-        public async Task ReadSimpleDocument_AllFieldsRead()
+        public async Task ReadSimpleDocuments_AllFieldsRead()
         {
             var documents = SampleData.GetSimpleDocuments(5);
 
             foreach (var document in documents)
             {
-                var hashDocument = new MongoDocument(document);
-                Collection.Insert(hashDocument);
-                document["_id"] = hashDocument.Id.ToString();
+                var bsonDocument = new BsonDocument(document);
+                await Collection.InsertOneAsync(bsonDocument);
+                document["_id"] = bsonDocument["_id"].ToString();
             }
 
             List<IDataItem> readResults;
@@ -130,6 +130,39 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         }
 
         [TestMethod, Timeout(120000)]
+        public async Task ReadSimpleDocuments_FilterIntegerProperty_MatchingDataRead()
+        {
+            var documents = SampleData.GetSimpleDocuments(5);
+
+            foreach (var document in documents)
+            {
+                var bsonDocument = new BsonDocument(document);
+                await Collection.InsertOneAsync(bsonDocument);
+                document["_id"] = bsonDocument["_id"].ToString();
+            }
+
+            var configuration =
+                Mocks
+                    .Of<IMongoDbSourceAdapterConfiguration>(c =>
+                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.Collection == CollectionName &&
+                        c.Query == "{ IntegerProperty: { $gt: 2 } }")
+                    .First();
+
+            List<IDataItem> readResults;
+            using (var adapter = await new MongoDbSourceAdapterFactory()
+                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
+            {
+                readResults = await ReadDataAsync(adapter);
+            }
+
+            DataItemCollectionAssert.AreEquivalent(
+                documents.Where(d => (int)d["IntegerProperty"] > 2),
+                readResults,
+                TestResources.InvalidDocumentsRead);
+        }
+
+        [TestMethod, Timeout(120000)]
         public async Task ReadDocumentWithNonJsonProperties_AllFieldsRead()
         {
             var jScriptValue = "var i=0;";
@@ -138,7 +171,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var guidValue = Guid.NewGuid();
             var symbolValue = "testSymbol";
 
-            Collection.Insert(new BsonDocument
+            await Collection.InsertOneAsync(new BsonDocument
             {
                 { "script", new BsonJavaScript(jScriptValue) },
                 { "regex", new BsonRegularExpression("ab*", "si") },

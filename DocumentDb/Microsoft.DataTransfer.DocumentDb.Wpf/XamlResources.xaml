@@ -34,10 +34,6 @@
   </system:String>
   <system:String x:Key="PartitionKeySummaryKey">Partition Key:</system:String>
   
-  <system:String x:Key="CollectionTierKey">Collection Pricing Tier</system:String>
-  <system:String x:Key="CollectionTierDescriptionKey">Specify the pricing / performance tier of the collection. Note that this only applies to collection creation, existing collections will not have their pricing tier modified</system:String>
-  <system:String x:Key="CollectionTierSummaryKey">Collection Pricing Tier:</system:String>
-
   <system:String x:Key="CollectionThroughputKey">Collection Throughput</system:String>
   <system:String x:Key="CollectionThroughputDescriptionKey">Specify the desired throughput for the collection in RUs (request units). Note that this only applies to collection creation, existing collections will not have their throughput modified</system:String>
   <system:String x:Key="CollectionThroughputSummaryKey">Collection Throughput:</system:String>

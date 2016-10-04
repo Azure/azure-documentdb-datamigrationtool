@@ -40,42 +40,53 @@ namespace Microsoft.DataTransfer.CsvFile.Reader
             char character;
             while (ReadNext(out character))
             {
-                switch (character)
+                if (character == '\r')
                 {
-                    case '\r':
-                        break;
-                    case '\n':
-                        if (readingValue)
-                            result.Add(ConvertUnquotedValue(value.ToString()));
+                    continue;
+                }
+                else if (character == '\n')
+                {
+                    if (readingValue)
+                        result.Add(ConvertUnquotedValue(value.ToString()));
 
-                        if (!result.Any())
-                            // Skip empty row and continue
-                            break;
+                    if (!result.Any())
+                        // Skip empty row and continue
+                        continue;
 
-                        return result;
-                    case ',':
-                        if (readingValue)
-                            result.Add(ConvertUnquotedValue(value.ToString()));
-                        value.Clear();
-                        readingValue = true;
-                        break;
-                    case '"':
-                        if (value.Length > 0 || !readingValue)
-                            throw UnexpectedCharacter(character);
-                        result.Add(ReadQuotedValue());
-                        readingValue = false;
-                        break;
-                    case ' ':
-                    case '\t':
-                        // Trim spaces and tabs at the beginning of unquoted values
-                        if (value.Length > 0)
-                            value.Append(character);
-                        break;
-                    default:
-                        if (!readingValue)
-                            throw UnexpectedCharacter(character);
+                    return result;
+                }
+                // Currently there seem to be no standard cultures that use multiple characters as a list separator.
+                // Lets not complicate the parsing logic for now.
+                else if (character == configuration.ParserCulture.TextInfo.ListSeparator[0])
+                {
+                    if (readingValue)
+                        result.Add(ConvertUnquotedValue(value.ToString()));
+
+                    value.Clear();
+                    readingValue = true;
+                    continue;
+                }
+                else if (character == '"')
+                {
+                    if (value.Length > 0 || !readingValue)
+                        throw UnexpectedCharacter(character);
+
+                    result.Add(ReadQuotedValue());
+                    readingValue = false;
+                    continue;
+                }
+                else if (character == ' ' || character == '\t') 
+                {
+                    // Trim spaces and tabs at the beginning of unquoted values
+                    if (value.Length > 0)
                         value.Append(character);
-                        break;
+                    continue;
+                }
+                else
+                {
+                    if (!readingValue)
+                        throw UnexpectedCharacter(character);
+                    value.Append(character);
                 }
             }
 
@@ -125,16 +136,18 @@ namespace Microsoft.DataTransfer.CsvFile.Reader
             if (String.IsNullOrEmpty(value))
                 return null;
 
+            var numberFormat = NumberFormatInfo.GetInstance(configuration.ParserCulture);
+
             long number;
-            if (long.TryParse(value, out number))
+            if (long.TryParse(value, NumberStyles.Integer, numberFormat, out number))
                 return number;
 
             double doubleNumber;
-            if (double.TryParse(value, out doubleNumber))
+            if (double.TryParse(value, NumberStyles.Float | NumberStyles.AllowThousands, numberFormat, out doubleNumber))
                 return doubleNumber;
 
             DateTime dateTime;
-            if (DateTime.TryParse(value, CultureInfo.InvariantCulture,
+            if (DateTime.TryParse(value, DateTimeFormatInfo.GetInstance(configuration.ParserCulture),
                     DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out dateTime))
                 return dateTime;
 

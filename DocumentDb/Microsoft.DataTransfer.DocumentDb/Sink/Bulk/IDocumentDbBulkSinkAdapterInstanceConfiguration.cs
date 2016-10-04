@@ -5,7 +5,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
     interface IDocumentDbBulkSinkAdapterInstanceConfiguration
     {
         string Collection { get; }
-        CollectionPricingTier CollectionTier { get; }
+        int CollectionThroughput { get; }
         IndexingPolicy IndexingPolicy { get; }
         bool DisableIdGeneration { get; }
         bool UpdateExisting { get; }

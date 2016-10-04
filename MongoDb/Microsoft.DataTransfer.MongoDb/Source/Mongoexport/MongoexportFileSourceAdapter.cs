@@ -25,7 +25,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Mongoexport
         {
             if (file == null)
             {
-                file = await sourceStreamProvider.CreateReader(cancellation);
+                file = new StreamReader(await sourceStreamProvider.CreateStream(cancellation));
             }
 
             readOutput.DataItemId = String.Format(CultureInfo.InvariantCulture,

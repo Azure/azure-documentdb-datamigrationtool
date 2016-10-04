@@ -6,7 +6,6 @@ using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
 using Microsoft.DataTransfer.DocumentDb.Client.PartitionResolvers;
 using Microsoft.DataTransfer.DocumentDb.Client.Serialization;
-using Microsoft.DataTransfer.DocumentDb.Sink;
 using Microsoft.DataTransfer.Extensibility.Basics.Collections;
 using System;
 using System.Collections.Generic;
@@ -32,25 +31,20 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             this.databaseName = databaseName;
         }
 
-        public Task<string> GetOrCreateCollectionAsync(string collectionName, CollectionPricingTier collectionTier, IndexingPolicy indexingPolicy)
-        {
-            return GetOrCreateCollectionAsyncInternal(collectionName, null,
-                new RequestOptions { OfferType = ToOfferType(collectionTier) }, indexingPolicy);
-        }
-
-        public Task<string> GetOrCreateElasticCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy)
+        public Task<string> GetOrCreateCollectionAsync(
+            string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
             return GetOrCreateCollectionAsyncInternal(collectionName, partitionKey,
-                new RequestOptions { OfferThroughput = desiredThroughput }, indexingPolicy);
+                new RequestOptions { OfferThroughput = desiredThroughput }, indexingPolicy, cancellation);
         }
 
         public async Task<string> GetOrCreateCollectionAsyncInternal(
-            string collectionName, string partitionKey, RequestOptions requestOptions, IndexingPolicy indexingPolicy)
+            string collectionName, string partitionKey, RequestOptions requestOptions, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
             Guard.NotEmpty("collectionName", collectionName);
 
-            var database = await GetOrCreateDatabase(databaseName);
-            var collection = await TryGetCollection(database, collectionName);
+            var database = await GetOrCreateDatabase(databaseName, cancellation);
+            var collection = await TryGetCollection(database, collectionName, cancellation);
 
             if (collection == null)
             {
@@ -78,7 +72,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
                 }
 
                 if (alreadyExists)
-                    collection = await TryGetCollection(database, collectionName);
+                    collection = await TryGetCollection(database, collectionName, cancellation);
             }
 
             if (collection == null)
@@ -87,18 +81,13 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return collection.SelfLink;
         }
 
-        private static string ToOfferType(CollectionPricingTier collectionTier)
-        {
-            return Enum.GetName(typeof(CollectionPricingTier), collectionTier).ToUpperInvariant();
-        }
-
-        private Task<DocumentCollection> TryGetCollection(Database database, string collectionName)
+        private Task<DocumentCollection> TryGetCollection(Database database, string collectionName, CancellationToken cancellation)
         {
             return client
                 .CreateDocumentCollectionQuery(database.CollectionsLink)
                 .Where(c => c.Id == collectionName)
                 .AsDocumentQuery()
-                .FirstOrDefault();
+                .FirstOrDefault(cancellation);
         }
 
         public Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration)
@@ -143,7 +132,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
         {
             Guard.NotEmpty("collectionNamePattern", collectionNamePattern);
 
-            var database = await TryGetDatabase(databaseName);
+            var database = await TryGetDatabase(databaseName, cancellation);
             if (database == null)
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
 
@@ -189,11 +178,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return result;
         }
 
-        private async Task<Database> GetOrCreateDatabase(string name)
+        private async Task<Database> GetOrCreateDatabase(string name, CancellationToken cancellation)
         {
             Guard.NotEmpty("name", name);
 
-            var database = await TryGetDatabase(name);
+            var database = await TryGetDatabase(name, cancellation);
 
             if (database == null)
             {
@@ -212,7 +201,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
                 }
 
                 if (alreadyExists)
-                    database = await TryGetDatabase(name);
+                    database = await TryGetDatabase(name, cancellation);
             }
 
             if (database == null)
@@ -221,13 +210,13 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return database;
         }
 
-        private Task<Database> TryGetDatabase(string name)
+        private Task<Database> TryGetDatabase(string name, CancellationToken cancellation)
         {
             return client
                 .CreateDatabaseQuery()
                 .Where(d => d.Id == name)
                 .AsDocumentQuery()
-                .FirstOrDefault();
+                .FirstOrDefault(cancellation);
         }
 
         public void Dispose()

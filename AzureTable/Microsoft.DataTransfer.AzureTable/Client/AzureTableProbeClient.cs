@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.DataTransfer.AzureTable.Shared;
+using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Threading.Tasks;
 
@@ -13,13 +14,17 @@ namespace Microsoft.DataTransfer.AzureTable.Client
         /// Tests the Azure Table storage connection.
         /// </summary>
         /// <param name="connectionString">Azure Table storage connection string to use to connect to the account.</param>
+        /// <param name="locationMode">Location mode to use when connecting to Azure Table storage.</param>
         /// <returns>Task that represents asynchronous connection operation.</returns>
-        public async Task TestConnection(string connectionString)
+        public async Task TestConnection(string connectionString, AzureStorageLocationMode? locationMode)
         {
             if (String.IsNullOrEmpty(connectionString))
                 throw Errors.ConnectionStringMissing();
 
-            var properties = await CloudStorageAccount.Parse(connectionString).CreateCloudTableClient().GetServicePropertiesAsync();
+            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
+            client.DefaultRequestOptions.LocationMode = AzureTableClientHelper.ToSdkLocationMode(locationMode);
+
+            var properties = await client.GetServicePropertiesAsync();
             if (properties == null)
                 throw Errors.EmptyResponseReceived();
         }

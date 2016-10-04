@@ -43,31 +43,33 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <DockPanel x:Name="LayoutRoot">
-    <Label DockPanel.Dock="Top">
-      <StackPanel Style="{StaticResource QuerySourceSelector}">
-        <RadioButton
-          GroupName="{Binding Source={StaticResource ControlInstanceId}}"
-          Content="{Binding StringValueLabel}" 
-          IsChecked="{Binding UseFile, Converter={StaticResource NotOperator}}" />
-        <RadioButton
-          GroupName="{Binding Source={StaticResource ControlInstanceId}}"
-          Content="{Binding FileNameLabel}"
-          IsChecked="{Binding UseFile}" />
-      </StackPanel>
-    </Label>
+  <AdornerDecorator>
+    <DockPanel x:Name="LayoutRoot">
+      <Label DockPanel.Dock="Top">
+        <StackPanel Style="{StaticResource QuerySourceSelector}">
+          <RadioButton
+            GroupName="{Binding Source={StaticResource ControlInstanceId}}"
+            Content="{Binding StringValueLabel}" 
+            IsChecked="{Binding UseFile, Converter={StaticResource NotOperator}}" />
+          <RadioButton
+            GroupName="{Binding Source={StaticResource ControlInstanceId}}"
+            Content="{Binding FileNameLabel}"
+            IsChecked="{Binding UseFile}" />
+        </StackPanel>
+      </Label>
 
-    <DockPanel DockPanel.Dock="Top" Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
-      <local:OpenFileControl DockPanel.Dock="Top"
-        Visibility="{Binding UseFile, Converter={StaticResource IsVisible}}"
-        FileName="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"
-        Filter="{Binding FileFilter}"
-        DefaultExtension="{Binding FileDefaultExtension}" />
+      <DockPanel DockPanel.Dock="Top" Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+        <local:OpenFileControl DockPanel.Dock="Top"
+          Visibility="{Binding UseFile, Converter={StaticResource IsVisible}}"
+          FileName="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"
+          Filter="{Binding FileFilter}"
+          DefaultExtension="{Binding FileDefaultExtension}" />
 
-      <TextBox DockPanel.Dock="Top" Style="{StaticResource StringEditor}"
-        Visibility="{Binding UseFile, Converter={StaticResource IsInvisible}}" ContextMenu="{Binding StringEditorContextMenu}"
-        Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+        <TextBox DockPanel.Dock="Top" Style="{StaticResource StringEditor}"
+          Visibility="{Binding UseFile, Converter={StaticResource IsInvisible}}" ContextMenu="{Binding StringEditorContextMenu}"
+          Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+      </DockPanel>
     </DockPanel>
-  </DockPanel>
-  
+  </AdornerDecorator>
+
 </UserControl>

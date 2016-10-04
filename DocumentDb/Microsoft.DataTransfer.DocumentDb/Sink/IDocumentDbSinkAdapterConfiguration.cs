@@ -1,5 +1,4 @@
 ﻿using Microsoft.DataTransfer.DocumentDb.Shared;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink
@@ -9,6 +8,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink
     /// </summary>
     public interface IDocumentDbSinkAdapterConfiguration : IDocumentDbAdapterConfiguration
     {
+        /// <summary>
+        /// Gets the collection throughput.
+        /// </summary>
+        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Sink_CollectionThroughput")]
+        int? CollectionThroughput { get; }
+
         /// <summary>
         /// Gets the document collection indexing policy.
         /// </summary>

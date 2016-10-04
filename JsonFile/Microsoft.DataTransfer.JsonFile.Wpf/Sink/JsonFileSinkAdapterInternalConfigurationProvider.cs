@@ -34,6 +34,9 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Sink
 
             if (configuration.Overwrite)
                 arguments.Add(JsonFileSinkAdapterConfiguration.OverwritePropertyName, null);
+
+            if (configuration.Compress)
+                arguments.Add(JsonFileSinkAdapterConfiguration.CompressPropertyName, null);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.AzureTable.Shared;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.WpfHost.Basics.Commands;
 using System;
@@ -18,7 +19,12 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared
 
         protected override async Task ExecuteAsync(object parameter)
         {
-            await probeClient.TestConnection(parameter as string);
+            var configuration = parameter as IAzureTableAdapterConfiguration;
+
+            if (configuration == null)
+                return;
+
+            await probeClient.TestConnection(configuration.ConnectionString, configuration.LocationMode);
 
             MessageBox.Show(
                 Resources.TestConnectionSuccessMessage,

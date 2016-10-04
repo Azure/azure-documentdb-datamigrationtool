@@ -31,5 +31,17 @@ namespace Microsoft.DataTransfer.CsvFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_NoUnquotedNulls")]
         bool NoUnquotedNulls { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether regional format settings should be used to parse the input files.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_UseRegionalSettings")]
+        bool UseRegionalSettings { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether input files should be decompressed.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Decompress")]
+        bool Decompress { get; }
     }
 }

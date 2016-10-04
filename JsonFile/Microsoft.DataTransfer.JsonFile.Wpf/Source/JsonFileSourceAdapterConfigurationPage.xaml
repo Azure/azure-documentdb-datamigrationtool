@@ -10,18 +10,28 @@
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\XamlResources.xaml"/>
+        <ResourceDictionary Source="..\XamlResources.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
   
   <AdornerDecorator>
-    <DockPanel Style="{StaticResource OptionElement}">
-      <bc:FilesPickerControl DockPanel.Dock="Bottom"
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <bc:FilesPickerControl Grid.Row="0" Style="{StaticResource OptionElement}"
         Files="{Binding EditableFiles}"
         Filter="{DynamicResource OpenFilesFilterKey}"
         DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
-    </DockPanel>
+
+      <bc:ToolTipDecorator Grid.Row="1" Style="{StaticResource SingleLineOptionElement}"
+        ToolTip="{DynamicResource DecompressDescriptionKey}">
+        <CheckBox Content="{DynamicResource DecompressKey}" IsChecked="{Binding Decompress}" />
+      </bc:ToolTipDecorator>
+    </Grid>
   </AdornerDecorator>
 
 </UserControl>

@@ -35,20 +35,13 @@
           <TextBox Text="{Binding PartitionKey, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
         </StackPanel>
 
-        <StackPanel Style="{StaticResource OptionElement}">
-          <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionThroughputDescriptionKey}">
-            <Label Content="{DynamicResource CollectionThroughputKey}" />
-          </bc:ToolTipDecorator>
-          <TextBox Text="{Binding CollectionThroughput, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-
         <sink:DocumentDbSinkAdapterCommonConfigurationControl DataContext="{Binding}" />
 
         <Expander Style="{DynamicResource OptionElement}" Header="{DynamicResource AdvancedConfigurationTitleKey}">
           <StackPanel>
             <StackPanel Style="{StaticResource OptionElement}">
               <Label Content="{DynamicResource ParallelRequestsKey}" />
-              <TextBox Text="{Binding ParallelRequests, UpdateSourceTrigger=PropertyChanged}" />
+              <TextBox Text="{Binding ParallelRequests, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
             </StackPanel>
             
             <sink:DocumentDbSinkAdapterAdvancedConfigurationControl DataContext="{Binding}" />

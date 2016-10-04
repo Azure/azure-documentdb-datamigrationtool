@@ -1,13 +1,12 @@
 ﻿using Microsoft.DataTransfer.DocumentDb.Sink;
 using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
     sealed class SharedDocumentDbSinkAdapterConfiguration : SharedDocumentDbAdapterConfiguration, ISharedDocumentDbSinkAdapterConfiguration
     {
+        private int? collectionThroughput;
+
         private bool useIndexingPolicyFile;
         private string indexingPolicy;
         private string indexingPolicyFile;
@@ -17,6 +16,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
         private bool updateExisting;
 
         private DateTimeHandling? dates;
+
+        public int? CollectionThroughput
+        {
+            get { return collectionThroughput; }
+            set { SetProperty(ref collectionThroughput, value, ValidateNonNegativeInteger); }
+        }
 
         public bool UseIndexingPolicyFile
         {
@@ -62,6 +67,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
         public SharedDocumentDbSinkAdapterConfiguration()
         {
+            CollectionThroughput = Defaults.Current.SinkCollectionThroughput;
             Dates = Defaults.Current.SinkDateTimeHandling;
         }
     }

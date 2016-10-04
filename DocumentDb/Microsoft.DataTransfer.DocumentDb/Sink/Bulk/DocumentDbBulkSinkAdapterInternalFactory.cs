@@ -30,10 +30,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 throw Errors.CollectionNameMissing();
 
             var sink = new DocumentDbBulkSinkAdapterDispatcher(
-                CreateClient(configuration, context, collectionNames.Count() > 1),
+                CreateClient(configuration, context, collectionNames.Count() > 1, null),
                 transformation, GetInstanceConfiguration(configuration, collectionNames));
 
-            await sink.InitializeAsync();
+            await sink.InitializeAsync(cancellation);
 
             return sink;
         }
@@ -47,7 +47,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             {
                 Collections = collectionNames,
                 PartitionKey = configuration.PartitionKey,
-                CollectionTier = GetValueOrDefault(configuration.CollectionTier, Defaults.Current.BulkSinkCollectionTier),
+                CollectionThroughput = GetValueOrDefault(configuration.CollectionThroughput,
+                    Defaults.Current.SinkCollectionThroughput, Errors.InvalidCollectionThroughput),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 UpdateExisting = configuration.UpdateExisting,

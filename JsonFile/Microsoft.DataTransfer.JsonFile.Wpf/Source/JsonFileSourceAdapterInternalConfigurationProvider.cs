@@ -1,8 +1,6 @@
 ﻿using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.WpfHost.Extensibility.Basics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
@@ -30,6 +28,9 @@ namespace Microsoft.DataTransfer.JsonFile.Wpf.Source
             Guard.NotNull("arguments", arguments);
 
             arguments.Add(JsonFileSourceAdapterConfiguration.FilesPropertyName, AsCollectionArgument(configuration.Files));
+
+            if (configuration.Decompress)
+                arguments.Add(JsonFileSourceAdapterConfiguration.DecompressPropertyName, null);
         }
     }
 }

@@ -47,6 +47,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             return new AzureTableSourceAdapterInstanceConfiguration
             {
                 ConnectionString = configuration.ConnectionString,
+                LocationMode = configuration.LocationMode,
                 Table = configuration.Table,
                 InternalFields = configuration.InternalFields ?? Defaults.Current.SourceInternalFields,
                 Filter = configuration.Filter,

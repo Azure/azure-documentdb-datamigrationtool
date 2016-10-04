@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.AzureTable.Source;
+﻿using Microsoft.DataTransfer.AzureTable.Shared;
+using Microsoft.DataTransfer.AzureTable.Source;
 using Microsoft.DataTransfer.Basics;
 using System;
 
@@ -42,6 +43,7 @@ namespace Microsoft.DataTransfer.AzureTable
 
         private sealed class LibraryDefaults : IDefaults
         {
+            public AzureStorageLocationMode LocationMode { get { return AzureStorageLocationMode.PrimaryOnly; } }
             public AzureTableInternalFields SourceInternalFields { get { return AzureTableInternalFields.All; } }
         }
     }

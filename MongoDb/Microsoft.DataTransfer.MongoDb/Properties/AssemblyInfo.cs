@@ -15,4 +15,5 @@ using System.Runtime.InteropServices;
 
 #if DEBUG
 [assembly: InternalsVisibleTo("Microsoft.DataTransfer.MongoDb.FunctionalTests")]
+[assembly: InternalsVisibleTo("Microsoft.DataTransfer.MongoDb.UnitTests")]
 #endif

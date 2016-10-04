@@ -1,10 +1,10 @@
 ﻿using Microsoft.Azure.Documents;
-using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.DocumentDb.Sink
 {
     interface IDocumentDbSinkAdapterInstanceConfiguration
     {
+        int CollectionThroughput { get; }
         string PartitionKey { get; }
         IndexingPolicy IndexingPolicy { get; }
         bool DisableIdGeneration { get; }

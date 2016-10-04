@@ -9,17 +9,25 @@
   <!-- String resources -->
   
   <system:String x:Key="FilesSummaryKey">Files:</system:String>
-  <system:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|All Files|*.*</system:String>
+  <system:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|GZip Files|*.gz|All Files|*.*</system:String>
   <system:String x:Key="OpenFilesDefaultExtensionKey">*.json</system:String>
 
   <system:String x:Key="FileNameKey">File</system:String>
   <system:String x:Key="FileNameSummaryKey">File:</system:String>
-  <system:String x:Key="SaveFileFilterKey">JSON Documents|*.json</system:String>
+  <system:String x:Key="SaveFileFilterKey">JSON Documents|*.json|GZip Files|*.gz</system:String>
   <system:String x:Key="SaveFileDefaultExtensionKey">*.json</system:String>
 
   <system:String x:Key="OverwriteSummaryKey">Overwrite:</system:String>
 
   <system:String x:Key="PrettifyKey">Prettify JSON</system:String>
   <system:String x:Key="PrettifySummaryKey">Prettify JSON:</system:String>
+
+  <system:String x:Key="CompressKey">Compress data</system:String>
+  <system:String x:Key="CompressDescriptionKey">Data in the target file will be compressed with GZip</system:String>
+  <system:String x:Key="CompressSummaryKey">Compress data:</system:String>
+
+  <system:String x:Key="DecompressKey">Decompress data</system:String>
+  <system:String x:Key="DecompressDescriptionKey">Data from the source files will be decompressed with GZip</system:String>
+  <system:String x:Key="DecompressSummaryKey">Decompress data:</system:String>
 
 </ResourceDictionary>

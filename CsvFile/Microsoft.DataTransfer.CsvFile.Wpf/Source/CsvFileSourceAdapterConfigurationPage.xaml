@@ -11,7 +11,7 @@
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\XamlResources.xaml"/>
+        <ResourceDictionary Source="..\XamlResources.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
@@ -23,14 +23,14 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
       
-      <DockPanel Grid.Row="0" Style="{StaticResource OptionElement}">
-        <bc:FilesPickerControl DockPanel.Dock="Bottom"
-          Files="{Binding EditableFiles}"
-          Filter="{DynamicResource OpenFilesFilterKey}"
-          DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
-      </DockPanel>
+      <bc:FilesPickerControl Grid.Row="0" Style="{StaticResource OptionElement}"
+        Files="{Binding EditableFiles}"
+        Filter="{DynamicResource OpenFilesFilterKey}"
+        DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
 
       <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
         <bc:ToolTipDecorator ToolTip="{DynamicResource NestingSeparatorDescriptionKey}">
@@ -44,6 +44,16 @@
 
       <CheckBox Grid.Row="3" Style="{StaticResource SingleLineOptionElement}"
         Content="{DynamicResource NoUnquotedNullsKey}" IsChecked="{Binding NoUnquotedNulls}" />
+
+      <bc:ToolTipDecorator Grid.Row="4" Style="{StaticResource SingleLineOptionElement}"
+        ToolTip="{DynamicResource UseRegionalSettingsDescriptionKey}">
+        <CheckBox Content="{DynamicResource UseRegionalSettingsKey}" IsChecked="{Binding UseRegionalSettings}" />
+      </bc:ToolTipDecorator>
+      
+      <bc:ToolTipDecorator Grid.Row="5" Style="{StaticResource SingleLineOptionElement}"
+        ToolTip="{DynamicResource DecompressDescriptionKey}">
+        <CheckBox Content="{DynamicResource DecompressKey}" IsChecked="{Binding Decompress}" />
+      </bc:ToolTipDecorator>
     </Grid>
   </AdornerDecorator>
   

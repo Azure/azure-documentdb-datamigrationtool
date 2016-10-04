@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CollectionPricingTier_S1" xml:space="preserve">
-    <value>Standard: S1</value>
-  </data>
-  <data name="CollectionPricingTier_S2" xml:space="preserve">
-    <value>Standard: S2</value>
-  </data>
-  <data name="CollectionPricingTier_S3" xml:space="preserve">
-    <value>Standard: S3</value>
-  </data>
-  <data name="InvalidNumberOfRetries" xml:space="preserve">
-    <value>Non-negative number of retries should be provided</value>
-  </data>
   <data name="InvalidRetryInterval" xml:space="preserve">
     <value>Non-negative retry interval should be provided</value>
   </data>

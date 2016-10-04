@@ -31,7 +31,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             dataAdapters = new Dictionary<string, IDataSinkAdapter>();
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken cancellation)
         {
             var initializationTasks = new List<Task>();
             var storedProcName = BulkImportStoredProcPrefix + Guid.NewGuid().ToString("N");
@@ -42,7 +42,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
                 var adapter = new DocumentDbBulkSinkAdapter(Client, PassThroughTransformation.Instance,
                     CreateInstanceConfiguration(collectionName, storedProcName));
                 dataAdapters.Add(collectionName, adapter);
-                initializationTasks.Add(adapter.InitializeAsync());
+                initializationTasks.Add(adapter.InitializeAsync(cancellation));
             }
 
             partitionResolver = PartitionResolverFactory.Instance.Create(Configuration.PartitionKey, collections);
@@ -55,7 +55,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             return new DocumentDbBulkSinkAdapterInstanceConfiguration
             {
                 Collection = collectionName,
-                CollectionTier = Configuration.CollectionTier,
+                CollectionThroughput = Configuration.CollectionThroughput,
                 IndexingPolicy = Configuration.IndexingPolicy,
                 DisableIdGeneration = Configuration.DisableIdGeneration,
                 UpdateExisting = Configuration.UpdateExisting,

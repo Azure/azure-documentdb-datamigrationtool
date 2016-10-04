@@ -2,7 +2,6 @@
 using Microsoft.DataTransfer.WpfHost.Basics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
 {
@@ -29,7 +28,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
         public int? Retries
         {
             get { return retries; }
-            set { SetProperty(ref retries, value, ValidateRetries); }
+            set { SetProperty(ref retries, value, ValidateNonNegativeInteger); }
         }
 
         public TimeSpan? RetryInterval
@@ -43,11 +42,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Shared
             ConnectionMode = Defaults.Current.ConnectionMode;
             Retries = Defaults.Current.NumberOfRetries;
             RetryInterval = Defaults.Current.RetryInterval;
-        }
-
-        private static IReadOnlyCollection<string> ValidateRetries(int? value)
-        {
-            return value >= 0 ? null : new[] { Resources.InvalidNumberOfRetries };
         }
 
         private static IReadOnlyCollection<string> ValidateRetryInterval(TimeSpan? value)

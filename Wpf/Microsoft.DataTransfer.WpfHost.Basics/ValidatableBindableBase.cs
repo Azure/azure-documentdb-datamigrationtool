@@ -152,6 +152,16 @@ namespace Microsoft.DataTransfer.WpfHost.Basics
             return value > 0 ? null : new[] { Resources.PositiveNumberRequired };
         }
 
+        /// <summary>
+        /// Verifies that provided <paramref name="value" /> is greater or equal to zero.
+        /// </summary>
+        /// <param name="value">Number to validate.</param>
+        /// <returns>Collection of validation errors if <paramref name="value" /> is less than zero; otherwise, null.</returns>
+        protected static IReadOnlyCollection<string> ValidateNonNegativeInteger(int? value)
+        {
+            return value >= 0 ? null : new[] { Resources.NonNegativeNumberRequired };
+        }
+
         #endregion Validators
     }
 }

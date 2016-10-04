@@ -49,35 +49,39 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <DockPanel x:Name="LayoutRoot">
-    <StackPanel DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
-      <Button Content="{DynamicResource AddFilesKey}" Command="{Binding AddFiles}" Style="{StaticResource FirstActionButton}" />
+  <AdornerDecorator>
+    <DockPanel x:Name="LayoutRoot">
+      <StackPanel DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
+        <Button Content="{DynamicResource AddFilesKey}" Command="{Binding AddFiles}" Style="{StaticResource FirstActionButton}" />
 
-      <local:DropDownButton AutomationProperties.Name="{DynamicResource AddFolderKey}">
-        <local:DropDownButton.DropDown>
-          <ContextMenu>
-            <MenuItem Header="{DynamicResource AddSingleFolderKey}" Command="{Binding AddSingleFolder}" />
-            <MenuItem Header="{DynamicResource AddRecursiveFolderKey}" Command="{Binding AddRecursiveFolder}" />
-          </ContextMenu>
-        </local:DropDownButton.DropDown>
-        <StackPanel>
-          <TextBlock Text="{DynamicResource AddFolderKey}" />
-          <ContentControl Style="{StaticResource AddFolderGlyph}" />
-        </StackPanel>
-      </local:DropDownButton>
+        <local:DropDownButton AutomationProperties.Name="{DynamicResource AddFolderKey}">
+          <local:DropDownButton.DropDown>
+            <ContextMenu>
+              <MenuItem Header="{DynamicResource AddSingleFolderKey}" Command="{Binding AddSingleFolder}" />
+              <MenuItem Header="{DynamicResource AddRecursiveFolderKey}" Command="{Binding AddRecursiveFolder}" />
+            </ContextMenu>
+          </local:DropDownButton.DropDown>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource AddFolderKey}" />
+            <ContentControl Style="{StaticResource AddFolderGlyph}" />
+          </StackPanel>
+        </local:DropDownButton>
 
-      <Button Content="{DynamicResource AddUrlKey}" Command="{Binding AddUrl}" />
-      <Button Content="{DynamicResource AddBlobKey}" Command="{Binding AddBlob}" />
-      <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" />
-    </StackPanel>
+        <Button Content="{DynamicResource AddUrlKey}" Command="{Binding AddUrl}" />
+        <Button Content="{DynamicResource AddBlobKey}" Command="{Binding AddBlob}" />
+        <Button Content="{DynamicResource RemoveFilesKey}" Command="{Binding RemoveFiles}" />
+      </StackPanel>
 
-    <local:ExtendedListBox x:Name="lbFiles" DockPanel.Dock="Top" Style="{StaticResource FilesList}"
-      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-      ItemsSource="{Binding Files}">
-      <local:ExtendedListBox.InputBindings>
-        <KeyBinding Key="Delete" Command="{Binding RemoveFiles}" />
-      </local:ExtendedListBox.InputBindings>
-    </local:ExtendedListBox>
-  </DockPanel>
+      <AdornerDecorator DockPanel.Dock="Top">
+        <local:ExtendedListBox x:Name="lbFiles" Style="{StaticResource FilesList}"
+          Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+          ItemsSource="{Binding Files}">
+          <local:ExtendedListBox.InputBindings>
+            <KeyBinding Key="Delete" Command="{Binding RemoveFiles}" />
+          </local:ExtendedListBox.InputBindings>
+        </local:ExtendedListBox>
+      </AdornerDecorator>
+    </DockPanel>
+  </AdornerDecorator>
 
 </UserControl>

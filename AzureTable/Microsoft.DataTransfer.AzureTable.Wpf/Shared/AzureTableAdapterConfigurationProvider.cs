@@ -13,6 +13,11 @@ namespace Microsoft.DataTransfer.AzureTable.Wpf.Shared
             Guard.NotNull("arguments", arguments);
 
             arguments.Add(AzureTableAdapterConfiguration.ConnectionStringPropertyName, configuration.ConnectionString);
+
+            if (configuration.LocationMode.HasValue && configuration.LocationMode.Value != Defaults.Current.LocationMode)
+                arguments.Add(
+                    AzureTableAdapterConfiguration.LocationModePropertyName,
+                    configuration.LocationMode.Value.ToString());
         }
     }
 }

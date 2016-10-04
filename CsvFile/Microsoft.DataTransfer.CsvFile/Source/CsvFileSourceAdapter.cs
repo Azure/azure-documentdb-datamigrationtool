@@ -6,6 +6,7 @@ using Microsoft.DataTransfer.Extensibility.Basics.Source;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,11 +37,12 @@ namespace Microsoft.DataTransfer.CsvFile.Source
                 if (reader == null)
                 {
                     reader = new CsvReader(
-                        await sourceStreamProvider.CreateReader(cancellation),
+                        new StreamReader(await sourceStreamProvider.CreateStream(cancellation)),
                         new CsvReaderConfiguration
                         {
                             TrimQuoted = configuration.TrimQuoted,
-                            IgnoreUnquotedNulls = configuration.NoUnquotedNulls
+                            IgnoreUnquotedNulls = configuration.NoUnquotedNulls,
+                            ParserCulture = configuration.UseRegionalSettings ? CultureInfo.CurrentCulture : CultureInfo.InvariantCulture
                         });
                     header = ReadHeaderRow();
                 }

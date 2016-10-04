@@ -31,36 +31,38 @@
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <DockPanel x:Name="LayoutRoot">
-    <Grid DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-      </Grid.ColumnDefinitions>
+  <AdornerDecorator>
+    <DockPanel x:Name="LayoutRoot">
+      <Grid DockPanel.Dock="Top" Style="{StaticResource ButtonsPane}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-      <TextBox x:Name="txtNewItem" Grid.Column="0">
-        <TextBox.InputBindings>
-          <KeyBinding Key="Return" Command="{Binding AddItem}" />
-        </TextBox.InputBindings>
-      </TextBox>
-      <Button Grid.Column="1" Content="{DynamicResource AddItemKey}" Command="{Binding AddItem}" />
-      <Button Grid.Column="2" Content="{DynamicResource RemoveItemsKey}" Command="{Binding RemoveItems}" />
-    </Grid>
+        <TextBox x:Name="txtNewItem" Grid.Column="0">
+          <TextBox.InputBindings>
+            <KeyBinding Key="Return" Command="{Binding AddItem}" />
+          </TextBox.InputBindings>
+        </TextBox>
+        <Button Grid.Column="1" Content="{DynamicResource AddItemKey}" Command="{Binding AddItem}" />
+        <Button Grid.Column="2" Content="{DynamicResource RemoveItemsKey}" Command="{Binding RemoveItems}" />
+      </Grid>
 
-    <local:ExtendedListBox x:Name="lbItems" DockPanel.Dock="Top" Style="{StaticResource ItemsList}"
-      Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-      ItemsSource="{Binding Items}">
-      <local:ExtendedListBox.ItemContainerStyle>
-        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-          <EventSetter Event="MouseDoubleClick" Handler="HandleItemDoubleClick" />
-          <EventSetter Event="KeyDown" Handler="HandleKeyDown" />
-        </Style>
-      </local:ExtendedListBox.ItemContainerStyle>
-      <local:ExtendedListBox.InputBindings>
-        <KeyBinding Key="Delete" Command="{Binding RemoveItems}" />
-      </local:ExtendedListBox.InputBindings>
-    </local:ExtendedListBox>
-  </DockPanel>
+      <local:ExtendedListBox x:Name="lbItems" DockPanel.Dock="Top" Style="{StaticResource ItemsList}"
+        Validation.ValidationAdornerSiteFor="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+        ItemsSource="{Binding Items}">
+        <local:ExtendedListBox.ItemContainerStyle>
+          <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+            <EventSetter Event="MouseDoubleClick" Handler="HandleItemDoubleClick" />
+            <EventSetter Event="KeyDown" Handler="HandleKeyDown" />
+          </Style>
+        </local:ExtendedListBox.ItemContainerStyle>
+        <local:ExtendedListBox.InputBindings>
+          <KeyBinding Key="Delete" Command="{Binding RemoveItems}" />
+        </local:ExtendedListBox.InputBindings>
+      </local:ExtendedListBox>
+    </DockPanel>
+  </AdornerDecorator>
 
 </UserControl>

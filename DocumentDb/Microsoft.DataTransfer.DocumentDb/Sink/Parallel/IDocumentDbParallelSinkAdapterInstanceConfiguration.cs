@@ -5,6 +5,5 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
     {
         string Collection { get; }
         int NumberOfParallelRequests { get; }
-        int CollectionThroughput { get; }
     }
 }

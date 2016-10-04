@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.DocumentDb.Wpf.Shared;
 using Microsoft.DataTransfer.WpfHost.Extensibility;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 {
@@ -23,6 +24,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink
 
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
+
+            if (configuration.CollectionThroughput.HasValue && configuration.CollectionThroughput.Value != Defaults.Current.SinkCollectionThroughput)
+                arguments.Add(
+                    DocumentDbSinkAdapterConfiguration.CollectionThroughputPropertyName,
+                    configuration.CollectionThroughput.Value.ToString(CultureInfo.InvariantCulture));
 
             if (configuration.UseIndexingPolicyFile)
             {

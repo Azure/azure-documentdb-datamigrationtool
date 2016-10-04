@@ -79,15 +79,6 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional, default is {0}. Specifies pricing/performance tier of the collection: {1}.
-        /// </summary>
-        public static string BulkSink_CollectionTierFormat {
-            get {
-                return ResourceManager.GetString("BulkSink_CollectionTierFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optional, default is {0}. Size (in bytes) of the bulk insertion JSON array.
         /// </summary>
         public static string BulkSink_MaxScriptSizeFormat {
@@ -142,15 +133,6 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional, default is {0}. Specifies maximum throughput of the collection.
-        /// </summary>
-        public static string ParallelSink_CollectionThroughputFormat {
-            get {
-                return ResourceManager.GetString("ParallelSink_CollectionThroughputFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optional, default is {0}. Number of parallel document create requests.
         /// </summary>
         public static string ParallelSink_ParallelRequestsFormat {
@@ -183,6 +165,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         public static string RetryIntervalFormat {
             get {
                 return ResourceManager.GetString("RetryIntervalFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, default is {0}. Specifies maximum throughput of the collection.
+        /// </summary>
+        public static string Sink_CollectionThroughputFormat {
+            get {
+                return ResourceManager.GetString("Sink_CollectionThroughputFormat", resourceCulture);
             }
         }
         

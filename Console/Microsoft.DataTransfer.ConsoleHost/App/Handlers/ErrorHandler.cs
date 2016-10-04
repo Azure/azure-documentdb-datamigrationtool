@@ -33,7 +33,12 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             Console.WriteLine();
             helpHandler.Print();
-            return 1;
+            return -1;
+        }
+
+        public int HandleSoftFailure()
+        {
+            return -10;
         }
     }
 }

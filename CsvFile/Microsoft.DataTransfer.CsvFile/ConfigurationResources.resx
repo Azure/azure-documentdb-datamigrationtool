@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Source_Decompress" xml:space="preserve">
+    <value>Optional. If source files should be decompressed with GZip</value>
+  </data>
   <data name="Source_Files" xml:space="preserve">
     <value>One or more file search patterns to read CSV from</value>
   </data>
@@ -128,5 +131,8 @@
   </data>
   <data name="Source_TrimQuoted" xml:space="preserve">
     <value>Optional. If empty space at the start and end of the quoted value should be removed</value>
+  </data>
+  <data name="Source_UseRegionalSettings" xml:space="preserve">
+    <value>Optional. If system regional settings should be used to parse the files. This includes such settings as list separator, number, date and time format</value>
   </data>
 </root>

@@ -38,7 +38,9 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         public async Task ReadSampleFile_AllFieldsRead()
         {
             DataItemCollectionAssert.AreEquivalent(
-                ExpectedData, await ReadData(@"InputData\mongoexport.json"), TestResources.InvalidDocumentsRead);
+                ExpectedData,
+                await ReadData(@"InputData\mongoexport.json", false),
+                TestResources.InvalidDocumentsRead);
         }
 
         [TestMethod, Timeout(120000)]
@@ -46,14 +48,27 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
         public async Task ReadSampleFileWithEmptyLines_AllFieldsRead()
         {
             DataItemCollectionAssert.AreEquivalent(
-                ExpectedData, await ReadData(@"InputData\mongoexport_emptylines.json"), TestResources.InvalidDocumentsRead);
+                ExpectedData,
+                await ReadData(@"InputData\mongoexport_emptylines.json", false),
+                TestResources.InvalidDocumentsRead);
         }
 
-        private async Task<List<IDataItem>> ReadData(string fileName)
+        [TestMethod, Timeout(120000)]
+        [DeploymentItem(@"TestData\mongoexport.gz", @"InputData")]
+        public async Task ReadCompressedFile_AllFieldsRead()
+        {
+            DataItemCollectionAssert.AreEquivalent(
+                ExpectedData,
+                await ReadData(@"InputData\mongoexport.gz", true),
+                TestResources.InvalidDocumentsRead);
+        }
+
+        private async Task<List<IDataItem>> ReadData(string fileName, bool decompress)
         {
             var configuration = Mocks
                     .Of<IMongoexportFileSourceAdapterConfiguration>(c =>
-                        c.Files == new[] { fileName })
+                        c.Files == new[] { fileName } &&
+                        c.Decompress == decompress)
                     .First();
 
             using (var adapter = await (new MongoexportFileSourceAdapterFactory()

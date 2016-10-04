@@ -78,7 +78,6 @@
     <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationSummaryPage.xaml.cs">
       <DependentUpon>DocumentDbBulkSinkAdapterConfigurationSummaryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sink\Bulk\CollectionPricingTierValueConverter.cs" />
     <Compile Include="Sink\DocumentDbSinkAdapterAdvancedConfigurationControl.xaml.cs">
       <DependentUpon>DocumentDbSinkAdapterAdvancedConfigurationControl.xaml</DependentUpon>
     </Compile>
@@ -115,6 +114,7 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <AppDesigner Include="Properties\" />
   </ItemGroup>

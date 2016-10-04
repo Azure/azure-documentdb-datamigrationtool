@@ -12,5 +12,11 @@ namespace Microsoft.DataTransfer.AzureTable.Shared
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "ConnectionString")]
         string ConnectionString { get; }
+
+        /// <summary>
+        /// Gets the location mode to use when connecting to Azure Storage.
+        /// </summary>
+        [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "LocationMode")]
+        AzureStorageLocationMode? LocationMode { get; }
     }
 }

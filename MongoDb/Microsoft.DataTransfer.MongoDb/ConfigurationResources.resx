@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MongoexportSource_Decompress" xml:space="preserve">
+    <value>Optional. If source files should be decompressed with GZip</value>
+  </data>
   <data name="MongoexportSource_Files" xml:space="preserve">
     <value>One or more file search patterns to read MongoDB export (mongoexport) JSON from</value>
   </data>

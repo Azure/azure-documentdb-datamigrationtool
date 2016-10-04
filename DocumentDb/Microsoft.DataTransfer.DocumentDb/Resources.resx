@@ -130,7 +130,7 @@
     <value>Failed to buffer an item, slot is already occupied</value>
   </data>
   <data name="BulkSinkDescription" xml:space="preserve">
-    <value>Uploads data into one or more legacy DocumentDB collections in batches</value>
+    <value>Uploads data into one or more single partition DocumentDB collections in batches</value>
   </data>
   <data name="CollectionNameMissing" xml:space="preserve">
     <value>Documents collection name is required</value>

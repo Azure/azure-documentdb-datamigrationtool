@@ -11,15 +11,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
         public static readonly string PartitionKeyPropertyName =
             ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.PartitionKey);
 
-        public static readonly string CollectionThroughputPropertyName =
-            ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.CollectionThroughput);
-
         public static readonly string ParallelRequestsPropertyName =
             ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.ParallelRequests);
 
         private string collection;
         private string partitionKey;
-        private int? collectionThroughput;
 
         private int? parallelRequests;
 
@@ -35,12 +31,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
             set { SetProperty(ref partitionKey, value); }
         }
 
-        public int? CollectionThroughput
-        {
-            get { return collectionThroughput; }
-            set { SetProperty(ref collectionThroughput, value, ValidatePositiveInteger); }
-        }
-
         public int? ParallelRequests
         {
             get { return parallelRequests; }
@@ -50,7 +40,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
         public DocumentDbParallelSinkAdapterConfiguration(ISharedDocumentDbSinkAdapterConfiguration sharedConfiguration)
             : base(sharedConfiguration)
         {
-            CollectionThroughput = Defaults.Current.ParallelSinkCollectionThroughput;
             ParallelRequests = Defaults.Current.ParallelSinkNumberOfParallelRequests;
         }
     }

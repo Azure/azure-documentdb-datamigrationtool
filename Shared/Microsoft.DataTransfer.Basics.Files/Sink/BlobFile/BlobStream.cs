@@ -1,14 +1,15 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.DataTransfer.Basics.Files.Shared;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.IO;
 
 namespace Microsoft.DataTransfer.Basics.Files.Sink.BlobFile
 {
-    sealed class BlobStreamWriter : StreamWriter
+    sealed class BlobStream : WrapperStream
     {
         private readonly string blobUrl;
 
-        public BlobStreamWriter(Stream stream, string blobUrl)
+        public BlobStream(Stream stream, string blobUrl)
             : base(stream)
         {
             this.blobUrl = blobUrl;

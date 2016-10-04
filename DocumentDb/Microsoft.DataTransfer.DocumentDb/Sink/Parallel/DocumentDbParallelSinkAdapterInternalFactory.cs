@@ -20,11 +20,14 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
             if (String.IsNullOrEmpty(configuration.Collection))
                 throw Errors.CollectionNameMissing();
 
-            var sink = new DocumentDbParallelSinkAdapter(
-                CreateClient(configuration, context, false), transformation,
-                GetInstanceConfiguration(configuration));
+            var instanceConfiguration = GetInstanceConfiguration(configuration);
 
-            await sink.InitializeAsync();
+            var sink = new DocumentDbParallelSinkAdapter(
+                CreateClient(configuration, context, false, instanceConfiguration.NumberOfParallelRequests),
+                transformation,
+                instanceConfiguration);
+
+            await sink.InitializeAsync(cancellation);
 
             return sink;
         }
@@ -39,7 +42,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
                 Collection = configuration.Collection,
                 PartitionKey = configuration.PartitionKey,
                 CollectionThroughput = GetValueOrDefault(configuration.CollectionThroughput,
-                    Defaults.Current.ParallelSinkCollectionThroughput, Errors.InvalidCollectionThroughput),
+                    Defaults.Current.SinkCollectionThroughput, Errors.InvalidCollectionThroughput),
                 IndexingPolicy = GetIndexingPolicy(configuration),
                 DisableIdGeneration = configuration.DisableIdGeneration,
                 UpdateExisting = configuration.UpdateExisting,

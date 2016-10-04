@@ -18,8 +18,11 @@ namespace Microsoft.DataTransfer.ConsoleHost.App
         {
             try
             {
-                transferHandler.RunAsync().Wait();
-                return 0;
+                var transferResult = transferHandler.RunAsync().Result;
+
+                return transferResult.Failed > 0
+                    ? errorHandler.HandleSoftFailure()
+                    : 0;
             }
             catch (Exception ex)
             {
