@@ -46,7 +46,7 @@
       <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.1.10.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.4.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Azure.Documents.Client.TransientFaultHandling, Version=1.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.TransientFaultHandling.1.4.0\lib\net45\Microsoft.Azure.Documents.Client.TransientFaultHandling.dll</HintPath>
       <Private>True</Private>
     </Reference>
