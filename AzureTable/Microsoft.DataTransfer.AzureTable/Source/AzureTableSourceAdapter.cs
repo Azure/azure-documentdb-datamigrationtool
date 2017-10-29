@@ -1,7 +1,7 @@
-﻿using Microsoft.DataTransfer.AzureTable.Client;
+﻿using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.Storage;
+using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.Extensibility;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,7 +25,11 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         {
             this.configuration = configuration;
 
-            var client = CloudStorageAccount.Parse(configuration.ConnectionString).CreateCloudTableClient();
+            string connectionString = System.Text.RegularExpressions.Regex.Replace(
+                configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
+                m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
+
+            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
             client.DefaultRequestOptions.LocationMode =
                 AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);

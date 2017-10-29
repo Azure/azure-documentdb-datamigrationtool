@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BatchSizeInvalid" xml:space="preserve">
+    <value>Batch size specified is greater than Max of {0}MB</value>
+  </data>
+  <data name="BulkSinkDescription" xml:space="preserve">
+    <value>Uploads data into Azure CosmosDB Table in batches</value>
+  </data>
   <data name="ConnectionStringMissing" xml:space="preserve">
     <value>Azure Table storage connection string cannot be empty</value>
   </data>
@@ -125,5 +131,11 @@
   </data>
   <data name="EmptyResponseReceived" xml:space="preserve">
     <value>Empty response was received from Azure Table storage</value>
+  </data>
+  <data name="SinkDescription" xml:space="preserve">
+    <value>Uploads data in Azure CosmosDB Table sequentially</value>
+  </data>
+  <data name="TableNameMissing" xml:space="preserve">
+    <value>Azure Table storage table name cannot be empty</value>
   </data>
 </root>

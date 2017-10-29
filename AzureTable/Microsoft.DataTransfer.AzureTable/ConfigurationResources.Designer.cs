@@ -61,7 +61,52 @@ namespace Microsoft.DataTransfer.AzureTable {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection string for the Azure Table storage.
+        ///   Looks up a localized string similar to Optional, default is 2MB. Specify the batch size in bytes.
+        /// </summary>
+        public static string BulkSink_MaxBatchSize {
+            get {
+                return ResourceManager.GetString("BulkSink_MaxBatchSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, default is 1GB. Approximate estimate of input bytes to buffer before flushing data to sink.
+        /// </summary>
+        public static string BulkSink_MaxInputBufferSize {
+            get {
+                return ResourceManager.GetString("BulkSink_MaxInputBufferSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, default is false. Specifies if existing values should be overwritten.
+        /// </summary>
+        public static string BulkSink_Overwrite {
+            get {
+                return ResourceManager.GetString("BulkSink_Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies the name of the table to write to.
+        /// </summary>
+        public static string BulkSink_TableName {
+            get {
+                return ResourceManager.GetString("BulkSink_TableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, service defaults if not specified. Specifies throughput to configure for table.
+        /// </summary>
+        public static string BulkSink_Throughput {
+            get {
+                return ResourceManager.GetString("BulkSink_Throughput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string for the table endpoint.
         /// </summary>
         public static string ConnectionString {
             get {
