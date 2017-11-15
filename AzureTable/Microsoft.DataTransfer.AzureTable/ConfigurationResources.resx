@@ -117,8 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BulkSink_MaxBatchSize" xml:space="preserve">
+    <value>Optional, default is 2MB. Specify the batch size in bytes</value>
+  </data>
+  <data name="BulkSink_MaxInputBufferSize" xml:space="preserve">
+    <value>Optional, default is 1GB. Approximate estimate of input bytes to buffer before flushing data to sink</value>
+    <comment>This is a hint to the import tool to keep memory usage close to this limit. It is not a strictly enforced limit</comment>
+  </data>
+  <data name="BulkSink_Overwrite" xml:space="preserve">
+    <value>Optional, default is false. Specifies if existing values should be overwritten</value>
+  </data>
+  <data name="BulkSink_TableName" xml:space="preserve">
+    <value>Specifies the name of the table to write to</value>
+  </data>
+  <data name="BulkSink_Throughput" xml:space="preserve">
+    <value>Optional, service defaults if not specified. Specifies throughput to configure for table</value>
+  </data>
   <data name="ConnectionString" xml:space="preserve">
-    <value>Connection string for the Azure Table storage</value>
+    <value>Connection string for the table endpoint</value>
   </data>
   <data name="LocationModeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies which location mode to use when connecting to Azure Table storage: {1}</value>

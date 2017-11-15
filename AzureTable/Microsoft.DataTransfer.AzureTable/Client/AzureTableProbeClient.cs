@@ -1,5 +1,6 @@
-﻿using Microsoft.DataTransfer.AzureTable.Shared;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.Storage;
+using Microsoft.DataTransfer.AzureTable.Shared;
 using System;
 using System.Threading.Tasks;
 
