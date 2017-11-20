@@ -1,5 +1,5 @@
 # Azure DocumentDB Data Migration Tool
-The DocumentDB Data Migration Tool is an open source solution to import data to DocumentDB from a variety of sources, including:
+The DocumentDB Data Migration Tool is an open source solution to import data to Azure CosmosDB Document API and Table API endpoints from a variety of sources, including:
 * Azure Tables
 * JSON files
 * MongoDB

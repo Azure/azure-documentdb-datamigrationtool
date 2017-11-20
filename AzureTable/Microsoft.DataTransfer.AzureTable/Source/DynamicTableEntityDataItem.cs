@@ -1,6 +1,6 @@
-﻿using Microsoft.DataTransfer.Basics;
+﻿using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
-using Microsoft.WindowsAzure.Storage.Table;
 using System.Collections.Generic;
 
 namespace Microsoft.DataTransfer.AzureTable.Source
@@ -14,6 +14,11 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             Guard.NotNull("data", data);
 
             this.data = data;
+        }
+
+        public DynamicTableEntity GetDynamicTableEntity()
+        {
+            return data;
         }
 
         public IEnumerable<string> GetFieldNames()
