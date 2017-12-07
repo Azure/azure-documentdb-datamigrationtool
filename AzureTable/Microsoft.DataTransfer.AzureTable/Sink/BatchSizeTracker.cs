@@ -32,18 +32,24 @@ namespace Microsoft.DataTransfer.AzureTable.Sink.Bulk
         {
             var result = new List<List<TableOperation>>();
             long sum = 0;
+            int maxOperationsLimit = 100;
+            int numberOfOperationsInBatch = 0;
 
             foreach (var op in list)
             {
                 var entity = op.Entity;
                 long docLength = _inputSizeTracker.GetDocumentLength(entity.PartitionKey, entity.RowKey);
 
-                if (result.Count > 0 && (sum += docLength) <= _maxBatchSizeInBytes)
+                if (result.Count > 0 && (sum += docLength) <= _maxBatchSizeInBytes && numberOfOperationsInBatch < maxOperationsLimit)
+                {
                     result[result.Count - 1].Add(op);
+                    numberOfOperationsInBatch++;
+                }
                 else
                 {
                     sum = docLength;
                     result.Add(new List<TableOperation> { op });
+                    numberOfOperationsInBatch = 1;
                 }
             }
 
