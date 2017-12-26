@@ -141,4 +141,7 @@
   <data name="Online_ConnectionString" xml:space="preserve">
     <value>Connection string including database name (example: "mongodb://localhost/database")</value>
   </data>
+  <data name="Online_IsCosmosDBHosted" xml:space="preserve">
+    <value>Is the mongo database hosted on CosmosDB</value>
+  </data>
 </root>

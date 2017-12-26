@@ -48,6 +48,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
             {
                 ConnectionString = configuration.ConnectionString,
                 Collection = configuration.Collection,
+                IsCosmosDBHosted = configuration.IsCosmosDBHosted,
                 Query = StringValueOrFile(configuration.Query, configuration.QueryFile, Errors.AmbiguousQuery),
                 Projection = StringValueOrFile(configuration.Projection, configuration.ProjectionFile, Errors.AmbiguousProjection)
             };

@@ -7,6 +7,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,6 +29,33 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
         {
             Guard.NotNull("configuration", configuration);
             this.configuration = configuration;
+        }
+
+        private MongoClient GetClient(MongoUrl url)
+        {
+            if (!this.configuration.IsCosmosDBHosted)
+            {
+                return new MongoClient(url);
+            }
+
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(url.Server.Host, url.Server.Port);
+            settings.UseSsl = url.UseSsl;
+            if (url.UseSsl)
+            {
+                settings.SslSettings = new SslSettings();
+                settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+            }
+
+            MongoIdentity identity = new MongoInternalIdentity(url.DatabaseName, url.Username);
+            MongoIdentityEvidence evidence = new PasswordEvidence(url.Password);
+
+            settings.Credentials = new List<MongoCredential>()
+                                        {
+                                            new MongoCredential("SCRAM-SHA-1", identity, evidence)
+                                        };
+
+            return new MongoClient(settings);
         }
 
         public async Task Initialize(CancellationToken cancellation)
@@ -50,7 +79,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
                 await MongoRetryPolicy.ExecuteAsync(async () =>
                 {
                     var collection =
-                        new MongoClient(url)
+                            GetClient(url)
                             .GetDatabase(url.DatabaseName)
                             .GetCollection<BsonDocument>(configuration.Collection);
                     

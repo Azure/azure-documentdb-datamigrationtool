@@ -19,7 +19,7 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Shared
 
         protected override async Task ExecuteAsync(object parameter)
         {
-            await probeClient.TestConnection(parameter as string, CancellationToken.None);
+            await probeClient.TestConnection(parameter as MongoDbAdapterConfiguration, CancellationToken.None);
 
             MessageBox.Show(
                 Resources.TestConnectionSuccessMessage,

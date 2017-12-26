@@ -18,5 +18,14 @@ namespace Microsoft.DataTransfer.MongoDb.Shared
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Online_Collection")]
         string Collection { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is cosmos database hosted.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is cosmos database hosted; otherwise, <c>false</c>.
+        /// </value>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Online_IsCosmosDBHosted")]
+        bool IsCosmosDBHosted { get; }
     }
 }

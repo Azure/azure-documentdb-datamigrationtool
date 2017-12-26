@@ -19,7 +19,7 @@ namespace Microsoft.DataTransfer.MongoDb {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ConfigurationResources {
@@ -93,6 +93,15 @@ namespace Microsoft.DataTransfer.MongoDb {
         public static string Online_ConnectionString {
             get {
                 return ResourceManager.GetString("Online_ConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is the mongo database hosted on CosmosDB.
+        /// </summary>
+        public static string Online_IsCosmosDBHosted {
+            get {
+                return ResourceManager.GetString("Online_IsCosmosDBHosted", resourceCulture);
             }
         }
         

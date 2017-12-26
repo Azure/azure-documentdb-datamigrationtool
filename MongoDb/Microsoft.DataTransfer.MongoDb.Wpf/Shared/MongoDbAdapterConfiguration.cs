@@ -12,8 +12,12 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Shared
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IMongoDbAdapterConfiguration>(c => c.Collection);
 
+        public static readonly string IsCosmosDBHostedPropertyName =
+            ObjectExtensions.MemberName<IMongoDbAdapterConfiguration>(c => c.IsCosmosDBHosted);
+
         private string connectionString;
         private string collection;
+        private bool isCosmosDBHosted;
 
         public string ConnectionString
         {
@@ -25,6 +29,12 @@ namespace Microsoft.DataTransfer.MongoDb.Wpf.Shared
         {
             get { return collection; }
             set { SetProperty(ref collection, value, ValidateNonEmptyString); }
+        }
+
+        public bool IsCosmosDBHosted
+        {
+            get { return isCosmosDBHosted; }
+            set { SetProperty(ref isCosmosDBHosted, value); }
         }
     }
 }

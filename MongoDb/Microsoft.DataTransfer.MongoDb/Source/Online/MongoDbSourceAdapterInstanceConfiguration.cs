@@ -5,6 +5,7 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
     {
         public string ConnectionString { get; set; }
         public string Collection { get; set; }
+        public bool IsCosmosDBHosted { get; set; }
         public string Query { get; set; }
         public string Projection  { get; set; }
     }
