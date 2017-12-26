@@ -31,6 +31,12 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets a mongo client using the normal configuration string information, or if IsCosmosDBHosted, 
+        /// a mongo client using the SSL settings for CosmosDB.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>A MongoClient configured for the type of source being connected to.</returns>
         private MongoClient GetClient(MongoUrl url)
         {
             if (!this.configuration.IsCosmosDBHosted)

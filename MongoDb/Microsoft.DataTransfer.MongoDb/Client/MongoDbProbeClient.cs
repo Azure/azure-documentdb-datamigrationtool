@@ -14,14 +14,15 @@ namespace Microsoft.DataTransfer.MongoDb.Client
     /// </summary>
     public sealed class MongoDbProbeClient
     {
+        const string AuthenticationMechanism = "SCRAM-SHA-1";
         private static readonly Command<BsonDocument> PingCommand = "{ping:1}";
 
         /// <summary>
         /// Tests the MongoDB connection.
         /// </summary>
-        /// <param name="connectionString">MongoDB connection string to use to connect.</param>
+        /// <param name="configuration">MongoDB Adapter configuration to use to connect.  
+        ///                             Provides access to all parameters from the screen.</param>
         /// <param name="cancellation">Cancellation token</param>
-        ////public async Task TestConnection(string connectionString, CancellationToken cancellation)
         public async Task TestConnection(IMongoDbAdapterConfiguration configuration, CancellationToken cancellation)
         {
             var connectionString = configuration.ConnectionString;
@@ -29,33 +30,32 @@ namespace Microsoft.DataTransfer.MongoDb.Client
             if (String.IsNullOrEmpty(connectionString))
                 throw Errors.ConnectionStringMissing();
 
-            if (configuration.IsCosmosDBHosted)
-            {
-                await TestCosmosDbMongo(configuration, cancellation);
-            }
-            else
-            {
-                var url = new MongoUrl(connectionString);
+            var url = new MongoUrl(connectionString);
+            var client = configuration.IsCosmosDBHosted ? new MongoClient(connectionString) : GetCosmosDBClient(url);
 
-                ////var x = new MongoClient(connectionString).GetDatabase(url.DatabaseName);
-                ////var y = x.GetCollection<BsonDocument>("Transaction");
-                await new MongoClient(connectionString)
-                    .GetDatabase(url.DatabaseName)
-                    .RunCommandAsync(PingCommand);
-            }
+            await client.GetDatabase(url.DatabaseName)
+                .RunCommandAsync(PingCommand);
         }
 
-        private async Task TestCosmosDbMongo(IMongoDbAdapterConfiguration configuration, CancellationToken cancellation)
+        /// <summary>
+        /// Gets the cosmos database mongo client.
+        /// </summary>
+        /// <param name="url">The Mongo URL configuration information.</param>
+        /// <returns></returns>
+        private MongoClient GetCosmosDBClient(MongoUrl url)
         {
-            var url = new MongoUrl(configuration.ConnectionString);
+            MongoClientSettings settings = new MongoClientSettings
+            {
+                Server = new MongoServerAddress(url.Server.Host, url.Server.Port),
+                UseSsl = url.UseSsl
+            };
 
-            MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress(url.Server.Host, url.Server.Port);
-            settings.UseSsl = url.UseSsl;
             if (url.UseSsl)
             {
-                settings.SslSettings = new SslSettings();
-                settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+                settings.SslSettings = new SslSettings
+                {
+                    EnabledSslProtocols = SslProtocols.Tls12
+                };
             }
 
             MongoIdentity identity = new MongoInternalIdentity(url.DatabaseName, url.Username);
@@ -63,11 +63,10 @@ namespace Microsoft.DataTransfer.MongoDb.Client
 
             settings.Credentials = new List<MongoCredential>()
                                         {
-                                            new MongoCredential("SCRAM-SHA-1", identity, evidence)
+                                            new MongoCredential(AuthenticationMechanism, identity, evidence)
                                         };
 
-            MongoClient client = new MongoClient(settings);
-            await client.GetDatabase(url.DatabaseName).RunCommandAsync(PingCommand);
+            return new MongoClient(settings);
         }
     }
 }
