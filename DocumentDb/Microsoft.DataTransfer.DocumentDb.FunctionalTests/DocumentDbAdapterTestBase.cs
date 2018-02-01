@@ -9,10 +9,12 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
     {
         protected string ConnectionString { get; private set; }
 
+        protected string DatabaseName { get; private set; }
+
         [TestInitialize]
         public void Initialize()
         {
-            ConnectionString = Settings.DocumentDbConnectionString("Test" + Guid.NewGuid().ToString("N"));
+            ConnectionString = Settings.DocumentDbConnectionString;
             TestInitialize();
         }
 
@@ -23,7 +25,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         {
             TestCleanup();
             if (ConnectionString != null)
-                DocumentDbHelper.DeleteDatabaseAsync(ConnectionString).Wait();
+                DocumentDbHelper.DeleteDatabaseAsync(ConnectionString, DatabaseName).Wait();
         }
 
         protected virtual void TestCleanup() { }

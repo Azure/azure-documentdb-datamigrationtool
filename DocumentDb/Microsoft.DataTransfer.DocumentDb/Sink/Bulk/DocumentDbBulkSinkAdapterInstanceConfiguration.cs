@@ -4,6 +4,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapterInstanceConfiguration : IDocumentDbBulkSinkAdapterInstanceConfiguration
     {
+        public string Database { get; set; }
         public string Collection { get; set; }
         public int CollectionThroughput { get; set; }
         public IndexingPolicy IndexingPolicy { get; set; }

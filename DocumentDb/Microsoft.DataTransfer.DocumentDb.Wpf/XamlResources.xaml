@@ -9,13 +9,16 @@
   <!-- String resources -->
 
   <system:String x:Key="ConnectionStringKey">Connection String</system:String>
-  <system:String x:Key="ConnectionStringDescriptionKey"><![CDATA[Specify a valid DocumentDB connection string in the following format: AccountEndpoint=<url>;AccountKey=<key>;Database=<db>]]></system:String>
+  <system:String x:Key="ConnectionStringDescriptionKey"><![CDATA[Specify a valid DocumentDB connection string in the following format: AccountEndpoint=<url>;AccountKey=<key>]]></system:String>
   <system:String x:Key="ConnectionStringSummaryKey">Connection String:</system:String>
   <system:String x:Key="TestConnectionKey">Verify</system:String>
 
   <system:String x:Key="CollectionPatternKey">Collection</system:String>
   <system:String x:Key="CollectionPatternDescriptionKey">Regular expression to match one or more collection names</system:String>
   <system:String x:Key="CollectionPatternSummaryKey">Collection:</system:String>
+
+  <system:String x:Key="DatabaseKey">Database</system:String>
+  <system:String x:Key="DatabaseDescriptionKey">Database name</system:String>
 
   <system:String x:Key="CollectionKey">Collection</system:String>
   <system:String x:Key="CollectionSummaryKey">Collection:</system:String>

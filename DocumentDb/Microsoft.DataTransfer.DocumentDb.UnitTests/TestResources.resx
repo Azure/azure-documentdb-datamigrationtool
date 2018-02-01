@@ -129,12 +129,6 @@
   <data name="InvalidAccountKeyParsedFromConnectionString" xml:space="preserve">
     <value>Invalid account key was parsed from the connection string</value>
   </data>
-  <data name="InvalidDatabaseNameInConnectionString" xml:space="preserve">
-    <value>Invalid database name was appended to the connection string</value>
-  </data>
-  <data name="InvalidDatabaseNameParsedFromConnectionString" xml:space="preserve">
-    <value>Invalid database name was parsed from the connection string</value>
-  </data>
   <data name="InvalidDataItemsTransferred" xml:space="preserve">
     <value>Invalid data items were transferred</value>
   </data>

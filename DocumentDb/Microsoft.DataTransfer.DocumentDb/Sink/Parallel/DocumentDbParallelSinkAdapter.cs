@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
         public async Task InitializeAsync(CancellationToken cancellation)
         {
             collectionLink = await Client.GetOrCreateCollectionAsync(
-                Configuration.Collection, Configuration.PartitionKey,
+                Configuration.Database, Configuration.Collection, Configuration.PartitionKey,
                 Configuration.CollectionThroughput, Configuration.IndexingPolicy,
                 cancellation);
         }

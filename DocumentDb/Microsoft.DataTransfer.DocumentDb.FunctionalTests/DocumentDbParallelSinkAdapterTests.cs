@@ -37,7 +37,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -95,7 +95,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -120,7 +120,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -171,7 +171,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
     }
 }

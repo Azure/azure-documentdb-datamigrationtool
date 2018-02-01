@@ -39,7 +39,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(sampleData, DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -65,10 +65,10 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
+            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data0");
             Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
-            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
+            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data1");
             Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
             VerifyData(sampleData, firstCollection.Union(secondCollection));
@@ -98,10 +98,10 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
+            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data0");
             Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
-            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
+            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data1");
             Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
             VerifyData(sampleData, firstCollection.Union(secondCollection));
@@ -131,10 +131,10 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data0");
+            var firstCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data0");
             Assert.IsTrue(firstCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
-            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, "Data1");
+            var secondCollection = DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, "Data1");
             Assert.IsTrue(secondCollection.Count() > 0, TestResources.DataIsNotPartitioned);
 
             VerifyData(sampleData, firstCollection.Union(secondCollection));
@@ -163,7 +163,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(GetExpectedGeospatialDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]
@@ -215,7 +215,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
                 await WriteDataAsync(adapter, sampleData);
             }
 
-            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, CollectionName));
+            VerifyData(GetExpectedDuplicateDataItems(), DocumentDbHelper.ReadDocuments(ConnectionString, DatabaseName, CollectionName));
         }
 
         [TestMethod, Timeout(300000)]

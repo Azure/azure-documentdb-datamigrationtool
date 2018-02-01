@@ -23,7 +23,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         {
             sampleData = SampleData.GetSimpleDocuments(NumberOfItems);
             DocumentDbHelper
-                .CreateSampleCollectionAsync(ConnectionString, CollectionName, sampleData)
+                .CreateSampleCollectionAsync(ConnectionString, DatabaseName, CollectionName, sampleData)
                 .Wait();
         }
 

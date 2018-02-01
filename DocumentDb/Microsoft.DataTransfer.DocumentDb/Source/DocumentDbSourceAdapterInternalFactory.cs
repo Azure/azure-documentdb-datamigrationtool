@@ -52,6 +52,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
 
             return new DocumentDbSourceAdapterInstanceConfiguration
             {
+                Database = configuration.Database,
                 Collection = configuration.Collection,
                 Query = GetQuery(configuration)
             };

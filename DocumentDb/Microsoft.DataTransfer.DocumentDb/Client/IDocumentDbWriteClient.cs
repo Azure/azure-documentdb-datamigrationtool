@@ -7,7 +7,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
 {
     interface IDocumentDbWriteClient : IDisposable
     {
-        Task<string> GetOrCreateCollectionAsync(string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation);
+        Task<string> GetOrCreateCollectionAsync(string databaseName, string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation);
         Task CreateDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
         Task UpsertDocumentAsync(string collectionLink, object document, bool disableAutomaticIdGeneration);
 

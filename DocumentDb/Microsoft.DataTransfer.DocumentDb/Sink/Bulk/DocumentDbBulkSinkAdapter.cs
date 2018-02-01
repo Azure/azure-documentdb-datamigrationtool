@@ -38,7 +38,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
         public async Task InitializeAsync(CancellationToken cancellation)
         {
             var collectionLink = await Client.GetOrCreateCollectionAsync(
-                Configuration.Collection, null, Configuration.CollectionThroughput, Configuration.IndexingPolicy, cancellation);
+                Configuration.Database, Configuration.Collection, null, Configuration.CollectionThroughput, Configuration.IndexingPolicy, cancellation);
 
             storedProcedureLink = await Client.CreateStoredProcedureAsync(
                 collectionLink, Configuration.StoredProcName, Configuration.StoredProcBody);

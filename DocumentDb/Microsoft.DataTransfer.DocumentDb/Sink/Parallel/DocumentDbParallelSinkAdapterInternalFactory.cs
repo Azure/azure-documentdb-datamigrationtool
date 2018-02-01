@@ -39,6 +39,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
 
             return new DocumentDbParallelSinkAdapterInstanceConfiguration
             {
+                Database = configuration.Database,
                 Collection = configuration.Collection,
                 PartitionKey = configuration.PartitionKey,
                 CollectionThroughput = GetValueOrDefault(configuration.CollectionThroughput,

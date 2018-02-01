@@ -29,9 +29,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             if (String.IsNullOrEmpty(parsed.AccountKey))
                 throw Errors.AccountKeyMissing();
 
-            if (String.IsNullOrEmpty(parsed.Database))
-                throw Errors.DatabaseNameMissing();
-
             var connectionPolicy =  DocumentDbClientHelper.ApplyConnectionMode(new ConnectionPolicy(), connectionMode);
 
             using (var client = new DocumentClient(new Uri(parsed.AccountEndpoint), parsed.AccountKey, connectionPolicy))

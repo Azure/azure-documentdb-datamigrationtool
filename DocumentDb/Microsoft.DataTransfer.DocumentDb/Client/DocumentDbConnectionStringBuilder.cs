@@ -19,12 +19,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             set { base["AccountKey"] = value; }
         }
 
-        public string Database
-        {
-            get { return GetValue<string>("Database"); }
-            set { base["Database"] = value; }
-        }
-
         public static DocumentDbConnectionStringBuilder Parse(string connectionString)
         {
             Guard.NotEmpty("connectionString", connectionString);
