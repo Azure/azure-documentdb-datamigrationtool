@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client.Serialization
     sealed class DocumentSurrogateJsonConverter : JsonConverter
     {
         private static readonly JsonSerializer DictionarySerializer =
-            JsonSerializer.CreateDefault(new JsonSerializerSettings { Converters = { new DictionaryCreationConverter() } });
+            JsonSerializer.CreateDefault(new JsonSerializerSettings { Converters = { new DictionaryCreationConverter() }, MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
 
         public override bool CanConvert(Type objectType)
         {

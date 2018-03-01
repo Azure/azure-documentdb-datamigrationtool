@@ -13,6 +13,6 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("d15360f3-6e57-4d1e-8930-268332611dd1")]
 
-#if DEBUG
+#if !SignedAssembly
 [assembly: InternalsVisibleTo("Microsoft.DataTransfer.DynamoDb.FunctionalTests")]
 #endif

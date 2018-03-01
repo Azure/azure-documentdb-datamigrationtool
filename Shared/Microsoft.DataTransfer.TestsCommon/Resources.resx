@@ -126,6 +126,9 @@
   <data name="InvalidFieldValue" xml:space="preserve">
     <value>Actual field value is not the same as expected</value>
   </data>
+  <data name="InvalidNumberOfItems" xml:space="preserve">
+    <value>Number of items in the collection field does not match</value>
+  </data>
   <data name="NullActualFieldNames" xml:space="preserve">
     <value>Actual field names collection is null</value>
   </data>

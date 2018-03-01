@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -121,7 +121,7 @@
     <value>Optional, default is 2MB. Specify the batch size in bytes</value>
   </data>
   <data name="BulkSink_MaxInputBufferSize" xml:space="preserve">
-    <value>Optional, default is 1GB. Approximate estimate of input bytes to buffer before flushing data to sink</value>
+    <value>Optional, default is 10MB. Approximate estimate of input bytes to buffer before flushing data to sink</value>
     <comment>This is a hint to the import tool to keep memory usage close to this limit. It is not a strictly enforced limit</comment>
   </data>
   <data name="BulkSink_Overwrite" xml:space="preserve">
