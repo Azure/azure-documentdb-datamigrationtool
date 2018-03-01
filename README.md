@@ -1,5 +1,5 @@
-# Azure DocumentDB Data Migration Tool
-The DocumentDB Data Migration Tool is an open source solution to import data to Azure CosmosDB Document API and Table API endpoints from a variety of sources, including:
+# Azure Cosmos DB Data Migration Tool
+The Azure Cosmos DB Data Migration Tool is an open source solution to import data to Azure CosmosDB SQL API (DocumentDB) and Table API endpoints from a variety of sources, including:
 * Azure Tables
 * JSON files
 * MongoDB
@@ -8,7 +8,7 @@ The DocumentDB Data Migration Tool is an open source solution to import data to 
 * RavenDB
 * Amazon DynamoDB
 * HBase
-* DocumentDB
+* Azure Cosmos DB SQL API (DocumentDB)
 
 For help using the tool, please see the online documentation located [here](http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/).
 
