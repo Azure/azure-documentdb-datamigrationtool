@@ -2,6 +2,7 @@
 using Microsoft.DataTransfer.JsonNet.Serialization;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -42,6 +43,21 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
 
         private static int GetValueHashCode(object value)
         {
+            if (value is IEnumerable && !(value is string))
+            {
+                int hash = 0;
+                foreach (var item in (IEnumerable)value)
+                {
+                    hash ^= GetValueHashCode(item);
+                }
+                return hash;
+            }
+
+            if (value is IDataItem)
+            {
+                return GetDataItemHash((IDataItem)value);
+            }
+
             switch (Type.GetTypeCode(value.GetType()))
             {
                 case TypeCode.Byte:
@@ -56,8 +72,16 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
                 case TypeCode.Single:
                     // Convert all numeric types to double since type can change after deserialization
                     return Convert.ChangeType(value, typeof(double), CultureInfo.InvariantCulture).GetHashCode();
-                default:
+                case TypeCode.Boolean:
+                case TypeCode.Char:
+                case TypeCode.DateTime:
+                case TypeCode.String:
+                case TypeCode.Empty:
+                case TypeCode.DBNull:
                     return value.GetHashCode();
+                default:
+                    // if we do not know the behavior of the hash code we do not want to return it
+                    return 0;
             }
         }
 

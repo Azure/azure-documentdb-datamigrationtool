@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8ec8aecf-2ca8-4f5a-bb11-2261e02d756c")]
 
-#if DEBUG
+#if !SignedAssembly
 [assembly: InternalsVisibleTo("Microsoft.DataTransfer.MongoDb.FunctionalTests")]
 [assembly: InternalsVisibleTo("Microsoft.DataTransfer.MongoDb.UnitTests")]
 #endif

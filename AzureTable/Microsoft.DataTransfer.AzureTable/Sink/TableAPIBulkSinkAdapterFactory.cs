@@ -1,4 +1,4 @@
-﻿namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
+namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 {
     using Microsoft.DataTransfer.AzureTable;
     using Microsoft.DataTransfer.Basics;
@@ -38,7 +38,7 @@
             if (String.IsNullOrEmpty(configuration.TableName))
                 throw Errors.TableNameMissing();
 
-            long maxInputBufferSizeInBytes = 1 * 1024 * 1024 * 1024;
+            long maxInputBufferSizeInBytes = 10 * 1024 * 1024;
             if (configuration.MaxInputBufferSize.HasValue)
                 maxInputBufferSizeInBytes = configuration.MaxInputBufferSize.Value;
 

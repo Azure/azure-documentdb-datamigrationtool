@@ -28,6 +28,6 @@ using System.Windows;
     // app, or any theme specific resource dictionaries)
 )]
 
-#if DEBUG
+#if !SignedAssembly
 [assembly: InternalsVisibleTo("Microsoft.DataTransfer.WpfHost.UnitTests")]
 #endif

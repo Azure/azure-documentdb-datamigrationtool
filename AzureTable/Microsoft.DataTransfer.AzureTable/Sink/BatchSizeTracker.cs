@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.DataTransfer.TableAPI.Sink.Bulk;
 using System.Collections.Generic;
 
@@ -11,6 +11,7 @@ namespace Microsoft.DataTransfer.AzureTable.Sink.Bulk
     {
         private InputSizeTracker _inputSizeTracker;
         private long _maxBatchSizeInBytes;
+        private const int _maxEntriesPerBatch = 100;
 
         /// <summary>
         /// Create an instance of the batch size tracker
@@ -32,17 +33,21 @@ namespace Microsoft.DataTransfer.AzureTable.Sink.Bulk
         {
             var result = new List<List<TableOperation>>();
             long sum = 0;
+            int numEntries = 0;
 
             foreach (var op in list)
             {
                 var entity = op.Entity;
                 long docLength = _inputSizeTracker.GetDocumentLength(entity.PartitionKey, entity.RowKey);
 
-                if (result.Count > 0 && (sum += docLength) <= _maxBatchSizeInBytes)
+                if (result.Count > 0 && 
+                    (sum += docLength) <= _maxBatchSizeInBytes && 
+                    (numEntries += 1) <= _maxEntriesPerBatch)
                     result[result.Count - 1].Add(op);
                 else
                 {
                     sum = docLength;
+                    numEntries = 1;
                     result.Add(new List<TableOperation> { op });
                 }
             }
