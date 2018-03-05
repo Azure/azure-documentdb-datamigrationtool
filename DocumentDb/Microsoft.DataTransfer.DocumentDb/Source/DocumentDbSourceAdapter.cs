@@ -23,7 +23,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
         public async Task InitializeAsync(CancellationToken cancellation)
         {
             documentsCursor = await Client
-                .QueryDocumentsAsync(Configuration.Collection, Configuration.Query, cancellation);
+                .QueryDocumentsAsync(Configuration.Database, Configuration.Collection, Configuration.Query, cancellation);
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)

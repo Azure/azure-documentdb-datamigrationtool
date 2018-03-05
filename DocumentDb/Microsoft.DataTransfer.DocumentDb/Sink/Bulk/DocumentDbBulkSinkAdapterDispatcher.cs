@@ -40,7 +40,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             foreach (var collectionName in collections)
             {
                 var adapter = new DocumentDbBulkSinkAdapter(Client, PassThroughTransformation.Instance,
-                    CreateInstanceConfiguration(collectionName, storedProcName));
+                    CreateInstanceConfiguration(Configuration.Database, collectionName, storedProcName));
                 dataAdapters.Add(collectionName, adapter);
                 initializationTasks.Add(adapter.InitializeAsync(cancellation));
             }
@@ -50,10 +50,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
             await Task.WhenAll(initializationTasks);
         }
 
-        private IDocumentDbBulkSinkAdapterInstanceConfiguration CreateInstanceConfiguration(string collectionName, string storedProcName)
+        private IDocumentDbBulkSinkAdapterInstanceConfiguration CreateInstanceConfiguration(string databaseName, string collectionName, string storedProcName)
         {
             return new DocumentDbBulkSinkAdapterInstanceConfiguration
             {
+                Database = databaseName,
                 Collection = collectionName,
                 CollectionThroughput = Configuration.CollectionThroughput,
                 IndexingPolicy = Configuration.IndexingPolicy,

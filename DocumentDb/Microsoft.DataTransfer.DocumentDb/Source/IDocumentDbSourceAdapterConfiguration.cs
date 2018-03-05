@@ -9,6 +9,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Source
     public interface IDocumentDbSourceAdapterConfiguration : IDocumentDbAdapterConfiguration
     {
         /// <summary>
+        /// Gets the documents database name.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Database")]
+        string Database { get; }
+
+        /// <summary>
         /// Gets the documents collection name pattern.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_Collection")]

@@ -8,6 +8,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Parallel
     public interface IDocumentDbParallelSinkAdapterConfiguration : IDocumentDbSinkAdapterConfiguration
     {
         /// <summary>
+        /// Gets the documents database name.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "ParallelSink_Database")]
+        string Database { get; }
+
+        /// <summary>
         /// Gets the documents collection name.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "ParallelSink_Collection")]

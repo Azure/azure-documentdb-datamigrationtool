@@ -19,7 +19,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -138,15 +138,6 @@ namespace Microsoft.DataTransfer.DocumentDb {
         internal static string CustomUserAgentSuffixFormat {
             get {
                 return ResourceManager.GetString("CustomUserAgentSuffixFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documents database name should be provided as part of the connection string.
-        /// </summary>
-        internal static string DatabaseNameMissing {
-            get {
-                return ResourceManager.GetString("DatabaseNameMissing", resourceCulture);
             }
         }
         

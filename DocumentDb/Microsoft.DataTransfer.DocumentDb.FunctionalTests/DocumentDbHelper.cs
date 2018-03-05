@@ -13,13 +13,13 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
 {
     static class DocumentDbHelper
     {
-        public static async Task CreateSampleCollectionAsync(string connectionString, string collectionName, IEnumerable<object> documents)
+        public static async Task CreateSampleCollectionAsync(string connectionString, string databaseName, string collectionName, IEnumerable<object> documents)
         {
             var connectionSettings = DocumentDbConnectionStringBuilder.Parse(connectionString);
 
             using (var client = CreateClient(connectionSettings))
             {
-                var database = await client.CreateDatabaseAsync(new Database { Id = connectionSettings.Database });
+                var database = await client.CreateDatabaseAsync(new Database { Id = databaseName });
                 var collection = await client.CreateDocumentCollectionAsync(database.Resource.SelfLink, new DocumentCollection { Id = collectionName });
 
                 foreach (var document in documents)
@@ -27,7 +27,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        public static IEnumerable<IReadOnlyDictionary<string, object>> ReadDocuments(string connectionString, string collectionName,
+        public static IEnumerable<IReadOnlyDictionary<string, object>> ReadDocuments(string connectionString, string databaseName, string collectionName,
             string query = "SELECT * FROM c")
         {
             var connectionSettings = DocumentDbConnectionStringBuilder.Parse(connectionString);
@@ -36,7 +36,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             {
                 var database = client
                     .CreateDatabaseQuery()
-                    .Where(d => d.Id == connectionSettings.Database)
+                    .Where(d => d.Id == databaseName)
                     .AsEnumerable()
                     .FirstOrDefault();
 
@@ -56,7 +56,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        public static async Task DeleteDatabaseAsync(string connectionString)
+        public static async Task DeleteDatabaseAsync(string connectionString, string databaseName)
         {
             var connectionSettings = DocumentDbConnectionStringBuilder.Parse(connectionString);
 
@@ -64,7 +64,7 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             {
                 var database = client
                     .CreateDatabaseQuery()
-                    .Where(d => d.Id == connectionSettings.Database)
+                    .Where(d => d.Id == databaseName)
                     .AsEnumerable()
                     .FirstOrDefault();
 

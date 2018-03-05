@@ -4,6 +4,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 {
     interface IDocumentDbBulkSinkAdapterInstanceConfiguration
     {
+        string Database { get; }
         string Collection { get; }
         int CollectionThroughput { get; }
         IndexingPolicy IndexingPolicy { get; }

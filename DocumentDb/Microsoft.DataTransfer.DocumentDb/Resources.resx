@@ -141,9 +141,6 @@
   <data name="CustomUserAgentSuffixFormat" xml:space="preserve">
     <value>{0}-{1}-{2}-{3}{4}</value>
   </data>
-  <data name="DatabaseNameMissing" xml:space="preserve">
-    <value>Documents database name should be provided as part of the connection string</value>
-  </data>
   <data name="DataItemAlreadyContainsField" xml:space="preserve">
     <value>Data item already contains field "{0}"</value>
   </data>

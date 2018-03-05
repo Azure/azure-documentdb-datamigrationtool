@@ -27,6 +27,13 @@
       <StackPanel Style="{StaticResource FixScrollViewerAdorner}">
         <shared:DocumentDbAdapterConnectionConfigurationControl Configuration="{Binding}" />
 
+        <StackPanel Style="{StaticResource OptionElement}">
+          <bc:ToolTipDecorator ToolTip="{DynamicResource DatabaseDescriptionKey}">
+            <Label Content="{DynamicResource DatabaseKey}" />
+            </bc:ToolTipDecorator>
+          <TextBox Text="{Binding Database, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+        </StackPanel>
+
         <DockPanel Style="{StaticResource OptionElement}">
           <bc:ToolTipDecorator DockPanel.Dock="Top" ToolTip="{DynamicResource CollectionsDescriptionKey}">
             <Label Content="{DynamicResource CollectionsKey}" />

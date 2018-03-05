@@ -29,11 +29,6 @@ namespace Microsoft.DataTransfer.DocumentDb
             return new ArgumentException(Resources.AccountKeyMissing);
         }
 
-        public static Exception DatabaseNameMissing()
-        {
-            return new ArgumentException(Resources.DatabaseNameMissing);
-        }
-
         public static Exception AmbiguousIndexingPolicy()
         {
             return new ArgumentException(Resources.AmbiguousIndexingPolicy);

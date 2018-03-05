@@ -34,6 +34,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
+            arguments.Add(DocumentDbBulkSinkAdapterConfiguration.DatabasePropertyName, configuration.Database);
             arguments.Add(DocumentDbBulkSinkAdapterConfiguration.CollectionPropertyName, AsCollectionArgument(configuration.Collection));
 
             if (!String.IsNullOrEmpty(configuration.PartitionKey))

@@ -24,6 +24,11 @@
         <shared:DocumentDbAdapterConnectionConfigurationControl Configuration="{Binding}" />
 
         <StackPanel Style="{StaticResource OptionElement}">
+            <Label Content="{DynamicResource DatabaseKey}" />
+            <TextBox Text="{Binding Database, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+        </StackPanel>
+
+        <StackPanel Style="{StaticResource OptionElement}">
           <Label Content="{DynamicResource CollectionKey}" />
           <TextBox Text="{Binding Collection, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
         </StackPanel>

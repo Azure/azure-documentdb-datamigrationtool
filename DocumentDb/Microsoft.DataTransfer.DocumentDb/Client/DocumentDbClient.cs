@@ -20,26 +20,22 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
     sealed class DocumentDbClient : IDocumentDbWriteClient, IDocumentDbReadClient
     {
         private IReliableReadWriteDocumentClient client;
-        private string databaseName;
 
-        public DocumentDbClient(IReliableReadWriteDocumentClient client, string databaseName)
+        public DocumentDbClient(IReliableReadWriteDocumentClient client)
         {
             Guard.NotNull("client", client);
-            Guard.NotEmpty("databaseName", databaseName);
-
             this.client = client;
-            this.databaseName = databaseName;
         }
 
         public Task<string> GetOrCreateCollectionAsync(
-            string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
+            string databaseName, string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
-            return GetOrCreateCollectionAsyncInternal(collectionName, partitionKey,
+            return GetOrCreateCollectionAsyncInternal(databaseName, collectionName, partitionKey,
                 new RequestOptions { OfferThroughput = desiredThroughput }, indexingPolicy, cancellation);
         }
 
         public async Task<string> GetOrCreateCollectionAsyncInternal(
-            string collectionName, string partitionKey, RequestOptions requestOptions, IndexingPolicy indexingPolicy, CancellationToken cancellation)
+            string databaseName, string collectionName, string partitionKey, RequestOptions requestOptions, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
             Guard.NotEmpty("collectionName", collectionName);
 
@@ -128,7 +124,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             return client.DeleteStoredProcedureAsync(storedProcedureLink);
         }
 
-        public async Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string collectionNamePattern, string query, CancellationToken cancellation)
+        public async Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(string databaseName, string collectionNamePattern, string query, CancellationToken cancellation)
         {
             Guard.NotEmpty("collectionNamePattern", collectionNamePattern);
 

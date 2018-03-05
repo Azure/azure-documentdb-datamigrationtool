@@ -9,6 +9,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
     interface IDocumentDbReadClient : IDisposable
     {
         Task<IAsyncEnumerator<IReadOnlyDictionary<string, object>>> QueryDocumentsAsync(
-            string collectionNamePattern, string query, CancellationToken cancellation);
+            string databaseName, string collectionNamePattern, string query, CancellationToken cancellation);
     }
 }

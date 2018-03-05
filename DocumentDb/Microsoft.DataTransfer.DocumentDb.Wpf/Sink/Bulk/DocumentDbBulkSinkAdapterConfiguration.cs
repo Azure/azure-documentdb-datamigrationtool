@@ -9,6 +9,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
 {
     sealed class DocumentDbBulkSinkAdapterConfiguration : DocumentDbSinkAdapterConfiguration, IDocumentDbBulkSinkAdapterConfiguration
     {
+        public static readonly string DatabasePropertyName =
+            ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.Database);
+
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.Collection);
 
@@ -27,12 +30,19 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Bulk
         public static readonly string MaxScriptSizePropertyName =
             ObjectExtensions.MemberName<IDocumentDbBulkSinkAdapterConfiguration>(c => c.MaxScriptSize);
 
+        private string database;
         private ObservableCollection<string> collections;
         private string partitionKey;
 
         private string storedProcFile;
         private int? batchSize;
         private int? maxScriptSize;
+
+        public string Database
+        {
+            get { return database; }
+            set { SetProperty(ref database, value); }
+        }
 
         public IEnumerable<string> Collection
         {

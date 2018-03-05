@@ -28,10 +28,8 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         [XmlElement]
         public string HBaseConnectionString { get; set; }
 
-        public string DocumentDbConnectionString(string databaseName)
-        {
-            return String.Format(CultureInfo.InvariantCulture, DocumentDbConnectionStringFormat, databaseName);
-        }
+        [XmlElement]
+        public string DocumentDbConnectionString { get; set; }
 
         public string RavenDbConnectionString(string databaseName)
         {

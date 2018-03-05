@@ -9,6 +9,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
     public interface IDocumentDbBulkSinkAdapterConfiguration : IDocumentDbSinkAdapterConfiguration
     {
         /// <summary>
+        /// Gets the documents database name.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_Database")]
+        string Database { get; }
+
+        /// <summary>
         /// Gets the documents collection name patterns.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_Collection")]

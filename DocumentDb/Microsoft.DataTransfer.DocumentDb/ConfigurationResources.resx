@@ -120,6 +120,9 @@
   <data name="BulkSink_BatchSizeFormat" xml:space="preserve">
     <value>Optional, default is {0}. Number of documents in one batch</value>
   </data>
+  <data name="BulkSink_Database" xml:space="preserve">
+    <value>Database name</value>
+  </data>
   <data name="BulkSink_Collection" xml:space="preserve">
     <value>One or more documents collection names. Use "[a-b]" placeholder to automatically generate collection index, e.g. "Data[0-2]" will result in the following collection names: Data0, Data1, Data2</value>
   </data>
@@ -136,7 +139,10 @@
     <value>Optional, default is {0}. Specifies how to connect to DocumentDB account: {1}</value>
   </data>
   <data name="ConnectionString" xml:space="preserve">
-    <value>Connection string (example: "AccountEndpoint=xyz;AccountKey=xyz;Database=xyz")</value>
+    <value>Connection string (example: "AccountEndpoint=xyz;AccountKey=xyz")</value>
+  </data>
+  <data name="ParallelSink_Database" xml:space="preserve">
+    <value>Name of the documents database</value>
   </data>
   <data name="ParallelSink_Collection" xml:space="preserve">
     <value>Name of the documents collection</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="Sink_UpdateExisting" xml:space="preserve">
     <value>Optional. Update existing documents with the same ID</value>
+  </data>
+  <data name="Source_Database" xml:space="preserve">
+    <value>Database name</value>
   </data>
   <data name="Source_Collection" xml:space="preserve">
     <value>Regex pattern to match one or more documents collection names</value>

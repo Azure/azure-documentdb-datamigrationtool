@@ -45,6 +45,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Sink.Bulk
 
             return new DocumentDbBulkSinkAdapterDispatcherConfiguration
             {
+                Database = configuration.Database,
                 Collections = collectionNames,
                 PartitionKey = configuration.PartitionKey,
                 CollectionThroughput = GetValueOrDefault(configuration.CollectionThroughput,

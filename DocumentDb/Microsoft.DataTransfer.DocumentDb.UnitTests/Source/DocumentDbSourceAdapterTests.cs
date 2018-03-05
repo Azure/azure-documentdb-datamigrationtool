@@ -20,6 +20,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
         [TestMethod]
         public async Task ReadSampleData_AllDataRead()
         {
+            const string TestDatabaseName = "TestDatabase";
             const string TestCollectionName = "TestCollection";
             const string TestQuery = "SELECT * FROM Collection";
 
@@ -30,7 +31,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
             var client = Mocks
                     .Of<IDocumentDbReadClient>()
                     .Where(m => 
-                        m.QueryDocumentsAsync(TestCollectionName, TestQuery, CancellationToken.None) ==
+                        m.QueryDocumentsAsync(TestDatabaseName, TestCollectionName, TestQuery, CancellationToken.None) ==
                             Task.FromResult<IAsyncEnumerator<IReadOnlyDictionary<string, object>>>(
                                 new AsyncEnumeratorMock<Dictionary<string, object>>(sampleData.OfType<Dictionary<string, object>>().GetEnumerator())))
                     .First();
@@ -38,6 +39,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Source
             var configuration = Mocks
                     .Of<IDocumentDbSourceAdapterInstanceConfiguration>()
                     .Where(m => 
+                        m.Database == TestDatabaseName &&
                         m.Collection == TestCollectionName && 
                         m.Query == TestQuery)
                     .First();

@@ -34,6 +34,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
             Guard.NotNull("configuration", configuration);
             Guard.NotNull("arguments", arguments);
 
+            arguments.Add(DocumentDbParallelSinkAdapterConfiguration.DatabasePropertyName, configuration.Database);
             arguments.Add(DocumentDbParallelSinkAdapterConfiguration.CollectionPropertyName, configuration.Collection);
 
             if (!String.IsNullOrEmpty(configuration.PartitionKey))

@@ -19,7 +19,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ConfigurationResources {
@@ -79,6 +79,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database name.
+        /// </summary>
+        public static string BulkSink_Database {
+            get {
+                return ResourceManager.GetString("BulkSink_Database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional, default is {0}. Size (in bytes) of the bulk insertion JSON array.
         /// </summary>
         public static string BulkSink_MaxScriptSizeFormat {
@@ -115,7 +124,7 @@ namespace Microsoft.DataTransfer.DocumentDb {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection string (example: &quot;AccountEndpoint=xyz;AccountKey=xyz;Database=xyz&quot;).
+        ///   Looks up a localized string similar to Connection string (example: &quot;AccountEndpoint=xyz;AccountKey=xyz&quot;).
         /// </summary>
         public static string ConnectionString {
             get {
@@ -129,6 +138,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         public static string ParallelSink_Collection {
             get {
                 return ResourceManager.GetString("ParallelSink_Collection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the documents database.
+        /// </summary>
+        public static string ParallelSink_Database {
+            get {
+                return ResourceManager.GetString("ParallelSink_Database", resourceCulture);
             }
         }
         
@@ -237,6 +255,15 @@ namespace Microsoft.DataTransfer.DocumentDb {
         public static string Source_Collection {
             get {
                 return ResourceManager.GetString("Source_Collection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database name.
+        /// </summary>
+        public static string Source_Database {
+            get {
+                return ResourceManager.GetString("Source_Database", resourceCulture);
             }
         }
         

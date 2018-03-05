@@ -5,6 +5,5 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
     {
         string AccountEndpoint { get; }
         string AccountKey { get; }
-        string Database { get; }
     }
 }

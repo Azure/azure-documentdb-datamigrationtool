@@ -5,6 +5,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
 {
     sealed class DocumentDbParallelSinkAdapterConfiguration : DocumentDbSinkAdapterConfiguration, IDocumentDbParallelSinkAdapterConfiguration
     {
+        public static readonly string DatabasePropertyName =
+            ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.Database);
+
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.Collection);
 
@@ -14,10 +17,17 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Sink.Parallel
         public static readonly string ParallelRequestsPropertyName =
             ObjectExtensions.MemberName<IDocumentDbParallelSinkAdapterConfiguration>(c => c.ParallelRequests);
 
+        private string database;
         private string collection;
         private string partitionKey;
 
         private int? parallelRequests;
+
+        public string Database
+        {
+            get { return database; }
+            set { SetProperty(ref database, value, ValidateNonEmptyString); }
+        }
 
         public string Collection
         {

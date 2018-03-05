@@ -32,8 +32,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
                         null,
                         GetValueOrDefault(configuration.Retries, Defaults.Current.NumberOfRetries, Errors.InvalidNumberOfRetries),
                         GetValueOrDefault(configuration.RetryInterval, Defaults.Current.RetryInterval, Errors.InvalidRetryInterval),
-                        false)),
-                connectionSettings.Database
+                        false))
             );
         }
 
@@ -78,9 +77,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             if (String.IsNullOrEmpty(connectionSettings.AccountKey))
                 throw Errors.AccountKeyMissing();
-
-            if (String.IsNullOrEmpty(connectionSettings.Database))
-                throw Errors.DatabaseNameMissing();
 
             return connectionSettings;
         }

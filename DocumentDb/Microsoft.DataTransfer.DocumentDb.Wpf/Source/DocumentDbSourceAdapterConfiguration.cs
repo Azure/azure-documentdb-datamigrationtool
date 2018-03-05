@@ -6,6 +6,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
 {
     sealed class DocumentDbSourceAdapterConfiguration : DocumentDbAdapterConfiguration<ISharedDocumentDbAdapterConfiguration>, IDocumentDbSourceAdapterConfiguration
     {
+        public static readonly string DatabasePropertyName =
+            ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.Database);
+
         public static readonly string CollectionPropertyName =
             ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.Collection);
 
@@ -18,6 +21,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
         public static readonly string QueryFilePropertyName =
             ObjectExtensions.MemberName<IDocumentDbSourceAdapterConfiguration>(c => c.QueryFile);
 
+        private string database;
         private string collection;
 
         private bool internalFields;
@@ -25,6 +29,12 @@ namespace Microsoft.DataTransfer.DocumentDb.Wpf.Source
         private bool useQueryFile;
         private string query;
         private string queryFile;
+
+        public string Database
+        {
+            get { return database; }
+            set { SetProperty(ref database, value, ValidateNonEmptyString); }
+        }
 
         public string Collection
         {

@@ -35,7 +35,7 @@ namespace Microsoft.DataTransfer.DocumentDb.UnitTests.Sink
         }
 
         public Task<string> GetOrCreateCollectionAsync(
-            string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
+            string databaseName, string collectionName, string partitionKey, int desiredThroughput, IndexingPolicy indexingPolicy, CancellationToken cancellation)
         {
             Assert.IsFalse(String.IsNullOrEmpty(collectionName), TestResources.MissingCollectionNameInGetOrCreateCollection);
 
