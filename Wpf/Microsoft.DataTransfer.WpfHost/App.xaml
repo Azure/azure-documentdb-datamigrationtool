@@ -19,7 +19,7 @@
       <system:String x:Key="CloseKey">Close</system:String>
 
       <!-- Main window -->
-      <system:String x:Key="MainWindowTitleKey">DocumentDB Data Migration Tool</system:String>
+      <system:String x:Key="MainWindowTitleKey">Azure Cosmos DB Data Migration Tool</system:String>
 
       <!-- Navigation -->
       <system:String x:Key="NavigateToPreviousStepKey">Previous</system:String>
@@ -29,10 +29,10 @@
       <system:String x:Key="StartNewImportKey">New Import</system:String>
 
       <!-- Step: Welcome -->
-      <system:String x:Key="WelcomePageTitleKey">DocumentDB Data Migration Tool</system:String>
+      <system:String x:Key="WelcomePageTitleKey">Azure Cosmos DB Data Migration Tool</system:String>
       <Span x:Key="WelcomePageContentKey">
         <Span>
-          Use the DocumentDB data migration tool to import data to DocumentDB from a variety of sources.
+          Use the Azure Cosmos DB data migration tool to import data to Cosmos from a variety of sources.
           The tool can not only help scope certain source data via queries (e.g. SQL Server, MongoDB),
           but can also transform tabular data (e.g. CSV file, SQL Server) into hierarchical structures.
         </Span>
