@@ -61,6 +61,15 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}, {2}).
+        /// </summary>
+        internal static string DataItemIdFormat {
+            get {
+                return ResourceManager.GetString("DataItemIdFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reads data from Firebase JSON files.
         /// </summary>
         internal static string SourceDescription {
