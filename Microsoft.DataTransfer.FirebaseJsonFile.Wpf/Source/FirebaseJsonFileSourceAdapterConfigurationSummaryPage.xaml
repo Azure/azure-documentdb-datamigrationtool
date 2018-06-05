@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.FirebaseJsonFile.Wpf.Source.FirebaseJsonFileSourceAdapterConfigurationSummaryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.ValueConverters;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\XamlResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:BooleanToStringValueConverter x:Key="YesNoConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Style="{StaticResource SummaryGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource FilesSummaryKey}" />
+        <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Files}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource NodeSummaryKey}" />
+        <Label Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="{Binding Node}" />
+        </Label>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource IdFieldSummaryKey}" />
+        <Label Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="{Binding IdField}" />
+        </Label>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource CollectionFieldSummaryKey}" />
+        <Label Grid.Row="3" Grid.Column="1">
+            <TextBlock Text="{Binding CollectionField}" />
+        </Label>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource DecompressSummaryKey}" />
+        <Label Grid.Row="4" Grid.Column="1">
+            <TextBlock Text="{Binding Decompress, Converter={StaticResource YesNoConverter}}" />
+        </Label>
+    </Grid>
+</UserControl>

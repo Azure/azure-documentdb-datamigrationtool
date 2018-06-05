@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Microsoft.DataTransfer.FirebaseJsonFile.Wpf.Source.FirebaseJsonFileSourceAdapterConfigurationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:bc="clr-namespace:Microsoft.DataTransfer.WpfHost.Basics.Controls;assembly=Microsoft.DataTransfer.WpfHost.Basics"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\XamlResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <bc:FilesPickerControl Grid.Row="0" Style="{StaticResource OptionElement}"
+                Files="{Binding EditableFiles}"
+                Filter="{DynamicResource OpenFilesFilterKey}"
+                DefaultExtension="{DynamicResource OpenFilesDefaultExtensionKey}" />
+
+            <StackPanel Grid.Row="1" Style="{StaticResource OptionElement}">
+                <bc:ToolTipDecorator ToolTip="{DynamicResource NodeDescriptionKey}">
+                    <Label Content="{DynamicResource NodeKey}" />
+                </bc:ToolTipDecorator>
+                <TextBox Text="{Binding Node, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Style="{StaticResource OptionElement}">
+                <bc:ToolTipDecorator ToolTip="{DynamicResource IdFieldDescriptionKey}">
+                    <Label Content="{DynamicResource IdFieldKey}" />
+                </bc:ToolTipDecorator>
+                <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+            </StackPanel>
+            
+            <StackPanel Grid.Row="3" Style="{StaticResource OptionElement}">
+                <bc:ToolTipDecorator ToolTip="{DynamicResource CollectionFieldDescriptionKey}">
+                    <Label Content="{DynamicResource CollectionFieldKey}" />
+                </bc:ToolTipDecorator>
+                <TextBox Text="{Binding CollectionField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+            </StackPanel>
+
+            <bc:ToolTipDecorator Grid.Row="4" Style="{StaticResource SingleLineOptionElement}"
+        ToolTip="{DynamicResource DecompressDescriptionKey}">
+                <CheckBox Content="{DynamicResource DecompressKey}" IsChecked="{Binding Decompress}" />
+            </bc:ToolTipDecorator>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>
