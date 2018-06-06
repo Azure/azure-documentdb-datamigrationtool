@@ -31,11 +31,5 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_IdField")]
         string IdField { get; }
-
-        /// <summary>
-        /// Gets the field name to be used for storing the Firebase top-level node name (to be interpreted as a collection)
-        /// </summary>
-        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_CollectionField")]
-        string CollectionField { get; }
     }
 }

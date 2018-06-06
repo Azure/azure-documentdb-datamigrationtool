@@ -43,7 +43,6 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
                         .Select(p => new FirebaseJsonFileSourceAdapter(p, 
                             configuration.Node, 
                             configuration.IdField, 
-                            configuration.CollectionField, 
                             serializer))));
         }
 

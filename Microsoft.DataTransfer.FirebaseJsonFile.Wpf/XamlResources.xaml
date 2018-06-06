@@ -7,10 +7,6 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!-- String resources -->
-    <system:String x:Key="CollectionFieldKey">Collection Field</system:String>
-    <system:String x:Key="CollectionFieldDescriptionKey">Field to store item Collection name (based on top-level node)</system:String>
-    <system:String x:Key="CollectionFieldSummaryKey">Collection Field:</system:String>
-    
     <system:String x:Key="DecompressKey">Decompress data</system:String>
     <system:String x:Key="DecompressDescriptionKey">Data from the source files will be decompressed with GZip</system:String>
     <system:String x:Key="DecompressSummaryKey">Decompress data:</system:String>

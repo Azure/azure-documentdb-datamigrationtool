@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Source_CollectionField" xml:space="preserve">
-    <value>Optional. If specified, top-level Firebase nodes will be interpreted as collection names and will be stored in the given field name</value>
-  </data>
   <data name="Source_Decompress" xml:space="preserve">
     <value>Optional. If source files should be decompressed with GZip</value>
   </data>

@@ -61,15 +61,6 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional. If specified, top-level Firebase nodes will be interpreted as collection names and will be stored in the given field name.
-        /// </summary>
-        public static string Source_CollectionField {
-            get {
-                return ResourceManager.GetString("Source_CollectionField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optional. If source files should be decompressed with GZip.
         /// </summary>
         public static string Source_Decompress {

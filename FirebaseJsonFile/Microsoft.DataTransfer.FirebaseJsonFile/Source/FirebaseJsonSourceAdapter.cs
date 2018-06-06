@@ -23,7 +23,7 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         private StreamReader streamReader;
         private JsonTextReader jsonReader;
 
-        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, string collectionField, JsonSerializer serializer)
+        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, JsonSerializer serializer)
         {
             Guard.NotNull("sourceStreamProvider", sourceStreamProvider);
             Guard.NotNull("serializer", serializer);
@@ -31,7 +31,6 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
             this.sourceStreamProvider = sourceStreamProvider;
             this.node = node;
             this.idField = idField;
-            this.collectionField = collectionField;
             this.serializer = serializer;
         }
 
@@ -64,14 +63,6 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
                 {
                     dataItem.SetValue(idField, id);
                 }
-                if (!string.IsNullOrEmpty(collectionField))
-                {
-                    var collectionName = GetCollectionName(jsonReader);
-                    if (!string.IsNullOrEmpty(collectionName))
-                    {
-                        dataItem.SetValue(collectionField, collectionName);
-                    }
-                }
 
                 return dataItem;
             }
@@ -88,27 +79,13 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
                     Resources.DataItemIdFormat, sourceStreamProvider.Id, lineNumber, linePosition);
             }
         }
-
-        // By convention, top-level firebase nodes are logical buckets  
-        // similar to CosmosDB collections
-        private string GetCollectionName(JsonTextReader jsonReader) => jsonReader.Path
-            .Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries)
-            .FirstOrDefault();
-
+        
         private bool ReaderAtNextItem(JsonTextReader jsonReader)
         {
             // Firebase items begin with property names
             // They are stored as properties with the ID as the 
             // property name and the item as the property value
             if (jsonReader.TokenType != JsonToken.PropertyName)
-            {
-                return false;
-            }
-
-            // If inferring collection name from top-level node, then we need 
-            // to read items at depth 2
-            // (top-level nodes are at depth 1)
-            if (!string.IsNullOrEmpty(collectionField) && jsonReader.Depth < 2)
             {
                 return false;
             }
