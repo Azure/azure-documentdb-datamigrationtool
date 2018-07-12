@@ -95,5 +95,14 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile {
                 return ResourceManager.GetString("Source_Node", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. If specified, the item&apos;s parent node path will be stored in the given field name.
+        /// </summary>
+        public static string Source_NodeField {
+            get {
+                return ResourceManager.GetString("Source_NodeField", resourceCulture);
+            }
+        }
     }
 }

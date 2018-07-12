@@ -31,5 +31,11 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_IdField")]
         string IdField { get; }
+
+        /// <summary>
+        /// Gets an optional field name used to store the name of this item's parent node
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_NodeField")]
+        string NodeField { get; }
     }
 }

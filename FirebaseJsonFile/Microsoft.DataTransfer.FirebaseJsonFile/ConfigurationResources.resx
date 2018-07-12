@@ -129,4 +129,7 @@
   <data name="Source_Node" xml:space="preserve">
     <value>Optional. The node path to get items from</value>
   </data>
+  <data name="Source_NodeField" xml:space="preserve">
+    <value>Optional. If specified, the item's parent node path will be stored in the given field name</value>
+  </data>
 </root>

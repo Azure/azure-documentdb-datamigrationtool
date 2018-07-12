@@ -36,6 +36,9 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Wpf.Source
             if (!string.IsNullOrEmpty(configuration.Node))
                 arguments.Add(FirebaseJsonFileSourceAdapterConfiguration.NodePropertyName, configuration.Node);
 
+            if (!string.IsNullOrEmpty(configuration.NodeField))
+                arguments.Add(FirebaseJsonFileSourceAdapterConfiguration.NodeFieldPropertyName, configuration.NodeField);
+
             if (!string.IsNullOrEmpty(configuration.IdField))
                 arguments.Add(FirebaseJsonFileSourceAdapterConfiguration.IdFieldPropertyName, configuration.IdField);
         }

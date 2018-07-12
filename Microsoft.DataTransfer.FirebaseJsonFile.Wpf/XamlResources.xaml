@@ -14,7 +14,11 @@
     <system:String x:Key="IdFieldKey">ID Field</system:String>
     <system:String x:Key="IdFieldDescriptionKey">Field to store item ID</system:String>
     <system:String x:Key="IdFieldSummaryKey">ID Field:</system:String>
-    
+
+    <system:String x:Key="NodeFieldKey">Node Field</system:String>
+    <system:String x:Key="NodeFieldDescriptionKey">Optional field to store item's parent node path</system:String>
+    <system:String x:Key="NodeFieldSummaryKey">Node Field:</system:String>
+
     <system:String x:Key="NodeKey">Node</system:String>
     <system:String x:Key="NodeDescriptionKey">Optionally specify the top-level node to read items from</system:String>
     <system:String x:Key="NodeSummaryKey">Node:</system:String>

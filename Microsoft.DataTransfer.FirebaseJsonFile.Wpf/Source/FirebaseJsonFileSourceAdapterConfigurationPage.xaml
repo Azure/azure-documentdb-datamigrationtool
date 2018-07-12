@@ -22,6 +22,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <bc:FilesPickerControl Grid.Row="0" Style="{StaticResource OptionElement}"
@@ -42,8 +43,15 @@
                 </bc:ToolTipDecorator>
                 <TextBox Text="{Binding IdField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
             </StackPanel>
+            
+            <StackPanel Grid.Row="3" Style="{StaticResource OptionElement}">
+                <bc:ToolTipDecorator ToolTip="{DynamicResource NodeFieldDescriptionKey}">
+                    <Label Content="{DynamicResource NodeFieldKey}" />
+                </bc:ToolTipDecorator>
+                <TextBox Text="{Binding NodeField, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static system:String.Empty}}" />
+            </StackPanel>
 
-            <bc:ToolTipDecorator Grid.Row="3" Style="{StaticResource SingleLineOptionElement}"
+            <bc:ToolTipDecorator Grid.Row="4" Style="{StaticResource SingleLineOptionElement}"
         ToolTip="{DynamicResource DecompressDescriptionKey}">
                 <CheckBox Content="{DynamicResource DecompressKey}" IsChecked="{Binding Decompress}" />
             </bc:ToolTipDecorator>

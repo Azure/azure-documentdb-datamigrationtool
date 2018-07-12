@@ -16,6 +16,7 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
     {
         private readonly ISourceStreamProvider sourceStreamProvider;
         private readonly string node;
+        private readonly string nodeField;
         private readonly string idField;
         private readonly string collectionField;
         private readonly JsonSerializer serializer;
@@ -23,13 +24,14 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         private StreamReader streamReader;
         private JsonTextReader jsonReader;
 
-        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, JsonSerializer serializer)
+        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, string nodeField, JsonSerializer serializer)
         {
             Guard.NotNull("sourceStreamProvider", sourceStreamProvider);
             Guard.NotNull("serializer", serializer);
 
             this.sourceStreamProvider = sourceStreamProvider;
             this.node = node;
+            this.nodeField = nodeField;
             this.idField = idField;
             this.serializer = serializer;
         }
@@ -57,11 +59,15 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
                 await jsonReader.ReadAsync();
                 var dataItem = serializer.Deserialize<IDataItem>(jsonReader) as JObjectDataItem;
 
-                // If the user requested ID or Collection name to be stored as 
+                // If the user requested ID or Node name to be stored as 
                 // fields (for use by the DT target), add/update those values
                 if (!string.IsNullOrEmpty(idField))
                 {
                     dataItem.SetValue(idField, id);
+                }
+                if (!string.IsNullOrEmpty(nodeField))
+                {
+                    dataItem.SetValue(nodeField, node);
                 }
 
                 return dataItem;
