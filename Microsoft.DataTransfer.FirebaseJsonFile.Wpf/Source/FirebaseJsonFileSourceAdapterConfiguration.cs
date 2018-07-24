@@ -26,12 +26,16 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Wpf.Source
 
         public static readonly string IdFieldPropertyName =
             ObjectExtensions.MemberName<IFirebaseJsonFileSourceAdapterConfiguration>(c => c.IdField);
-        
+
+        public static readonly string PrefixIdWithNodePropertyName =
+            ObjectExtensions.MemberName<IFirebaseJsonFileSourceAdapterConfiguration>(c => c.PrefixIdWithNode);
+
         private ObservableCollection<string> files;
         private bool decompress;
         private string node;
         private string nodeField;
         private string idField;
+        private bool prefixIdWithNode;
 
         public IEnumerable<string> Files => files;
 
@@ -64,7 +68,13 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Wpf.Source
             get => idField;
             set { SetProperty(ref idField, value); }
         }
-        
+
+        public bool PrefixIdWithNode
+        {
+            get => prefixIdWithNode;
+            set { SetProperty(ref prefixIdWithNode, value); }
+        }
+
         public FirebaseJsonFileSourceAdapterConfiguration()
         {
             EditableFiles = new ObservableCollection<string>();

@@ -19,12 +19,13 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         private readonly string nodeField;
         private readonly string idField;
         private readonly string collectionField;
+        private readonly bool prefixIdWithNode;
         private readonly JsonSerializer serializer;
 
         private StreamReader streamReader;
         private JsonTextReader jsonReader;
 
-        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, string nodeField, JsonSerializer serializer)
+        public FirebaseJsonFileSourceAdapter(ISourceStreamProvider sourceStreamProvider, string node, string idField, string nodeField, bool prefixIdWithNode, JsonSerializer serializer)
         {
             Guard.NotNull("sourceStreamProvider", sourceStreamProvider);
             Guard.NotNull("serializer", serializer);
@@ -34,6 +35,7 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
             this.nodeField = nodeField;
             this.idField = idField;
             this.serializer = serializer;
+            this.prefixIdWithNode = prefixIdWithNode;
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
@@ -55,7 +57,9 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
 
                 // Firebase item's IDs are stored as property names and the 
                 // items themselves are stored as property values
-                var id = jsonReader.Value.ToString();
+                var id = prefixIdWithNode ?
+                    $"{node}-{jsonReader.Value.ToString()}" :
+                    jsonReader.Value.ToString();
                 await jsonReader.ReadAsync();
                 var dataItem = serializer.Deserialize<IDataItem>(jsonReader) as JObjectDataItem;
 

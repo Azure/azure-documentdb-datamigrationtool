@@ -27,4 +27,8 @@
     <system:String x:Key="OpenFilesFilterKey">JSON Documents|*.json|GZip Files|*.gz|All Files|*.*</system:String>
     <system:String x:Key="OpenFilesDefaultExtensionKey">*.json</system:String>
 
+    <system:String x:Key="PrefixIdWithNodeKey">Prefix ID with Node</system:String>
+    <system:String x:Key="PrefixIdWithNodeDescriptionKey">If true, prefix item IDs with node name</system:String>
+    <system:String x:Key="PrefixIdWithNodeSummaryKey">Prefix ID with Node:</system:String>
+
 </ResourceDictionary>

@@ -104,5 +104,14 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile {
                 return ResourceManager.GetString("Source_NodeField", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If true, prefixes item IDs with their parent&apos;s node name.
+        /// </summary>
+        public static string Source_PrefixIdWithNode {
+            get {
+                return ResourceManager.GetString("Source_PrefixIdWithNode", resourceCulture);
+            }
+        }
     }
 }

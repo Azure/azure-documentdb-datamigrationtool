@@ -132,4 +132,7 @@
   <data name="Source_NodeField" xml:space="preserve">
     <value>Optional. If specified, the item's parent node path will be stored in the given field name</value>
   </data>
+  <data name="Source_PrefixIdWithNode" xml:space="preserve">
+    <value>If true, prefixes item IDs with their parent's node name</value>
+  </data>
 </root>

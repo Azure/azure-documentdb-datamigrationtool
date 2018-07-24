@@ -44,6 +44,7 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
                             configuration.Node, 
                             configuration.IdField, 
                             configuration.NodeField,
+                            configuration.PrefixIdWithNode,
                             serializer))));
         }
 

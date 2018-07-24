@@ -27,6 +27,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource FilesSummaryKey}" />
@@ -50,6 +51,11 @@
         <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource DecompressSummaryKey}" />
         <Label Grid.Row="4" Grid.Column="1">
             <TextBlock Text="{Binding Decompress, Converter={StaticResource YesNoConverter}}" />
+        </Label>
+        
+        <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource PrefixIdWithNodeSummaryKey}" />
+        <Label Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="{Binding PrefixIdWithNode, Converter={StaticResource YesNoConverter}}" />
         </Label>
     </Grid>
 </UserControl>

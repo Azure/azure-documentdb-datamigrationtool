@@ -37,5 +37,11 @@ namespace Microsoft.DataTransfer.FirebaseJsonFile.Source
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_NodeField")]
         string NodeField { get; }
+
+        /// <summary>
+        /// Indicates whether IDs should include the parent node name as a prefix
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Source_PrefixIdWithNode")]
+        bool PrefixIdWithNode { get; }
     }
 }
