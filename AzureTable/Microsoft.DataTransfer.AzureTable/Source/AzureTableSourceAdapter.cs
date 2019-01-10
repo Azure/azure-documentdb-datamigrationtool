@@ -12,7 +12,8 @@ namespace Microsoft.DataTransfer.AzureTable.Source
     {
         private const string RowKeyFieldName = "RowKey";
         private const string PartitionKeyFieldName = "PartitionKey";
-        private const string TimestampFieldName = "Timestamp";
+        private const string TimestampFieldName = "SourceTimestamp";
+        private const string ETagFieldName = "ETag";
 
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
@@ -84,6 +85,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             {
                 entity.Properties[PartitionKeyFieldName] = new EntityProperty(entity.PartitionKey);
                 entity.Properties[TimestampFieldName] = new EntityProperty(entity.Timestamp);
+                entity.Properties[ETagFieldName] = new EntityProperty(entity.ETag);
             }
 
             entity.Properties[RowKeyFieldName] = new EntityProperty(entity.RowKey);
