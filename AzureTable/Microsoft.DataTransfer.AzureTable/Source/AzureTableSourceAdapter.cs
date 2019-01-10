@@ -13,7 +13,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private const string RowKeyFieldName = "RowKey";
         private const string PartitionKeyFieldName = "PartitionKey";
         private const string TimestampFieldName = "SourceTimestamp";
-        private const string ETagFieldName = "ETag";
+        private const string ETagFieldName = "SourceETag";
 
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
