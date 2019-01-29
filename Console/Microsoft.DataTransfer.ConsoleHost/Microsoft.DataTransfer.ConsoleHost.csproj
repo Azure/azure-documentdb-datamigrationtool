@@ -119,6 +119,10 @@
       <Project>{af2a444f-cabd-45be-9b9e-9d53501b2041}</Project>
       <Name>Microsoft.DataTransfer.DynamoDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FirebaseJsonFile\Microsoft.DataTransfer.FirebaseJsonFile\Microsoft.DataTransfer.FirebaseJsonFile.csproj">
+      <Project>{236801a6-4ef6-42c6-8e1a-4ef4f1896e07}</Project>
+      <Name>Microsoft.DataTransfer.FirebaseJsonFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj">
       <Project>{ad24db36-8623-4e11-9995-a6eb5ef50a38}</Project>
       <Name>Microsoft.DataTransfer.HBase</Name>

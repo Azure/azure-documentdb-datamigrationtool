@@ -150,6 +150,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Basi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.MongoDb.UnitTests", "MongoDb\Microsoft.DataTransfer.MongoDb.UnitTests\Microsoft.DataTransfer.MongoDb.UnitTests.csproj", "{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FirebaseJsonFile", "FirebaseJsonFile", "{9EC73EB5-D2EB-457A-97FB-BA5A14B1BA3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.FirebaseJsonFile", "FirebaseJsonFile\Microsoft.DataTransfer.FirebaseJsonFile\Microsoft.DataTransfer.FirebaseJsonFile.csproj", "{236801A6-4EF6-42C6-8E1A-4EF4F1896E07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.FirebaseJsonFile.Wpf", "Microsoft.DataTransfer.FirebaseJsonFile.Wpf\Microsoft.DataTransfer.FirebaseJsonFile.Wpf.csproj", "{851310F7-E600-4F99-B9DF-0176A6E97016}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -368,6 +374,14 @@ Global
 		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Debug|x64.Build.0 = Debug|x64
 		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.ActiveCfg = Release|x64
 		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.Build.0 = Release|x64
+		{236801A6-4EF6-42C6-8E1A-4EF4F1896E07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{236801A6-4EF6-42C6-8E1A-4EF4F1896E07}.Debug|x64.Build.0 = Debug|Any CPU
+		{236801A6-4EF6-42C6-8E1A-4EF4F1896E07}.Release|x64.ActiveCfg = Release|Any CPU
+		{236801A6-4EF6-42C6-8E1A-4EF4F1896E07}.Release|x64.Build.0 = Release|Any CPU
+		{851310F7-E600-4F99-B9DF-0176A6E97016}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{851310F7-E600-4F99-B9DF-0176A6E97016}.Debug|x64.Build.0 = Debug|Any CPU
+		{851310F7-E600-4F99-B9DF-0176A6E97016}.Release|x64.ActiveCfg = Release|Any CPU
+		{851310F7-E600-4F99-B9DF-0176A6E97016}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -423,6 +437,8 @@ Global
 		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD} = {1BD0D669-8E45-4E7C-A20F-707A1887E8ED}
 		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA} = {7F83D352-1039-4B8F-B63C-56231421056A}
+		{236801A6-4EF6-42C6-8E1A-4EF4F1896E07} = {9EC73EB5-D2EB-457A-97FB-BA5A14B1BA3A}
+		{851310F7-E600-4F99-B9DF-0176A6E97016} = {9EC73EB5-D2EB-457A-97FB-BA5A14B1BA3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}

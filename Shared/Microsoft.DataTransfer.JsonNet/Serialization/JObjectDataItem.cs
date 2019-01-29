@@ -49,6 +49,17 @@ namespace Microsoft.DataTransfer.JsonNet.Serialization
             return GetValue(token);
         }
 
+        /// <summary>
+        /// Sets the value of a specified <see cref="JObject"/> field.
+        /// </summary>
+        /// <param name="fieldName">Name of the <see cref="JObject"/> field.</param>
+        /// <param name="fieldValue">Value of the <see cref="JObject"/> field.</param>
+        public void SetValue(string fieldName, string fieldValue)
+        {
+            Guard.NotNull("fieldName", fieldName);
+            data[fieldName] = fieldValue;
+        }
+
         private object GetValue(JToken token)
         {
             if (token is JObject)
