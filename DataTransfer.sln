@@ -356,6 +356,18 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Debug|x64.Build.0 = Debug|x64
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Release|x64.ActiveCfg = Release|x64
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Release|x64.Build.0 = Release|x64
+        {3C508C20-FC36-439A-AD68-5FE2170172D0}.Debug|x64.ActiveCfg = Debug|x64	
+		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Debug|x64.Build.0 = Debug|x64	
+		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Release|x64.ActiveCfg = Release|x64	
+		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Release|x64.Build.0 = Release|x64	
+		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Debug|x64.ActiveCfg = Debug|x64	
+		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Debug|x64.Build.0 = Debug|x64	
+		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Release|x64.ActiveCfg = Release|x64	
+		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Release|x64.Build.0 = Release|x64	
+		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Debug|x64.ActiveCfg = Debug|x64	
+		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Debug|x64.Build.0 = Debug|x64	
+		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.ActiveCfg = Release|x64	
+		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -413,7 +425,7 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA} = {7F83D352-1039-4B8F-B63C-56231421056A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
-		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
+        SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45		
 	EndGlobalSection
 EndGlobal
