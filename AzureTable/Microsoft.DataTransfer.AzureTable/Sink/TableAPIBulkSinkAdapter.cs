@@ -168,6 +168,10 @@
             Guard.NotNull("tableEntityDataItem", tableEntityDataItem);
 
             var sourceData = tableEntityDataItem.GetDynamicTableEntity();
+            if (String.IsNullOrWhiteSpace(sourceData.RowKey))
+            {
+                sourceData.RowKey = sourceData.PartitionKey;
+            }
 
             sourceData.Properties.Remove("RowKey");
             sourceData.Properties.Remove("PartitionKey");
