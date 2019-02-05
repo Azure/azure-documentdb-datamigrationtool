@@ -32,10 +32,5 @@ namespace Microsoft.DataTransfer.ConsoleHost
         {
             return new KeyNotFoundException(FormatMessage(Resources.DataAdapterConfigurationFactoryNotFoundFormat, configurationType));
         }
-
-        public static Exception ConnectionStringFormat(string connectionString)
-        {
-            return new ArgumentException(FormatMessage(Resources.ConnectionStringFormat));
-        }
     }
 }

@@ -61,15 +61,6 @@ namespace Microsoft.DataTransfer.ConsoleHost {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please ensure connection string endpoint does not contain a &apos;/&apos; at the end. {0}.
-        /// </summary>
-        internal static string ConnectionStringFormat {
-            get {
-                return ResourceManager.GetString("ConnectionStringFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Critical error: .
         /// </summary>
         internal static string CriticalFailurePrefix {
