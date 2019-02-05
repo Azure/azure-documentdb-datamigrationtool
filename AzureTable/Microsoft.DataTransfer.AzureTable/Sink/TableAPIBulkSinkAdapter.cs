@@ -39,6 +39,9 @@
         public TableAPIBulkSinkAdapter(string connectionString, string tableName, 
             bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize)
         {
+            if (connectionString.EndsWith("/"))
+                connectionString.TrimEnd('/');
+
             _connectionString = connectionString;
             _tableName = tableName;
             _overwrite = overwrite;

@@ -29,6 +29,9 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
                 m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
 
+            if (connectionString.EndsWith("/"))
+                connectionString.TrimEnd('/');
+
             var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
             client.DefaultRequestOptions.LocationMode =

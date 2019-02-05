@@ -59,20 +59,8 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
             if (sourceConfiguration.TryGetValue(String.Empty, out sourceName))
                 sourceConfiguration.Remove(String.Empty);
 
-            if (sourceConfiguration.TryGetValue("ConnectionString", out sourceName) && sourceName.EndsWith("/"))
-            {
-                sourceName.TrimEnd('/');
-                sourceConfiguration["ConnectionString"] = sourceName;
-            }
-
             if (targetConfiguration.TryGetValue(String.Empty, out targetName))
                 targetConfiguration.Remove(String.Empty);
-
-            if (targetConfiguration.TryGetValue("ConnectionString", out targetName) && targetName.EndsWith("/"))
-            {
-                targetName.TrimEnd('/');
-                targetConfiguration["ConnectionString"] = targetName;
-            }
 
             return new CommandLineConfiguration
             {
