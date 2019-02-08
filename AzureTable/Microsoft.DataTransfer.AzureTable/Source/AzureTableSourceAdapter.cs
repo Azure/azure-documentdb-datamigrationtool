@@ -1,10 +1,12 @@
-﻿using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
-using Microsoft.DataTransfer.AzureTable.Client;
-using Microsoft.DataTransfer.Extensibility;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.RetryPolicies;
+using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.Extensibility;
 
 namespace Microsoft.DataTransfer.AzureTable.Source
 {
@@ -18,6 +20,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
         private readonly TableQuery query;
+        private readonly TableRequestOptions requestOptions;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
@@ -40,6 +43,11 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             {
                 FilterString = configuration.Filter,
                 SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)
+            };
+
+            requestOptions = new TableRequestOptions()
+            {
+                RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
             };
         }
 
@@ -95,7 +103,8 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         private void MoveToNextSegment(TableContinuationToken continuationToken, CancellationToken cancellation)
         {
-            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, cancellation);
+            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query: query, token: continuationToken, 
+                requestOptions: requestOptions, operationContext: null, cancellationToken: cancellation);
             currentEntityIndex = 0;
         }
 

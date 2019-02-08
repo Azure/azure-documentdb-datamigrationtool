@@ -3,6 +3,7 @@
     using Microsoft.Azure.CosmosDB;
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Storage.RetryPolicies;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -30,6 +31,7 @@
         private ConcurrentDictionary<string, TableBatchOperation> dict;
         private InputSizeTracker inputSizeTracker;
         private BatchSizeTracker batchSizeTracker;
+        private readonly TableRequestOptions requestOptions;
 
         public int MaxDegreeOfParallelism
         {
@@ -56,6 +58,11 @@
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
             cloudtable = tableClient.GetTableReference(_tableName);
+
+            requestOptions = new TableRequestOptions()
+            {
+                RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
+            };
         }
 
         public async Task InitializeAsync(CancellationToken cancellation)
@@ -130,7 +137,8 @@
                             try
                             {
                                 await Utils.ExecuteWithRetryAsync(
-                                                    () => cloudtable.ExecuteBatchAsync(op, cancellation)
+                                                    () => cloudtable.ExecuteBatchAsync(batch: op, 
+                                                    requestOptions: requestOptions, operationContext: null, cancellationToken: cancellation)
                                                 );
                             }
                             catch (Exception ex)
