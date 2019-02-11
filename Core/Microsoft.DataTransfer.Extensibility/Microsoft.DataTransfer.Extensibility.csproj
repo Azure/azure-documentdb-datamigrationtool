@@ -51,6 +51,7 @@
     <Compile Include="IDataSinkAdapterFactory.cs" />
     <Compile Include="IDataSourceAdapter.cs" />
     <Compile Include="IDataTransferContext.cs" />
+    <Compile Include="IDataTransferResumptionAdapter.cs" />
     <Compile Include="NonFatalReadException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOutputByRef.cs" />

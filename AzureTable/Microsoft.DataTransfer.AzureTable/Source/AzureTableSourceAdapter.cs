@@ -1,6 +1,8 @@
 ﻿using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.AzureTable.Resumption;
+using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,12 +20,15 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly IAzureTableSourceAdapterInstanceConfiguration configuration;
         private readonly CloudTable table;
         private readonly TableQuery query;
+        private readonly IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
 
-        public AzureTableSourceAdapter(IAzureTableSourceAdapterInstanceConfiguration configuration)
+        public AzureTableSourceAdapter(IAzureTableSourceAdapterInstanceConfiguration configuration,
+            IDataTransferResumptionAdapter<AzureTablePrimaryKey> resumptionAdapter)
         {
+            Guard.NotNull(nameof(resumptionAdapter), resumptionAdapter);
             this.configuration = configuration;
 
             string connectionString = System.Text.RegularExpressions.Regex.Replace(
@@ -41,13 +46,25 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 FilterString = configuration.Filter,
                 SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)
             };
+            _resumptionAdapter = resumptionAdapter;
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             if (segmentDownloadTask == null)
             {
-                MoveToNextSegment(null, cancellation);
+                TableContinuationToken continuationToken = null;
+                var checkpoint = _resumptionAdapter.GetCheckpoint();
+                if (checkpoint != null)
+                {
+                    continuationToken = new TableContinuationToken
+                    {
+                        NextPartitionKey = ContinuationTokenParser.EncodeContinuationToken(checkpoint.PartitionKey),
+                        NextRowKey = ContinuationTokenParser.EncodeContinuationToken(checkpoint.RowKey)
+                    };
+                }
+
+                MoveToNextSegment(continuationToken, cancellation);
             }
 
             var currentSegment = await segmentDownloadTask;

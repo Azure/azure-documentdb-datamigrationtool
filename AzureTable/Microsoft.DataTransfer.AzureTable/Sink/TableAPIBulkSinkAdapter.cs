@@ -3,6 +3,7 @@
     using Microsoft.Azure.CosmosDB;
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
+    using Microsoft.DataTransfer.AzureTable.Resumption;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -25,6 +26,7 @@
         private long _maxInputBufferSizeInBytes;
         private int _throughput;
         private int _maxLengthInBytesPerBatch;
+        private IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
 
         private CloudTable cloudtable;
         private ConcurrentDictionary<string, TableBatchOperation> dict;
@@ -37,14 +39,18 @@
         }
 
         public TableAPIBulkSinkAdapter(string connectionString, string tableName, 
-            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize)
+            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize,
+            IDataTransferResumptionAdapter<AzureTablePrimaryKey> resumptionAdapter)
         {
+            Guard.NotNull(nameof(resumptionAdapter), resumptionAdapter);
+
             _connectionString = connectionString;
             _tableName = tableName;
             _overwrite = overwrite;
             _maxInputBufferSizeInBytes = maxInputBufferSizeInBytes;
             _throughput = throughput;
             _maxLengthInBytesPerBatch = batchSize;
+            _resumptionAdapter = resumptionAdapter;
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
 
@@ -69,6 +75,11 @@
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
         {
             var item = GetITableEntityFromIDataItem(dataItem);
+            if (dict.Count == 0)
+            {
+                _resumptionAdapter.SaveCheckpoint(
+                    new AzureTablePrimaryKey { PartitionKey = item.PartitionKey, RowKey = item.RowKey });
+            }
 
             inputSizeTracker.Add(item);
 

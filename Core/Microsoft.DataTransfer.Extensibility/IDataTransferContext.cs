@@ -15,5 +15,7 @@ namespace Microsoft.DataTransfer.Extensibility
         /// Gets name of the data sink adapter.
         /// </summary>
         string SinkName { get; }
+
+        string RunConfigSignature { get; }
     }
 }
