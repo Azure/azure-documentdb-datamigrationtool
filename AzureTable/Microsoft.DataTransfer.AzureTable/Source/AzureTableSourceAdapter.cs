@@ -1,12 +1,18 @@
-﻿using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.AzureTable.Resumption;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.CosmosDB.Table;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.RetryPolicies;
+using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.Extensibility;
 
 namespace Microsoft.DataTransfer.AzureTable.Source
 {
@@ -21,6 +27,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         private readonly CloudTable table;
         private readonly TableQuery query;
         private readonly IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
+        private readonly TableRequestOptions requestOptions;
 
         private Task<TableQuerySegment<DynamicTableEntity>> segmentDownloadTask;
         private int currentEntityIndex;
@@ -33,7 +40,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
             string connectionString = System.Text.RegularExpressions.Regex.Replace(
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
-                m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
+                m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value).TrimEnd('/');
 
             var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
@@ -47,6 +54,11 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 SelectColumns = configuration.Projection == null ? null : new List<string>(configuration.Projection)
             };
             _resumptionAdapter = resumptionAdapter;
+
+            requestOptions = new TableRequestOptions()
+            {
+                RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
+            };
         }
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
@@ -112,7 +124,8 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         private void MoveToNextSegment(TableContinuationToken continuationToken, CancellationToken cancellation)
         {
-            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query, continuationToken, cancellation);
+            segmentDownloadTask = table.ExecuteQuerySegmentedAsync(query: query, token: continuationToken, 
+                requestOptions: requestOptions, operationContext: null, cancellationToken: cancellation);
             currentEntityIndex = 0;
         }
 
