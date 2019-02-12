@@ -29,20 +29,21 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         /// <returns>Task that represents asynchronous create operation.</returns>
         public Task<IDataSourceAdapter> CreateAsync(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew(() => Create(configuration), cancellation);
+            return Task.Factory.StartNew(() => Create(configuration, context), cancellation);
         }
 
-        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration)
+        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context)
         {
             Guard.NotNull("configuration", configuration);
+            Guard.NotNull("context", context);
 
             if (String.IsNullOrEmpty(configuration.ConnectionString))
                 throw Errors.ConnectionStringMissing();
 
-            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration));
+            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration, context));
         }
 
-        private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration)
+        private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context)
         {
             return new AzureTableSourceAdapterInstanceConfiguration
             {
@@ -51,7 +52,9 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 Table = configuration.Table,
                 InternalFields = configuration.InternalFields ?? Defaults.Current.SourceInternalFields,
                 Filter = configuration.Filter,
-                Projection = configuration.Projection
+                Projection = configuration.Projection,
+                SourceContext = context.SourceName,
+                SinkContext = context.SinkName
             };
         }
     }

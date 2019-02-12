@@ -94,6 +94,9 @@
     <Compile Include="Errors.cs" />
     <Compile Include="IDefaults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteLogging\IRemoteLogging.cs" />
+    <Compile Include="RemoteLogging\RemoteLogging.cs" />
+    <Compile Include="RemoteLogging\RemoteLoggingClientProvider.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,6 +106,7 @@
     <Compile Include="Shared\IAzureTableAdapterConfiguration.cs" />
     <Compile Include="Sink\BatchSizeTracker.cs" />
     <Compile Include="Sink\InputSizeTracker.cs" />
+    <Compile Include="RemoteLogging\LoggingTableEntity.cs" />
     <Compile Include="Sink\TableAPIBulkSinkAdapter.cs" />
     <Compile Include="Sink\TableAPIBulkSinkAdapterFactory.cs" />
     <Compile Include="Sink\ITableAPIBulkSinkAdapterConfiguration.cs" />

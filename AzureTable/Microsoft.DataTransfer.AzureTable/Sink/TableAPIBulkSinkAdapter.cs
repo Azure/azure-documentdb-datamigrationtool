@@ -3,6 +3,8 @@
     using Microsoft.Azure.CosmosDB;
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
+    using Microsoft.DataTransfer.AzureTable;
+    using Microsoft.DataTransfer.AzureTable.RemoteLogging;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -27,6 +29,8 @@
         private int _maxLengthInBytesPerBatch;
 
         private CloudTable cloudtable;
+        private IRemoteLogging remoteLogger;
+        private RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
         private ConcurrentDictionary<string, TableBatchOperation> dict;
         private InputSizeTracker inputSizeTracker;
         private BatchSizeTracker batchSizeTracker;
@@ -56,6 +60,8 @@
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
             cloudtable = tableClient.GetTableReference(_tableName);
+            
+            remoteLogger = remoteLoggingClientProvider.CreateRemoteLoggingClient(storageAccount, connectionPolicy);
         }
 
         public async Task InitializeAsync(CancellationToken cancellation)
@@ -64,6 +70,8 @@
             batchSizeTracker = new BatchSizeTracker(_maxLengthInBytesPerBatch, inputSizeTracker);
             dict = new ConcurrentDictionary<string, TableBatchOperation>();
             await cloudtable.CreateIfNotExistsAsync(IndexingMode.Consistent, _throughput, cancellation);
+
+            remoteLogger.CreateRemoteLoggingTable(cancellation);
         }
 
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
@@ -141,6 +149,10 @@
                                         ex.Message, op[0].Entity.PartitionKey, listofDocumentsNotCommitted), ex
                                 );
                                 exceptions.Add(ex);
+
+                                //Log the failure to a cosmosDB table in  the provided account.                                
+                                remoteLogger.LogFailures(op[0].Entity.PartitionKey,
+                                    op[0].Entity.RowKey, ex.ToString(), listofDocumentsNotCommitted);
                             }
                         }
                     }

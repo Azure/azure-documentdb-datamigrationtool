@@ -1,7 +1,9 @@
 ﻿using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 using Microsoft.DataTransfer.AzureTable.Client;
+using Microsoft.DataTransfer.AzureTable.RemoteLogging;
 using Microsoft.DataTransfer.Extensibility;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,35 +47,52 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
-            if (segmentDownloadTask == null)
+            TableQuerySegment<DynamicTableEntity> currentSegment = null;
+            try
             {
-                MoveToNextSegment(null, cancellation);
-            }
+                if (segmentDownloadTask == null)
+                {
+                    MoveToNextSegment(null, cancellation);
+                }
 
-            var currentSegment = await segmentDownloadTask;
-
-            // Make sure current segment has data to read
-            while (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
-            {
-                MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
                 currentSegment = await segmentDownloadTask;
-            }
 
-            if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken == null)
+                // Make sure current segment has data to read
+                while (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
+                {
+                    MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
+                    currentSegment = await segmentDownloadTask;
+                }
+
+                if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken == null)
+                {
+                    return null;
+                }
+
+                var entity = currentSegment.Results[currentEntityIndex++];
+                readOutput.DataItemId = entity.RowKey;
+
+                if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
+                {
+                    // Start downloading next segment while current record is being processed
+                    MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
+                }
+
+                return new DynamicTableEntityDataItem(AppendInternalProperties(entity));
+            }
+            catch(Exception excp)
             {
-                return null;
+                // if destination equals cosmos tables api, log to cosmos db tables
+                if (this.configuration.SinkContext.Equals("TableAPIBulk"))
+                {
+                    RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
+                    IRemoteLogging remoteLogger = remoteLoggingClientProvider.GetRemoteLogger("tableapibulk");
+                    if(remoteLogger != null)
+                        remoteLogger.LogFailures(currentSegment.Results[currentEntityIndex].PartitionKey,
+                            currentSegment.Results[currentEntityIndex].RowKey, excp.ToString());
+                }
+                throw;
             }
-
-            var entity = currentSegment.Results[currentEntityIndex++];
-            readOutput.DataItemId = entity.RowKey;
-
-            if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
-            {
-                // Start downloading next segment while current record is being processed
-                MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
-            }
-
-            return new DynamicTableEntityDataItem(AppendInternalProperties(entity));
         }
 
         private DynamicTableEntity AppendInternalProperties(DynamicTableEntity entity)
