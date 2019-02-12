@@ -39,8 +39,7 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
             if (String.IsNullOrEmpty(configuration.TableName))
                 throw Errors.TableNameMissing();
 
-            //long maxInputBufferSizeInBytes = 10 * 1024 * 1024;
-            long maxInputBufferSizeInBytes = 100 * 1024;
+            long maxInputBufferSizeInBytes = 10 * 1024 * 1024;
             if (configuration.MaxInputBufferSize.HasValue)
                 maxInputBufferSizeInBytes = configuration.MaxInputBufferSize.Value;
 
@@ -64,7 +63,7 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
             var sink = new TableAPIBulkSinkAdapter(configuration.ConnectionString, 
                             configuration.TableName, configuration.Overwrite, 
                             maxInputBufferSizeInBytes, throughput, batchSize,
-                            new AzureTableResumptionAdaptor(context.RunConfigSignature));
+                            new AzureTableResumptionAdaptor(context.RunConfigSignature + ".json"));
 
             await sink.InitializeAsync(cancellation);
 

@@ -11,7 +11,7 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
     /// </summary>
     public class AzureTableResumptionAdaptor : IDataTransferResumptionAdapter<AzureTablePrimaryKey>
     {
-        private readonly string _fileName;
+        private readonly string _fileFullPath;
 
         /// <summary>
         /// 
@@ -26,7 +26,11 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
                 throw new ArgumentException("File name contains invalid characters.");
             }
 
-            _fileName = fileName;
+            var localAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var folderName = Path.Combine(localAppDataFolder, "dt");
+            Directory.CreateDirectory(folderName);
+
+            _fileFullPath = Path.Combine(folderName, fileName);
         }
 
         /// <summary>
@@ -35,10 +39,9 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
         /// <returns></returns>
         public AzureTablePrimaryKey GetCheckpoint()
         {
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileName);
-            if (File.Exists(fileName))
+            if (File.Exists(_fileFullPath))
             {
-                return JsonConvert.DeserializeObject<AzureTablePrimaryKey>(File.ReadAllText(fileName));
+                return JsonConvert.DeserializeObject<AzureTablePrimaryKey>(File.ReadAllText(_fileFullPath));
             }
 
             return null;
@@ -52,8 +55,7 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
         {
             Guard.NotNull(nameof(checkpoint), checkpoint);
 
-            using (StreamWriter file = File.CreateText(
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileName)))
+            using (StreamWriter file = File.CreateText(_fileFullPath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, checkpoint);
