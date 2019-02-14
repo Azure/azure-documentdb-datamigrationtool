@@ -16,6 +16,14 @@ namespace Microsoft.DataTransfer.Extensibility
         /// </summary>
         string SinkName { get; }
 
+        /// <summary>
+        /// Gets the signature of the source and sink configuration
+        /// </summary>
         string RunConfigSignature { get; }
+
+        /// <summary>
+        /// Whether to enable the resume function
+        /// </summary>
+        bool EnableResumeFunction { get; }
     }
 }

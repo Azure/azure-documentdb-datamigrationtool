@@ -34,5 +34,10 @@ namespace Microsoft.DataTransfer.Core
         {
             return new InvalidOperationException(FormatMessage(Resources.NonGenericDataAdapterFactoryTypeFormat, type));
         }
+
+        public static Exception UnsupportedDataSourceOrSinkForResumption(string name)
+        {
+            return new NotSupportedException(FormatMessage(Resources.UnsupportedDataSourceOrSinkForResumptionFormat, name));
+        }
     }
 }

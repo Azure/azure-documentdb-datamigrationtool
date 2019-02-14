@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.ServiceModel.Errors;
+﻿using Microsoft.DataTransfer.ServiceModel;
+using Microsoft.DataTransfer.ServiceModel.Errors;
 using Microsoft.DataTransfer.ServiceModel.Statistics;
 
 namespace Microsoft.DataTransfer.ConsoleHost.Configuration
@@ -9,5 +10,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
     /// <remarks>
     /// This needs to be public to allow automatic proxy class generation.
     /// </remarks>
-    public interface IInfrastructureConfiguration : ITransferStatisticsConfiguration, IErrorDetailsConfiguration { }
+    public interface IInfrastructureConfiguration :
+        ITransferStatisticsConfiguration, IErrorDetailsConfiguration, ITransferCommonConfiguration
+    { }
 }

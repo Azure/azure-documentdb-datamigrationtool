@@ -44,8 +44,6 @@
             bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize,
             IDataTransferResumptionAdapter<AzureTablePrimaryKey> resumptionAdapter)
         {
-            Guard.NotNull(nameof(resumptionAdapter), resumptionAdapter);
-
             _connectionString = connectionString;
             _tableName = tableName;
             _overwrite = overwrite;
@@ -84,7 +82,7 @@
             var item = GetITableEntityFromIDataItem(dataItem);
             if (dict.Count == 0)
             {
-                _resumptionAdapter.SaveCheckpoint(
+                _resumptionAdapter?.SaveCheckpoint(
                     new AzureTablePrimaryKey { PartitionKey = item.PartitionKey, RowKey = item.RowKey });
             }
 

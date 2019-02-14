@@ -132,4 +132,7 @@
   <data name="UnknownDataSourceFormat" xml:space="preserve">
     <value>Data source '{0}' is not known</value>
   </data>
+  <data name="UnsupportedDataSourceOrSinkForResumptionFormat" xml:space="preserve">
+    <value>Data sink or source '{0}' is not supported for data transfer resumption</value>
+  </data>
 </root>

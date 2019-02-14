@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 throw Errors.ConnectionStringMissing();
 
             return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration),
-                new AzureTableResumptionAdaptor(context.RunConfigSignature + ".json"));
+                context.EnableResumeFunction ? new AzureTableResumptionAdaptor(context.RunConfigSignature + ".json") : null);
         }
 
         private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration)

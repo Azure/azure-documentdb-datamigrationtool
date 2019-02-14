@@ -129,4 +129,7 @@
   <data name="Statistics_ProgressUpdateIntervalFormat" xml:space="preserve">
     <value>Optional, default is {0}. Time interval to refresh on-screen data transfer progress</value>
   </data>
+  <data name="Statistics_EnableResumeFunction" xml:space="preserve">
+    <value>Optional. Whether to save the checkpoint file and resume from there if the data transfer action is stopped for some reason</value>
+  </data>
 </root>

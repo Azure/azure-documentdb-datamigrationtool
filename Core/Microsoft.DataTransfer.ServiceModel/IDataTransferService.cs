@@ -31,12 +31,14 @@ namespace Microsoft.DataTransfer.ServiceModel
         /// <param name="sinkName">Name of the target data adapter.</param>
         /// <param name="sinkConfiguration">Target data adapter configuration.</param>
         /// <param name="statistics">Instance of <see cref="ITransferStatistics" /> to report data transfer progress to.</param>
+        /// <param name="enableResumeFunction">Whether to enable saving and resuming from the last checkpoint.</param>
         /// <param name="cancellation">Cancellation token.</param>
         /// <returns>Task that represents asynchronous data transfer operation.</returns>
         Task TransferAsync(
             string sourceName, object sourceConfiguration,
             string sinkName, object sinkConfiguration,
             ITransferStatistics statistics,
-            CancellationToken cancellation);
+            CancellationToken cancellation,
+            bool enableResumeFunction = false);
     }
 }

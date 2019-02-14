@@ -19,6 +19,12 @@ namespace Microsoft.DataTransfer.Core.Service
         private IReadOnlyDictionary<string, IDataSourceAdapterFactoryAdapter> sources;
         private IReadOnlyDictionary<string, IDataSinkAdapterFactoryAdapter> sinks;
 
+        private IReadOnlyList<string> resumeFunctionSupportSourcesAndSinks = new List<string>
+        {
+            "AzureTable",
+            "TableAPIBulk"
+        };
+
         public DataTransferService(
             IReadOnlyDictionary<string, IDataSourceAdapterFactoryAdapter> sources,
             IReadOnlyDictionary<string, IDataSinkAdapterFactoryAdapter> sinks,
@@ -44,7 +50,8 @@ namespace Microsoft.DataTransfer.Core.Service
         }
 
         public async Task TransferAsync(string sourceName, object sourceConfiguration,
-            string sinkName, object sinkConfiguration, ITransferStatistics statistics, CancellationToken cancellation)
+            string sinkName, object sinkConfiguration, ITransferStatistics statistics,
+            CancellationToken cancellation, bool enableResumeFunction = false)
         {
             IDataSourceAdapterFactoryAdapter sourceFactoryAdapter;
             if (!sources.TryGetValue(sourceName, out sourceFactoryAdapter))
@@ -54,13 +61,23 @@ namespace Microsoft.DataTransfer.Core.Service
             if (!sinks.TryGetValue(sinkName, out sinkFactoryAdapter))
                 throw Errors.UnknownDataSink(sinkName);
 
+            if (enableResumeFunction)
+            {
+                if (!resumeFunctionSupportSourcesAndSinks.Contains(sourceName))
+                    throw Errors.UnsupportedDataSourceOrSinkForResumption(sourceName);
+
+                if (!resumeFunctionSupportSourcesAndSinks.Contains(sinkName))
+                    throw Errors.UnsupportedDataSourceOrSinkForResumption(sinkName);
+            }
+
             var jsonSerilizer = new JsonSerializer();
             var context = new DataTransferContext
             {
                 SourceName = sourceName,
                 SinkName = sinkName,
                 RunConfigSignature = GetStringSha256Hash(
-                    JsonConvert.SerializeObject(sourceConfiguration) + JsonConvert.SerializeObject(sinkConfiguration))
+                    JsonConvert.SerializeObject(sourceConfiguration) + JsonConvert.SerializeObject(sinkConfiguration)),
+                EnableResumeFunction = enableResumeFunction
             };
 
             try

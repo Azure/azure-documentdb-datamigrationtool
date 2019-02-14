@@ -31,7 +31,6 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         public AzureTableSourceAdapter(IAzureTableSourceAdapterInstanceConfiguration configuration,
             IDataTransferResumptionAdapter<AzureTablePrimaryKey> resumptionAdapter)
         {
-            Guard.NotNull(nameof(resumptionAdapter), resumptionAdapter);
             this.configuration = configuration;
 
             string connectionString = System.Text.RegularExpressions.Regex.Replace(
@@ -62,7 +61,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             if (segmentDownloadTask == null)
             {
                 TableContinuationToken continuationToken = null;
-                var checkpoint = _resumptionAdapter.GetCheckpoint();
+                var checkpoint = _resumptionAdapter?.GetCheckpoint();
                 if (checkpoint != null)
                 {
                     continuationToken = new TableContinuationToken
