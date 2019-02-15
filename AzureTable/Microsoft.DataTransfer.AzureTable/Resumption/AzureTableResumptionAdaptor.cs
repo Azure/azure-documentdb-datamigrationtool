@@ -7,16 +7,16 @@ using System.IO;
 namespace Microsoft.DataTransfer.AzureTable.Resumption
 {
     /// <summary>
-    /// 
+    /// Adaptor for the resume functionality for data transfer between Azure Table Storage
     /// </summary>
     public class AzureTableResumptionAdaptor : IDataTransferResumptionAdapter<AzureTablePrimaryKey>
     {
         private readonly string _fileFullPath;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">The name of the checkpoint file</param>
         public AzureTableResumptionAdaptor(string fileName)
         {
             Guard.NotEmpty(nameof(fileName), fileName);
@@ -34,9 +34,9 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
         }
 
         /// <summary>
-        /// 
+        /// Get the checkpoint from the file
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The checkpoint</returns>
         public AzureTablePrimaryKey GetCheckpoint()
         {
             if (File.Exists(_fileFullPath))
@@ -48,9 +48,9 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
         }
 
         /// <summary>
-        /// 
+        /// Save the checkpoint to the file
         /// </summary>
-        /// <param name="checkpoint"></param>
+        /// <param name="checkpoint">The checkpoint to store</param>
         public void SaveCheckpoint(AzureTablePrimaryKey checkpoint)
         {
             Guard.NotNull(nameof(checkpoint), checkpoint);
