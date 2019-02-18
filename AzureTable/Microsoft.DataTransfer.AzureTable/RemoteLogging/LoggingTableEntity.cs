@@ -26,10 +26,11 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         /// <summary>
         /// Constructor to initialize logging table entity values
         /// </summary>
-        /// <param name="partitionKey"></param>
-        /// <param name="rowKey"></param>
-        /// <param name="exception"></param>
-        /// <param name="machineName"></param>
+        /// <param name="partitionKey">Partition key value</param>
+        /// <param name="rowKey">Row key value</param>
+        /// <param name="exception">Exception details</param>
+        /// <param name="machineName">Machine name where the failure occurred</param>
+        /// <param name="additionalDetails">Any additional details (example: all row keys in a batch operation)</param>
         public LoggingTableEntity(string partitionKey, string rowKey, string exception, string machineName, string additionalDetails)
         {
             PartitionKey = partitionKey;

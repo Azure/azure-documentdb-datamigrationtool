@@ -43,5 +43,11 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_MaxBatchSize")]
         int? MaxBatchSize { get; }
+
+        /// <summary>
+        /// Gets the value that indicates whether remote logging can be enabled in target.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "BulkSink_RemoteLogging")]
+        bool RemoteLogging { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Azure.CosmosDB;
 using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
@@ -7,7 +8,7 @@ using Microsoft.Azure.Storage;
 namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
 {
     /// <summary>
-    /// 
+    /// Class to support remote logging in CosmosDB Tables
     /// </summary>
     public sealed class RemoteLogging : IRemoteLogging
     {
@@ -16,7 +17,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         private readonly string tableName = "migrationLogs";
 
         /// <summary>
-        /// 
+        /// Remote logger constructor
         /// </summary>
         /// <param name="storageAccount"></param>
         /// <param name="connectionPolicy"></param>
@@ -27,14 +28,15 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         }
 
         /// <summary>
-        /// 
+        /// Create a Table if it does not exists already
         /// </summary>
-        public async void CreateRemoteLoggingTable(CancellationToken cancellation)
+        public async Task<bool> CreateRemoteLoggingTableIfNotExists(CancellationToken cancellation)
         {
-            await migrationLogger.CreateIfNotExistsAsync(IndexingMode.Consistent, tableThroughput, cancellation);
+            return await migrationLogger.CreateIfNotExistsAsync(IndexingMode.Consistent, tableThroughput, cancellation);
         }
         /// <summary>
-        /// 
+        /// Log the failures that occurred as a result of using DT. Given this is logging code, it will not throw errors to prevent
+        /// crashing the application
         /// </summary>
         /// <param name="partitionKey"></param>
         /// <param name="rowKeys"></param>
@@ -42,11 +44,15 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         /// <param name="additionalDetails"></param>
         public async void LogFailures(string partitionKey, string rowKeys, string exception, string additionalDetails = null)
         {
-            //Log the failure to a cosmosDB table in  the provided account.
-            LoggingTableEntity log = new LoggingTableEntity(partitionKey, rowKeys,
-                exception, Environment.MachineName, additionalDetails);
-            TableOperation loggingOp = TableOperation.InsertOrReplace(log);
-            TableResult result = await migrationLogger.ExecuteAsync(loggingOp);
+            try
+            {
+                //Log the failure to a cosmosDB table in  the provided account.
+                LoggingTableEntity log = new LoggingTableEntity(partitionKey, rowKeys,
+                    exception, Environment.MachineName, additionalDetails);
+                TableOperation loggingOp = TableOperation.InsertOrReplace(log);
+                TableResult result = await migrationLogger.ExecuteAsync(loggingOp);
+            }
+            catch { }
         }
     }
 }

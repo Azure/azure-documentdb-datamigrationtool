@@ -27,6 +27,7 @@
         private long _maxInputBufferSizeInBytes;
         private int _throughput;
         private int _maxLengthInBytesPerBatch;
+        private bool _remoteLogging;
 
         private CloudTable cloudtable;
         private IRemoteLogging remoteLogger;
@@ -41,7 +42,7 @@
         }
 
         public TableAPIBulkSinkAdapter(string connectionString, string tableName, 
-            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize)
+            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize, bool remoteLogging)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -49,6 +50,7 @@
             _maxInputBufferSizeInBytes = maxInputBufferSizeInBytes;
             _throughput = throughput;
             _maxLengthInBytesPerBatch = batchSize;
+            _remoteLogging = remoteLogging;
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
 
@@ -60,7 +62,6 @@
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
             cloudtable = tableClient.GetTableReference(_tableName);
-            
             remoteLogger = remoteLoggingClientProvider.CreateRemoteLoggingClient(storageAccount, connectionPolicy);
         }
 
@@ -71,7 +72,8 @@
             dict = new ConcurrentDictionary<string, TableBatchOperation>();
             await cloudtable.CreateIfNotExistsAsync(IndexingMode.Consistent, _throughput, cancellation);
 
-            remoteLogger.CreateRemoteLoggingTable(cancellation);
+            if (_remoteLogging)
+                await remoteLogger.CreateRemoteLoggingTableIfNotExists(cancellation);
         }
 
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
@@ -150,9 +152,10 @@
                                 );
                                 exceptions.Add(ex);
 
-                                //Log the failure to a cosmosDB table in  the provided account.                                
-                                remoteLogger.LogFailures(op[0].Entity.PartitionKey,
-                                    op[0].Entity.RowKey, ex.ToString(), listofDocumentsNotCommitted);
+                                //Log the failure to a cosmosDB table in  the provided account.
+                                if(_remoteLogging)
+                                    remoteLogger.LogFailures(op[0].Entity.PartitionKey,
+                                        op[0].Entity.RowKey, ex.ToString(), listofDocumentsNotCommitted);
                             }
                         }
                     }

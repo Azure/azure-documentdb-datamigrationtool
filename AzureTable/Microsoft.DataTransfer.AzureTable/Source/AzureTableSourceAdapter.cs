@@ -1,6 +1,5 @@
 ﻿using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
-using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.AzureTable.RemoteLogging;
 using Microsoft.DataTransfer.Extensibility;
 using System;
@@ -32,10 +31,15 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
                 m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
 
-            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
+            TableConnectionPolicy connectionPolicy = new TableConnectionPolicy()
+            {
+                UseDirectMode = true,
+                UseTcpProtocol = true,
+            };
+            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient(connectionPolicy: connectionPolicy);
 
-            client.DefaultRequestOptions.LocationMode =
-                AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);
+            //client.DefaultRequestOptions.LocationMode =
+            //    AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);
 
             table = client.GetTableReference(configuration.Table);
             query = new TableQuery
@@ -48,6 +52,9 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             TableQuerySegment<DynamicTableEntity> currentSegment = null;
+            RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
+            IRemoteLogging remoteLogger = remoteLoggingClientProvider.GetRemoteLogger("tableapibulk");
+
             try
             {
                 if (segmentDownloadTask == null)
@@ -82,12 +89,10 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             }
             catch(Exception excp)
             {
-                // if destination equals cosmos tables api, log to cosmos db tables
-                if (this.configuration.SinkContext.Equals("TableAPIBulk"))
+                // only enable remote logging for AzureTable -> Cosmos TableAPI
+                if (this.configuration.SinkContext.Equals("TableAPIBulk") && this.configuration.SourceContext.Equals("AzureTable"))
                 {
-                    RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
-                    IRemoteLogging remoteLogger = remoteLoggingClientProvider.GetRemoteLogger("tableapibulk");
-                    if(remoteLogger != null)
+                    if (remoteLogger != null)
                         remoteLogger.LogFailures(currentSegment.Results[currentEntityIndex].PartitionKey,
                             currentSegment.Results[currentEntityIndex].RowKey, excp.ToString());
                 }

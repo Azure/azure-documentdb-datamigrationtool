@@ -1,11 +1,12 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.AzureTable
 {
     /// <summary>
     /// The interface for remotely logging to Cosmos tables, when it is used as a sink endpoint.
     /// This is beneficial to consolidate failure logs when multiple instances of data migration
-    /// are in progress. 
+    /// tool are run simultaneously. 
     /// </summary>
     public interface IRemoteLogging
     {
@@ -22,6 +23,6 @@ namespace Microsoft.DataTransfer.AzureTable
         /// Create a CosmosDB table for failure logs
         /// </summary>
         /// <param name="cancellation"></param>
-        void CreateRemoteLoggingTable(CancellationToken cancellation);
+        Task<bool> CreateRemoteLoggingTableIfNotExists(CancellationToken cancellation);
     }
 }
