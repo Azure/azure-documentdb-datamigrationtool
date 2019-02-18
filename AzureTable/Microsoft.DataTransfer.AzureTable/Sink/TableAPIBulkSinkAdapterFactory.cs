@@ -56,6 +56,9 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
                 batchSize = configuration.MaxBatchSize.Value;
             }
 
+            if (configuration.ConnectionString.EndsWith("/"))
+                configuration.ConnectionString.TrimEnd('/');
+
             var sink = new TableAPIBulkSinkAdapter(configuration.ConnectionString, 
                             configuration.TableName, configuration.Overwrite, 
                             maxInputBufferSizeInBytes, throughput, batchSize, configuration.RemoteLogging);
