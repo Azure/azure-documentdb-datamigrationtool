@@ -32,7 +32,7 @@
       <system:String x:Key="WelcomePageTitleKey">Azure Cosmos DB Data Migration Tool</system:String>
       <Span x:Key="WelcomePageContentKey">
         <Span>
-          Use the Azure Cosmos DB data migration tool to import data to Cosmos from a variety of sources.
+          Use the Azure Cosmos DB data migration tool to import data to Cosmos DB from a variety of sources.
           The tool can not only help scope certain source data via queries (e.g. SQL Server, MongoDB),
           but can also transform tabular data (e.g. CSV file, SQL Server) into hierarchical structures.
         </Span>
