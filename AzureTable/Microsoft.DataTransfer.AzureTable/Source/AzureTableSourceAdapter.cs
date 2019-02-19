@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.RetryPolicies;
 using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.AzureTable.RemoteLogging;
 using Microsoft.DataTransfer.Extensibility;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.AzureTable.Source
 {
