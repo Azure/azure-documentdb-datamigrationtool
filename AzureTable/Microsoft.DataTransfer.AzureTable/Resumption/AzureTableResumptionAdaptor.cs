@@ -12,9 +12,10 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
     public class AzureTableResumptionAdaptor : IDataTransferResumptionAdapter<AzureTablePrimaryKey>
     {
         private readonly string _fileFullPath;
+        private const string _folderName = "resume_checkpoint";
 
         /// <summary>
-        /// Constructor
+        /// Create an instance of <see cref="AzureTableResumptionAdaptor"/>
         /// </summary>
         /// <param name="fileName">The name of the checkpoint file</param>
         public AzureTableResumptionAdaptor(string fileName)
@@ -26,11 +27,8 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
                 throw new ArgumentException("File name contains invalid characters.");
             }
 
-            var localAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var folderName = Path.Combine(localAppDataFolder, "dt");
-            Directory.CreateDirectory(folderName);
-
-            _fileFullPath = Path.Combine(folderName, fileName);
+            Directory.CreateDirectory(_folderName);
+            _fileFullPath = Path.Combine(_folderName, fileName);
         }
 
         /// <summary>

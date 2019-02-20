@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.AzureTable.Resumption
 {
     /// <summary>
-    /// Define the checkpoint for AzureTable data transfer
+    /// Define the checkpoint for Azure Table data transfer
     /// </summary>
     public class AzureTablePrimaryKey
     {
