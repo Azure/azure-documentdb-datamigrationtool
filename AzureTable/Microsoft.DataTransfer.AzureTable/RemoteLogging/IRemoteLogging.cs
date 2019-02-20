@@ -13,16 +13,16 @@ namespace Microsoft.DataTransfer.AzureTable
         /// <summary>
         /// Log failures that occurred during a data migration.
         /// </summary>
-        /// <param name="partitionKey"></param>
-        /// <param name="rowKeys"></param>
-        /// <param name="exception"></param>
-        /// <param name="additionalDetails"></param>
+        /// <param name="partitionKey">partition key for the logging table</param>
+        /// <param name="rowKeys">row key for the logging table</param>
+        /// <param name="exception">exception details</param>
+        /// <param name="additionalDetails">any additional details to be logged</param>
         void LogFailures(string partitionKey, string rowKeys, string exception, string additionalDetails = null);
         
         /// <summary>
         /// Create a CosmosDB table for failure logs
         /// </summary>
-        /// <param name="cancellation"></param>
+        /// <param name="cancellation">cancellation token info</param>
         Task<bool> CreateRemoteLoggingTableIfNotExists(CancellationToken cancellation);
     }
 }

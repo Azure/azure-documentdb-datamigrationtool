@@ -17,7 +17,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         private readonly string tableName = "migrationLogs";
 
         /// <summary>
-        /// Remote logger constructor
+        /// Initializes a new instance of the RemoteLogging class.
         /// </summary>
         /// <param name="storageAccount"></param>
         /// <param name="connectionPolicy"></param>
@@ -28,12 +28,13 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         }
 
         /// <summary>
-        /// Create a Table if it does not exists already
+        /// Create a Table if it does not exist already
         /// </summary>
         public async Task<bool> CreateRemoteLoggingTableIfNotExists(CancellationToken cancellation)
         {
             return await migrationLogger.CreateIfNotExistsAsync(IndexingMode.Consistent, tableThroughput, cancellation);
         }
+
         /// <summary>
         /// Log the failures that occurred as a result of using DT. Given this is logging code, it will not throw errors to prevent
         /// crashing the application
@@ -46,7 +47,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         {
             try
             {
-                //Log the failure to a cosmosDB table in  the provided account.
+                // Log the failure to a cosmosDB table in  the provided account.
                 LoggingTableEntity log = new LoggingTableEntity(partitionKey, rowKeys,
                     exception, Environment.MachineName, additionalDetails);
                 TableOperation loggingOp = TableOperation.InsertOrReplace(log);

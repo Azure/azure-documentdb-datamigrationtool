@@ -34,12 +34,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
                 m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
 
-            TableConnectionPolicy connectionPolicy = new TableConnectionPolicy()
-            {
-                UseDirectMode = true,
-                UseTcpProtocol = true,
-            };
-            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient(connectionPolicy: connectionPolicy);
+            var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
             client.DefaultRequestOptions.LocationMode =
                 AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);
@@ -95,7 +90,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
                 return new DynamicTableEntityDataItem(AppendInternalProperties(entity));
             }
-            catch(Exception excp)
+            catch (Exception excp)
             {
                 // only enable remote logging for AzureTable -> Cosmos TableAPI
                 if (this.configuration.SinkContext.Equals("TableAPIBulk") && this.configuration.SourceContext.Equals("AzureTable"))

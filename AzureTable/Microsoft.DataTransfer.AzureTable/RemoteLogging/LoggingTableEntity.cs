@@ -7,7 +7,6 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
     /// </summary>
     public class LoggingTableEntity : TableEntity
     {
-
         /// <summary>
         /// Exception details
         /// </summary>
@@ -24,7 +23,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         public string AdditionalDetails { get; set; }
 
         /// <summary>
-        /// Constructor to initialize logging table entity values
+        /// Initializes a new instance of the LoggingTableEntity class.
         /// </summary>
         /// <param name="partitionKey">Partition key value</param>
         /// <param name="rowKey">Row key value</param>

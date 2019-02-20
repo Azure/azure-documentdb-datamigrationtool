@@ -15,7 +15,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         /// <summary>
         /// If a remote logger exists, provide it to the caller
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">key for getting the correct logger instance</param>
         /// <returns></returns>
         public RemoteLogging GetRemoteLogger(string key)
         {            
@@ -29,8 +29,8 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
         /// <summary>
         /// Create a new remote logger
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="connectionPolicy"></param>
+        /// <param name="account">cloudstorage account details</param>
+        /// <param name="connectionPolicy">connection policy details</param>
         /// <returns></returns>
         public RemoteLogging CreateRemoteLoggingClient(CloudStorageAccount account, TableConnectionPolicy connectionPolicy)
         {

@@ -160,7 +160,7 @@
                                 );
                                 exceptions.Add(ex);
 
-                                //Log the failure to a cosmosDB table in  the provided account.
+                                // Log the failure to a Cosmos DB table in  the provided account.
                                 if(_remoteLogging)
                                     remoteLogger.LogFailures(op[0].Entity.PartitionKey,
                                         op[0].Entity.RowKey, ex.ToString(), listofDocumentsNotCommitted);
