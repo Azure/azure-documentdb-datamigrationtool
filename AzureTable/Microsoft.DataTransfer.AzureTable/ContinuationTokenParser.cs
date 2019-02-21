@@ -23,25 +23,17 @@ namespace Microsoft.DataTransfer.AzureTable
             encodedContinuationToken.Append(ExclamationDelimiter);
 
             string base64EncodedToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(key.ToString()));
-            string customBase64EncodedString = UrlCustomEscapeBase64String(base64EncodedToken);
 
             // Size is the lenght of base64 encoded key
-            encodedContinuationToken.Append(customBase64EncodedString.Length);
+            encodedContinuationToken.Append(base64EncodedToken.Length);
             encodedContinuationToken.Append(ExclamationDelimiter);
 
-            encodedContinuationToken.Append(customBase64EncodedString);
-            return encodedContinuationToken.ToString();
-        }
-
-        private static string UrlCustomEscapeBase64String(string token)
-        {
-            StringBuilder escapedString = new StringBuilder();
-            foreach (char c in token.ToCharArray())
+            foreach (char c in base64EncodedToken.ToCharArray())
             {
-                escapedString.Append(TranslateChar(c));
+                encodedContinuationToken.Append(TranslateChar(c));
             }
 
-            return escapedString.ToString();
+            return encodedContinuationToken.ToString();
         }
 
         private static char TranslateChar(char c)
