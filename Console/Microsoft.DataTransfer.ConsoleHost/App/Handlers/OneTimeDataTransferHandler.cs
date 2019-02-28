@@ -45,18 +45,20 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
 
             using (var cancellation = new ConsoleCancellationSource())
             {
-                statistics = await statisticsHandler.CreateNew(statisticsConfiguration, cancellation.Token);
-
+                object srcConfiguration = dataAdapterConfiguration.TryCreate(sourceDefinition.ConfigurationType, configuration.SourceConfiguration);
+                object destConfiguration = dataAdapterConfiguration.TryCreate(sinkDefinition.ConfigurationType, configuration.TargetConfiguration);
+                
+                statistics = await statisticsHandler.CreateNew(statisticsConfiguration, cancellation.Token, configuration.TargetConfiguration);
                 using (new Timer(PrintStatistics, statistics, TimeSpan.Zero, GetProgressUpdateInterval()))
                 {
                     await transferService
                         .TransferAsync(
                         // From
                             configuration.SourceName,
-                            dataAdapterConfiguration.TryCreate(sourceDefinition.ConfigurationType, configuration.SourceConfiguration),
+                            srcConfiguration,
                         // To
                             configuration.TargetName,
-                            dataAdapterConfiguration.TryCreate(sinkDefinition.ConfigurationType, configuration.TargetConfiguration),
+                            destConfiguration,
                         // With statistics
                             statistics,
                         // Allow cancellation

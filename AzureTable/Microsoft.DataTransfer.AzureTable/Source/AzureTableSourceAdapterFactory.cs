@@ -29,21 +29,20 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         /// <returns>Task that represents asynchronous create operation.</returns>
         public Task<IDataSourceAdapter> CreateAsync(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew(() => Create(configuration, context), cancellation);
+            return Task.Factory.StartNew(() => Create(configuration), cancellation);
         }
 
-        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context)
+        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration)
         {
             Guard.NotNull("configuration", configuration);
-            Guard.NotNull("context", context);
 
             if (String.IsNullOrEmpty(configuration.ConnectionString))
                 throw Errors.ConnectionStringMissing();
 
-            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration, context));
+            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration));
         }
 
-        private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context)
+        private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration)
         {
             return new AzureTableSourceAdapterInstanceConfiguration
             {
@@ -52,9 +51,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
                 Table = configuration.Table,
                 InternalFields = configuration.InternalFields ?? Defaults.Current.SourceInternalFields,
                 Filter = configuration.Filter,
-                Projection = configuration.Projection,
-                SourceContext = context.SourceName,
-                SinkContext = context.SinkName
+                Projection = configuration.Projection
             };
         }
     }

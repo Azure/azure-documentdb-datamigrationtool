@@ -2,7 +2,7 @@
 using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 
-namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
+namespace Microsoft.DataTransfer.Core.RemoteLogging
 {
     /// <summary>
     /// Provides a client for remote logging in the application.

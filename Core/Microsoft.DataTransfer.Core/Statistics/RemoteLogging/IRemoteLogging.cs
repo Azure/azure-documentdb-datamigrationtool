@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.DataTransfer.AzureTable
+namespace Microsoft.DataTransfer.Core.RemoteLogging
 {
     /// <summary>
     /// The interface for remotely logging to Cosmos tables, when it is used as a sink endpoint.

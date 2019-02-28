@@ -1,4 +1,5 @@
 ﻿using Microsoft.DataTransfer.ServiceModel.Errors;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,5 +19,17 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// <returns>Task that represents asynchronous create operation.</returns>
         Task<ITransferStatistics> Create(IErrorDetailsProvider errorDetailsProvider, ITransferStatisticsConfiguration configuration,
             CancellationToken cancellation);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="errorDetailsProvider"></param>
+        /// <param name="configuration"></param>
+        /// <param name="destConfiguration"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        Task<ITransferStatistics> Create(IErrorDetailsProvider errorDetailsProvider, ITransferStatisticsConfiguration configuration,
+            IReadOnlyDictionary<string, string> destConfiguration, CancellationToken cancellation);
+
     }
 }

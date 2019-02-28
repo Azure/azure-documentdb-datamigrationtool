@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.CosmosDB.Table;
 
-namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
+namespace Microsoft.DataTransfer.Core.RemoteLogging
 {
     /// <summary>
     /// Class to define the schema for Logging data being sent to the table

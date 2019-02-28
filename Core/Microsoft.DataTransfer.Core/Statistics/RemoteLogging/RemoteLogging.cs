@@ -5,7 +5,7 @@ using Microsoft.Azure.CosmosDB;
 using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 
-namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
+namespace Microsoft.DataTransfer.Core.RemoteLogging
 {
     /// <summary>
     /// Class to support remote logging in CosmosDB Tables
@@ -14,7 +14,7 @@ namespace Microsoft.DataTransfer.AzureTable.RemoteLogging
     {
         private static CloudTable migrationLogger;
         private readonly int tableThroughput = 20000;
-        private readonly string tableName = "migrationLogs";
+        private readonly string tableName = "DtErrorLogs";
 
         /// <summary>
         /// Initializes a new instance of the RemoteLogging class.

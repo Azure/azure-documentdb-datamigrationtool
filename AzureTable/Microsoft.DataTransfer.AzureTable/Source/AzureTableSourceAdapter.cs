@@ -6,7 +6,6 @@ using Microsoft.Azure.CosmosDB.Table;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.RetryPolicies;
 using Microsoft.DataTransfer.AzureTable.Client;
-using Microsoft.DataTransfer.AzureTable.RemoteLogging;
 using Microsoft.DataTransfer.Extensibility;
 
 namespace Microsoft.DataTransfer.AzureTable.Source
@@ -55,52 +54,36 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
             TableQuerySegment<DynamicTableEntity> currentSegment = null;
-            RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
-            IRemoteLogging remoteLogger = remoteLoggingClientProvider.GetRemoteLogger("tableapibulk");
-
-            try
+            
+            if (segmentDownloadTask == null)
             {
-                if (segmentDownloadTask == null)
-                {
-                    MoveToNextSegment(null, cancellation);
-                }
+                MoveToNextSegment(null, cancellation);
+            }
 
+            currentSegment = await segmentDownloadTask;
+
+            // Make sure current segment has data to read
+            while (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
+            {
+                MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
                 currentSegment = await segmentDownloadTask;
-
-                // Make sure current segment has data to read
-                while (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
-                {
-                    MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
-                    currentSegment = await segmentDownloadTask;
-                }
-
-                if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken == null)
-                {
-                    return null;
-                }
-
-                var entity = currentSegment.Results[currentEntityIndex++];
-                readOutput.DataItemId = entity.RowKey;
-
-                if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
-                {
-                    // Start downloading next segment while current record is being processed
-                    MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
-                }
-
-                return new DynamicTableEntityDataItem(AppendInternalProperties(entity));
             }
-            catch (Exception excp)
+
+            if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken == null)
             {
-                // only enable remote logging for AzureTable -> Cosmos TableAPI
-                if (this.configuration.SinkContext.Equals("TableAPIBulk") && this.configuration.SourceContext.Equals("AzureTable"))
-                {
-                    if (remoteLogger != null)
-                        remoteLogger.LogFailures(currentSegment.Results[currentEntityIndex].PartitionKey,
-                            currentSegment.Results[currentEntityIndex].RowKey, excp.ToString());
-                }
-                throw;
+                return null;
             }
+
+            var entity = currentSegment.Results[currentEntityIndex++];
+            readOutput.DataItemId = entity.RowKey;
+
+            if (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
+            {
+                // Start downloading next segment while current record is being processed
+                MoveToNextSegment(currentSegment.ContinuationToken, cancellation);
+            }
+
+            return new DynamicTableEntityDataItem(AppendInternalProperties(entity));
         }
 
         private DynamicTableEntity AppendInternalProperties(DynamicTableEntity entity)

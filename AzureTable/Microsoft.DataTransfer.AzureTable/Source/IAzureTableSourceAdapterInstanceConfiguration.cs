@@ -9,7 +9,5 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         AzureTableInternalFields InternalFields { get; }
         string Filter { get; }
         IEnumerable<string> Projection { get; }
-        string SourceContext { get;}
-        string SinkContext { get;}
     }
 }

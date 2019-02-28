@@ -61,7 +61,7 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 
             var sink = new TableAPIBulkSinkAdapter(configuration.ConnectionString, 
                             configuration.TableName, configuration.Overwrite, 
-                            maxInputBufferSizeInBytes, throughput, batchSize, configuration.RemoteLogging);
+                            maxInputBufferSizeInBytes, throughput, batchSize);
 
             await sink.InitializeAsync(cancellation);
 

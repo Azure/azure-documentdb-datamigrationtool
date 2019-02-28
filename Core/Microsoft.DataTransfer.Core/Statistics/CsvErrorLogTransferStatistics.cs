@@ -9,7 +9,7 @@ namespace Microsoft.DataTransfer.Core.Statistics
 {
     sealed class CsvErrorLogTransferStatistics : ThreadSafeTransferStatisticsBase, IDisposable
     {
-        private static IReadOnlyCollection<KeyValuePair<string, string>> NoErrors = new KeyValuePair<string, string>[0];
+        private static readonly IReadOnlyCollection<KeyValuePair<string, string>> NoErrors = new KeyValuePair<string, string>[0];
 
         private StreamWriter errorLogStreamWriter;
         private TextWriter errorLogSynchronizedWriter;

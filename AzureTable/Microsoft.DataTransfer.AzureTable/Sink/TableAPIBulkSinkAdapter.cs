@@ -4,8 +4,6 @@
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
     using Microsoft.Azure.Storage.RetryPolicies;
-    using Microsoft.DataTransfer.AzureTable;
-    using Microsoft.DataTransfer.AzureTable.RemoteLogging;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -22,17 +20,14 @@
     {
         private const long maxLengthInBytesPerDocument = 2 * 1024 * 1024;
 
-        private string _connectionString;
-        private string _tableName;
-        private bool _overwrite;
-        private long _maxInputBufferSizeInBytes;
-        private int _throughput;
-        private int _maxLengthInBytesPerBatch;
-        private bool _remoteLogging;
+        private readonly string _connectionString;
+        private readonly string _tableName;
+        private readonly bool _overwrite;
+        private readonly long _maxInputBufferSizeInBytes;
+        private readonly int _throughput;
+        private readonly int _maxLengthInBytesPerBatch;
 
         private CloudTable cloudtable;
-        private IRemoteLogging remoteLogger;
-        private RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
         private ConcurrentDictionary<string, TableBatchOperation> dict;
         private InputSizeTracker inputSizeTracker;
         private BatchSizeTracker batchSizeTracker;
@@ -44,7 +39,7 @@
         }
 
         public TableAPIBulkSinkAdapter(string connectionString, string tableName, 
-            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize, bool remoteLogging)
+            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -52,7 +47,6 @@
             _maxInputBufferSizeInBytes = maxInputBufferSizeInBytes;
             _throughput = throughput;
             _maxLengthInBytesPerBatch = batchSize;
-            _remoteLogging = remoteLogging;
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
 
@@ -68,8 +62,6 @@
             {
                 RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
             };
-
-            remoteLogger = remoteLoggingClientProvider.CreateRemoteLoggingClient(storageAccount, connectionPolicy);
         }
 
         public async Task InitializeAsync(CancellationToken cancellation)
@@ -78,9 +70,6 @@
             batchSizeTracker = new BatchSizeTracker(_maxLengthInBytesPerBatch, inputSizeTracker);
             dict = new ConcurrentDictionary<string, TableBatchOperation>();
             await cloudtable.CreateIfNotExistsAsync(IndexingMode.Consistent, _throughput, cancellation);
-
-            if (_remoteLogging)
-                await remoteLogger.CreateRemoteLoggingTableIfNotExists(cancellation);
         }
 
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
@@ -159,11 +148,6 @@
                                         ex.Message, op[0].Entity.PartitionKey, listofDocumentsNotCommitted), ex
                                 );
                                 exceptions.Add(ex);
-
-                                // Log the failure to a Cosmos DB table in  the provided account.
-                                if(_remoteLogging)
-                                    remoteLogger.LogFailures(op[0].Entity.PartitionKey,
-                                        op[0].Entity.RowKey, ex.ToString(), listofDocumentsNotCommitted);
                             }
                         }
                     }
