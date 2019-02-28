@@ -59,5 +59,16 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
                 serializer.Serialize(file, checkpoint);
             }
         }
+
+        /// <summary>
+        /// Delete the file which stores the checkpoint
+        /// </summary>
+        public void DeleteCheckpoint()
+        {
+            if (File.Exists(_fileFullPath))
+            {
+                File.Delete(_fileFullPath);
+            }
+        }
     }
 }

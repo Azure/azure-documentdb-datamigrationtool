@@ -80,7 +80,7 @@
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
         {
             var item = GetITableEntityFromIDataItem(dataItem);
-            if (dict.Count == 0)
+            if (dict.Count == 0 && !cancellation.IsCancellationRequested)
             {
                 _resumptionAdapter?.SaveCheckpoint(
                     new AzureTablePrimaryKey { PartitionKey = item.PartitionKey, RowKey = item.RowKey });

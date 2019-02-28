@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.AzureTable.Source;
+﻿using Microsoft.DataTransfer.AzureTable.Resumption;
+using Microsoft.DataTransfer.AzureTable.Source;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.TestsCommon;
 using Microsoft.DataTransfer.TestsCommon.Mocks;
@@ -112,6 +113,46 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
                     .First();
 
             await ReadAndVerifyFields(configuration, new[] { "RowKey", "PartitionKey", "Timestamp" });
+        }
+
+        [TestMethod, Timeout(120000)]
+        public async Task ResumeFunctionality_ReadFromTheCheckpoint()
+        {
+            var configuration = Mocks
+                    .Of<IAzureTableSourceAdapterConfiguration>(c =>
+                        c.ConnectionString == Settings.AzureStorageConnectionString &&
+                        c.Table == tableName &&
+                        c.InternalFields == AzureTableInternalFields.None)
+                    .First();
+
+            var checkpointItem = sampleData[100];
+            var resumptionAdapter = new AzureTableResumptionAdaptor("checkpoint.json");
+            var checkpoint = new AzureTablePrimaryKey()
+            {
+                PartitionKey = "",
+                RowKey = checkpointItem["id"].ToString()
+            };
+            resumptionAdapter.SaveCheckpoint(checkpoint);
+
+            var dataContext = new AzureTableDataTransferContextMock()
+            {
+                SinkName = "TestSink",
+                SourceName = "TestSource",
+                EnableResumeFunction = true,
+                RunConfigSignature = "checkpoint"
+            };
+
+            using (var adapter = await new AzureTableSourceAdapterFactory()
+                .CreateAsync(configuration, dataContext, CancellationToken.None))
+            {
+                var readOutput = new ReadOutputByRef();
+                var dataItem = await adapter.ReadNextAsync(readOutput, CancellationToken.None);
+
+                foreach(var field in dataItem.GetFieldNames())
+                {
+                    Assert.AreEqual(checkpointItem[field].ToString(), dataItem.GetValue(field).ToString());
+                }
+            }
         }
 
         private async Task<List<IDataItem>> ReadData(IAzureTableSourceAdapterConfiguration configuration)

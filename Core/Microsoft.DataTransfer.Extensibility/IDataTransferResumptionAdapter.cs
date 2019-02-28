@@ -23,5 +23,10 @@ namespace Microsoft.DataTransfer.Extensibility
         /// </summary>
         /// <returns>The checkpoint that you saved in the last run of data transfer action</returns>
         TCheckpoint GetCheckpoint();
+
+        /// <summary>
+        /// Cleanup the checkpoint file if needed
+        /// </summary>
+        void DeleteCheckpoint();
     }
 }

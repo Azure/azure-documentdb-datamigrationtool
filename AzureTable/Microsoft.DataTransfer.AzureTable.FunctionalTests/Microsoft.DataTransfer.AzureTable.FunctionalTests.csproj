@@ -116,6 +116,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AzureTableDataSourceAdapterTests.cs" />
+    <Compile Include="AzureTableDataTransferContextMock.cs" />
     <Compile Include="AzureTableHelper.cs" />
     <Compile Include="DictionaryTableEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

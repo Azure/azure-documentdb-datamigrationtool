@@ -15,7 +15,7 @@ namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
             TableBatchOperation batch = new TableBatchOperation();
             foreach (var entity in data)
             {
-                batch.Insert(new DictionaryTableEntity(Guid.NewGuid().ToString(), entity));
+                batch.Insert(new DictionaryTableEntity(entity["id"].ToString(), entity));
 
                 if (batch.Count >= 100)
                 {
