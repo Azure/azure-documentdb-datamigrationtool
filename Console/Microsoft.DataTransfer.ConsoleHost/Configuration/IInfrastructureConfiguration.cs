@@ -11,6 +11,6 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
     /// This needs to be public to allow automatic proxy class generation.
     /// </remarks>
     public interface IInfrastructureConfiguration :
-        ITransferStatisticsConfiguration, IErrorDetailsConfiguration, ITransferCommonConfiguration
+        ITransferStatisticsConfiguration, IErrorDetailsConfiguration
     { }
 }

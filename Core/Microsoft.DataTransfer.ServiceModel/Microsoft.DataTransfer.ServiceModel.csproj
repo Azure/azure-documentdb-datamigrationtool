@@ -56,7 +56,6 @@
     <Compile Include="Errors\IErrorDetailsConfiguration.cs" />
     <Compile Include="Errors\IErrorDetailsProvider.cs" />
     <Compile Include="IInfrastructureDefaults.cs" />
-    <Compile Include="ITransferCommonConfiguration.cs" />
     <Compile Include="Statistics\ITransferStatisticsConfiguration.cs" />
     <Compile Include="Entities\IDataAdapterDefinition.cs" />
     <Compile Include="Statistics\ITransferStatistics.cs" />

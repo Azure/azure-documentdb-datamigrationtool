@@ -16,19 +16,17 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
         private readonly IDataAdapterConfigurationFactory dataAdapterConfiguration;
         private readonly ITransferStatisticsHandler statisticsHandler;
         private readonly ITransferStatisticsConfiguration statisticsConfiguration;
-        private readonly ITransferCommonConfiguration commonConfiguration;
 
         private readonly IOneTimeDataTransferConfiguration configuration;
 
         public OneTimeDataTransferHandler(IDataTransferService transferService, IDataAdapterConfigurationFactory dataAdapterConfiguration,
             ITransferStatisticsHandler statisticsHandler, ITransferStatisticsConfiguration statisticsConfiguration,
-            IOneTimeDataTransferConfiguration configuration, ITransferCommonConfiguration commonConfiguration)
+            IOneTimeDataTransferConfiguration configuration)
         {
             this.transferService = transferService;
             this.dataAdapterConfiguration = dataAdapterConfiguration;
             this.statisticsHandler = statisticsHandler;
             this.statisticsConfiguration = statisticsConfiguration;
-            this.commonConfiguration = commonConfiguration;
             this.configuration = configuration;
         }
 
@@ -64,7 +62,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                             statistics,
                         // Allow cancellation
                             cancellation.Token,
-                            commonConfiguration.EnableResumeFunction);
+                            statisticsConfiguration.EnableResumeFunction);
                 }
             }
 
