@@ -19,8 +19,8 @@ namespace Microsoft.DataTransfer.Core.RemoteLogging
         /// <summary>
         /// Initializes a new instance of the RemoteLogging class.
         /// </summary>
-        /// <param name="storageAccount"></param>
-        /// <param name="connectionPolicy"></param>
+        /// <param name="storageAccount">storage account object</param>
+        /// <param name="connectionPolicy">additional connection policies</param>
         public RemoteLogging(CloudStorageAccount storageAccount, TableConnectionPolicy connectionPolicy)
         {
             CloudTableClient tcMigrationLogger = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
@@ -39,10 +39,10 @@ namespace Microsoft.DataTransfer.Core.RemoteLogging
         /// Log the failures that occurred as a result of using DT. Given this is logging code, it will not throw errors to prevent
         /// crashing the application
         /// </summary>
-        /// <param name="partitionKey"></param>
-        /// <param name="rowKeys"></param>
-        /// <param name="exception"></param>
-        /// <param name="additionalDetails"></param>
+        /// <param name="partitionKey">partition key for the remote table</param>
+        /// <param name="rowKeys">rowKey for the remote table</param>
+        /// <param name="exception">failure details</param>
+        /// <param name="additionalDetails">any additional details</param>
         public async void LogFailures(string partitionKey, string rowKeys, string exception, string additionalDetails = null)
         {
             try
