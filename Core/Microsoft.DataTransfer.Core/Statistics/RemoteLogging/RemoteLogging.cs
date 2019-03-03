@@ -47,7 +47,7 @@ namespace Microsoft.DataTransfer.Core.RemoteLogging
         {
             try
             {
-                // Log the failure to a cosmosDB table in  the provided account.
+                // Log the failure to a cosmos db table in  the provided account.
                 LoggingTableEntity log = new LoggingTableEntity(partitionKey, rowKeys,
                     exception, Environment.MachineName, additionalDetails);
                 TableOperation loggingOp = TableOperation.InsertOrReplace(log);
