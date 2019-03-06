@@ -53,7 +53,10 @@ namespace Microsoft.DataTransfer.Core.RemoteLogging
                 TableOperation loggingOp = TableOperation.InsertOrReplace(log);
                 TableResult result = await migrationLogger.ExecuteAsync(loggingOp);
             }
-            catch { }
+            catch (Exception excp)
+            {
+                Console.WriteLine("Failed to log to the remote table. " + excp.Message);
+            }
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Microsoft.DataTransfer.Core.Statistics
     sealed class CosmosDBErrorLogTransferStatistics : ThreadSafeTransferStatisticsBase
     {
         private static readonly IReadOnlyCollection<KeyValuePair<string, string>> NoErrors = new KeyValuePair<string, string>[0];
-        private RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
-        private IRemoteLogging remoteLogger;
+        private readonly RemoteLoggingClientProvider remoteLoggingClientProvider = new RemoteLoggingClientProvider();
+        private readonly IRemoteLogging remoteLogger;
         private int errorsCount;
 
         public CosmosDBErrorLogTransferStatistics(IErrorDetailsProvider errorDetailsProvider, IReadOnlyDictionary<string, string> destConfiguration, 

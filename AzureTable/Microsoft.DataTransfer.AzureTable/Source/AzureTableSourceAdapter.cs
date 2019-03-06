@@ -53,14 +53,12 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
         public async Task<IDataItem> ReadNextAsync(ReadOutputByRef readOutput, CancellationToken cancellation)
         {
-            TableQuerySegment<DynamicTableEntity> currentSegment = null;
-            
             if (segmentDownloadTask == null)
             {
                 MoveToNextSegment(null, cancellation);
             }
 
-            currentSegment = await segmentDownloadTask;
+            var currentSegment = await segmentDownloadTask;
 
             // Make sure current segment has data to read
             while (currentEntityIndex >= currentSegment.Results.Count && currentSegment.ContinuationToken != null)
