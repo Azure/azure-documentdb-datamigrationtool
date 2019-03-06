@@ -7,16 +7,18 @@
       "Name": "Giro",
       "Country": "USA"
     },
+    "Date": "2017-12-22T09:00:00Z",
     "Price": 69
   },
   {
     "Name": "Bicycle",
     "Color": "Black",
-    "Style":  "Comfort",
+    "Style": "Comfort",
     "Manufacturer": {
       "Name": "K2",
       "Country": "China"
     },
+    "Date": "2018-12-31T09:00:00.0000000Z",
     "Price": 150,
     "Used": false,
     "PreviousOwner": null

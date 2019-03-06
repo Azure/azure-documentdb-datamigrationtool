@@ -44,6 +44,12 @@ namespace Microsoft.DataTransfer.FunctionalTests
             var resultFile = new FileInfo(@"OutputData\Test1.json");
             Assert.IsTrue(resultFile.Exists, TestResources.OutputFileMissing);
             Assert.IsTrue(resultFile.Length > 0, TestResources.OutputFileEmpty);
+            using (var streamReader = new StreamReader(resultFile.FullName, System.Text.Encoding.UTF8))
+            {
+                string text = streamReader.ReadToEnd();
+                Assert.IsTrue(text.Contains("2017-12-22T09:00:00Z"), "Date processing discrepancy");
+                Assert.IsTrue(text.Contains("2018-12-31T09:00:00.0000000Z"), "Date processing discrepancy");
+            }
         }
 
         [TestMethod, Timeout(120000)]
