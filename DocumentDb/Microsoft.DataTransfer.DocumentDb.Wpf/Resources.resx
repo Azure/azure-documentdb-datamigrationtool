@@ -124,6 +124,6 @@
     <value>Verify Connection</value>
   </data>
   <data name="TestConnectionSuccessMessage" xml:space="preserve">
-    <value>Successfully connected to DocumentDB account</value>
+    <value>Successfully connected to Azure Cosmos DB account</value>
   </data>
 </root>
