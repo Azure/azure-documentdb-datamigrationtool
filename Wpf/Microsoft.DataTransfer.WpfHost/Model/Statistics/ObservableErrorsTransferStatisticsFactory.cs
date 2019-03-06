@@ -1,6 +1,7 @@
 ﻿using Microsoft.DataTransfer.ServiceModel.Errors;
 using Microsoft.DataTransfer.ServiceModel.Statistics;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,6 +23,11 @@ namespace Microsoft.DataTransfer.WpfHost.Model.Statistics
             return String.IsNullOrEmpty(configuration.ErrorLog)
                 ? new ObservableErrorsTransferStatistics(defaultStatistics, errorDetailsProvider, SynchronizationContext.Current)
                 : defaultStatistics;
+        }
+
+        public Task<ITransferStatistics> Create(IErrorDetailsProvider errorDetailsProvider, ITransferStatisticsConfiguration configuration, IReadOnlyDictionary<string, string> destConfiguration, CancellationToken cancellation)
+        {
+            throw new NotImplementedException();
         }
     }
 }
