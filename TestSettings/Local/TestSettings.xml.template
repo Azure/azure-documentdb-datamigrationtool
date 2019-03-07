@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <DocumentDbConnectionStringFormat><!-- TODO: AccountEndpoint=;AccountKey=;Database={0} --></DocumentDbConnectionStringFormat>
+  <SqlConnectionString><!-- TODO: Server=;Database=;User ID=;Password=; --></SqlConnectionString>
+  <MongoConnectionString><!-- TODO: mongodb://localhost/test --></MongoConnectionString>
+  <AzureStorageConnectionString><!-- TODO: DefaultEndpointsProtocol=https;AccountName=;AccountKey=; --></AzureStorageConnectionString>
+  <RavenDbConnectionStringFormat><!-- TODO: Url=http://localhost:8080;Database={0} --></RavenDbConnectionStringFormat>
+  <DynamoDbConnectionString><!-- TODO: ServiceURL=http://localhost:8000;AccessKey=xyz;SecretKey=xyz --></DynamoDbConnectionString>
+  <HBaseConnectionString><!-- TODO: ServiceURL=http://localhost:8080;Username=;Password=; --></HBaseConnectionString>
+</Settings>
