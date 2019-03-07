@@ -11,6 +11,7 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.InfrastructureSetup
         private string errorLog;
         private ErrorDetails? errorDetails;
         private TimeSpan? progressUpdateInterval;
+        private string cosmosTableLogConnectionString;
 
         public string ErrorLog
         {
@@ -36,6 +37,17 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.InfrastructureSetup
         }
 
         public bool EnableResumeFunction => false;
+        
+        public bool EnableCosmosTableLog
+        {
+            get { return true; }
+        }
+
+        public string CosmosTableLogConnectionString
+        {
+            get { return cosmosTableLogConnectionString; }
+            set { SetProperty(ref cosmosTableLogConnectionString, value); }
+        }
 
         public InfrastructureConfiguration()
         {

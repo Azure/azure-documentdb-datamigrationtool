@@ -70,6 +70,24 @@ namespace Microsoft.DataTransfer.ServiceModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional, Connection string for cosmos tables for logging. If provided, it will use this endpoint info for remotely logging failure info..
+        /// </summary>
+        public static string Statistics_CosmosTableLogConnectionString {
+            get {
+                return ResourceManager.GetString("Statistics_CosmosTableLogConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional, Enables logging to a remote Cosmos DB Table API account. Unless destination is cosmos tables api, this also needs &apos;CosmosTableLogConnectionString&apos; property..
+        /// </summary>
+        public static string Statistics_EnableCosmosTableLog {
+            get {
+                return ResourceManager.GetString("Statistics_EnableCosmosTableLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional. Whether to save the checkpoint file and resume from there if the data transfer action is stopped for some reason.
         /// </summary>
         public static string Statistics_EnableResumeFunction {

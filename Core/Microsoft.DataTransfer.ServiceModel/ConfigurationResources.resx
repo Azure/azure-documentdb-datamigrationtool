@@ -120,6 +120,12 @@
   <data name="Errors_DetailsFormat" xml:space="preserve">
     <value>Optional, default is {0}. Specifies that detailed error information should be displayed for the following errors: {1}</value>
   </data>
+  <data name="Statistics_CosmosTableLogConnectionString" xml:space="preserve">
+    <value>Optional, Connection string for cosmos tables for logging. If provided, it will use this endpoint info for remotely logging failure info.</value>
+  </data>
+  <data name="Statistics_EnableCosmosTableLog" xml:space="preserve">
+    <value>Optional, Enables logging to a remote Cosmos DB Table API account. Unless destination is cosmos tables api, this also needs 'CosmosTableLogConnectionString' property.</value>
+  </data>
   <data name="Statistics_ErrorLog" xml:space="preserve">
     <value>Optional. Name of the CSV file to redirect data transfer failures</value>
   </data>

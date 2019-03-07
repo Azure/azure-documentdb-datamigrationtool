@@ -34,7 +34,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
 
             string connectionString = System.Text.RegularExpressions.Regex.Replace(
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
-                m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value).TrimEnd('/');
+                m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
 
             var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 

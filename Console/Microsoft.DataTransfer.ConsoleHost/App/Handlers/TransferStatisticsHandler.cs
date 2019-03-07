@@ -20,6 +20,11 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
             this.errorDetailsProvider = errorDetailsProvider;
         }
 
+        public Task<ITransferStatistics> CreateNew(ITransferStatisticsConfiguration configuration, CancellationToken cancellation, IReadOnlyDictionary<string, string> destConfiguration)
+        {
+            return statisticsFactory.Create(errorDetailsProvider, configuration, destConfiguration, cancellation);
+        }
+
         public Task<ITransferStatistics> CreateNew(ITransferStatisticsConfiguration configuration, CancellationToken cancellation)
         {
             return statisticsFactory.Create(errorDetailsProvider, configuration, cancellation);

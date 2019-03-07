@@ -15,6 +15,18 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         string ErrorLog { get; }
 
         /// <summary>
+        /// Gets the value if cosmosDB Table logging is enabled.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_EnableCosmosTableLog")]
+        bool EnableCosmosTableLog { get; }
+
+        /// <summary>
+        /// Gets the value if cosmosDB Table logging is enabled.
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_CosmosTableLogConnectionString")]
+        string CosmosTableLogConnectionString { get; }
+
+        /// <summary>
         /// Gets the value that indicates whether error log file can be overwritten.
         /// </summary>
         [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_OverwriteErrorLog")]

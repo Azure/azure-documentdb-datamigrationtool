@@ -35,6 +35,7 @@ namespace Microsoft.DataTransfer.JsonFile.Source
                 {
                     file = new StreamReader(await sourceStreamProvider.CreateStream(cancellation));
                     jsonReader = new JsonTextReader(file) { SupportMultipleContent = true };
+                    jsonReader.DateParseHandling = DateParseHandling.None;
                 }
 
                 return await Task.Factory.StartNew(() =>

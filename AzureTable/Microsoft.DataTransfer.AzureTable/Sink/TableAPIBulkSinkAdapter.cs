@@ -21,13 +21,13 @@
     {
         private const long maxLengthInBytesPerDocument = 2 * 1024 * 1024;
 
-        private string _connectionString;
-        private string _tableName;
-        private bool _overwrite;
-        private long _maxInputBufferSizeInBytes;
-        private int _throughput;
-        private int _maxLengthInBytesPerBatch;
-        private IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
+        private readonly string _connectionString;
+        private readonly string _tableName;
+        private readonly bool _overwrite;
+        private readonly long _maxInputBufferSizeInBytes;
+        private readonly int _throughput;
+        private readonly int _maxLengthInBytesPerBatch;
+        private readonly IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
 
         private CloudTable cloudtable;
         private ConcurrentDictionary<string, TableBatchOperation> dict;
@@ -62,7 +62,6 @@
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
             cloudtable = tableClient.GetTableReference(_tableName);
-
             requestOptions = new TableRequestOptions()
             {
                 RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
