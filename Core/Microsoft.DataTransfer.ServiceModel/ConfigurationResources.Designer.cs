@@ -88,7 +88,7 @@ namespace Microsoft.DataTransfer.ServiceModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional. Whether to save the checkpoint file and resume from there if the data transfer action is stopped for some reason.
+        ///   Looks up a localized string similar to Optional. Allows to save checkpoint files in folder ./ResumeCheckpoint and resume from there the next time you run with the same source and target configuration.
         /// </summary>
         public static string Statistics_EnableResumeFunction {
             get {

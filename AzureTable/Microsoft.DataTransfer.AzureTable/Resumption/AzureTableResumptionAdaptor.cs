@@ -12,7 +12,7 @@ namespace Microsoft.DataTransfer.AzureTable.Resumption
     public class AzureTableResumptionAdaptor : IDataTransferResumptionAdapter<AzureTablePrimaryKey>
     {
         private readonly string _fileFullPath;
-        private const string _folderName = "resume_checkpoint";
+        private const string _folderName = "ResumeCheckpoint";
 
         /// <summary>
         /// Create an instance of <see cref="AzureTableResumptionAdaptor"/>
