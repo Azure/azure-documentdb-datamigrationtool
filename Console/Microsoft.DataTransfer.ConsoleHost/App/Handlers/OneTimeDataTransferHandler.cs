@@ -61,7 +61,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                             statistics,
                         // Allow cancellation
                             cancellation.Token,
-                            statisticsConfiguration.EnableResumeFunction);
+                            statisticsConfiguration.EnableResumption);
                 }
             }
 

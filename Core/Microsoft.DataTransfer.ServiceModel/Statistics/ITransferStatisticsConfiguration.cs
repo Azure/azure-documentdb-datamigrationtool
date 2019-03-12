@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// <summary>
         /// Whether to allow saving or resuming from a checkpoint
         /// </summary>
-        [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_EnableResumeFunction")]
-        bool EnableResumeFunction { get; }
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_EnableResumption")]
+        bool EnableResumption { get; }
     }
 }
