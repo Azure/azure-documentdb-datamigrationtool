@@ -3,6 +3,7 @@
     using Microsoft.Azure.CosmosDB;
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Storage.RetryPolicies;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -19,17 +20,18 @@
     {
         private const long maxLengthInBytesPerDocument = 2 * 1024 * 1024;
 
-        private string _connectionString;
-        private string _tableName;
-        private bool _overwrite;
-        private long _maxInputBufferSizeInBytes;
-        private int _throughput;
-        private int _maxLengthInBytesPerBatch;
+        private readonly string _connectionString;
+        private readonly string _tableName;
+        private readonly bool _overwrite;
+        private readonly long _maxInputBufferSizeInBytes;
+        private readonly int _throughput;
+        private readonly int _maxLengthInBytesPerBatch;
 
         private CloudTable cloudtable;
         private ConcurrentDictionary<string, TableBatchOperation> dict;
         private InputSizeTracker inputSizeTracker;
         private BatchSizeTracker batchSizeTracker;
+        private readonly TableRequestOptions requestOptions;
 
         public int MaxDegreeOfParallelism
         {
@@ -56,6 +58,10 @@
 
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
             cloudtable = tableClient.GetTableReference(_tableName);
+            requestOptions = new TableRequestOptions()
+            {
+                RetryPolicy = new ExponentialRetry(TimeSpan.FromSeconds(3), 3)
+            };
         }
 
         public async Task InitializeAsync(CancellationToken cancellation)
@@ -130,7 +136,8 @@
                             try
                             {
                                 await Utils.ExecuteWithRetryAsync(
-                                                    () => cloudtable.ExecuteBatchAsync(op, cancellation)
+                                                    () => cloudtable.ExecuteBatchAsync(batch: op, 
+                                                    requestOptions: requestOptions, operationContext: null, cancellationToken: cancellation)
                                                 );
                             }
                             catch (Exception ex)
@@ -168,6 +175,10 @@
             Guard.NotNull("tableEntityDataItem", tableEntityDataItem);
 
             var sourceData = tableEntityDataItem.GetDynamicTableEntity();
+            if (String.IsNullOrWhiteSpace(sourceData.RowKey))
+            {
+                sourceData.RowKey = sourceData.PartitionKey;
+            }
 
             sourceData.Properties.Remove("RowKey");
             sourceData.Properties.Remove("PartitionKey");
