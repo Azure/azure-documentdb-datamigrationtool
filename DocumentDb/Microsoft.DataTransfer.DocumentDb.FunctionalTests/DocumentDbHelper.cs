@@ -1,6 +1,5 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -73,10 +72,9 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
             }
         }
 
-        private static IReliableReadWriteDocumentClient CreateClient(IDocumentDbConnectionSettings connectionSettings)
+        private static DocumentClient CreateClient(IDocumentDbConnectionSettings connectionSettings)
         {
-            return new DocumentClient(new Uri(connectionSettings.AccountEndpoint), connectionSettings.AccountKey)
-                .AsReliable(new FixedInterval(10, TimeSpan.FromSeconds(1)));
+            return new DocumentClient(new Uri(connectionSettings.AccountEndpoint), connectionSettings.AccountKey);
         }
     }
 }
