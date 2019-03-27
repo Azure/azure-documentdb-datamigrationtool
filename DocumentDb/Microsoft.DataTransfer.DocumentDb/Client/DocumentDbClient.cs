@@ -94,7 +94,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             Guard.NotEmpty("collectionLink", collectionLink);
             Guard.NotNull("document", document);
 
-            return client.CreateDocumentAsync(collectionLink, document, null,
+            return client.CreateDocumentAsync(collectionLink, document,
                 disableAutomaticIdGeneration: disableAutomaticIdGeneration);
         }
 
@@ -138,9 +138,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             var matchingCollections = await GetMatchingCollections(database, collectionNamePattern, cancellation);
             if (matchingCollections == null || !matchingCollections.Any())
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
-
-            // Use SDK to query multiple collections, client will not be thread-safe
-            //client.UnderlyingClient.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
 
             var feedOptions = new FeedOptions
             {

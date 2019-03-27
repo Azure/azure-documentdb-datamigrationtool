@@ -26,15 +26,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             var connectionSettings = ParseConnectionString(configuration.ConnectionString);
             return new DocumentDbClient(
-                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit, configuration.Retries, configuration.RetryInterval)
-                    //.AsReliable(new FixedInterval(
-                    //    null,
-                    //    GetValueOrDefault(configuration.Retries, Defaults.Current.NumberOfRetries, Errors.InvalidNumberOfRetries),
-                    //    GetValueOrDefault(configuration.RetryInterval, Defaults.Current.RetryInterval, Errors.InvalidRetryInterval),
-                    //    false)),
-                ,connectionSettings.Database
-            );
-            //throttlingRetries - 
+                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit, configuration.Retries, configuration.RetryInterval),
+                connectionSettings.Database);
         }
 
         private static DocumentClient CreateRawClient(IDocumentDbConnectionSettings connectionSettings, DocumentDbConnectionMode? connectionMode, IDataTransferContext context,
