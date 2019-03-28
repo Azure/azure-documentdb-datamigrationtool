@@ -1,6 +1,5 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client.Enumeration;
@@ -19,10 +18,10 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
 {
     sealed class DocumentDbClient : IDocumentDbWriteClient, IDocumentDbReadClient
     {
-        private IReliableReadWriteDocumentClient client;
+        private DocumentClient client;
         private string databaseName;
 
-        public DocumentDbClient(IReliableReadWriteDocumentClient client, string databaseName)
+        public DocumentDbClient(DocumentClient client, string databaseName)
         {
             Guard.NotNull("client", client);
             Guard.NotEmpty("databaseName", databaseName);
@@ -139,9 +138,6 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             var matchingCollections = await GetMatchingCollections(database, collectionNamePattern, cancellation);
             if (matchingCollections == null || !matchingCollections.Any())
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
-
-            // Use SDK to query multiple collections, client will not be thread-safe
-            client.UnderlyingClient.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
 
             var feedOptions = new FeedOptions
             {
