@@ -139,6 +139,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             if (matchingCollections == null || !matchingCollections.Any())
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
 
+            // Use SDK to query multiple collections, client will not be thread-safe
+            client.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
+
             var feedOptions = new FeedOptions
             {
                 EnableCrossPartitionQuery = true,
