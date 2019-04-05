@@ -25,25 +25,24 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             var connectionSettings = ParseConnectionString(configuration.ConnectionString);
             return new DocumentDbClient(
-                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit)
-                    ,
+                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit, configuration.Retries, configuration.RetryInterval), 
                 connectionSettings.Database
             );
         }
 
         private static DocumentClient CreateRawClient(IDocumentDbConnectionSettings connectionSettings, DocumentDbConnectionMode? connectionMode, IDataTransferContext context,
-            bool isShardedImport, int? maxConnectionLimit)
+            bool isShardedImport, int? maxConnectionLimit, int? retries, TimeSpan? retryInterval)
         {
             Guard.NotNull("connectionSettings", connectionSettings);
 
             return new DocumentClient(
                 new Uri(connectionSettings.AccountEndpoint),
                 connectionSettings.AccountKey,
-                CreateConnectionPolicy(connectionMode, context, isShardedImport, maxConnectionLimit)
+                CreateConnectionPolicy(connectionMode, context, isShardedImport, maxConnectionLimit, retries, retryInterval)
             );
         }
 
-        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport, int? maxConnectionLimit)
+        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport, int? maxConnectionLimit, int? retries, TimeSpan? retryInterval)
         {
             var entryAssembly = Assembly.GetEntryAssembly();
 
@@ -56,6 +55,15 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
                         context.SourceName, context.SinkName,
                         isShardedImport ? Resources.ShardedImportDesignator : String.Empty)
                 };
+
+            RetryOptions retryOptions = new RetryOptions();
+            if (retries.HasValue)
+                retryOptions.MaxRetryAttemptsOnThrottledRequests = retries.Value;
+
+            if (retryInterval.HasValue)
+                retryOptions.MaxRetryWaitTimeInSeconds = retryInterval.Value.Seconds;
+
+            connectionPolicy.RetryOptions = retryOptions;
 
             if (maxConnectionLimit.HasValue)
                 connectionPolicy.MaxConnectionLimit = maxConnectionLimit.Value;
