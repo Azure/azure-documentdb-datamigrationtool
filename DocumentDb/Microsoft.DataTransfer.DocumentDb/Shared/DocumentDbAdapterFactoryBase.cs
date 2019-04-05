@@ -1,10 +1,8 @@
 ﻿using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Client.TransientFaultHandling;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics;
-using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -28,11 +26,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
             var connectionSettings = ParseConnectionString(configuration.ConnectionString);
             return new DocumentDbClient(
                 CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit)
-                    .AsReliable(new FixedInterval(
-                        null,
-                        GetValueOrDefault(configuration.Retries, Defaults.Current.NumberOfRetries, Errors.InvalidNumberOfRetries),
-                        GetValueOrDefault(configuration.RetryInterval, Defaults.Current.RetryInterval, Errors.InvalidRetryInterval),
-                        false)),
+                    ,
                 connectionSettings.Database
             );
         }
@@ -65,6 +59,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             if (maxConnectionLimit.HasValue)
                 connectionPolicy.MaxConnectionLimit = maxConnectionLimit.Value;
+
 
             return DocumentDbClientHelper.ApplyConnectionMode(connectionPolicy, connectionMode);
         }
