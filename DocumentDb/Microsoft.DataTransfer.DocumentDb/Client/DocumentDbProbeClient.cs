@@ -37,6 +37,8 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             using (var client = new DocumentClient(new Uri(parsed.AccountEndpoint), parsed.AccountKey, connectionPolicy))
             {
                 await client.OpenAsync();
+                await client.ReadDatabaseAsync(
+                    UriFactory.CreateDatabaseUri(parsed.Database));
             }
         }
     }
