@@ -20,7 +20,8 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
         private readonly IOneTimeDataTransferConfiguration configuration;
 
         public OneTimeDataTransferHandler(IDataTransferService transferService, IDataAdapterConfigurationFactory dataAdapterConfiguration,
-            ITransferStatisticsHandler statisticsHandler, ITransferStatisticsConfiguration statisticsConfiguration, IOneTimeDataTransferConfiguration configuration)
+            ITransferStatisticsHandler statisticsHandler, ITransferStatisticsConfiguration statisticsConfiguration,
+            IOneTimeDataTransferConfiguration configuration)
         {
             this.transferService = transferService;
             this.dataAdapterConfiguration = dataAdapterConfiguration;
@@ -59,7 +60,8 @@ namespace Microsoft.DataTransfer.ConsoleHost.App.Handlers
                         // With statistics
                             statistics,
                         // Allow cancellation
-                            cancellation.Token);
+                            cancellation.Token,
+                            statisticsConfiguration.EnableResumption);
                 }
             }
 

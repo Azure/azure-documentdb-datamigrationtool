@@ -88,6 +88,15 @@ namespace Microsoft.DataTransfer.ServiceModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional. Allows to save checkpoint files in folder ./ResumeCheckpoint and resume from there the next time you run with the same source and target configuration.
+        /// </summary>
+        public static string Statistics_EnableResumption {
+            get {
+                return ResourceManager.GetString("Statistics_EnableResumption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional. Name of the CSV file to redirect data transfer failures.
         /// </summary>
         public static string Statistics_ErrorLog {

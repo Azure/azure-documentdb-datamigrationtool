@@ -37,5 +37,11 @@ namespace Microsoft.DataTransfer.ServiceModel.Statistics
         /// </summary>
         [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "Statistics_ProgressUpdateInterval")]
         TimeSpan? ProgressUpdateInterval { get; }
+
+        /// <summary>
+        /// Whether to allow saving or resuming from a checkpoint
+        /// </summary>
+        [Display(ResourceType = typeof(ConfigurationResources), Description = "Statistics_EnableResumption")]
+        bool EnableResumption { get; }
     }
 }

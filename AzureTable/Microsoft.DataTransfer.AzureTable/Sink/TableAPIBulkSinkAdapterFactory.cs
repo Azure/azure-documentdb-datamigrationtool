@@ -1,6 +1,7 @@
 namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 {
     using Microsoft.DataTransfer.AzureTable;
+    using Microsoft.DataTransfer.AzureTable.Resumption;
     using Microsoft.DataTransfer.Basics;
     using Microsoft.DataTransfer.Extensibility;
     using Microsoft.DataTransfer.Extensibility.Basics;
@@ -61,7 +62,8 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 
             var sink = new TableAPIBulkSinkAdapter(configuration.ConnectionString, 
                             configuration.TableName, configuration.Overwrite, 
-                            maxInputBufferSizeInBytes, throughput, batchSize);
+                            maxInputBufferSizeInBytes, throughput, batchSize,
+                            context.EnableResumeFunction ? new AzureTableResumptionAdaptor(context.RunConfigSignature + ".json") : null);
 
             await sink.InitializeAsync(cancellation);
 

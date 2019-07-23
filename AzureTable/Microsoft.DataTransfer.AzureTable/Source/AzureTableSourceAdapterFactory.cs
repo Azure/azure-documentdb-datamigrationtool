@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.Basics;
+﻿using Microsoft.DataTransfer.AzureTable.Resumption;
+using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics;
 using System;
@@ -29,17 +30,18 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         /// <returns>Task that represents asynchronous create operation.</returns>
         public Task<IDataSourceAdapter> CreateAsync(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context, CancellationToken cancellation)
         {
-            return Task.Factory.StartNew(() => Create(configuration), cancellation);
+            return Task.Factory.StartNew(() => Create(configuration, context), cancellation);
         }
 
-        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration)
+        private static IDataSourceAdapter Create(IAzureTableSourceAdapterConfiguration configuration, IDataTransferContext context)
         {
             Guard.NotNull("configuration", configuration);
 
             if (String.IsNullOrEmpty(configuration.ConnectionString))
                 throw Errors.ConnectionStringMissing();
 
-            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration));
+            return new AzureTableSourceAdapter(CreateInstanceConfiguration(configuration),
+                context.EnableResumeFunction ? new AzureTableResumptionAdaptor(context.RunConfigSignature + ".json") : null);
         }
 
         private static IAzureTableSourceAdapterInstanceConfiguration CreateInstanceConfiguration(IAzureTableSourceAdapterConfiguration configuration)

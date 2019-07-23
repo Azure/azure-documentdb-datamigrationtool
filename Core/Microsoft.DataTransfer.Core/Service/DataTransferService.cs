@@ -3,6 +3,8 @@ using Microsoft.DataTransfer.Core.FactoryAdapters;
 using Microsoft.DataTransfer.ServiceModel;
 using Microsoft.DataTransfer.ServiceModel.Entities;
 using Microsoft.DataTransfer.ServiceModel.Statistics;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -16,6 +18,12 @@ namespace Microsoft.DataTransfer.Core.Service
 
         private IReadOnlyDictionary<string, IDataSourceAdapterFactoryAdapter> sources;
         private IReadOnlyDictionary<string, IDataSinkAdapterFactoryAdapter> sinks;
+
+        private IReadOnlyList<string> resumeFunctionSupportSourcesAndSinks = new List<string>
+        {
+            "AzureTable",
+            "TableAPIBulk"
+        };
 
         public DataTransferService(
             IReadOnlyDictionary<string, IDataSourceAdapterFactoryAdapter> sources,
@@ -42,7 +50,8 @@ namespace Microsoft.DataTransfer.Core.Service
         }
 
         public async Task TransferAsync(string sourceName, object sourceConfiguration,
-            string sinkName, object sinkConfiguration, ITransferStatistics statistics, CancellationToken cancellation)
+            string sinkName, object sinkConfiguration, ITransferStatistics statistics,
+            CancellationToken cancellation, bool enableResumeFunction = false)
         {
             IDataSourceAdapterFactoryAdapter sourceFactoryAdapter;
             if (!sources.TryGetValue(sourceName, out sourceFactoryAdapter))
@@ -52,10 +61,23 @@ namespace Microsoft.DataTransfer.Core.Service
             if (!sinks.TryGetValue(sinkName, out sinkFactoryAdapter))
                 throw Errors.UnknownDataSink(sinkName);
 
+            if (enableResumeFunction)
+            {
+                if (!resumeFunctionSupportSourcesAndSinks.Contains(sourceName))
+                    throw Errors.UnsupportedDataSourceOrSinkForResumption(sourceName);
+
+                if (!resumeFunctionSupportSourcesAndSinks.Contains(sinkName))
+                    throw Errors.UnsupportedDataSourceOrSinkForResumption(sinkName);
+            }
+
+            var jsonSerilizer = new JsonSerializer();
             var context = new DataTransferContext
             {
                 SourceName = sourceName,
-                SinkName = sinkName
+                SinkName = sinkName,
+                RunConfigSignature = GetStringSha256Hash(
+                    JsonConvert.SerializeObject(sourceConfiguration) + JsonConvert.SerializeObject(sinkConfiguration)),
+                EnableResumeFunction = enableResumeFunction
             };
 
             try
@@ -73,6 +95,19 @@ namespace Microsoft.DataTransfer.Core.Service
             finally
             {
                 statistics.Stop();
+            }
+        }
+
+        private static string GetStringSha256Hash(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return string.Empty;
+
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
+                byte[] hash = sha.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", string.Empty);
             }
         }
     }

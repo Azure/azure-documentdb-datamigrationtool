@@ -36,6 +36,8 @@ namespace Microsoft.DataTransfer.WpfHost.Steps.InfrastructureSetup
             set { SetProperty(ref progressUpdateInterval, value); }
         }
 
+        public bool EnableResumption => false;
+        
         public bool EnableCosmosTableLog
         {
             get { return true; }

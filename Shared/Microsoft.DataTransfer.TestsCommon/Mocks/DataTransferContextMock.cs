@@ -15,5 +15,15 @@ namespace Microsoft.DataTransfer.TestsCommon.Mocks
         {
             get { return "TestSink"; }
         }
+
+        public string RunConfigSignature
+        {
+            get { return "TestRunConfigSignature"; }
+        }
+
+        public bool EnableResumeFunction
+        {
+            get { return false; }
+        }
     }
 }

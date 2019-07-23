@@ -4,6 +4,7 @@
     using Microsoft.Azure.CosmosDB.Table;
     using Microsoft.Azure.Storage;
     using Microsoft.Azure.Storage.RetryPolicies;
+    using Microsoft.DataTransfer.AzureTable.Resumption;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -26,6 +27,7 @@
         private readonly long _maxInputBufferSizeInBytes;
         private readonly int _throughput;
         private readonly int _maxLengthInBytesPerBatch;
+        private readonly IDataTransferResumptionAdapter<AzureTablePrimaryKey> _resumptionAdapter;
 
         private CloudTable cloudtable;
         private ConcurrentDictionary<string, TableBatchOperation> dict;
@@ -39,7 +41,8 @@
         }
 
         public TableAPIBulkSinkAdapter(string connectionString, string tableName, 
-            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize)
+            bool overwrite, long maxInputBufferSizeInBytes, int throughput, int batchSize,
+            IDataTransferResumptionAdapter<AzureTablePrimaryKey> resumptionAdapter)
         {
             _connectionString = connectionString;
             _tableName = tableName;
@@ -47,6 +50,7 @@
             _maxInputBufferSizeInBytes = maxInputBufferSizeInBytes;
             _throughput = throughput;
             _maxLengthInBytesPerBatch = batchSize;
+            _resumptionAdapter = resumptionAdapter;
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
 
@@ -75,6 +79,11 @@
         public async Task WriteAsync(IDataItem dataItem, CancellationToken cancellation)
         {
             var item = GetITableEntityFromIDataItem(dataItem);
+            if (dict.Count == 0 && !cancellation.IsCancellationRequested)
+            {
+                _resumptionAdapter?.SaveCheckpoint(
+                    new AzureTablePrimaryKey { PartitionKey = item.PartitionKey, RowKey = item.RowKey });
+            }
 
             inputSizeTracker.Add(item);
 

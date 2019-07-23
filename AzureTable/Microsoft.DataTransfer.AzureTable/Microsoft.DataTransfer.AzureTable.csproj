@@ -101,6 +101,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfigurationResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ContinuationTokenParser.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="DynamicConfigurationResources.cs" />
     <Compile Include="Errors.cs" />
@@ -111,6 +112,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resumption\AzureTablePrimaryKey.cs" />
+    <Compile Include="Resumption\AzureTableResumptionAdaptor.cs" />
     <Compile Include="Shared\AzureStorageLocationMode.cs" />
     <Compile Include="Shared\IAzureTableAdapterConfiguration.cs" />
     <Compile Include="Sink\BatchSizeTracker.cs" />
