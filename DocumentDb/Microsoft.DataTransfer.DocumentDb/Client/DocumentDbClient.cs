@@ -143,7 +143,11 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             var feedOptions = new FeedOptions
             {
                 EnableCrossPartitionQuery = true,
-                MaxItemCount = -1
+                MaxItemCount = -1,
+                JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+                {
+                    DateParseHandling = Newtonsoft.Json.DateParseHandling.None
+                }
             };
 
             var documentQuery = 
