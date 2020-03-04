@@ -12,6 +12,8 @@ The Azure Cosmos DB Data Migration Tool is an open source solution to import dat
 
 For help using the tool, please see the online documentation located [here](http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/).
 
+The latest version of the tool can be downloaded [here](https://aka.ms/csdmtool).
+
 ---
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
