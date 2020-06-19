@@ -193,3 +193,6 @@ ModelManifest.xml
 
 # Visual Studio data
 .vs/
+
+.idea/
+.DS_Store

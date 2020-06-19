@@ -53,6 +53,12 @@ namespace Microsoft.DataTransfer.MongoDb.Source.Online
                         new MongoClient(url)
                             .GetDatabase(url.DatabaseName)
                             .GetCollection<BsonDocument>(configuration.Collection);
+
+                    if(options == null)
+                    {
+                        options = new FindOptions<BsonDocument, BsonDocument>();
+                        options.BatchSize = 10;
+                    }
                     
                     var mongoCursor = String.IsNullOrEmpty(configuration.Query) 
                         ? collection.FindAsync(
