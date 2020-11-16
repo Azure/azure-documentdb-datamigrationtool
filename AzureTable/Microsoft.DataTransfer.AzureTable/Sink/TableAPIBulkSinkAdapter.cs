@@ -167,12 +167,11 @@
 
         private ITableEntity GetITableEntityFromIDataItem(IDataItem dataItem)
         {
-            /* NOTE: Assume that the source is Azure Table.
-             * Other sources are NOT supported at this point.
-             */
-
             DynamicTableEntityDataItem tableEntityDataItem = dataItem as DynamicTableEntityDataItem;
-            Guard.NotNull("tableEntityDataItem", tableEntityDataItem);
+            if (tableEntityDataItem == null)
+            {
+                throw new NotSupportedException("TableAPIBulk does only support AzureTable as input source. Other sources are not supported at this point.");
+            }
 
             var sourceData = tableEntityDataItem.GetDynamicTableEntity();
             if (String.IsNullOrWhiteSpace(sourceData.RowKey))
