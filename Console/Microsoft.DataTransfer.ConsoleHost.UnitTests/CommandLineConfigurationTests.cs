@@ -56,7 +56,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
         }
 
         [TestMethod]
-        public void Parse_CompexSourceConfigurationSet_ConfigurationParsed()
+        public void Parse_ComplexSourceConfigurationSet_ConfigurationParsed()
         {
             var configuration = CommandLineConfiguration.Parse(new[]
                 {
@@ -202,6 +202,34 @@ namespace Microsoft.DataTransfer.ConsoleHost.UnitTests
 
             Assert.AreEqual(0, configuration.SourceConfiguration.Count, TestResources.InvalidSourceConfigurationParsed);
             Assert.AreEqual(0, configuration.TargetConfiguration.Count, TestResources.InvalidTargetConfigurationParsed);
+        }
+
+        [TestMethod]
+        public void Parse_MultilineTargetConfigurationSet_ConfigurationParsed()
+        {
+            var configuration = CommandLineConfiguration.Parse(new[]
+                {
+                    "/t:TestTarget",
+                    "/t.Property1:with spaces which also\r\nspans multiple lines",
+                    "/t.Property2:value with\na unix new line",
+                    "/t.Switch"
+                });
+
+            Assert.IsNull(configuration.SourceName, TestResources.InvalidSourceNameParsed);
+            Assert.AreEqual("TestTarget", configuration.TargetName, TestResources.InvalidTargetNameParsed);
+
+            Assert.AreEqual(0, configuration.InfrastructureConfiguration.Count, TestResources.InvalidInfrastructureConfigurationParsed);
+            Assert.AreEqual(0, configuration.SourceConfiguration.Count, TestResources.InvalidSourceConfigurationParsed);
+
+            CollectionAssert.AreEquivalent(
+                new Dictionary<string, string>
+                {
+                    { "Property1", "with spaces which also\r\nspans multiple lines" },
+                    { "Property2", "value with\na unix new line" },
+                    { "Switch", Boolean.TrueString }
+                },
+                configuration.TargetConfiguration.ToArray(),
+                TestResources.InvalidTargetConfigurationParsed);
         }
     }
 }
