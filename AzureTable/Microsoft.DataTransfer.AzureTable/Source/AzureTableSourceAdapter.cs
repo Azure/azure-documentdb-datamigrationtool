@@ -28,7 +28,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
         public AzureTableSourceAdapter(IAzureTableSourceAdapterInstanceConfiguration configuration)
         {
             this.configuration = configuration;
-
+            System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
             string connectionString = System.Text.RegularExpressions.Regex.Replace(
                 configuration.ConnectionString, @"(TableEndpoint=https://)(.*\.)(documents)(\.azure\.com)",
                 m => m.Groups[1].Value + m.Groups[2].Value + "table.cosmosdb" + m.Groups[4].Value);
