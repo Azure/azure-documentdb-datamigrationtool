@@ -643,16 +643,11 @@ In the Advanced configuration screen, specify the location of the log file to wh
 ### Next steps
 
 In this tutorial, you've done the following tasks:
+* Installed the Data Migration tool
+* Imported data from different data sources
+* Exported from Azure Cosmos DB to JSON
 
-> [!div class="checklist"]
-> * Installed the Data Migration tool
-> * Imported data from different data sources
-> * Exported from Azure Cosmos DB to JSON
-
-You can now proceed to the next tutorial and learn how to query data using Azure Cosmos DB.
-
-> [!div class="nextstepaction"]
->[How to query data?](https://docs.microsoft.com/azure/cosmos-db/tutorial-query-sql-api)
+You can now proceed to the next tutorial and learn [how to query data](https://docs.microsoft.com/azure/cosmos-db/tutorial-query-sql-api) using Azure Cosmos DB.
 
 ---
 
