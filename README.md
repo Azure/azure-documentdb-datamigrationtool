@@ -12,9 +12,8 @@ The Azure Cosmos DB Data Migration Tool is an open source solution to import dat
 * Migrate a CSV file to Azure Cosmos DB SQL API
 * Export from Azure Cosmos DB SQL API to a JSON file
 * Migrate a SQL Server instance to Azure Cosmos DB SQL API
-* As well as other scenarios
 
-Additionally, Amazon AWS DynamoDB and RavenDB are supported as sources and endpoints for migration. For other Azure Cosmos DB data migration scenarios, we recommend using Azure Data Factory (ADF) to facilitate small data migrations - see our [guidance on Azure Cosmos DB SQL API](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db) and [Azure Cosmos DB API for MongoDB](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db-mongodb-api) migrations using ADF. For larger migrations, view our [guide for ingesting data](cosmosdb-migrationchoices.md).
+Additionally, other sources including Amazon AWS DynamoDB and RavenDB are supported as sources and endpoints for migration. For other Azure Cosmos DB data migration scenarios, we recommend using Azure Data Factory (ADF) to facilitate small data migrations - see our [guidance on Azure Cosmos DB SQL API](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db) and [Azure Cosmos DB API for MongoDB](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db-mongodb-api) migrations using ADF. For larger migrations, view our [guide for ingesting data](cosmosdb-migrationchoices.md).
 
 For help using the tool, or for guidance on migrating to Azure Cosmos DB APIs other than SQL API, please see the tutorial in the next section.
 
