@@ -534,7 +534,7 @@ The format of the Azure Table storage connection string is:
 >
 > Use the Verify command to ensure that the Azure Table storage instance specified in the connection string field can be accessed.
 
-Enter the name of the Azure table from to import from. You may optionally specify a [filter](/visualstudio/azure/vs-azure-tools-table-designer-construct-filter-strings).
+Enter the name of the Azure table from to import from. You may optionally specify a [filter](https://docs.microsoft.com/visualstudio/azure/vs-azure-tools-table-designer-construct-filter-strings?view=vs-2019).
 
 The Azure Table storage source importer option has the following additional options:
 
