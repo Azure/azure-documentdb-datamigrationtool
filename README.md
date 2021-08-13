@@ -32,11 +32,9 @@ This tutorial provides instructions on using the Azure Cosmos DB data migration 
 * **[Gremlin API](https://docs.microsoft.com/azure/cosmos-db/graph/graph-introduction)** - The Data Migration tool isn't a supported import tool for Gremlin API accounts at this time. [Learn about migration options for importing data into Gremlin API](https://docs.microsoft.com/azure/cosmos-db/cosmosdb-migrationchoices#other-apis) 
 
 This tutorial covers the following tasks:
-
-> [!div class="checklist"]
-> * Installing the Data Migration tool
-> * Importing data from different data sources
-> * Exporting from Azure Cosmos DB to JSON
+* Installing the Data Migration tool
+* Importing data from different data sources
+* Exporting from Azure Cosmos DB to JSON
 
 ### <a id="Prerequisites"></a>Prerequisites
 
