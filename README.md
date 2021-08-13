@@ -82,7 +82,7 @@ While the import tool includes a graphical user interface (dtui.exe), it can als
   * **Dtui.exe**: Graphical interface version of the tool
   * **Dt.exe**: Command-line version of the tool
 
-### Setting up and starting migration
+### <a id="SetupStart"></a>Setting up and starting migration
 
 > Please read the following three steps before getting started with the Data migration tool:
 > 
@@ -139,6 +139,8 @@ dt.exe /s:JsonFile /s.Files:C:\Tweets\*.*;C:\LargeDocs\**\*.*;C:\TESessions\Sess
 #Import a single JSON file and partition the data across 4 collections
 dt.exe /s:JsonFile /s.Files:D:\\CompanyData\\Companies.json /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:comp[1-4] /t.PartitionKey:name /t.CollectionThroughput:2500
 ```
+
+> Back to [Setting up and starting migration](#SetupStart)
 
 ### <a id="JSONExport"></a>Export to JSON file
 
