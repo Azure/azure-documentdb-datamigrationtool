@@ -6,7 +6,7 @@
 > 
 > * dt.exe and dtui.exe are **not** first-party/first-class tools maintained by Microsoft
 
-# Azure Cosmos DB Data Migration Tool
+# Azure Cosmos DB Data Migration Tool (dt.exe and dtui.exe)
 The Azure Cosmos DB Data Migration Tool is an open source solution to import data to Azure CosmosDB SQL API (DocumentDB) and Table API endpoints from a variety of sources, including:
 * Azure Tables
 * JSON files
