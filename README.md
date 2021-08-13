@@ -197,6 +197,9 @@ dt.exe /ErrorDetails:All /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint
 /t.Overwrite
 ```
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 ### <a id="CSV"></a>Import CSV files and convert CSV to JSON
 
 The CSV file source importer option enables you to import one or more CSV files. When adding folders that have CSV files for import, you have the option of recursively searching for files in subfolders.
@@ -235,6 +238,9 @@ Here is a command-line sample for CSV import:
 dt.exe /s:CsvFile /s.Files:.\Employees.csv /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:Employees /t.IdField:EntityID /t.CollectionThroughput:2500
 ```
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="BlobImport"></a>Import from Azure Blob storage
 
 The JSON file, MongoDB export file, and CSV file source importer options allow you to import one or more files from Azure Blob storage. After specifying a Blob container URL and Account Key, provide a regular expression to select the file(s) to import.
@@ -246,6 +252,9 @@ Here is command-line sample to import JSON files from Azure Blob storage:
 ```console
 dt.exe /s:JsonFile /s.Files:"blobs://<account key>@account.blob.core.windows.net:443/importcontainer/.*" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:doctest
 ```
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 ### <a id="SQL"></a>Import from SQL Server
 
@@ -293,6 +302,9 @@ dt.exe /s:SQL /s.ConnectionString:"Data Source=<server>;Initial Catalog=Adventur
 #Import records from sql which match a query and create hierarchical relationships
 dt.exe /s:SQL /s.ConnectionString:"Data Source=<server>;Initial Catalog=AdventureWorks;User Id=advworks;Password=<password>;" /s.Query:"select CAST(BusinessEntityID AS varchar) as Id, Name, AddressType as [Address.AddressType], AddressLine1 as [Address.AddressLine1], City as [Address.Location.City], StateProvinceName as [Address.Location.StateProvinceName], PostalCode as [Address.PostalCode], CountryRegionName as [Address.CountryRegionName] from Sales.vStoreWithAddresses WHERE AddressType='Main Office'" /s.NestingSeparator:. /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:StoresSub /t.IdField:Id /t.CollectionThroughput:2500
 ```
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 ### <a id="SQLBulkAndSequentialTargets"></a>Import to the SQL API from any source, leveraging Bulk or Sequential operation on Azure Cosmos DB
 
@@ -365,6 +377,9 @@ The Azure Cosmos DB Bulk importer has the following additional advanced options:
 > [TIP]
 > The import tool defaults to connection mode DirectTcp. If you experience firewall issues, switch to connection mode Gateway, as it only requires port 443.
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="SQLSeqTarget"></a>Import to the SQL API (Sequential Record Import)
 
 The Azure Cosmos DB sequential record importer allows you to import from an available source option on a record-by-record basis. You might choose this option if you’re importing to an existing collection that has reached its quota of stored procedures. The tool supports import to a single (both single-partition and multi-partition) Azure Cosmos container. It also supports sharded import whereby data is partitioned across more than one single-partition or multi-partition Azure Cosmos container. For more information about partitioning data, see [Partitioning and scaling in Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/partitioning-overview).
@@ -425,7 +440,13 @@ The Azure Cosmos DB - Sequential record importer has the following additional ad
 > [TIP]
 > The import tool defaults to connection mode DirectTcp. If you experience firewall issues, switch to connection mode Gateway, as it only requires port 443.
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 ### <a id="Other"></a>Other sources
+
+Alternatively - **click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 #### <a id="MongoDB"></a>Import from MongoDB
 
@@ -457,6 +478,9 @@ dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<po
 dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database> /s.Collection:zips /s.Query:{pop:{$gt:50000}} /s.Projection:{loc:0} /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:BulkZipsTransform /t.IdField:_id/t.CollectionThroughput:2500
 ```
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="MongoDBExport"></a>Import MongoDB export files
 
 > [IMPORTANT]
@@ -474,6 +498,9 @@ Here is a command-line sample to import from MongoDB export JSON files:
 ```console
 dt.exe /s:MongoDBExport /s.Files:D:\mongoemployees.json /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:employees /t.IdField:_id /t.Dates:Epoch /t.CollectionThroughput:2500
 ```
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 #### <a id="AzureTableSource"></a>Import from Azure Table storage
 
@@ -508,6 +535,9 @@ Here is a command-line sample to import from Azure Table storage:
 dt.exe /s:AzureTable /s.ConnectionString:"DefaultEndpointsProtocol=https;AccountName=<Account Name>;AccountKey=<Account Key>" /s.Table:metrics /s.InternalFields:All /s.Filter:"PartitionKey eq 'Partition1' and RowKey gt '00001'" /s.Projection:ObjectCount;ObjectSize  /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:metrics /t.CollectionThroughput:2500
 ```
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="DynamoDBSource"></a>Import from Amazon DynamoDB
 
 The Amazon DynamoDB source importer option allows you to import from a single Amazon DynamoDB table. It can optionally filter the entities to be imported. Several templates are provided so that setting up an import is as easy as possible.
@@ -529,6 +559,9 @@ Here is a command-line sample to import from Amazon DynamoDB:
 ```console
 dt.exe /s:DynamoDB /s.ConnectionString:ServiceURL=https://dynamodb.us-east-1.amazonaws.com;AccessKey=<accessKey>;SecretKey=<secretKey> /s.Request:"{   """TableName""": """ProductCatalog""" }" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<Azure Cosmos DB Endpoint>;AccountKey=<Azure Cosmos DB Key>;Database=<Azure Cosmos database>;" /t.Collection:catalogCollection /t.CollectionThroughput:2500
 ```
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 #### <a id="SQLSource"></a>Import from a SQL API collection
 
@@ -584,6 +617,9 @@ dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoin
 > 
 > The Azure Cosmos DB Data Import Tool also supports import of data from the [Azure Cosmos DB Emulator](https://docs.microsoft.com/azure/cosmos-db/local-emulator?tabs=ssl-netstd21). When importing data from a local emulator, set the endpoint to `https://localhost:<port>`.
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="HBaseSource"></a>Import from HBase
 
 The HBase source importer option allows you to import data from an HBase table and optionally filter the data. Several templates are provided so that setting up an import is as easy as possible.
@@ -606,11 +642,17 @@ Here is a command-line sample to import from HBase:
 dt.exe /s:HBase /s.ConnectionString:ServiceURL=<server-address>;Username=<username>;Password=<password> /s.Table:Contacts /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:hbaseimport
 ```
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 ### <a id="AdditionalConfigs"></a>Additional configuration settings
 
 This section discusses additional configuration settings for the Data migration tool:
 * [Specify an indexing policy](#IndexingPolicy)
 * [Advanced configuration](#AdvancedConfig)
+
+Alternatively, **click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 #### <a id="IndexingPolicy"></a>Specify an indexing policy
 
@@ -631,6 +673,9 @@ The policy templates the tool provides are:
 > 
 > If you don't specify an indexing policy, then the default policy is applied. For more information about indexing policies, see [Azure Cosmos DB indexing policies](https://docs.microsoft.com/azure/cosmos-db/index-policy).
 
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="AdvancedConfig"></a>Advanced configuration
 
 In the Advanced configuration screen, specify the location of the log file to which you would like any errors written. The following rules apply to this page:
@@ -641,6 +686,9 @@ In the Advanced configuration screen, specify the location of the log file to wh
 4. Then, choose whether to log all, critical, or no error messages. Finally, decide how frequently the on-screen transfer message is updated with its progress.
 
    :::image type="content" source="./media/import-data/AdvancedConfiguration.png" alt-text="Screenshot of Advanced configuration screen":::
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 ### <a id="StartMigration"></a>Start migration - confirm import settings and view command line
 
@@ -657,6 +705,9 @@ In the Advanced configuration screen, specify the location of the log file to wh
 3. You may also start a new import by either resetting all values or keeping the existing settings. (For example, you may choose to keep connection string information, source and target choice, and more.)
 
     :::image type="content" source="./media/import-data/newimport.png" alt-text="Screenshot of Azure Cosmos DB JSON export option with the New Import confirmation dialog box.":::
+
+**Click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
 
 ### Next steps
 
