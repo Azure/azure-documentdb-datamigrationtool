@@ -12,23 +12,18 @@ The Azure Cosmos DB Data Migration Tool is an open source solution to import dat
 * Migrate a CSV file to Azure Cosmos DB SQL API
 * Export from Azure Cosmos DB SQL API to a JSON file
 * Migrate a SQL Server instance to Azure Cosmos DB SQL API
+* As well as other scenarios
 
 Additionally, Amazon AWS DynamoDB and RavenDB are supported as sources and endpoints for migration. For other Azure Cosmos DB data migration scenarios, we recommend using Azure Data Factory (ADF) to facilitate small data migrations - see our [guidance on Azure Cosmos DB SQL API](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db) and [Azure Cosmos DB API for MongoDB](https://docs.microsoft.com/azure/data-factory/connector-azure-cosmos-db-mongodb-api) migrations using ADF. For larger migrations, view our [guide for ingesting data](cosmosdb-migrationchoices.md).
 
-* CSV files
-* RavenDB
-* Amazon DynamoDB
-* HBase
-* Azure Cosmos DB SQL API (Azure Cosmos DB)
-
-For help using the tool, please see the tutorial in the next section.
+For help using the tool, or for guidance on migrating to Azure Cosmos DB APIs other than SQL API, please see the tutorial in the next section.
 
 ## Tutorial: Use Data migration tool to migrate your data to Azure Cosmos DB
-[!INCLUDE[appliesto-sql-api](includes/appliesto-sql-api.md)]
 
 This tutorial provides instructions on using the Azure Cosmos DB Data Migration tool, which can import data from various sources into Azure Cosmos containers and tables. You can import from JSON files, CSV files, SQL, MongoDB, Azure Table storage, Amazon DynamoDB, and even Azure Cosmos DB SQL API collections. You migrate that data to collections and tables for use with Azure Cosmos DB. The Data Migration tool can also be used when migrating from a single partition collection to a multi-partition collection for the SQL API.
 
-> [!NOTE]
+> [NOTE]
+> 
 > The Azure Cosmos DB Data Migration tool is an open source tool designed for small migrations. For larger migrations, view our [guide for ingesting data](cosmosdb-migrationchoices.md).
 
 * **[SQL API](./introduction.md)** - You can use any of the source options provided in the Data Migration tool to import data at a small scale. [Learn about migration options for importing data at a large scale](cosmosdb-migrationchoices.md).
