@@ -248,7 +248,7 @@ dt.exe /s:CsvFile /s.Files:.\Employees.csv /t:Azure Cosmos DBBulk /t.ConnectionS
 
 #### <a id="BlobImport"></a>Import from Azure Blob storage
 
-The JSON file, MongoDB export file, and CSV file source importer options allow you to import one or more files from Azure Blob storage. After specifying a Blob container URL and Account Key, provide a regular expression to select the file(s) to import.
+The JSON file, CSV file, and MongoDB export file source importer options allow you to import one or more files from Azure Blob storage. After specifying a Blob container URL and Account Key, provide a regular expression to select the file(s) to import.
 
 ![Screenshot of Blob file source options](./media/import-data/blobsource.png)
 
