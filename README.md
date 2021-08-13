@@ -468,7 +468,7 @@ Alternatively - **click the link below to return to the steps for getting starte
 
 > [IMPORTANT]
 > 
-> If you're importing to a Cosmos account configured with Azure Cosmos DB's API for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
+> If you're importing to a Cosmos account configured with Azure Cosmos DB's API for MongoDB, follow [these instructions for migration with Azure Data Migration Service](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json)
 
 With the MongoDB source importer option, you can import from a single MongoDB collection, optionally filter documents using a query, and modify the document structure by using a projection.  
 
@@ -501,7 +501,7 @@ dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<po
 
 > [IMPORTANT]
 > 
-> If you're importing to an Azure Cosmos DB account with support for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
+> If you're importing to an Azure Cosmos DB account with support for MongoDB, follow [these instructions for migrations using MongoDB native tools.](https://docs.microsoft.com/azure/cosmos-db/mongodb/tutorial-mongotools-cosmos-db)
 
 The MongoDB export JSON file source importer option allows you to import one or more JSON files produced from the mongoexport utility.  
 
