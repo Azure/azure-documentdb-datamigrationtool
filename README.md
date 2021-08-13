@@ -82,13 +82,22 @@ While the import tool includes a graphical user interface (dtui.exe), it can als
   * **Dtui.exe**: Graphical interface version of the tool
   * **Dt.exe**: Command-line version of the tool
 
-### Select data source
+### Setting up and starting migration
 
-Once you've installed the tool, it's time to import your data. What kind of data do you want to import?
-* [JSON files](#JSON)
-* [CSV files](#CSV)
-* [SQL Server](#SQL)
-* [Other source](#Other)
+Please read the following three steps before getting started with the Data migration tool:
+
+1. **Choose your data source:** Once you've installed the tool, it's time to import your data. What kind of data do you want to import or export?
+* [Import JSON files](#JSON)
+* [Export JSON files](#JSONExport)
+* [Import CSV files](#CSV)
+* [Import a supported file type from Azure Blob storage](#BlobImport)
+* [Import from SQL Server](#SQL)
+* [Import from any supported source and target, leveraging Bulk or Sequential operation on Azure Cosmos DB SQL API](#SQLBulkAndSequentialTargets)
+* If your source is not mentioned above - look at [Import or export from other source not mentioned](#Other)
+
+2. **Additional settings:** Optionally, please review these [guidelines on additional configurations](#AdditionalConfigs) such as indexing and advanced settings.
+
+3. **Start migration:** Once you have configured the Data migration tool, follow [these steps](#StartMigration) for start migration.
 
 ### <a id="JSON"></a>Import JSON files
 
@@ -130,6 +139,60 @@ dt.exe /s:JsonFile /s.Files:C:\Tweets\*.*;C:\LargeDocs\**\*.*;C:\TESessions\Sess
 dt.exe /s:JsonFile /s.Files:D:\\CompanyData\\Companies.json /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:comp[1-4] /t.PartitionKey:name /t.CollectionThroughput:2500
 ```
 
+### <a id="JSONExport"></a>Export to JSON file
+
+The Azure Cosmos DB JSON exporter allows you to export any of the available source options to a JSON file that has an array of JSON documents. The tool handles the export for you. Alternatively, you can choose to view the resulting migration command and run the command yourself. The resulting JSON file may be stored locally or in Azure Blob storage.
+
+:::image type="content" source="./media/import-data/jsontarget.png" alt-text="Screenshot of Azure Cosmos DB JSON local file export option":::
+
+:::image type="content" source="./media/import-data/jsontarget2.png" alt-text="Screenshot of Azure Cosmos DB JSON Azure Blob storage export option":::
+
+You may optionally choose to prettify the resulting JSON. This action will increase the size of the resulting document while making the contents more human readable.
+
+* Standard JSON export
+
+  ```JSON
+  [{"id":"Sample","Title":"About Paris","Language":{"Name":"English"},"Author":{"Name":"Don","Location":{"City":"Paris","Country":"France"}},"Content":"Don's document in Azure Cosmos DB is a valid JSON document as defined by the JSON spec.","PageViews":10000,"Topics":[{"Title":"History of Paris"},{"Title":"Places to see in Paris"}]}]
+  ```
+
+* Prettified JSON export
+
+  ```JSON
+    [
+     {
+    "id": "Sample",
+    "Title": "About Paris",
+    "Language": {
+      "Name": "English"
+    },
+    "Author": {
+      "Name": "Don",
+      "Location": {
+        "City": "Paris",
+        "Country": "France"
+      }
+    },
+    "Content": "Don's document in Azure Cosmos DB is a valid JSON document as defined by the JSON spec.",
+    "PageViews": 10000,
+    "Topics": [
+      {
+        "Title": "History of Paris"
+      },
+      {
+        "Title": "Places to see in Paris"
+      }
+    ]
+    }]
+  ```
+
+Here is a command-line sample to export the JSON file to Azure Blob storage:
+
+```console
+dt.exe /ErrorDetails:All /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB database_name>" /s.Collection:<CosmosDB collection_name>
+/t:JsonFile /t.File:"blobs://<Storage account key>@<Storage account name>.blob.core.windows.net:443/<Container_name>/<Blob_name>"
+/t.Overwrite
+```
+
 ### <a id="CSV"></a>Import CSV files and convert CSV to JSON
 
 The CSV file source importer option enables you to import one or more CSV files. When adding folders that have CSV files for import, you have the option of recursively searching for files in subfolders.
@@ -166,6 +229,18 @@ Here is a command-line sample for CSV import:
 
 ```console
 dt.exe /s:CsvFile /s.Files:.\Employees.csv /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:Employees /t.IdField:EntityID /t.CollectionThroughput:2500
+```
+
+#### <a id="BlobImport"></a>Import from Azure Blob storage
+
+The JSON file, MongoDB export file, and CSV file source importer options allow you to import one or more files from Azure Blob storage. After specifying a Blob container URL and Account Key, provide a regular expression to select the file(s) to import.
+
+:::image type="content" source="./media/import-data/blobsource.png" alt-text="Screenshot of Blob file source options":::
+
+Here is command-line sample to import JSON files from Azure Blob storage:
+
+```console
+dt.exe /s:JsonFile /s.Files:"blobs://<account key>@account.blob.core.windows.net:443/importcontainer/.*" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:doctest
 ```
 
 ### <a id="SQL"></a>Import from SQL Server
@@ -215,198 +290,11 @@ dt.exe /s:SQL /s.ConnectionString:"Data Source=<server>;Initial Catalog=Adventur
 dt.exe /s:SQL /s.ConnectionString:"Data Source=<server>;Initial Catalog=AdventureWorks;User Id=advworks;Password=<password>;" /s.Query:"select CAST(BusinessEntityID AS varchar) as Id, Name, AddressType as [Address.AddressType], AddressLine1 as [Address.AddressLine1], City as [Address.Location.City], StateProvinceName as [Address.Location.StateProvinceName], PostalCode as [Address.PostalCode], CountryRegionName as [Address.CountryRegionName] from Sales.vStoreWithAddresses WHERE AddressType='Main Office'" /s.NestingSeparator:. /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:StoresSub /t.IdField:Id /t.CollectionThroughput:2500
 ```
 
-### <a id="Other"></a>Other sources
-
-#### <a id="MongoDB"></a>Import from MongoDB
-
-> [IMPORTANT]
-> 
-> If you're importing to a Cosmos account configured with Azure Cosmos DB's API for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
-
-With the MongoDB source importer option, you can import from a single MongoDB collection, optionally filter documents using a query, and modify the document structure by using a projection.  
-
-:::image type="content" source="./media/import-data/mongodbsource.png" alt-text="Screenshot of MongoDB source options":::
-
-The connection string is in the standard MongoDB format:
-
-`mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database>`
-
-> [NOTE]
-> 
-> Use the Verify command to ensure that the MongoDB instance specified in the connection string field can be accessed.
-
-Enter the name of the collection from which data will be imported. You may optionally specify or provide a file for a query, such as `{pop: {$gt:5000}}`, or a projection, such as `{loc:0}`, to both filter and shape the data that you're importing.
-
-Here are some command-line samples to import from MongoDB:
-
-```console
-#Import all documents from a MongoDB collection
-dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database> /s.Collection:zips /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:BulkZips /t.IdField:_id /t.CollectionThroughput:2500
-
-#Import documents from a MongoDB collection which match the query and exclude the loc field
-dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database> /s.Collection:zips /s.Query:{pop:{$gt:50000}} /s.Projection:{loc:0} /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:BulkZipsTransform /t.IdField:_id/t.CollectionThroughput:2500
-```
-
-#### <a id="MongoDBExport"></a>Import MongoDB export files
-
-> [IMPORTANT]
-> 
-> If you're importing to an Azure Cosmos DB account with support for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
-
-The MongoDB export JSON file source importer option allows you to import one or more JSON files produced from the mongoexport utility.  
-
-:::image type="content" source="./media/import-data/mongodbexportsource.png" alt-text="Screenshot of MongoDB export source options":::
-
-When adding folders that have MongoDB export JSON files for import, you have the option of recursively searching for files in subfolders.
-
-Here is a command-line sample to import from MongoDB export JSON files:
-
-```console
-dt.exe /s:MongoDBExport /s.Files:D:\mongoemployees.json /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:employees /t.IdField:_id /t.Dates:Epoch /t.CollectionThroughput:2500
-```
-
-#### <a id="AzureTableSource"></a>Import from Azure Table storage
-
-The Azure Table storage source importer option allows you to import from an individual Azure Table storage table. Optionally, you can filter the table entities to be imported.
-
-You may output data that was imported from Azure Table Storage to Azure Cosmos DB tables and entities for use with the Table API. Imported data can also be output to collections and documents for use with the SQL API. However, Table API is only available as a target in the command-line utility. You can't export to Table API by using the Data Migration tool user interface. For more information, see [Import data for use with the Azure Cosmos DB Table API](https://docs.microsoft.com/azure/cosmos-db/table/table-import).
-
-:::image type="content" source="./media/import-data/azuretablesource.png" alt-text="Screenshot of Azure Table storage source options":::
-
-The format of the Azure Table storage connection string is:
-
-`DefaultEndpointsProtocol=<protocol>;AccountName=<Account Name>;AccountKey=<Account Key>;`
-
-> [NOTE]
->
-> Use the Verify command to ensure that the Azure Table storage instance specified in the connection string field can be accessed.
-
-Enter the name of the Azure table from to import from. You may optionally specify a [filter](/visualstudio/azure/vs-azure-tools-table-designer-construct-filter-strings).
-
-The Azure Table storage source importer option has the following additional options:
-
-1. Include Internal Fields
-   1. All - Include all internal fields (PartitionKey, RowKey, and Timestamp)
-   2. None - Exclude all internal fields
-   3. RowKey - Only include the RowKey field
-2. Select Columns
-   1. Azure Table storage filters don't support projections. If you want to only import specific Azure Table entity properties, add them to the Select Columns list. All other entity properties are ignored.
-
-Here is a command-line sample to import from Azure Table storage:
-
-```console
-dt.exe /s:AzureTable /s.ConnectionString:"DefaultEndpointsProtocol=https;AccountName=<Account Name>;AccountKey=<Account Key>" /s.Table:metrics /s.InternalFields:All /s.Filter:"PartitionKey eq 'Partition1' and RowKey gt '00001'" /s.Projection:ObjectCount;ObjectSize  /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:metrics /t.CollectionThroughput:2500
-```
-
-#### <a id="DynamoDBSource"></a>Import from Amazon DynamoDB
-
-The Amazon DynamoDB source importer option allows you to import from a single Amazon DynamoDB table. It can optionally filter the entities to be imported. Several templates are provided so that setting up an import is as easy as possible.
-
-:::image type="content" source="./media/import-data/dynamodbsource1.png" alt-text="Screenshot of Amazon DynamoDB source options - database migration tools.":::
-
-:::image type="content" source="./media/import-data/dynamodbsource2.png" alt-text="Screenshot of Amazon DynamoDB source options with template - database migration tools.":::
-
-The format of the Amazon DynamoDB connection string is:
-
-`ServiceURL=<Service Address>;AccessKey=<Access Key>;SecretKey=<Secret Key>;`
-
-> [NOTE]
-> 
-> Use the Verify command to ensure that the Amazon DynamoDB instance specified in the connection string field can be accessed.
-
-Here is a command-line sample to import from Amazon DynamoDB:
-
-```console
-dt.exe /s:DynamoDB /s.ConnectionString:ServiceURL=https://dynamodb.us-east-1.amazonaws.com;AccessKey=<accessKey>;SecretKey=<secretKey> /s.Request:"{   """TableName""": """ProductCatalog""" }" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<Azure Cosmos DB Endpoint>;AccountKey=<Azure Cosmos DB Key>;Database=<Azure Cosmos database>;" /t.Collection:catalogCollection /t.CollectionThroughput:2500
-```
-
-#### <a id="BlobImport"></a>Import from Azure Blob storage
-
-The JSON file, MongoDB export file, and CSV file source importer options allow you to import one or more files from Azure Blob storage. After specifying a Blob container URL and Account Key, provide a regular expression to select the file(s) to import.
-
-:::image type="content" source="./media/import-data/blobsource.png" alt-text="Screenshot of Blob file source options":::
-
-Here is command-line sample to import JSON files from Azure Blob storage:
-
-```console
-dt.exe /s:JsonFile /s.Files:"blobs://<account key>@account.blob.core.windows.net:443/importcontainer/.*" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:doctest
-```
-
-#### <a id="SQLSource"></a>Import from a SQL API collection
-
-The Azure Cosmos DB source importer option allows you to import data from one or more Azure Cosmos containers and optionally filter documents using a query.  
-
-:::image type="content" source="./media/import-data/Azure Cosmos DBsource.png" alt-text="Screenshot of Azure Cosmos DB source options":::
-
-The format of the Azure Cosmos DB connection string is:
-
-`AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;`
-
-You can retrieve the Azure Cosmos DB account connection string from the Keys page of the Azure portal, as described in [How to manage an Azure Cosmos DB account](https://docs.microsoft.com/azure/cosmos-db/how-to-manage-database-account). However, the name of the database needs to be appended to the connection string in the following format:
-
-`Database=<CosmosDB Database>;`
-
-> [NOTE]
->
-> Use the Verify command to ensure that the Azure Cosmos DB instance specified in the connection string field can be accessed.
-
-To import from a single Azure Cosmos container, enter the name of the collection to import data from. To import from more than one Azure Cosmos container, provide a regular expression to match one or more collection names (for example, collection01 | collection02 | collection03). You may optionally specify, or provide a file for, a query to both filter and shape the data that you're importing.
-
-> [NOTE]
-> 
-> Since the collection field accepts regular expressions, if you're importing from a single collection whose name has regular expression characters, then those characters must be escaped accordingly.
-
-The Azure Cosmos DB source importer option has the following advanced options:
-
-1. Include Internal Fields: Specifies whether or not to include Azure Cosmos DB document system properties in the export (for example, _rid, _ts).
-2. Number of Retries on Failure: Specifies the number of times to retry the connection to Azure Cosmos DB in case of transient failures (for example, network connectivity interruption).
-3. Retry Interval: Specifies how long to wait between retrying the connection to Azure Cosmos DB in case of transient failures (for example, network connectivity interruption).
-4. Connection Mode: Specifies the connection mode to use with Azure Cosmos DB. The available choices are DirectTcp, DirectHttps, and Gateway. The direct connection modes are faster, while the gateway mode is more firewall friendly as it only uses port 443.
-
-:::image type="content" source="./media/import-data/Azure Cosmos DBsourceoptions.png" alt-text="Screenshot of Azure Cosmos DB source advanced options":::
-
-> [TIP]
-> 
-> The import tool defaults to connection mode DirectTcp. If you experience firewall issues, switch to connection mode Gateway, as it only requires port 443.
-
-Here are some command-line samples to import from Azure Cosmos DB:
-
-```console
-#Migrate data from one Azure Cosmos container to another Azure Cosmos containers
-dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:TEColl /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:TESessions /t.CollectionThroughput:2500
-
-#Migrate data from more than one Azure Cosmos container to a single Azure Cosmos container
-dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:comp1|comp2|comp3|comp4 /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:singleCollection /t.CollectionThroughput:2500
-
-#Export an Azure Cosmos container to a JSON file
-dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:StoresSub /t:JsonFile /t.File:StoresExport.json /t.Overwrite
-```
-
-> [TIP]
-> 
-> The Azure Cosmos DB Data Import Tool also supports import of data from the [Azure Cosmos DB Emulator](https://docs.microsoft.com/azure/cosmos-db/local-emulator?tabs=ssl-netstd21). When importing data from a local emulator, set the endpoint to `https://localhost:<port>`.
-
-#### <a id="HBaseSource"></a>Import from HBase
-
-The HBase source importer option allows you to import data from an HBase table and optionally filter the data. Several templates are provided so that setting up an import is as easy as possible.
-
-:::image type="content" source="./media/import-data/hbasesource1.png" alt-text="Screenshot of HBase source options.":::
-
-:::image type="content" source="./media/import-data/hbasesource2.png" alt-text="Screenshot of HBase source options with the Filter contextual menu expanded.":::
-
-The format of the HBase Stargate connection string is:
-
-`ServiceURL=<server-address>;Username=<username>;Password=<password>`
-
-> [NOTE]
-> 
-> Use the Verify command to ensure that the HBase instance specified in the connection string field can be accessed.
-
-Here is a command-line sample to import from HBase:
-
-```console
-dt.exe /s:HBase /s.ConnectionString:ServiceURL=<server-address>;Username=<username>;Password=<password> /s.Table:Contacts /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:hbaseimport
-```
+### <a id="SQLBulkAndSequentialTargets"></a>Import to the SQL API from any source, leveraging Bulk or Sequential operation on Azure Cosmos DB
+
+The following two topics are discussed in this section:
+* [Import to the SQL API (Bulk Import)](#SQLBulkTarget)
+* [Import to the SQL API (Sequential Record Import)](#SQLSeqTarget)
 
 #### <a id="SQLBulkTarget"></a>Import to the SQL API (Bulk Import)
 
@@ -533,6 +421,193 @@ The Azure Cosmos DB - Sequential record importer has the following additional ad
 > [TIP]
 > The import tool defaults to connection mode DirectTcp. If you experience firewall issues, switch to connection mode Gateway, as it only requires port 443.
 
+### <a id="Other"></a>Other sources
+
+#### <a id="MongoDB"></a>Import from MongoDB
+
+> [IMPORTANT]
+> 
+> If you're importing to a Cosmos account configured with Azure Cosmos DB's API for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
+
+With the MongoDB source importer option, you can import from a single MongoDB collection, optionally filter documents using a query, and modify the document structure by using a projection.  
+
+:::image type="content" source="./media/import-data/mongodbsource.png" alt-text="Screenshot of MongoDB source options":::
+
+The connection string is in the standard MongoDB format:
+
+`mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database>`
+
+> [NOTE]
+> 
+> Use the Verify command to ensure that the MongoDB instance specified in the connection string field can be accessed.
+
+Enter the name of the collection from which data will be imported. You may optionally specify or provide a file for a query, such as `{pop: {$gt:5000}}`, or a projection, such as `{loc:0}`, to both filter and shape the data that you're importing.
+
+Here are some command-line samples to import from MongoDB:
+
+```console
+#Import all documents from a MongoDB collection
+dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database> /s.Collection:zips /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:BulkZips /t.IdField:_id /t.CollectionThroughput:2500
+
+#Import documents from a MongoDB collection which match the query and exclude the loc field
+dt.exe /s:MongoDB /s.ConnectionString:mongodb://<dbuser>:<dbpassword>@<host>:<port>/<database> /s.Collection:zips /s.Query:{pop:{$gt:50000}} /s.Projection:{loc:0} /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:BulkZipsTransform /t.IdField:_id/t.CollectionThroughput:2500
+```
+
+#### <a id="MongoDBExport"></a>Import MongoDB export files
+
+> [IMPORTANT]
+> 
+> If you're importing to an Azure Cosmos DB account with support for MongoDB, follow these [instructions](https://docs.microsoft.com/azure/dms/tutorial-mongodb-cosmos-db?toc=/azure/cosmos-db/toc.json?toc=/azure/cosmos-db/toc.json).
+
+The MongoDB export JSON file source importer option allows you to import one or more JSON files produced from the mongoexport utility.  
+
+:::image type="content" source="./media/import-data/mongodbexportsource.png" alt-text="Screenshot of MongoDB export source options":::
+
+When adding folders that have MongoDB export JSON files for import, you have the option of recursively searching for files in subfolders.
+
+Here is a command-line sample to import from MongoDB export JSON files:
+
+```console
+dt.exe /s:MongoDBExport /s.Files:D:\mongoemployees.json /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:employees /t.IdField:_id /t.Dates:Epoch /t.CollectionThroughput:2500
+```
+
+#### <a id="AzureTableSource"></a>Import from Azure Table storage
+
+The Azure Table storage source importer option allows you to import from an individual Azure Table storage table. Optionally, you can filter the table entities to be imported.
+
+You may output data that was imported from Azure Table Storage to Azure Cosmos DB tables and entities for use with the Table API. Imported data can also be output to collections and documents for use with the SQL API. However, Table API is only available as a target in the command-line utility. You can't export to Table API by using the Data Migration tool user interface. For more information, see [Import data for use with the Azure Cosmos DB Table API](https://docs.microsoft.com/azure/cosmos-db/table/table-import).
+
+:::image type="content" source="./media/import-data/azuretablesource.png" alt-text="Screenshot of Azure Table storage source options":::
+
+The format of the Azure Table storage connection string is:
+
+`DefaultEndpointsProtocol=<protocol>;AccountName=<Account Name>;AccountKey=<Account Key>;`
+
+> [NOTE]
+>
+> Use the Verify command to ensure that the Azure Table storage instance specified in the connection string field can be accessed.
+
+Enter the name of the Azure table from to import from. You may optionally specify a [filter](/visualstudio/azure/vs-azure-tools-table-designer-construct-filter-strings).
+
+The Azure Table storage source importer option has the following additional options:
+
+1. Include Internal Fields
+   1. All - Include all internal fields (PartitionKey, RowKey, and Timestamp)
+   2. None - Exclude all internal fields
+   3. RowKey - Only include the RowKey field
+2. Select Columns
+   1. Azure Table storage filters don't support projections. If you want to only import specific Azure Table entity properties, add them to the Select Columns list. All other entity properties are ignored.
+
+Here is a command-line sample to import from Azure Table storage:
+
+```console
+dt.exe /s:AzureTable /s.ConnectionString:"DefaultEndpointsProtocol=https;AccountName=<Account Name>;AccountKey=<Account Key>" /s.Table:metrics /s.InternalFields:All /s.Filter:"PartitionKey eq 'Partition1' and RowKey gt '00001'" /s.Projection:ObjectCount;ObjectSize  /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:metrics /t.CollectionThroughput:2500
+```
+
+#### <a id="DynamoDBSource"></a>Import from Amazon DynamoDB
+
+The Amazon DynamoDB source importer option allows you to import from a single Amazon DynamoDB table. It can optionally filter the entities to be imported. Several templates are provided so that setting up an import is as easy as possible.
+
+:::image type="content" source="./media/import-data/dynamodbsource1.png" alt-text="Screenshot of Amazon DynamoDB source options - database migration tools.":::
+
+:::image type="content" source="./media/import-data/dynamodbsource2.png" alt-text="Screenshot of Amazon DynamoDB source options with template - database migration tools.":::
+
+The format of the Amazon DynamoDB connection string is:
+
+`ServiceURL=<Service Address>;AccessKey=<Access Key>;SecretKey=<Secret Key>;`
+
+> [NOTE]
+> 
+> Use the Verify command to ensure that the Amazon DynamoDB instance specified in the connection string field can be accessed.
+
+Here is a command-line sample to import from Amazon DynamoDB:
+
+```console
+dt.exe /s:DynamoDB /s.ConnectionString:ServiceURL=https://dynamodb.us-east-1.amazonaws.com;AccessKey=<accessKey>;SecretKey=<secretKey> /s.Request:"{   """TableName""": """ProductCatalog""" }" /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<Azure Cosmos DB Endpoint>;AccountKey=<Azure Cosmos DB Key>;Database=<Azure Cosmos database>;" /t.Collection:catalogCollection /t.CollectionThroughput:2500
+```
+
+#### <a id="SQLSource"></a>Import from a SQL API collection
+
+The Azure Cosmos DB source importer option allows you to import data from one or more Azure Cosmos containers and optionally filter documents using a query.  
+
+:::image type="content" source="./media/import-data/Azure Cosmos DBsource.png" alt-text="Screenshot of Azure Cosmos DB source options":::
+
+The format of the Azure Cosmos DB connection string is:
+
+`AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;`
+
+You can retrieve the Azure Cosmos DB account connection string from the Keys page of the Azure portal, as described in [How to manage an Azure Cosmos DB account](https://docs.microsoft.com/azure/cosmos-db/how-to-manage-database-account). However, the name of the database needs to be appended to the connection string in the following format:
+
+`Database=<CosmosDB Database>;`
+
+> [NOTE]
+>
+> Use the Verify command to ensure that the Azure Cosmos DB instance specified in the connection string field can be accessed.
+
+To import from a single Azure Cosmos container, enter the name of the collection to import data from. To import from more than one Azure Cosmos container, provide a regular expression to match one or more collection names (for example, collection01 | collection02 | collection03). You may optionally specify, or provide a file for, a query to both filter and shape the data that you're importing.
+
+> [NOTE]
+> 
+> Since the collection field accepts regular expressions, if you're importing from a single collection whose name has regular expression characters, then those characters must be escaped accordingly.
+
+The Azure Cosmos DB source importer option has the following advanced options:
+
+1. Include Internal Fields: Specifies whether or not to include Azure Cosmos DB document system properties in the export (for example, _rid, _ts).
+2. Number of Retries on Failure: Specifies the number of times to retry the connection to Azure Cosmos DB in case of transient failures (for example, network connectivity interruption).
+3. Retry Interval: Specifies how long to wait between retrying the connection to Azure Cosmos DB in case of transient failures (for example, network connectivity interruption).
+4. Connection Mode: Specifies the connection mode to use with Azure Cosmos DB. The available choices are DirectTcp, DirectHttps, and Gateway. The direct connection modes are faster, while the gateway mode is more firewall friendly as it only uses port 443.
+
+:::image type="content" source="./media/import-data/Azure Cosmos DBsourceoptions.png" alt-text="Screenshot of Azure Cosmos DB source advanced options":::
+
+> [TIP]
+> 
+> The import tool defaults to connection mode DirectTcp. If you experience firewall issues, switch to connection mode Gateway, as it only requires port 443.
+
+Here are some command-line samples to import from Azure Cosmos DB:
+
+```console
+#Migrate data from one Azure Cosmos container to another Azure Cosmos containers
+dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:TEColl /t:Azure Cosmos DBBulk /t.ConnectionString:" AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:TESessions /t.CollectionThroughput:2500
+
+#Migrate data from more than one Azure Cosmos container to a single Azure Cosmos container
+dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:comp1|comp2|comp3|comp4 /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:singleCollection /t.CollectionThroughput:2500
+
+#Export an Azure Cosmos container to a JSON file
+dt.exe /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /s.Collection:StoresSub /t:JsonFile /t.File:StoresExport.json /t.Overwrite
+```
+
+> [TIP]
+> 
+> The Azure Cosmos DB Data Import Tool also supports import of data from the [Azure Cosmos DB Emulator](https://docs.microsoft.com/azure/cosmos-db/local-emulator?tabs=ssl-netstd21). When importing data from a local emulator, set the endpoint to `https://localhost:<port>`.
+
+#### <a id="HBaseSource"></a>Import from HBase
+
+The HBase source importer option allows you to import data from an HBase table and optionally filter the data. Several templates are provided so that setting up an import is as easy as possible.
+
+:::image type="content" source="./media/import-data/hbasesource1.png" alt-text="Screenshot of HBase source options.":::
+
+:::image type="content" source="./media/import-data/hbasesource2.png" alt-text="Screenshot of HBase source options with the Filter contextual menu expanded.":::
+
+The format of the HBase Stargate connection string is:
+
+`ServiceURL=<server-address>;Username=<username>;Password=<password>`
+
+> [NOTE]
+> 
+> Use the Verify command to ensure that the HBase instance specified in the connection string field can be accessed.
+
+Here is a command-line sample to import from HBase:
+
+```console
+dt.exe /s:HBase /s.ConnectionString:ServiceURL=<server-address>;Username=<username>;Password=<password> /s.Table:Contacts /t:Azure Cosmos DBBulk /t.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB Database>;" /t.Collection:hbaseimport
+```
+
+### <a id="AdditionalConfigs"></a>Additional configuration settings
+
+This section discusses additional configuration settings for the Data migration tool:
+* [Specify an indexing policy](#IndexingPolicy)
+* [Advanced configuration](#AdvancedConfig)
+
 #### <a id="IndexingPolicy"></a>Specify an indexing policy
 
 When you allow the migration tool to create Azure Cosmos DB SQL API collections during import, you can specify the indexing policy of the collections. In the advanced options section of the Azure Cosmos DB Bulk import and Azure Cosmos DB Sequential record options, navigate to the Indexing Policy section.
@@ -552,61 +627,7 @@ The policy templates the tool provides are:
 > 
 > If you don't specify an indexing policy, then the default policy is applied. For more information about indexing policies, see [Azure Cosmos DB indexing policies](https://docs.microsoft.com/azure/cosmos-db/index-policy).
 
-#### Export to JSON file
-
-The Azure Cosmos DB JSON exporter allows you to export any of the available source options to a JSON file that has an array of JSON documents. The tool handles the export for you. Alternatively, you can choose to view the resulting migration command and run the command yourself. The resulting JSON file may be stored locally or in Azure Blob storage.
-
-:::image type="content" source="./media/import-data/jsontarget.png" alt-text="Screenshot of Azure Cosmos DB JSON local file export option":::
-
-:::image type="content" source="./media/import-data/jsontarget2.png" alt-text="Screenshot of Azure Cosmos DB JSON Azure Blob storage export option":::
-
-You may optionally choose to prettify the resulting JSON. This action will increase the size of the resulting document while making the contents more human readable.
-
-* Standard JSON export
-
-  ```JSON
-  [{"id":"Sample","Title":"About Paris","Language":{"Name":"English"},"Author":{"Name":"Don","Location":{"City":"Paris","Country":"France"}},"Content":"Don's document in Azure Cosmos DB is a valid JSON document as defined by the JSON spec.","PageViews":10000,"Topics":[{"Title":"History of Paris"},{"Title":"Places to see in Paris"}]}]
-  ```
-
-* Prettified JSON export
-
-  ```JSON
-    [
-     {
-    "id": "Sample",
-    "Title": "About Paris",
-    "Language": {
-      "Name": "English"
-    },
-    "Author": {
-      "Name": "Don",
-      "Location": {
-        "City": "Paris",
-        "Country": "France"
-      }
-    },
-    "Content": "Don's document in Azure Cosmos DB is a valid JSON document as defined by the JSON spec.",
-    "PageViews": 10000,
-    "Topics": [
-      {
-        "Title": "History of Paris"
-      },
-      {
-        "Title": "Places to see in Paris"
-      }
-    ]
-    }]
-  ```
-
-Here is a command-line sample to export the JSON file to Azure Blob storage:
-
-```console
-dt.exe /ErrorDetails:All /s:Azure Cosmos DB /s.ConnectionString:"AccountEndpoint=<CosmosDB Endpoint>;AccountKey=<CosmosDB Key>;Database=<CosmosDB database_name>" /s.Collection:<CosmosDB collection_name>
-/t:JsonFile /t.File:"blobs://<Storage account key>@<Storage account name>.blob.core.windows.net:443/<Container_name>/<Blob_name>"
-/t.Overwrite
-```
-
-#### Advanced configuration
+#### <a id="AdvancedConfig"></a>Advanced configuration
 
 In the Advanced configuration screen, specify the location of the log file to which you would like any errors written. The following rules apply to this page:
 
@@ -617,7 +638,7 @@ In the Advanced configuration screen, specify the location of the log file to wh
 
    :::image type="content" source="./media/import-data/AdvancedConfiguration.png" alt-text="Screenshot of Advanced configuration screen":::
 
-#### Confirm import settings and view command line
+### <a id="StartMigration"></a>Start migration - confirm import settings and view command line
 
 1. After you specify the source information, target information, and advanced configuration, review the migration summary and view or copy the resulting migration command if you want. (Copying the command is useful to automate import operations.)
 
