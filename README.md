@@ -448,6 +448,14 @@ The Azure Cosmos DB - Sequential record importer has the following additional ad
 
 ### <a id="Other"></a>Other sources
 
+The following other sources are supported by the Data migration tool:
+* [Import from MongoDB](#MongoDB)
+* [Import MongoDB export files](MongoDBExport)
+* [Import from Azure Table storage](#AzureTableSource)
+* [Import from Amazon DynamoDB](#DynamoDBSource)
+* [Import from a SQL API collection](#SQLSource)
+* [Import from HBase](#HBaseSource)
+
 Alternatively - **click the link below to return to the steps for getting started with Data migration tool:**
 > Back to [Setting up and starting migration](#SetupStart)
 
