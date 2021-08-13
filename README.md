@@ -77,12 +77,12 @@ While the import tool includes a graphical user interface (dtui.exe), it can als
 
 #### Download executable package
 
-  * Download a zip of the latest signed **dt.exe** and **dtui.exe** Windows binaries [here](https://github.com/Azure/azure-Azure Cosmos DB-datamigrationtool/releases/tag/1.8.3)
+  * Download a zip of the latest signed **dt.exe** and **dtui.exe** Windows binaries [here](https://github.com/Azure/azure-documentdb-datamigrationtool/releases/tag/1.8.3)
   * Unzip into any directory on your computer and open the extracted directory to find the binaries
 
 #### Build from source
 
-  The migration tool source code is available on GitHub in [this repository](https://github.com/Azure/azure-documentdb-datamigrationtool]. You can download and compile the solution locally then run either:
+  The migration tool source code is available on GitHub in [this repository](https://github.com/Azure/azure-documentdb-datamigrationtool). You can download and compile the solution locally then run either:
 
   * **Dtui.exe**: Graphical interface version of the tool
   * **Dt.exe**: Command-line version of the tool
