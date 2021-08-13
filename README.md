@@ -18,7 +18,7 @@ The Azure Cosmos DB Data Migration Tool is an open source solution to import dat
 * HBase
 * Azure Cosmos DB SQL API (DocumentDB)
 
-For help using the tool, please see the online documentation located [here](http://azure.microsoft.com/en-us/documentation/articles/documentdb-import-data/).
+For help using the tool, please see the tutorial in the next section.
 
 ## Tutorial: Use Data migration tool to migrate your data to Azure Cosmos DB
 [!INCLUDE[appliesto-sql-api](includes/appliesto-sql-api.md)]
