@@ -412,7 +412,7 @@ To import to a single collection, enter the name of the collection to import dat
 2. You can use an abbreviated syntax: collection[3] creates the same set of collections mentioned in step 1.
 3. More than one substitution can be provided. For example, collection[0-1] [0-9] creates 20 collection names with leading zeros (collection01, ..02, ..03).
 
-Once the collection name(s) have been specified, choose the desired throughput of the collection(s) (400 RUs to 250,000 RUs). For best import performance, choose a higher throughput. For more information about performance levels, see [Performance levels in Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/performance-levels). Any import to collections with throughput >10,000 RUs require a partition key. If you choose to have more than 250,000 RUs, you need to file a request in the portal to have your account increased.
+Once the collection name(s) have been specified, choose the desired throughput of the collection(s) (400 RUs to 1,000,000 RUs). For best import performance, choose a higher throughput. For more information about performance levels, see [Performance levels in Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/performance-levels). Any import to collections with throughput >10,000 RUs require a partition key. If you choose to have more than 1,000,000 RUs, you need to file a request in the portal to have your account increased.
 
 > [NOTE]
 > 
