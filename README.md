@@ -90,17 +90,6 @@ Once you've installed the tool, it's time to import your data. What kind of data
 * [SQL Server](#SQL)
 * [Other source](#Other)
 
-
-* [MongoDB](#MongoDB)
-* [MongoDB Export files](#MongoDBExport)
-* [Azure Table storage](#AzureTableSource)
-* [Amazon DynamoDB](#DynamoDBSource)
-* [Blob](#BlobImport)
-* [Azure Cosmos containers](#SQLSource)
-* [HBase](#HBaseSource)
-* [Azure Cosmos DB bulk import](#SQLBulkTarget)
-* [Azure Cosmos DB sequential record import](#SQLSeqTarget)
-
 ### <a id="JSON"></a>Import JSON files
 
 The JSON file source importer option allows you to import one or more single document JSON files or JSON files that each have an array of JSON documents. When adding folders that have JSON files to import, you have the option of recursively searching for files in subfolders.
