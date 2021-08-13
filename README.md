@@ -1,4 +1,4 @@
-**Note**:  Azure Cosmos DB Data Migration Tool is offered as community support repo. That means
+**Note**:  Azure Cosmos DB Data Migration Tool is offered as community support repo. That means:
 * dt.exe and dtui.exe are provided here as a community-supported sample
 * dt.exe and dtui.exe are **not** first-party/first-class tools maintained by Microsoft
 
