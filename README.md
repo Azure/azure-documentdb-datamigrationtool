@@ -104,6 +104,8 @@ While the import tool includes a graphical user interface (dtui.exe), it can als
 
 The JSON file source importer option allows you to import one or more single document JSON files or JSON files that each have an array of JSON documents. When adding folders that have JSON files to import, you have the option of recursively searching for files in subfolders.
 
+![Screenshot of JSON file source options - Database migration tools](./media/import-data/jsonsource.png)
+
 :::image type="content" source="./media/import-data/jsonsource.png" alt-text="Screenshot of JSON file source options - Database migration tools":::
 
 The connection string is in the following format:
