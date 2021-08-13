@@ -20,7 +20,9 @@ For help using the tool, or for guidance on migrating to Azure Cosmos DB APIs ot
 
 ## Tutorial: Use Data migration tool to migrate your data to Azure Cosmos DB
 
-This tutorial provides instructions on using the Azure Cosmos DB data migration tool, which can import data from various sources into Azure Cosmos containers and tables. You can import from JSON files, CSV files, SQL, MongoDB, Azure Table storage, Amazon DynamoDB, and even Azure Cosmos DB SQL API collections. You migrate that data to collections and tables for use with Azure Cosmos DB. The Data Migration tool can also be used when migrating from a single partition collection to a multi-partition collection for the SQL API.
+This tutorial provides instructions on using the Azure Cosmos DB data migration tool, which can import data from various sources into Azure Cosmos containers and tables. You can import from JSON files and CSV files (including but not limited to files stored in Azure Blob storage), as well as SQL Server, MongoDB, Azure Table storage, Amazon DynamoDB, and even Azure Cosmos DB SQL API collections. You migrate that data to collections and tables for use with Azure Cosmos DB. The Data Migration tool can also be used when migrating from a single partition collection to a multi-partition collection for the SQL API.
+
+In this tutorial, we will place the greatest focus on the JSON, CSV, Blob storage, and SQL Server scenarios as these are the most popular use-cases. However, guidance on other scenarios is also provided.
 
 > [NOTE]
 > 
