@@ -84,20 +84,21 @@ While the import tool includes a graphical user interface (dtui.exe), it can als
 
 ### Setting up and starting migration
 
-Please read the following three steps before getting started with the Data migration tool:
-
-1. **Choose your data source:** Once you've installed the tool, it's time to import your data. What kind of data do you want to import or export?
-    * [Import JSON files](#JSON)
-    * [Export JSON files](#JSONExport)
-    * [Import CSV files](#CSV)
-    * [Import a supported file type from Azure Blob storage](#BlobImport)
-    * [Import from SQL Server](#SQL)
-    * [Import from any supported source and target, leveraging Bulk or Sequential operation on Azure Cosmos DB SQL API](#SQLBulkAndSequentialTargets)
-    * If your source is not mentioned above - look at [Import or export from other source not mentioned](#Other)
-
-2. **Additional settings:** Optionally, please review these [guidelines on additional configurations](#AdditionalConfigs) such as indexing and advanced settings.
-
-3. **Start migration:** Once you have configured the Data migration tool, follow [these steps](#StartMigration) for start migration.
+> Please read the following three steps before getting started with the Data migration tool:
+> 
+> 1. **Choose your data source:** Once you've installed the tool, it's time to import your data. What kind of data do you want to import or export?
+>     * [Import JSON files](#JSON)
+>     * [Export JSON files](#JSONExport)
+>     * [Import CSV files](#CSV)
+>     * [Import a supported file type from Azure Blob storage](#BlobImport)
+>     * [Import from SQL Server](#SQL)
+>     * [Import from any supported source and target, leveraging Bulk or Sequential operation on Azure Cosmos DB SQL API](#SQLBulkAndSequentialTargets)
+>     * If your source is not mentioned above - look at [Import or export from other source not mentioned](#Other)
+> 
+> 2. **Additional settings:** Optionally, please review these [guidelines on additional configurations](#AdditionalConfigs) such as indexing and advanced settings.
+> 
+> 3. **Start migration:** Once you have configured the Data migration tool, follow [these steps](#StartMigration) for start migration.
+> 
 
 ### <a id="JSON"></a>Import JSON files
 
