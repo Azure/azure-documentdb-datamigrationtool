@@ -312,6 +312,9 @@ The following two topics are discussed in this section:
 * [Import to the SQL API (Bulk Import)](#SQLBulkTarget)
 * [Import to the SQL API (Sequential Record Import)](#SQLSeqTarget)
 
+Alternatively, **click the link below to return to the steps for getting started with Data migration tool:**
+> Back to [Setting up and starting migration](#SetupStart)
+
 #### <a id="SQLBulkTarget"></a>Import to the SQL API (Bulk Import)
 
 The Azure Cosmos DB Bulk importer allows you to import from any of the available source options, using an Azure Cosmos DB stored procedure for efficiency. The tool supports import to one single-partitioned Azure Cosmos container. It also supports sharded import whereby data is partitioned across more than one single-partitioned Azure Cosmos container. For more information about partitioning data, see [Partitioning and scaling in Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/partitioning-overview). The tool creates, executes, and then deletes the stored procedure from the target collection(s).  
