@@ -139,13 +139,15 @@ namespace Microsoft.DataTransfer.DocumentDb.Client
             if (matchingCollections == null || !matchingCollections.Any())
                 return EmptyAsyncEnumerator<IReadOnlyDictionary<string, object>>.Instance;
 
-            // Use SDK to query multiple collections, client will not be thread-safe
             client.PartitionResolvers[database.SelfLink] = new FairPartitionResolver(matchingCollections);
-
             var feedOptions = new FeedOptions
             {
                 EnableCrossPartitionQuery = true,
-                MaxItemCount = -1
+                MaxItemCount = -1,
+                JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
+                {
+                    DateParseHandling = Newtonsoft.Json.DateParseHandling.None
+                }
             };
 
             var documentQuery = 

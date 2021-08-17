@@ -22,11 +22,11 @@
       <system:String x:Key="MainWindowTitleKey">Azure Cosmos DB Data Migration Tool</system:String>
 
       <!-- Navigation -->
-      <system:String x:Key="NavigateToPreviousStepKey">_Previous</system:String>
-      <system:String x:Key="NavigateToNextStepKey">_Next</system:String>
-      <system:String x:Key="StartImportKey">_Import</system:String>
-      <system:String x:Key="CancelImportKey">_Cancel</system:String>
-      <system:String x:Key="StartNewImportKey">_New Import</system:String>
+      <system:String x:Key="NavigateToPreviousStepKey">Previous</system:String>
+      <system:String x:Key="NavigateToNextStepKey">Next</system:String>
+      <system:String x:Key="StartImportKey">Import</system:String>
+      <system:String x:Key="CancelImportKey">Cancel</system:String>
+      <system:String x:Key="StartNewImportKey">New Import</system:String>
 
       <!-- Step: Welcome -->
       <system:String x:Key="WelcomePageTitleKey">Azure Cosmos DB Data Migration Tool</system:String>

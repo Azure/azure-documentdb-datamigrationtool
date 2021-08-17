@@ -63,6 +63,13 @@ namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 
             foreach (var field in entity.Properties)
             {
+                // unfortunately it is not possible to access IsNull
+                if (field.Value.PropertyAsObject == null)
+                {
+                    // projections can lead null fields being returned
+                    continue;
+                }
+
                 length += field.Key.Length;
 
                 switch (field.Value.PropertyType)

@@ -3,7 +3,6 @@ using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.DocumentDb.Client;
 using Microsoft.DataTransfer.Extensibility;
 using Microsoft.DataTransfer.Extensibility.Basics;
-using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -26,8 +25,9 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
 
             var connectionSettings = ParseConnectionString(configuration.ConnectionString);
             return new DocumentDbClient(
-                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit, configuration.Retries, configuration.RetryInterval),
-                connectionSettings.Database);
+                CreateRawClient(connectionSettings, configuration.ConnectionMode, context, isShardedImport, maxConnectionLimit, configuration.Retries, configuration.RetryInterval), 
+                connectionSettings.Database
+            );
         }
 
         private static DocumentClient CreateRawClient(IDocumentDbConnectionSettings connectionSettings, DocumentDbConnectionMode? connectionMode, IDataTransferContext context,
@@ -42,8 +42,7 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
             );
         }
 
-        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport,
-            int? maxConnectionLimit, int? retries, TimeSpan? retryInterval)
+        private static ConnectionPolicy CreateConnectionPolicy(DocumentDbConnectionMode? connectionMode, IDataTransferContext context, bool isShardedImport, int? maxConnectionLimit, int? retries, TimeSpan? retryInterval)
         {
             var entryAssembly = Assembly.GetEntryAssembly();
 
@@ -57,15 +56,18 @@ namespace Microsoft.DataTransfer.DocumentDb.Shared
                         isShardedImport ? Resources.ShardedImportDesignator : String.Empty)
                 };
 
-            if (maxConnectionLimit.HasValue)
-                connectionPolicy.MaxConnectionLimit = maxConnectionLimit.Value;
-
             RetryOptions retryOptions = new RetryOptions();
             if (retries.HasValue)
                 retryOptions.MaxRetryAttemptsOnThrottledRequests = retries.Value;
+
             if (retryInterval.HasValue)
                 retryOptions.MaxRetryWaitTimeInSeconds = retryInterval.Value.Seconds;
+
             connectionPolicy.RetryOptions = retryOptions;
+
+            if (maxConnectionLimit.HasValue)
+                connectionPolicy.MaxConnectionLimit = maxConnectionLimit.Value;
+
 
             return DocumentDbClientHelper.ApplyConnectionMode(connectionPolicy, connectionMode);
         }
