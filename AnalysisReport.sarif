@@ -1,0 +1,1344 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.1.0",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Dependency Analysis",
+          "semanticVersion": "0.3.246501",
+          "informationUri": "https://docs.microsoft.com/en-us/dotnet/core/porting/upgrade-assistant-overview",
+          "rules": [
+            {
+              "id": "UA101",
+              "fullDescription": {
+                "text": "Dependency Analysis"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Core/Microsoft.DataTransfer.Core/Microsoft.DataTransfer.Core.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Core/Microsoft.DataTransfer.Extensibility/Microsoft.DataTransfer.Extensibility.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/JsonFile/Microsoft.DataTransfer.JsonFile/Microsoft.DataTransfer.JsonFile.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.Basics/Microsoft.DataTransfer.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Core/Microsoft.DataTransfer.Extensibility.Basics/Microsoft.DataTransfer.Extensibility.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Reference to System.Configuration needs to be deleted "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Microsoft.DataTransfer.FunctionalTests/Microsoft.DataTransfer.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package System.Configuration.ConfigurationManager, Version=5.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Microsoft.DataTransfer.FunctionalTests/Microsoft.DataTransfer.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Microsoft.DataTransfer.FunctionalTests/Microsoft.DataTransfer.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Reference to System.Configuration needs to be deleted "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost/Microsoft.DataTransfer.ConsoleHost.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package System.Configuration.ConfigurationManager, Version=5.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost/Microsoft.DataTransfer.ConsoleHost.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost/Microsoft.DataTransfer.ConsoleHost.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost.Extensibility/Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration/Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Core/Microsoft.DataTransfer.ServiceModel/Microsoft.DataTransfer.ServiceModel.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Reference to System.Configuration needs to be deleted "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.Autofac/Microsoft.DataTransfer.Autofac.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package System.Configuration.ConfigurationManager, Version=5.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.Autofac/Microsoft.DataTransfer.Autofac.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.Autofac/Microsoft.DataTransfer.Autofac.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Core/Microsoft.DataTransfer.Core.UnitTests/Microsoft.DataTransfer.Core.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DocumentDb/Microsoft.DataTransfer.DocumentDb/Microsoft.DataTransfer.DocumentDb.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.JsonNet/Microsoft.DataTransfer.JsonNet.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Console/Microsoft.DataTransfer.ConsoleHost.UnitTests/Microsoft.DataTransfer.ConsoleHost.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DocumentDb/Microsoft.DataTransfer.DocumentDb.UnitTests/Microsoft.DataTransfer.DocumentDb.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.TestsCommon/Microsoft.DataTransfer.TestsCommon.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Sql/Microsoft.DataTransfer.Sql/Microsoft.DataTransfer.Sql.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/MongoDb/Microsoft.DataTransfer.MongoDb/Microsoft.DataTransfer.MongoDb.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DocumentDb/Microsoft.DataTransfer.DocumentDb.FunctionalTests/Microsoft.DataTransfer.DocumentDb.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/CsvFile/Microsoft.DataTransfer.CsvFile/Microsoft.DataTransfer.CsvFile.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/CsvFile/Microsoft.DataTransfer.CsvFile.FunctionalTests/Microsoft.DataTransfer.CsvFile.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/MongoDb/Microsoft.DataTransfer.MongoDb.FunctionalTests/Microsoft.DataTransfer.MongoDb.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Sql/Microsoft.DataTransfer.Sql.FunctionalTests/Microsoft.DataTransfer.Sql.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost/Microsoft.DataTransfer.WpfHost.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost/Microsoft.DataTransfer.WpfHost.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Microsoft.DataTransfer.WpfHost.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Microsoft.DataTransfer.WpfHost.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.ServiceModel/Microsoft.DataTransfer.WpfHost.ServiceModel.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.ServiceModel/Microsoft.DataTransfer.WpfHost.ServiceModel.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Extensibility/Microsoft.DataTransfer.WpfHost.Extensibility.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Extensibility/Microsoft.DataTransfer.WpfHost.Extensibility.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/JsonFile/Microsoft.DataTransfer.JsonFile.Wpf/Microsoft.DataTransfer.JsonFile.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/JsonFile/Microsoft.DataTransfer.JsonFile.Wpf/Microsoft.DataTransfer.JsonFile.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Extensibility.Basics/Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Extensibility.Basics/Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DocumentDb/Microsoft.DataTransfer.DocumentDb.Wpf/Microsoft.DataTransfer.DocumentDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DocumentDb/Microsoft.DataTransfer.DocumentDb.Wpf/Microsoft.DataTransfer.DocumentDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Sql/Microsoft.DataTransfer.Sql.Wpf/Microsoft.DataTransfer.Sql.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Sql/Microsoft.DataTransfer.Sql.Wpf/Microsoft.DataTransfer.Sql.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/CsvFile/Microsoft.DataTransfer.CsvFile.Wpf/Microsoft.DataTransfer.CsvFile.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/CsvFile/Microsoft.DataTransfer.CsvFile.Wpf/Microsoft.DataTransfer.CsvFile.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/MongoDb/Microsoft.DataTransfer.MongoDb.Wpf/Microsoft.DataTransfer.MongoDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/MongoDb/Microsoft.DataTransfer.MongoDb.Wpf/Microsoft.DataTransfer.MongoDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.UnitTests/Microsoft.DataTransfer.WpfHost.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/AzureTable/Microsoft.DataTransfer.AzureTable/Microsoft.DataTransfer.AzureTable.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/AzureTable/Microsoft.DataTransfer.AzureTable.FunctionalTests/Microsoft.DataTransfer.AzureTable.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/AzureTable/Microsoft.DataTransfer.AzureTable.Wpf/Microsoft.DataTransfer.AzureTable.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/AzureTable/Microsoft.DataTransfer.AzureTable.Wpf/Microsoft.DataTransfer.AzureTable.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/RavenDb/Microsoft.DataTransfer.RavenDb/Microsoft.DataTransfer.RavenDb.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/RavenDb/Microsoft.DataTransfer.RavenDb.FunctionalTests/Microsoft.DataTransfer.RavenDb.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/RavenDb/Microsoft.DataTransfer.RavenDb.Wpf/Microsoft.DataTransfer.RavenDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/RavenDb/Microsoft.DataTransfer.RavenDb.Wpf/Microsoft.DataTransfer.RavenDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/CsvFile/Microsoft.DataTransfer.CsvFile.UnitTests/Microsoft.DataTransfer.CsvFile.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DynamoDb/Microsoft.DataTransfer.DynamoDb/Microsoft.DataTransfer.DynamoDb.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DynamoDb/Microsoft.DataTransfer.DynamoDb.FunctionalTests/Microsoft.DataTransfer.DynamoDb.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DynamoDb/Microsoft.DataTransfer.DynamoDb.Wpf/Microsoft.DataTransfer.DynamoDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/DynamoDb/Microsoft.DataTransfer.DynamoDb.Wpf/Microsoft.DataTransfer.DynamoDb.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/HBase/Microsoft.DataTransfer.HBase/Microsoft.DataTransfer.HBase.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/HBase/Microsoft.DataTransfer.HBase.Wpf/Microsoft.DataTransfer.HBase.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.Windows.Compatibility, Version=6.0.0 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/HBase/Microsoft.DataTransfer.HBase.Wpf/Microsoft.DataTransfer.HBase.Wpf.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/HBase/Microsoft.DataTransfer.HBase.FunctionalTests/Microsoft.DataTransfer.HBase.FunctionalTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Shared/Microsoft.DataTransfer.Basics.Files/Microsoft.DataTransfer.Basics.Files.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA101",
+          "message": {
+            "text": "Package Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.3.255803 needs to be added "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/MongoDb/Microsoft.DataTransfer.MongoDb.UnitTests/Microsoft.DataTransfer.MongoDb.UnitTests.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "API Upgradability",
+          "semanticVersion": "0.3.246501",
+          "informationUri": "https://docs.microsoft.com/en-us/dotnet/core/porting/upgrade-assistant-overview",
+          "rules": [
+            {
+              "id": "UA0013_L",
+              "fullDescription": {
+                "text": "Replace usage of System.Windows.Forms.ContextMenu"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/StringOrFileConfigurationControl.xaml.cs"
+                },
+                "region": {
+                  "startLine": 98
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/StringOrFileConfigurationControl.xaml.cs"
+                },
+                "region": {
+                  "startLine": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/StringOrFileConfigurationControl.xaml.cs"
+                },
+                "region": {
+                  "startLine": 100
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/DropDownButton.cs"
+                },
+                "region": {
+                  "startLine": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/DropDownButton.cs"
+                },
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/DropDownButton.cs"
+                },
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA0013_L",
+          "message": {
+            "text": "Windows Forms Deprecated controls : ContextMenu needs to be replaced with ContextMenuStrip. For more details see - https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Controls/DropDownButton.cs"
+                },
+                "region": {
+                  "startLine": 36
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Component Analysis",
+          "semanticVersion": "0.3.246501",
+          "informationUri": "https://docs.microsoft.com/en-us/dotnet/core/porting/upgrade-assistant-overview",
+          "rules": [
+            {
+              "id": "UA102",
+              "fullDescription": {
+                "text": "Component Analysis"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "UA102",
+          "message": {
+            "text": "Default font in Windows Forms has been changed from Microsoft Sans Serif to Seg Segoe UI, in order to change the default font use the API - Application.SetDefaultFont(Font font). For more details see here - https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-in-net-6-0-preview-5/#application-wide-default-font"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Basics/Microsoft.DataTransfer.WpfHost.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "UA102",
+          "message": {
+            "text": "Default font in Windows Forms has been changed from Microsoft Sans Serif to Seg Segoe UI, in order to change the default font use the API - Application.SetDefaultFont(Font font). For more details see here - https://devblogs.microsoft.com/dotnet/whats-new-in-windows-forms-in-net-6-0-preview-5/#application-wide-default-font"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/SourceCode/CosmosDbDataMigrationTool/Wpf/Microsoft.DataTransfer.WpfHost.Extensibility.Basics/Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
