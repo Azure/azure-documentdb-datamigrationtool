@@ -1,55 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{E94B085B-0C3F-47AE-84B6-5A39B12BE291}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.Core.UnitTests</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.Core.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Moq, Version=4.5.21.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.5.21\lib\net45\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>
@@ -66,66 +24,40 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FactoryAdapters\DataAdapterFactoryAdaptersRegistrationSourceTests.cs" />
-    <Compile Include="FactoryAdapters\DataAdapterFactoryAdaptersTests.cs" />
-    <Compile Include="FactoryAdapters\ITestAdapterConfiguration.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FactoryAdapters\TestResources.Designer.cs">
+    <Compile Update="FactoryAdapters\TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service\DataSinkAdapterMock.cs" />
-    <Compile Include="Service\DataSourceAdapterMock.cs" />
-    <Compile Include="Service\DataTransferActionTests.cs" />
-    <Compile Include="Service\DataTransferServiceTests.cs" />
-    <Compile Include="Service\ErrorDetailsProviderMock.cs" />
-    <Compile Include="Service\TestResources.Designer.cs">
+    <Compile Update="Service\TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service\TransferStatisticsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj" />
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.TestsCommon\Microsoft.DataTransfer.TestsCommon.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj">
-      <Project>{e31f1956-78be-4960-82e9-e1d8a73fa6d5}</Project>
-      <Name>Microsoft.DataTransfer.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
-      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
-      <Name>Microsoft.DataTransfer.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.TestsCommon\Microsoft.DataTransfer.TestsCommon.csproj">
-      <Project>{6e3dc3db-cdc7-47db-9232-f04b314d9d0b}</Project>
-      <Name>Microsoft.DataTransfer.TestsCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj">
-      <Project>{01631f6d-813c-47d7-9ca7-3a6e493356f5}</Project>
-      <Name>Microsoft.DataTransfer.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
-      <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
-      <Name>Microsoft.DataTransfer.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj">
-      <Project>{b6e28981-4195-4910-b9b9-1cf96674620f}</Project>
-      <Name>Microsoft.DataTransfer.ServiceModel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="FactoryAdapters\TestResources.resx">
+    <EmbeddedResource Update="FactoryAdapters\TestResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Service\TestResources.resx">
+    <EmbeddedResource Update="Service\TestResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.255803">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -145,13 +77,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

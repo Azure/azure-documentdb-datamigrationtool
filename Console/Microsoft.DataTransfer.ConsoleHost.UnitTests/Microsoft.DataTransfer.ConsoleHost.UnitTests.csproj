@@ -1,44 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net5.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{018130D4-F8DF-4C38-B29B-558FB6B60966}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.ConsoleHost.UnitTests</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.ConsoleHost.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>
@@ -55,55 +24,36 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CommandLineConfigurationTests.cs" />
-    <Compile Include="DynamicConfiguration\ICollectionConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\ICustomResourcesDescriptionConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\DescriptionResources.Designer.cs">
+    <Compile Update="DynamicConfiguration\DescriptionResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DescriptionResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DynamicConfiguration\DynamicDataAdapterConfigurationFactoryTests.cs" />
-    <Compile Include="DynamicConfiguration\ICustomDescriptionConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\IDerivedConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\INullableConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\ISimpleConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\IEnumConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\ITimeSpanConfiguration.cs" />
-    <Compile Include="DynamicConfiguration\TestEnum.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestResources.Designer.cs">
+    <Compile Update="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj">
-      <Project>{043a0cb1-09e0-4fca-b75f-6fa25a1c9235}</Project>
-      <Name>Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.Extensibility\Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj">
-      <Project>{323766cd-3e2e-42e0-bc6e-cb7785057154}</Project>
-      <Name>Microsoft.DataTransfer.ConsoleHost.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj">
-      <Project>{b034bcdd-283e-4e35-b617-c21cf4aff7de}</Project>
-      <Name>Microsoft.DataTransfer.ConsoleHost</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.Extensibility\Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DynamicConfiguration\DescriptionResources.resx">
+    <EmbeddedResource Update="DynamicConfiguration\DescriptionResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DescriptionResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="TestResources.resx">
+    <EmbeddedResource Update="TestResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.255803">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -123,13 +73,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
