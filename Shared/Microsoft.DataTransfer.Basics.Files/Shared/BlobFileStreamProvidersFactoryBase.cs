@@ -1,6 +1,6 @@
-﻿using Microsoft.DataTransfer.Basics.Net;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Azure.Storage;
+using Azure.Storage.Blobs;
+using Microsoft.DataTransfer.Basics.Net;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.DataTransfer.Basics.Files.Shared
@@ -19,11 +19,11 @@ namespace Microsoft.DataTransfer.Basics.Files.Shared
             BlobUri blobUri;
             if (!BlobUri.TryParse(url, out blobUri))
                 throw Errors.InvalidBlobUrl();
-
+            
             return new BlobReference(
-                new CloudBlobContainer(
+                new BlobContainerClient(
                     blobUri.ContainerUri,
-                    new StorageCredentials(blobUri.AccountName, blobUri.AccountKey)),
+                    new StorageSharedKeyCredential(blobUri.AccountName, blobUri.AccountKey)),
                 blobUri.BlobName);
         }
     }

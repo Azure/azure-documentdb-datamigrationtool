@@ -10,9 +10,9 @@ namespace Microsoft.DataTransfer.Basics.Files.Sink.BlobFile
                 return null;
 
             var blobReference = GetBlobReference(streamId);
-
+            
             return new BlobFileSinkStreamProvider(
-                blobReference.Container.GetBlockBlobReference(blobReference.BlobName), overwrite);
+                blobReference.Container.GetBlobClient(blobReference.BlobName), overwrite);
         }
     }
 }
