@@ -62,6 +62,7 @@
     </PackageReference>
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.95" />
     <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
