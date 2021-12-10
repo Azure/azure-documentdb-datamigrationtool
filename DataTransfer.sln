@@ -62,16 +62,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Mong
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DocumentDb.FunctionalTests", "DocumentDb\Microsoft.DataTransfer.DocumentDb.FunctionalTests\Microsoft.DataTransfer.DocumentDb.FunctionalTests.csproj", "{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSettings", "TestSettings", "{E998CA0A-6085-4CD0-8B34-CC2C2B463EFA}"
-	ProjectSection(SolutionItems) = preProject
-		TestSettings\Local.testsettings = TestSettings\Local.testsettings
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local", "Local", "{07706D57-8118-4020-B8D3-A45B9D03ABFA}"
-	ProjectSection(SolutionItems) = preProject
-		TestSettings\Local\TestSettings.xml = TestSettings\Local\TestSettings.xml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CsvFile", "CsvFile", "{8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile", "CsvFile\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj", "{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}"
@@ -356,18 +346,6 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Debug|x64.Build.0 = Debug|x64
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Release|x64.ActiveCfg = Release|x64
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Release|x64.Build.0 = Release|x64
-		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Debug|x64.ActiveCfg = Debug|x64
-		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Debug|x64.Build.0 = Debug|x64
-		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Release|x64.ActiveCfg = Release|x64
-		{3C508C20-FC36-439A-AD68-5FE2170172D0}.Release|x64.Build.0 = Release|x64
-		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Debug|x64.ActiveCfg = Debug|x64
-		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Debug|x64.Build.0 = Debug|x64
-		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Release|x64.ActiveCfg = Release|x64
-		{152DEF82-24B7-46B8-A6E4-09F90D5332B1}.Release|x64.Build.0 = Release|x64
-		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Debug|x64.ActiveCfg = Debug|x64
-		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Debug|x64.Build.0 = Debug|x64
-		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.ActiveCfg = Release|x64
-		{A5013A12-18EA-40B6-83E0-4A59DC1B9E74}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -392,7 +370,6 @@ Global
 		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A} = {41FA268B-2B95-49E8-89DA-86BD4A8A23AB}
 		{782CE839-40A8-4C47-9998-C3B0B7C3D2A1} = {7F83D352-1039-4B8F-B63C-56231421056A}
 		{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8} = {118F328F-C94B-4A46-B82E-A62D3D4D52E7}
-		{07706D57-8118-4020-B8D3-A45B9D03ABFA} = {E998CA0A-6085-4CD0-8B34-CC2C2B463EFA}
 		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC} = {8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}
 		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D} = {8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}
 		{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3} = {7F83D352-1039-4B8F-B63C-56231421056A}
@@ -425,7 +402,7 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA} = {7F83D352-1039-4B8F-B63C-56231421056A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
 	EndGlobalSection
 EndGlobal
