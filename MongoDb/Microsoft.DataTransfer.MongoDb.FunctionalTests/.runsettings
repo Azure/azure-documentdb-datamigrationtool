@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<TestRunParameters>
+		<Parameter name="MongoConnectionString" value="mongodb://localhost:27017" /><!-- TODO: mongodb://localhost:port (no trailing slash) -->
+	</TestRunParameters>
+</RunSettings>

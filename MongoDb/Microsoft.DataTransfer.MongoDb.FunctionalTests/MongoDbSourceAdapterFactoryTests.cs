@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
 {
     [TestClass]
-    public class MongoDbSourceAdapterFactoryTests : DataTransferTestBase
+    public class MongoDbSourceAdapterFactoryTests : MongoDbAdapterTestBase
     {
         private const string CollectionName = "TestCollection";
 
@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName && 
                         c.Query == "blah" && 
                         c.QueryFile == "testQueryFile.txt")
@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.QueryFile == "nonexisting")
                     .First();
@@ -57,7 +57,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.Projection == "blah" &&
                         c.ProjectionFile == "testProjectionFile.txt")
@@ -73,7 +73,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.Projection == "{regex: 0, script: 1}")
                     .First();

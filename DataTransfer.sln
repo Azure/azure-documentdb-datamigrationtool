@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Basi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Extensibility.Basics", "Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj", "{83329196-46BE-4CD0-B498-74E9AC463ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.FunctionalTests", "Microsoft.DataTransfer.FunctionalTests\Microsoft.DataTransfer.FunctionalTests.csproj", "{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonFile.FunctionalTests", "Microsoft.DataTransfer.FunctionalTests\Microsoft.DataTransfer.JsonFile.FunctionalTests.csproj", "{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ConsoleHost", "Console\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj", "{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}"
 EndProject
@@ -356,6 +356,7 @@ Global
 		{792B2799-AF90-4F15-B042-7F47F4FA1C78} = {CFB5C024-A047-463A-96DC-B4C326E5C812}
 		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
 		{83329196-46BE-4CD0-B498-74E9AC463ED9} = {C8F9D082-1083-47A9-9061-E5B351334176}
+		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D} = {CFB5C024-A047-463A-96DC-B4C326E5C812}
 		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{323766CD-3E2E-42E0-BC6E-CB7785057154} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
@@ -402,7 +403,7 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA} = {7F83D352-1039-4B8F-B63C-56231421056A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 	EndGlobalSection
 EndGlobal

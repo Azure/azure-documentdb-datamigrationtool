@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
     public sealed class TestSettings : ITestSettings
     {
         [XmlElement]
-        public string DocumentDbConnectionStringFormat { get; set; }
+        public string DocumentDbConnectionString { get; set; }
 
         [XmlElement]
         public string SqlConnectionString { get; set; }
@@ -27,11 +27,6 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
 
         [XmlElement]
         public string HBaseConnectionString { get; set; }
-
-        public string DocumentDbConnectionString(string databaseName)
-        {
-            return String.Format(CultureInfo.InvariantCulture, DocumentDbConnectionStringFormat, databaseName);
-        }
 
         public string RavenDbConnectionString(string databaseName)
         {

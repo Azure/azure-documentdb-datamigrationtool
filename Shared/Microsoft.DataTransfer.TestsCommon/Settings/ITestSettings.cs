@@ -8,7 +8,7 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         string AzureStorageConnectionString { get; }
         string DynamoDbConnectionString { get; }
         string HBaseConnectionString { get; }
-        string DocumentDbConnectionString(string databaseName);
+        string DocumentDbConnectionString { get; }
         string RavenDbConnectionString(string databaseName);
     }
 }

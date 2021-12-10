@@ -16,37 +16,38 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
 {
     [TestClass]
-    public class MongoDbSourceAdapterTests : DataTransferAdapterTestBase
+    public class MongoDbSourceAdapterTests : MongoDbAdapterTestBase
     {
         private const string CollectionNamePrefix = "TestCollection";
 
         private IMongoDbSourceAdapterConfiguration Configuration;
+        private IMongoClient Client;
         private IMongoDatabase Database;
         private string CollectionName;
         private IMongoCollection<BsonDocument> Collection;
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
             CollectionName = String.Format(CultureInfo.InvariantCulture, "{0}_{1:N}", CollectionNamePrefix, Guid.NewGuid());
 
             Configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName)
                     .First();
 
-            Database = new MongoClient(Configuration.ConnectionString)
-                .GetDatabase(new MongoUrl(Configuration.ConnectionString).DatabaseName);
+            Client = new MongoClient(Configuration.ConnectionString);
+
+            Database = Client.GetDatabase(new MongoUrl(Configuration.ConnectionString).DatabaseName);
 
             Collection = Database.GetCollection<BsonDocument>(Configuration.Collection);
         }
 
-        [TestCleanup]
-        public void Cleanup()
-        {
+        protected override void TestCleanup()
+        {            
             Database.DropCollection(CollectionName);
+            Client.DropDatabase(new MongoUrl(Configuration.ConnectionString).DatabaseName);
         }
 
         [TestMethod, Timeout(120000)]
@@ -60,7 +61,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.Projection == "{DateTimeProperty: 1, FloatProperty: true}")
                     .First();
@@ -87,7 +88,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.Projection == "{DateTimeProperty: 0, FloatProperty: false}")
                     .First();
@@ -144,7 +145,7 @@ namespace Microsoft.DataTransfer.MongoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IMongoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.MongoConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Collection == CollectionName &&
                         c.Query == "{ IntegerProperty: { $gt: 2 } }")
                     .First();
