@@ -10,9 +10,33 @@ using System.Linq;
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [DeploymentItem("SqlServerTypes", "SqlServerTypes")]
-    public class SqlTestsBase : DataTransferTestBase
+    [TestClass]
+    public class SqlAdapterTestBase : DataTransferTestBase
     {
-        protected string ConnectionString { get { return Settings.SqlConnectionString; } }
+        protected string ConnectionString { get; private set; }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            if (String.IsNullOrWhiteSpace(Settings.SqlConnectionString))
+            {
+                Assert.Inconclusive("You must provide a connection string value for the SqlConnectionString property in the Microsoft.DataTransfer.Sql.FunctionalTests/.runsettings file.");
+            }
+
+            ConnectionString = Settings.SqlConnectionString;
+
+            TestInitialize();
+        }
+
+        protected virtual void TestInitialize() { }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            TestCleanup();
+        }
+
+        protected virtual void TestCleanup() { }
 
         protected static string CreateTableName()
         {

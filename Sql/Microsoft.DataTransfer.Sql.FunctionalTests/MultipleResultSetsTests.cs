@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [TestClass]
-    public class MultipleResultSetsTests : SqlTestsBase
+    public class MultipleResultSetsTests : SqlAdapterTestBase
     {
         private static string[] ColumnKeys1 = new[]
         {
@@ -82,8 +82,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
             },
         };
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
             tableName1 = CreateTableName();
             emptyTableName1 = CreateTableName();
@@ -106,8 +105,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
             }
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        protected override void TestCleanup()
         {
             using (var connection = new SqlConnection(ConnectionString))
             {

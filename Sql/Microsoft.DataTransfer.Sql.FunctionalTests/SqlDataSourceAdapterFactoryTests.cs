@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [TestClass]
-    public class SqlDataSourceAdapterFactoryTests : SqlTestsBase
+    public class SqlDataSourceAdapterFactoryTests : SqlAdapterTestBase
     {
         [TestMethod]
         public async Task CreateAsync_QueryAndQueryFileBothSet_ArgumentExceptionThrown()

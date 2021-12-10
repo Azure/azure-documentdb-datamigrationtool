@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\.runsettings</RunSettingsFilePath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}</ProjectGuid>
@@ -115,6 +116,7 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AzureTableAdapterTestBase.cs" />
     <Compile Include="AzureTableDataSourceAdapterTests.cs" />
     <Compile Include="AzureTableHelper.cs" />
     <Compile Include="DictionaryTableEntity.cs" />
@@ -144,6 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".runsettings" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

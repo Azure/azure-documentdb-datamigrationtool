@@ -29,7 +29,9 @@ namespace Microsoft.DataTransfer.TestsCommon
             return new TestSettings
             {
                 DocumentDbConnectionString = GetConnectionString(nameof(ITestSettings.DocumentDbConnectionString)),
-                MongoConnectionString = GetConnectionString(nameof(ITestSettings.MongoConnectionString))
+                MongoConnectionString = GetConnectionString(nameof(ITestSettings.MongoConnectionString)),
+                AzureStorageConnectionString = GetConnectionString(nameof(ITestSettings.AzureStorageConnectionString)),
+                SqlConnectionString = GetConnectionString(nameof(ITestSettings.SqlConnectionString)),
             };
         }
 

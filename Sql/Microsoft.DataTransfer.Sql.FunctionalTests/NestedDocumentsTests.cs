@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [TestClass]
-    public class NestedDocumentsTests : SqlTestsBase
+    public class NestedDocumentsTests : SqlAdapterTestBase
     {
         private static string[] ColumnKeys = new[]
         {
@@ -73,8 +73,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
                 },
             };
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
             tableName = CreateTableName();
             nestedTableName = CreateTableName();
@@ -95,8 +94,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
             }
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        protected override void TestCleanup()
         {
             using (var connection = new SqlConnection(ConnectionString))
             {

@@ -14,9 +14,9 @@ Each functional test project has a **.runsettings** in the root. The settings fi
 
 > 💡 The **.runsettings** file includes tips and examples on how to configure each data platform.
 
-### DocumentDb (Azure Cosmos DB SQL API)
+### Azure DocumentDb (Azure Cosmos DB SQL API)
 
-The [Azure Cosmos DB emulator][azure-cosmos-db-emulator] is the simplest way to run the functional tests for the DocumentDb source and sinks. The emulator can be installed on your local machine and ran like any other desktop application.
+Use the [Azure Cosmos DB emulator][azure-cosmos-db-emulator] to run the functional tests for the DocumentDb source and sinks. The emulator can be installed on your local machine and ran like any other desktop application.
 
 After the emulator is running, update the **Microsoft.DataTransfer.DocumentDb.FunctionalTests/.runsettings** file with the following connection string:
 
@@ -35,10 +35,11 @@ After the emulator is running, update the **Microsoft.DataTransfer.DocumentDb.Fu
 
 ### MongoDb
 
-The simplest way to run the functional tests for Mongo, would be to use the **[mongo][mongo-docker]** container image from Docker Hub. To start a new mongo instance in a Docker installation:
+Run functional tests for Mongo with the **[mongo][mongo-docker]** container image from Docker Hub. To start a new mongo instance in a Docker installation:
 
 ```bash
 docker pull mongo
+
 docker run --detach --publish 27017:27017 mongo
 ```
 
@@ -55,7 +56,57 @@ Then, update the **Microsoft.DataTransfer.MongoDb.FunctionalTests/.runsettings**
 
 > 💡 Make sure you do not include a trailing slash with your connection string.
 
+### Azure Storage
+
+Run functional tests for Azure Storage with the [Azurite][azurite] emulator. The emulator is available on npm as the [azurite][azurite-npm] package, and is available to install globally:
+
+```bash
+npm install --global azurite
+```
+
+Once installed, the emulator includes a special ``azurite-table`` command to only start the table service using default settings and a port of ``10002``:
+
+```bash
+azurite-table --tablePort 10002
+```
+
+Then, update the **Microsoft.DataTransfer.AzureTable.FunctionalTests/.runsettings** file with the following connection string:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+    <TestRunParameters>
+        <Parameter name="AzureStorageConnectionString" value="UseDevelopmentStorage=true;" />
+    </TestRunParameters>
+</RunSettings>
+```
+
+> 💡 The ``UseDevelopmentStorage=true;`` shorthand connection string is a special value for Azure Storage that maps to ``DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;``.
+
+### Sql
+
+Run functional tests for Sql using [Sql Server Express LocalDb][sql-express-localdb]. This lightweight version of the database is included, by default, with many version of Visual Studio.
+
+> 💡 The database is typically already running on Windows machines with Visual Studio installed.
+
+Update the **Microsoft.DataTransfer.AzureTable.FunctionalTests/.runsettings** file with the following connection string:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+    <TestRunParameters>
+        <Parameter name="SqlConnectionString" value="Server=(localdb)\MSSQLLocalDB;Integrated Security=true" />
+    </TestRunParameters>
+</RunSettings>
+```
+
+> 💡 The ``Server=(localdb)\MSSQLLocalDB`` server endpoint connects the test runner to the currently running instance of SQL Server Express LocalDb regardless of version.
+
 [azure-cosmos-db-emulator]: https://docs.microsoft.com/azure/cosmos-db/local-emulator
 [azure-cosmos-db-emulator-credentials]: https://docs.microsoft.com/azure/cosmos-db/local-emulator#authenticate-requests
+[azurite]: https://docs.microsoft.com/azure/storage/common/storage-use-azurite
+[azurite-credentials]: https://docs.microsoft.com/azure/storage/common/storage-use-azurite?#well-known-storage-account-and-key
+[azurite-npm]: https://www.npmjs.com/package/azurite
 [mongo-docker]: https://hub.docker.com/_/mongo
+[sql-express-localdb]: https://docs.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb
 [visual-studio]: https://visualstudio.microsoft.com/
