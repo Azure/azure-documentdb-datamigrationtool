@@ -11,7 +11,7 @@ namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [DeploymentItem("SqlServerTypes", "SqlServerTypes")]
     [TestClass]
-    public class SqlAdapterTestBase : DataTransferTestBase
+    public abstract class SqlAdapterTestBase : DataTransferTestBase
     {
         protected string ConnectionString { get; private set; }
 

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\.runsettings</RunSettingsFilePath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{B301926E-9833-483D-AF09-E4006FC6E663}</ProjectGuid>
@@ -70,6 +71,7 @@
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DynamoDbAdapterTestBase.cs" />
     <Compile Include="DynamoDbHelper.cs" />
     <Compile Include="DynamoDbSourceAdapterComplexTests.cs" />
     <Compile Include="DynamoDbSourceAdapterSimpleTests.cs" />
@@ -100,6 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".runsettings" />
     <None Include="packages.config" />
     <None Include="Requests\NonExistingHashQueryTemplate.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

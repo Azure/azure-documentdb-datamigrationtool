@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\.runsettings</RunSettingsFilePath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}</ProjectGuid>
@@ -68,6 +69,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HBaseAdapterTestBase.cs" />
     <Compile Include="HBaseHelper.cs" />
     <Compile Include="HBaseSourceAdapterSimpleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +83,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".runsettings" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

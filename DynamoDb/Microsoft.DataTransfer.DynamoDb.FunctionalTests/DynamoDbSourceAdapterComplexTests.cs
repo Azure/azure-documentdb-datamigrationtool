@@ -20,7 +20,7 @@ namespace Microsoft.DataTransfer.DynamoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IDynamoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.DynamoDbConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Request == File.ReadAllText(@"DynamoDb\SimpleScanTemplate.json").Replace("%TABLENAME%", TableName))
                     .First();
 
@@ -35,7 +35,7 @@ namespace Microsoft.DataTransfer.DynamoDb.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IDynamoDbSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.DynamoDbConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Request == File.ReadAllText(@"DynamoDb\SimpleQueryTemplate.json").Replace("%TABLENAME%", TableName))
                     .First();
 

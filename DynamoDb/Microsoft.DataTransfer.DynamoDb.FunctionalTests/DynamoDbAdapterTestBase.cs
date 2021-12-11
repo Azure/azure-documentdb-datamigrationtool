@@ -2,22 +2,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
+namespace Microsoft.DataTransfer.DynamoDb.FunctionalTests
 {
     [TestClass]
-    public abstract class AzureTableAdapterTestBase : DataTransferAdapterTestBase
+    public abstract class DynamoDbAdapterTestBase : DataTransferAdapterTestBase
     {
         protected string ConnectionString { get; private set; }
 
         [TestInitialize]
         public void Initialize()
         {
-            if (String.IsNullOrWhiteSpace(Settings.AzureStorageConnectionString))
+            if (String.IsNullOrWhiteSpace(Settings.DynamoDbConnectionString))
             {
-                Assert.Inconclusive("You must provide a connection string value for the AzureStorageConnectionString property in the Microsoft.DataTransfer.AzureTable.FunctionalTests/.runsettings file.");
+                Assert.Inconclusive("You must provide a connection string value for the DynamoDbConnectionString property in the Microsoft.DataTransfer.DynamoDb.FunctionalTests/.runsettings file.");
             }
-
-            ConnectionString = Settings.AzureStorageConnectionString;
+            ConnectionString = Settings.DynamoDbConnectionString;
 
             TestInitialize();
         }

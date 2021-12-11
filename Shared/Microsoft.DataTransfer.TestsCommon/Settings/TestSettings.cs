@@ -20,17 +20,12 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         public string AzureStorageConnectionString { get; set; }
 
         [XmlElement]
-        public string RavenDbConnectionStringFormat { get; set; }
+        public string RavenDbConnectionString { get; set; }
 
         [XmlElement]
         public string DynamoDbConnectionString { get; set; }
 
         [XmlElement]
         public string HBaseConnectionString { get; set; }
-
-        public string RavenDbConnectionString(string databaseName)
-        {
-            return String.Format(CultureInfo.InvariantCulture, RavenDbConnectionStringFormat, databaseName);
-        }
     }
 }

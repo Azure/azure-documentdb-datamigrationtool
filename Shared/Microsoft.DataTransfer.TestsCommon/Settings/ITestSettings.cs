@@ -9,6 +9,6 @@ namespace Microsoft.DataTransfer.TestsCommon.Settings
         string DynamoDbConnectionString { get; }
         string HBaseConnectionString { get; }
         string DocumentDbConnectionString { get; }
-        string RavenDbConnectionString(string databaseName);
+        string RavenDbConnectionString { get; }
     }
 }

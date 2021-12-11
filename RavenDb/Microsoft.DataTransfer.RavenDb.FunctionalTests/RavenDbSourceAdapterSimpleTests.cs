@@ -11,17 +11,16 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.RavenDb.FunctionalTests
 {
     [TestClass]
-    public class RavenDbSourceAdapterSimpleTests : RavenDbSourceAdapterTestBase
+    public class RavenDbSourceAdapterSimpleTests : RavenDbAdapterTestBase
     {
         private const int NumberOfItems = 2000;
 
         private string connectionString;
         private Dictionary<string, object>[] sampleData;
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
-            connectionString = Settings.RavenDbConnectionString(Guid.NewGuid().ToString("N"));
+            connectionString = ConnectionString;
             sampleData = SampleData
                 .GetSimpleDocuments(NumberOfItems)
                 // Exclude DateTimeProperty since it is returned as a string from RavenDB and ruins the validation
@@ -32,8 +31,7 @@ namespace Microsoft.DataTransfer.RavenDb.FunctionalTests
             RavenDbHelper.CreateSampleDatabase(connectionString, sampleData);
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        protected override void TestCleanup()
         {
             if (!String.IsNullOrEmpty(connectionString))
                 RavenDbHelper.DeleteDatabase(connectionString);

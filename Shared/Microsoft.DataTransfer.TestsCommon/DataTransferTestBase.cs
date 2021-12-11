@@ -32,6 +32,9 @@ namespace Microsoft.DataTransfer.TestsCommon
                 MongoConnectionString = GetConnectionString(nameof(ITestSettings.MongoConnectionString)),
                 AzureStorageConnectionString = GetConnectionString(nameof(ITestSettings.AzureStorageConnectionString)),
                 SqlConnectionString = GetConnectionString(nameof(ITestSettings.SqlConnectionString)),
+                RavenDbConnectionString = GetConnectionString(nameof(ITestSettings.RavenDbConnectionString)),
+                DynamoDbConnectionString = GetConnectionString(nameof(ITestSettings.DynamoDbConnectionString)),
+                HBaseConnectionString = GetConnectionString(nameof(ITestSettings.HBaseConnectionString))
             };
         }
 

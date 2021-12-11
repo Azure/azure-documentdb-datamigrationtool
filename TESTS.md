@@ -102,11 +102,39 @@ Update the **Microsoft.DataTransfer.AzureTable.FunctionalTests/.runsettings** fi
 
 > 💡 The ``Server=(localdb)\MSSQLLocalDB`` server endpoint connects the test runner to the currently running instance of SQL Server Express LocalDb regardless of version.
 
+### DynamoDB
+
+Run functional tests for DynamoDB with the **[amazon/dynamodb-local][dynamodb-docker]** container image from Docker Hub. To start a new instance in a Docker installation:
+
+```bash
+docker pull amazon/dynamodb-local
+
+docker run --detach --publish 8000:8000 amazon/dynamodb-local
+```
+
+Then, update the **Microsoft.DataTransfer.DynamoDb.FunctionalTests/.runsettings** file with the following connection string:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+    <TestRunParameters>
+        <Parameter name="DynamoDbConnectionString" value="ServiceURL=http://localhost:8000;AccessKey=anykeyvalue;SecretKey=anysecretvalue" />
+    </TestRunParameters>
+</RunSettings>
+```
+
+> 💡 For the local installation of DynamoDB, you can use any value for the **accesskey** and **secretkey** parameters.
+
+### ~~Apache HBase~~
+
+### ~~RavenDb~~
+
 [azure-cosmos-db-emulator]: https://docs.microsoft.com/azure/cosmos-db/local-emulator
 [azure-cosmos-db-emulator-credentials]: https://docs.microsoft.com/azure/cosmos-db/local-emulator#authenticate-requests
 [azurite]: https://docs.microsoft.com/azure/storage/common/storage-use-azurite
 [azurite-credentials]: https://docs.microsoft.com/azure/storage/common/storage-use-azurite?#well-known-storage-account-and-key
 [azurite-npm]: https://www.npmjs.com/package/azurite
+[dynamodb-docker]: https://hub.docker.com/r/amazon/dynamodb-local
 [mongo-docker]: https://hub.docker.com/_/mongo
 [sql-express-localdb]: https://docs.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb
 [visual-studio]: https://visualstudio.microsoft.com/
