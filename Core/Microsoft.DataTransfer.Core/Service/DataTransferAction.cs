@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Core.Service
 {
-    sealed class DataTransferAction : IDataTransferAction
+    public sealed class DataTransferAction : IDataTransferAction
     {
         public async Task ExecuteAsync(IDataSourceAdapter source, IDataSinkAdapter sink, ITransferStatistics statistics, CancellationToken cancellation)
         {

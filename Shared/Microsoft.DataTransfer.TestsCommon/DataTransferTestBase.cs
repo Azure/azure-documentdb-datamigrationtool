@@ -1,16 +1,13 @@
-﻿using Microsoft.DataTransfer.Basics.IO;
-using Microsoft.DataTransfer.TestsCommon.SampleData;
+﻿using Microsoft.DataTransfer.TestsCommon.SampleData;
 using Microsoft.DataTransfer.TestsCommon.Settings;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Microsoft.DataTransfer.TestsCommon
 {
     public abstract class DataTransferTestBase
     {
-        private const string TestSettingsFileName = @"TestSettings.xml";
+        public TestContext TestContext { get; set; }
 
         private Lazy<ITestSettings> testSettings;
 
@@ -29,14 +26,21 @@ namespace Microsoft.DataTransfer.TestsCommon
 
         private ITestSettings LoadSettings()
         {
-            var settingsFilePath = PathHelper.Combine(AppDomain.CurrentDomain.BaseDirectory, TestSettingsFileName);
-            if (!File.Exists(settingsFilePath))
-                throw Errors.TestSettingsFileMissing(settingsFilePath);
-
-            using (var reader = XmlReader.Create(settingsFilePath, new XmlReaderSettings { XmlResolver = null }))
+            return new TestSettings
             {
-                return (ITestSettings)new XmlSerializer(typeof(TestSettings)).Deserialize(reader);
-            }
+                DocumentDbConnectionString = GetConnectionString(nameof(ITestSettings.DocumentDbConnectionString)),
+                MongoConnectionString = GetConnectionString(nameof(ITestSettings.MongoConnectionString)),
+                AzureStorageConnectionString = GetConnectionString(nameof(ITestSettings.AzureStorageConnectionString)),
+                SqlConnectionString = GetConnectionString(nameof(ITestSettings.SqlConnectionString)),
+                RavenDbConnectionString = GetConnectionString(nameof(ITestSettings.RavenDbConnectionString)),
+                DynamoDbConnectionString = GetConnectionString(nameof(ITestSettings.DynamoDbConnectionString)),
+                HBaseConnectionString = GetConnectionString(nameof(ITestSettings.HBaseConnectionString))
+            };
+        }
+
+        private string GetConnectionString(string name)
+        {
+            return (TestContext.Properties[name] ?? String.Empty).ToString();
         }
     }
 }

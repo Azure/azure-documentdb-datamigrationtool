@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<TestRunParameters>
+		<Parameter name="AzureStorageConnectionString" value="" /><!-- TODO: DefaultEndpointsProtocol=https;AccountName=<account>;AccountKey=<key>; -->
+	</TestRunParameters>
+</RunSettings>

@@ -11,22 +11,20 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.RavenDb.FunctionalTests
 {
     [TestClass]
-    public class RavenDbSourceAdapterComplexTests : RavenDbSourceAdapterTestBase
+    public class RavenDbSourceAdapterComplexTests : RavenDbAdapterTestBase
     {
         private string connectionString;
         private Dictionary<string, object>[] sampleData;
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
-            connectionString = Settings.RavenDbConnectionString(Guid.NewGuid().ToString("N"));
+            connectionString = ConnectionString;
             sampleData = GetSampleData();
             RavenDbHelper.CreateSampleDatabase(connectionString, sampleData);
             RavenDbHelper.CreateIndex(connectionString, "AllDocs/ByAge", "from doc in docs select new { Age = doc.Age }");
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        protected override void TestCleanup()
         {
             if (!String.IsNullOrEmpty(connectionString))
                 RavenDbHelper.DeleteDatabase(connectionString);

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.DataTransfer.FunctionalTests
+namespace Microsoft.DataTransfer.JsonFile.FunctionalTests
 {
     [TestClass]
     public class JsonFileFunctionalTests

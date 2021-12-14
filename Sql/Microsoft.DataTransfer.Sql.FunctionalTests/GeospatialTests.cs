@@ -15,12 +15,11 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.Sql.FunctionalTests
 {
     [TestClass]
-    public class GeospatialTests : SqlTestsBase
+    public class GeospatialTests : SqlAdapterTestBase
     {
         private string tableName;
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
             tableName = CreateTableName();
         }

@@ -12,7 +12,14 @@ namespace Microsoft.DataTransfer.DocumentDb.FunctionalTests
         [TestInitialize]
         public void Initialize()
         {
-            ConnectionString = Settings.DocumentDbConnectionString("Test" + Guid.NewGuid().ToString("N"));
+            if (String.IsNullOrWhiteSpace(Settings.DocumentDbConnectionString))
+            {
+                Assert.Inconclusive("You must provide a connection string value for the DocumentDbConnectionString property in the Microsoft.DataTransfer.DocumentDB.FunctionalTests/.runsettings file.");
+            }
+
+            string databaseName = $"Test{Guid.NewGuid():N};";
+            ConnectionString = $"{Settings.DocumentDbConnectionString}Database={databaseName};";
+
             TestInitialize();
         }
 

@@ -13,24 +13,23 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.AzureTable.FunctionalTests
 {
     [TestClass]
-    public class AzureTableDataSourceAdapterTests : DataTransferAdapterTestBase
+    public class AzureTableDataSourceAdapterTests : AzureTableAdapterTestBase
     {
         private const int NumberOfItems = 2000;
 
-        private string tableName;
+        private string tableName = $"Test{Guid.NewGuid():N}";
+
         private Dictionary<string, object>[] sampleData;
 
-        [TestInitialize]
-        public void TestInitialize()
+        protected override void TestInitialize()
         {
-            tableName = "Test" + Guid.NewGuid().ToString("N");
             sampleData = SampleData.GetSimpleDocuments(NumberOfItems);
+
             AzureTableHelper
                 .CreateTable(Settings.AzureStorageConnectionString, tableName, sampleData);
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        protected override void TestCleanup()
         {
             if (!String.IsNullOrEmpty(tableName))
                 AzureTableHelper.DeleteTable(Settings.AzureStorageConnectionString, tableName);

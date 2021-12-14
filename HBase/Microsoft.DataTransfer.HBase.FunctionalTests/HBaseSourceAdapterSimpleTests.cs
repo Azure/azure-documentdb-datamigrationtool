@@ -1,7 +1,5 @@
-﻿using Microsoft.DataTransfer.Extensibility;
-using Microsoft.DataTransfer.HBase.Source;
+﻿using Microsoft.DataTransfer.HBase.Source;
 using Microsoft.DataTransfer.TestsCommon;
-using Microsoft.DataTransfer.TestsCommon.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -13,15 +11,14 @@ using System.Threading.Tasks;
 namespace Microsoft.DataTransfer.HBase.FunctionalTests
 {
     [TestClass]
-    public class HBaseSourceAdapterSimpleTests : DataTransferAdapterTestBase
+    public class HBaseSourceAdapterSimpleTests : HBaseAdapterTestBase
     {
         private const int NumberOfItems = 20;
 
         private string tableName;
         private Dictionary<string, object>[] sampleData;
 
-        [TestInitialize]
-        public void Initialize()
+        protected override void TestInitialize()
         {
             tableName = Guid.NewGuid().ToString("N");
             sampleData = SampleData
@@ -34,14 +31,13 @@ namespace Microsoft.DataTransfer.HBase.FunctionalTests
                         })
                     .ToDictionary(p => p.Key, p => p.Value))
                 .ToArray();
-            HBaseHelper.CreateSampleTable(Settings.HBaseConnectionString, tableName, sampleData);
+            HBaseHelper.CreateSampleTable(ConnectionString, tableName, sampleData);
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        protected override void TestCleanup()
         {
             if (!String.IsNullOrEmpty(tableName))
-                HBaseHelper.DeleteTable(Settings.HBaseConnectionString, tableName);
+                HBaseHelper.DeleteTable(ConnectionString, tableName);
         }
 
         [TestMethod, Timeout(120000)]
@@ -50,7 +46,7 @@ namespace Microsoft.DataTransfer.HBase.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IHBaseSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.HBaseConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Table == tableName)
                     .First();
 
@@ -69,7 +65,7 @@ namespace Microsoft.DataTransfer.HBase.FunctionalTests
             var configuration =
                 Mocks
                     .Of<IHBaseSourceAdapterConfiguration>(c =>
-                        c.ConnectionString == Settings.HBaseConnectionString &&
+                        c.ConnectionString == ConnectionString &&
                         c.Table == tableName &&
                         c.ExcludeId == true)
                     .First();
@@ -82,15 +78,6 @@ namespace Microsoft.DataTransfer.HBase.FunctionalTests
                         p => (object)p.Value.ToString())),
                 await ReadData(configuration),
                 TestResources.InvalidDocumentsRead);
-        }
-
-        private async Task<List<IDataItem>> ReadData(IHBaseSourceAdapterConfiguration configuration)
-        {
-            using (var adapter = await new HBaseSourceAdapterFactory()
-                .CreateAsync(configuration, DataTransferContextMock.Instance, CancellationToken.None))
-            {
-                return await ReadDataAsync(adapter);
-            }
         }
     }
 }
