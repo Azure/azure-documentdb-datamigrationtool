@@ -734,6 +734,8 @@ In this tutorial, you've done the following tasks:
 
 You can now proceed to the next tutorial and learn [how to query data](https://docs.microsoft.com/azure/cosmos-db/tutorial-query-sql-api) using Azure Cosmos DB.
 
+The latest version of the tool can be downloaded [here](https://aka.ms/csdmtool).
+
 ---
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
