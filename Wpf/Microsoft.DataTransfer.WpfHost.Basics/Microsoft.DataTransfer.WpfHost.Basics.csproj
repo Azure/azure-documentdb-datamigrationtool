@@ -1,234 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.WpfHost.Basics</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.WpfHost.Basics</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <Import Project="..\..\Solution Items\CommonProperties.proj" />
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BindableBase.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\CopyToClipboardCommand.cs" />
-    <Compile Include="Commands\NavigateUriCommand.cs" />
-    <Compile Include="Commands\PasteToFocusedTextBoxCommand.cs" />
-    <Compile Include="Commands\ReplaceSelectionInFocusedTextBoxCommandBase.cs" />
-    <Compile Include="Commands\ReplaceIndentedTextInFocusedTextBoxCommand.cs" />
-    <Compile Include="Commands\SynchronizedAsyncCommand.cs" />
-    <Compile Include="Controls\EditableItemsList\AddItemCommand.cs" />
-    <Compile Include="Controls\EditableItemsList\EditableItemsListViewModel.cs" />
-    <Compile Include="Controls\EditableItemsList\EditItemCommand.cs" />
-    <Compile Include="Controls\EditableItemsList\EditItemsCollectionCommandBase.cs" />
-    <Compile Include="Controls\EditableItemsList\ExtendedListBoxSelectedItemsProvider.cs" />
-    <Compile Include="Controls\EditableItemsList\ISelectedItemsProvider.cs" />
-    <Compile Include="Controls\EditableItemsList\ISingleItemProvider.cs" />
-    <Compile Include="Controls\EditableItemsList\RemoveItemsCommand.cs" />
-    <Compile Include="Controls\EditableStringsListControl.xaml.cs">
-      <DependentUpon>EditableStringsListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ExtendedListBox.cs" />
-    <Compile Include="Controls\FilesPickerControl.xaml.cs">
-      <DependentUpon>FilesPickerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FilesPicker\AddBlobCommand.cs" />
-    <Compile Include="Controls\FilesPicker\AddFilesCommand.cs" />
-    <Compile Include="Controls\FilesPicker\AddFolderCommandBase.cs" />
-    <Compile Include="Controls\FilesPicker\AddRecursiveFolderCommand.cs" />
-    <Compile Include="Controls\FilesPicker\AddSingleFolderCommand.cs" />
-    <Compile Include="Controls\FilesPicker\AddUrlCommand.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\Blob\SetBlobUrlCommand.cs" />
-    <Compile Include="Controls\FilesPicker\FilesPickerViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\IValueListener.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\IValueProvider.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsDialog.xaml.cs">
-      <DependentUpon>AddHttpUrlsDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\Http\SetHttpUrlsCommand.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\UrlHelper.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\ValueMediator.cs" />
-    <Compile Include="Controls\IFileDialogConfiguration.cs" />
-    <Compile Include="Controls\IFileNameListener.cs" />
-    <Compile Include="Controls\DataBoundUserControl.cs" />
-    <Compile Include="Controls\OpenFileControl.xaml.cs">
-      <DependentUpon>OpenFileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OpenFile\OpenFileCommand.cs" />
-    <Compile Include="Controls\OpenFile\OpenFileViewModel.cs" />
-    <Compile Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlDialog.xaml.cs">
-      <DependentUpon>AddBlobUrlDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CollapseExpanderContentContainer.cs" />
-    <Compile Include="Controls\SaveBlobFileControl.xaml.cs">
-      <DependentUpon>SaveBlobFileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SaveFileControl.xaml.cs">
-      <DependentUpon>SaveFileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SaveFile\SaveBlobFileViewModel.cs" />
-    <Compile Include="Controls\SaveFile\SaveFileCommand.cs" />
-    <Compile Include="Controls\SaveFile\SaveFileViewModel.cs" />
-    <Compile Include="Controls\SaveFile\SaveLocalFileViewModel.cs" />
-    <Compile Include="Controls\SaveLocalFileControl.xaml.cs">
-      <DependentUpon>SaveLocalFileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Shared\BlobUrlViewModelBase.cs" />
-    <Compile Include="Controls\StringOrFileConfigurationControl.xaml.cs">
-      <DependentUpon>StringOrFileConfigurationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TitleControl.xaml.cs">
-      <DependentUpon>TitleControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DropDownButton.cs" />
-    <Compile Include="Controls\ToolTipDecorator.xaml.cs">
-      <DependentUpon>ToolTipDecorator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExceptionDialog.xaml.cs">
-      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExceptionDialogViewModel.cs" />
-    <Compile Include="Dialogs\ExceptionMessageBox.cs" />
-    <Compile Include="Errors.cs" />
-    <Compile Include="ValidatableBindableBase.cs" />
-    <Compile Include="Extensions\NotifyPropertyChangedExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ValueConverters\AggregateValueConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToDoubleValueConverter.cs" />
-    <Compile Include="ValueConverters\BooleanValueConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToStringValueConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibilityValueConverter.cs" />
-    <Compile Include="ValueConverters\DisplayNameValueConverter.cs" />
-    <Compile Include="ValueConverters\EnumDisplayNameValueConverter.cs" />
-    <Compile Include="ValueConverters\InvertBooleanValueConverter.cs" />
-    <Compile Include="ValueConverters\StringNotEmptyToVisibilityValueConverter.cs" />
-    <Compile Include="ValueConverters\ToStringValueConverter.cs" />
-    <Compile Include="ValueConverters\ValueConverterBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
-      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
-      <Name>Microsoft.DataTransfer.Basics</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="CommonStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\EditableStringsListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\FilesPickerControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\FilesPicker\Urls\Http\AddHttpUrlsDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\OpenFileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\FilesPicker\Urls\Blob\AddBlobUrlDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\SaveBlobFileControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SaveFileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\SaveLocalFileControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\StringOrFileConfigurationControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\TitleControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ToolTipDecorator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\ExceptionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="XamlResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

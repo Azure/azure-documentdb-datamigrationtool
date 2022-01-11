@@ -1,116 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{76BC3415-D4A0-43A4-B859-094E7D60F01D}</ProjectGuid>
-    <OutputType>library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.CsvFile.Wpf</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.CsvFile.Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <Import Project="..\..\Solution Items\CommonProperties.proj" />
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <AppDesigner Include="Properties\" />
-    <Compile Include="Source\CsvFileSourceAdapterConfiguration.cs" />
-    <Compile Include="Source\CsvFileSourceAdapterConfigurationPage.xaml.cs">
-      <DependentUpon>CsvFileSourceAdapterConfigurationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Source\CsvFileSourceAdapterInternalConfigurationProvider.cs" />
-    <Compile Include="Source\CsvFileSourceAdapterConfigurationProvider.cs" />
-    <Compile Include="Source\CsvFileSourceAdapterConfigurationSummaryPage.xaml.cs">
-      <DependentUpon>CsvFileSourceAdapterConfigurationSummaryPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
-      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
-      <Name>Microsoft.DataTransfer.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj">
-      <Project>{da8ec2b9-b282-4438-98b2-612d6dfedf73}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj">
-      <Project>{1f2070f3-bd45-45b3-a143-7ce4073d3a69}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Extensibility.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj">
-      <Project>{a020fbd4-0f13-4630-acb9-6cdb894e3b82}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj">
-      <Project>{d9cd91fe-b6fd-4c1a-9908-a23c57ad8cac}</Project>
-      <Name>Microsoft.DataTransfer.CsvFile</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Source\CsvFileSourceAdapterConfigurationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Source\CsvFileSourceAdapterConfigurationSummaryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XamlResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

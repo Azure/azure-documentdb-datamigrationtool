@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.Basics.Files.Sink.BlobFile
             if (await blob.ExistsAsync() && !overwrite)
                 throw Errors.BlobAlreadyExists(blob.Uri.ToString());
 
-            await blob.Container.CreateIfNotExistsAsync(cancellation);
+            await blob.Container.CreateIfNotExistsAsync(BlobContainerPublicAccessType.Off, default(BlobRequestOptions), default(OperationContext), cancellation);
 
             return new BlobStream(
                 await blob.OpenWriteAsync(

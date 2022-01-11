@@ -1,201 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{2AE27E76-BE49-487B-901F-3D43F36B667B}</ProjectGuid>
-    <OutputType>library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.DocumentDb.Wpf</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.DocumentDb.Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <Import Project="..\..\Solution Items\CommonProperties.proj" />
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Shared\DocumentDbAdapterAdvancedConfigurationControl.xaml.cs">
-      <DependentUpon>DocumentDbAdapterAdvancedConfigurationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Shared\DocumentDbAdapterConfiguration.cs" />
-    <Compile Include="Shared\DocumentDbAdapterConfigurationProvider.cs" />
-    <Compile Include="Shared\DocumentDbAdapterConnectionConfigurationViewModel.cs" />
-    <Compile Include="Shared\ISharedDocumentDbAdapterConfiguration.cs" />
-    <Compile Include="Shared\SharedDocumentDbAdapterConfiguration.cs" />
-    <Compile Include="Shared\SharedDocumentDbAdapterConfigurationProperties.cs" />
-    <Compile Include="Shared\TestConnectionCommand.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationPage.xaml.cs">
-      <DependentUpon>DocumentDbBulkSinkAdapterConfigurationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterInternalConfigurationProvider.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationProvider.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationSummaryPage.xaml.cs">
-      <DependentUpon>DocumentDbBulkSinkAdapterConfigurationSummaryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\DocumentDbSinkAdapterAdvancedConfigurationControl.xaml.cs">
-      <DependentUpon>DocumentDbSinkAdapterAdvancedConfigurationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\DocumentDbSinkAdapterCommonConfigurationControl.xaml.cs">
-      <DependentUpon>DocumentDbSinkAdapterCommonConfigurationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\DocumentDbSinkAdapterConfiguration.cs" />
-    <Compile Include="Shared\DocumentDbAdapterConnectionConfigurationControl.xaml.cs">
-      <DependentUpon>DocumentDbAdapterConnectionConfigurationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\DocumentDbSinkAdapterConfigurationProvider.cs" />
-    <Compile Include="Sink\ISharedDocumentDbSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationPage.xaml.cs">
-      <DependentUpon>DocumentDbParallelSinkAdapterConfigurationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterInternalConfigurationProvider.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationProvider.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationSummaryPage.xaml.cs">
-      <DependentUpon>DocumentDbParallelSinkAdapterConfigurationSummaryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfigurationKey.cs" />
-    <Compile Include="Sink\SharedDocumentDbSinkAdapterConfigurationProperties.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterConfiguration.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterConfigurationPage.xaml.cs">
-      <DependentUpon>DocumentDbSourceAdapterConfigurationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Source\DocumentDbSourceAdapterInternalConfigurationProvider.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterConfigurationProvider.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterConfigurationSummaryPage.xaml.cs">
-      <DependentUpon>DocumentDbSourceAdapterConfigurationSummaryPage.xaml</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
-      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
-      <Name>Microsoft.DataTransfer.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj">
-      <Project>{da8ec2b9-b282-4438-98b2-612d6dfedf73}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj">
-      <Project>{1f2070f3-bd45-45b3-a143-7ce4073d3a69}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Extensibility.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj">
-      <Project>{a020fbd4-0f13-4630-acb9-6cdb894e3b82}</Project>
-      <Name>Microsoft.DataTransfer.WpfHost.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj">
-      <Project>{81a18d96-39fc-4165-8c52-4c887dce4a61}</Project>
-      <Name>Microsoft.DataTransfer.DocumentDb</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj" />
+    <ProjectReference Include="..\..\Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj" />
+    <ProjectReference Include="..\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Shared\DocumentDbAdapterAdvancedConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\Bulk\DocumentDbBulkSinkAdapterConfigurationSummaryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\DocumentDbSinkAdapterAdvancedConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Shared\DocumentDbAdapterConnectionConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\DocumentDbSinkAdapterCommonConfigurationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sink\Parallel\DocumentDbParallelSinkAdapterConfigurationSummaryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Source\DocumentDbSourceAdapterConfigurationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Source\DocumentDbSourceAdapterConfigurationSummaryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XamlResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
