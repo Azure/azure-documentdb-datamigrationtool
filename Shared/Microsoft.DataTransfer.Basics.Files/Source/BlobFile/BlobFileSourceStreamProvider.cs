@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
 
         public Task<Stream> CreateStream(CancellationToken cancellation)
         {
-            return blob.OpenReadAsync(cancellation);
+            return blob.OpenReadAsync(default(AccessCondition), default(BlobRequestOptions), default(OperationContext));
         }
     }
 }

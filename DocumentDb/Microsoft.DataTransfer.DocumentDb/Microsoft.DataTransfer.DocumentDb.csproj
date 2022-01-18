@@ -1,196 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{81A18D96-39FC-4165-8C52-4C887DCE4A61}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.DataTransfer.DocumentDb</RootNamespace>
-    <AssemblyName>Microsoft.DataTransfer.DocumentDb</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <Import Project="..\..\Solution Items\CommonProperties.proj" />
-  <ItemGroup>
-    <Reference Include="Microsoft.Azure.Documents.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.DocumentDB.2.4.1\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Spatial, Version=5.8.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.8.3\lib\net40\System.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Solution Items\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Client\DocumentDbProbeClient.cs" />
-    <Compile Include="Client\DocumentDbConnectionStringBuilder.cs" />
-    <Compile Include="Client\DocumentQueryExtensions.cs" />
-    <Compile Include="Client\Enumeration\AsyncEnumerator.cs" />
-    <Compile Include="Client\Enumeration\AsyncEnumeratorBase.cs" />
-    <Compile Include="Client\Enumeration\DocumentSurrogateQueryAsyncEnumerator.cs" />
-    <Compile Include="Client\Serialization\DictionaryCreationConverter.cs" />
-    <Compile Include="Client\Serialization\DocumentSurrogate.cs" />
-    <Compile Include="Client\Serialization\DocumentSurrogateJsonConverter.cs" />
-    <Compile Include="Client\IDocumentDbConnectionSettings.cs" />
-    <Compile Include="Client\IDocumentDbReadClient.cs" />
-    <Compile Include="Client\StoredProcedureResult.cs" />
-    <Compile Include="ConfigurationResources.Designer.cs">
+    <Compile Update="ConfigurationResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfigurationResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Defaults.cs" />
-    <Compile Include="DynamicConfigurationResources.cs" />
-    <Compile Include="Exceptions\DocumentSizeExceedsScriptSizeLimitException.cs" />
-    <Compile Include="IDefaults.cs" />
-    <Compile Include="Client\DocumentDbClientHelper.cs" />
-    <Compile Include="Shared\DocumentDbConnectionMode.cs" />
-    <Compile Include="Shared\DocumentDbAdapterFactoryBase.cs" />
-    <Compile Include="Errors.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs">
+    <Compile Update="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shared\IDocumentDbAdapterConfiguration.cs" />
-    <Compile Include="Sink\Bulk\BulkItemSurrogate.cs" />
-    <Compile Include="Sink\Bulk\BulkInsertItemState.cs" />
-    <Compile Include="Exceptions\FailedToCreateDocumentException.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterDispatcher.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterDispatcherConfiguration.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterFactory.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterInternalFactory.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\Bulk\DocumentDbBulkSinkAdapter.cs" />
-    <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterDispatcherConfiguration.cs" />
-    <Compile Include="Sink\Bulk\IDocumentDbBulkSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Sink\Bulk\LengthCappedEnumerableJsonConverter.cs" />
-    <Compile Include="Sink\Bulk\LengthCappedEnumerableSurrogate.cs" />
-    <Compile Include="Shared\DocumentDbAdapterBase.cs" />
-    <Compile Include="Sink\DataItemSurrogateJsonConverter.cs" />
-    <Compile Include="Client\PartitionResolvers\ConstantPartitionResolver.cs" />
-    <Compile Include="Client\PartitionResolvers\FairPartitionResolver.cs" />
-    <Compile Include="Client\PartitionResolvers\Javascript\JavascriptMemberExpression.cs" />
-    <Compile Include="Client\PartitionResolvers\Javascript\JavascriptMemberExpressionReader.cs" />
-    <Compile Include="Client\PartitionResolvers\Javascript\Visitors\DataItemMemberEvaluationVisitor.cs" />
-    <Compile Include="Client\PartitionResolvers\Javascript\Visitors\IJavascriptMemberExpressionVisitor.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterFactory.cs" />
-    <Compile Include="Sink\DocumentDbSinkAdapterFactoryBase.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Sink\Parallel\IDocumentDbParallelSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\Parallel\IDocumentDbParallelSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Sink\DateTimeHandling.cs" />
-    <Compile Include="Client\PartitionResolvers\PartitionResolverFactory.cs" />
-    <Compile Include="Sink\Substitutions\ISubstitutionResolver.cs" />
-    <Compile Include="Sink\Substitutions\Range\IRangeSubstitutionVisitor.cs" />
-    <Compile Include="Sink\Substitutions\Range\IterableIntegerRange.cs" />
-    <Compile Include="Sink\Substitutions\Range\RangeSubstitution.cs" />
-    <Compile Include="Sink\Substitutions\Range\RangeSubstitutionReader.cs" />
-    <Compile Include="Sink\Substitutions\Range\RangeSubstitutionResolver.cs" />
-    <Compile Include="Sink\Substitutions\Range\IntegerRange.cs" />
-    <Compile Include="Sink\Substitutions\Range\StringFormatRangeSubstitutionVisitor.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterInternalFactory.cs" />
-    <Compile Include="StrongReference.cs" />
-    <Compile Include="Transformation\DataItemWrapper.cs" />
-    <Compile Include="Transformation\Remap\RemapFieldsTransformation.cs" />
-    <Compile Include="Sink\DataItemSurrogate.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapter.cs" />
-    <Compile Include="Sink\Parallel\DocumentDbParallelSinkAdapterInternalFactory.cs" />
-    <Compile Include="Client\DocumentDbClient.cs" />
-    <Compile Include="Sink\DocumentDbSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Sink\IDocumentDbSinkAdapterConfiguration.cs" />
-    <Compile Include="Sink\IDocumentDbSinkAdapterInstanceConfiguration.cs" />
-    <Compile Include="Client\IDocumentDbWriteClient.cs" />
-    <Compile Include="Transformation\Remap\RemappedFieldsDataItem.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapter.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterFactory.cs" />
-    <Compile Include="Source\DocumentDbSourceAdapterInstanceConfiguration.cs" />
-    <Compile Include="Source\IDocumentDbSourceAdapterConfiguration.cs" />
-    <Compile Include="Source\IDocumentDbSourceAdapterInstanceConfiguration.cs" />
-    <Compile Include="Transformation\Filter\FilterFieldsTransformation.cs" />
-    <Compile Include="Transformation\Filter\FilteredFieldsDataItem.cs" />
-    <Compile Include="Transformation\IDataItemTransformation.cs" />
-    <Compile Include="Transformation\PassThroughTransformation.cs" />
-    <Compile Include="Transformation\Dates\ConvertedDateTimeDataItemBase.cs" />
-    <Compile Include="Transformation\Dates\DateTimeFieldsTransformation.cs" />
-    <Compile Include="Transformation\Dates\EpochDateTimeDataItem.cs" />
-    <Compile Include="Transformation\Dates\DateTimeConverter.cs" />
-    <Compile Include="Transformation\Dates\StringAndEpochDateTimeDataItem.cs" />
-    <Compile Include="Transformation\Dates\StringDateTimeDataItem.cs" />
-    <Compile Include="Transformation\Stringify\StringifiedFieldsDataItem.cs" />
-    <Compile Include="Transformation\Stringify\StringifyFieldsTransformation.cs" />
-    <Compile Include="Transformation\TransformationPipeline.cs" />
-    <Compile Include="Transformation\TransformedDataItemBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj">
-      <Project>{83329196-46be-4cd0-b498-74e9ac463ed9}</Project>
-      <Name>Microsoft.DataTransfer.Extensibility.Basics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj">
-      <Project>{acc3b08a-2706-4857-b374-8f6311db0e6f}</Project>
-      <Name>Microsoft.DataTransfer.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.JsonNet\Microsoft.DataTransfer.JsonNet.csproj">
-      <Project>{f00c15ab-fdcb-4e18-9009-e733f74cce38}</Project>
-      <Name>Microsoft.DataTransfer.JsonNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj">
-      <Project>{ccd5f3bd-e95e-46b6-8688-394f592c6a2a}</Project>
-      <Name>Microsoft.DataTransfer.Basics</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj" />
+    <ProjectReference Include="..\..\Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj" />
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.JsonNet\Microsoft.DataTransfer.JsonNet.csproj" />
+    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ConfigurationResources.resx">
+    <EmbeddedResource Update="ConfigurationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfigurationResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Update="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -204,18 +46,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Azure.DocumentDB.2.4.1\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\..\packages\Microsoft.Azure.DocumentDB.2.4.1\build\Microsoft.Azure.DocumentDB.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Azure.DocumentDB.2.4.1\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Azure.DocumentDB.2.4.1\build\Microsoft.Azure.DocumentDB.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>-->
+  <ItemGroup>
+    <PackageReference Include="EnterpriseLibrary.TransientFaultHandling" Version="6.0.1304.0" />
+    <PackageReference Include="Microsoft.Azure.DocumentDB" Version="2.4.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Spatial" Version="5.8.3" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

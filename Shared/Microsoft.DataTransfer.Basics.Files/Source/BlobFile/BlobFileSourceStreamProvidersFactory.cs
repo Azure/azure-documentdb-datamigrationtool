@@ -1,8 +1,10 @@
 ﻿using Microsoft.DataTransfer.Basics.Files.Shared;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
 {
@@ -36,6 +38,26 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
 
                 yield return new BlobFileSourceStreamProvider(blob);
             }
+        }
+    }
+
+    static class BlobFileSourceStreamProvidersFactoryExtensions
+    {
+        public static List<IListBlobItem> ListBlobs(this CloudBlobContainer blobContainer, string prefix, bool useFlatBlobListing)
+        {
+            BlobContinuationToken continuationToken = null;
+            List<IListBlobItem> results = new List<IListBlobItem>();
+            do
+            {
+                Task<BlobResultSegment> task = blobContainer.ListBlobsSegmentedAsync(prefix, useFlatBlobListing, BlobListingDetails.None, maxResults: 500, continuationToken, default(BlobRequestOptions), default(OperationContext));
+                task.Wait();
+                continuationToken = task.Result?.ContinuationToken;
+                results.AddRange(
+                    task.Result?.Results
+                );
+            }
+            while (continuationToken != null);
+            return results;
         }
     }
 }
