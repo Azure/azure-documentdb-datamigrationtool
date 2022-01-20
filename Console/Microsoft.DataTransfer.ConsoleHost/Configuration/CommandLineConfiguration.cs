@@ -13,7 +13,7 @@ namespace Microsoft.DataTransfer.ConsoleHost.Configuration
 
         private static readonly Regex ArgumentRegex = new Regex(String.Format(CultureInfo.InvariantCulture,
             @"{0}(((?<type>[{1}{2}](?=[\.:]))(\.(?<name>[^:]*))?)|(?<name>[^:]+))(:(?<value>.*))?",
-                SwitchCharacter, SourceSwitch, TargetSwitch), RegexOptions.Compiled);
+                SwitchCharacter, SourceSwitch, TargetSwitch), RegexOptions.Compiled | RegexOptions.Singleline);
 
         public IReadOnlyDictionary<string, string> InfrastructureConfiguration { get; private set; }
 
