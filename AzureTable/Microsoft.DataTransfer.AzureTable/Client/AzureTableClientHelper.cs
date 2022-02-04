@@ -1,5 +1,4 @@
-﻿using Microsoft.Azure.Storage.RetryPolicies;
-using Microsoft.DataTransfer.AzureTable.Shared;
+﻿using Microsoft.DataTransfer.AzureTable.Shared;
 
 namespace Microsoft.DataTransfer.AzureTable.Client
 {

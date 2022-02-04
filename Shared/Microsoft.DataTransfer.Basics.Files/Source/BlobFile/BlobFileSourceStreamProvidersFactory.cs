@@ -1,10 +1,8 @@
-﻿using Microsoft.DataTransfer.Basics.Files.Shared;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Azure.Storage.Blobs;
+using Microsoft.DataTransfer.Basics.Files.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
 {
@@ -18,15 +16,15 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
             var blobReference = GetBlobReference(streamId);
 
             return FilterBlobs(
-                blobReference.Container.ListBlobs(String.Empty, true),
+                blobReference.Container,
                 new Regex(blobReference.BlobName, RegexOptions.Compiled));
         }
 
-        private static IEnumerable<ISourceStreamProvider> FilterBlobs(IEnumerable<IListBlobItem> blobs, Regex filterRegex)
+        private static IEnumerable<ISourceStreamProvider> FilterBlobs(BlobContainerClient client, Regex filterRegex)
         {
-            foreach (var listItem in blobs)
+            foreach (var listItem in client.GetBlobs())
             {
-                var blob = listItem as ICloudBlob;
+                var blob = listItem;
 
                 if (blob == null)
                     continue;
@@ -36,28 +34,8 @@ namespace Microsoft.DataTransfer.Basics.Files.Source.BlobFile
                 if (!match.Success || !String.Equals(match.Value, blob.Name, StringComparison.InvariantCulture))
                     continue;
 
-                yield return new BlobFileSourceStreamProvider(blob);
+                yield return new BlobFileSourceStreamProvider(client.GetBlobClient(blob.Name));
             }
-        }
-    }
-
-    static class BlobFileSourceStreamProvidersFactoryExtensions
-    {
-        public static List<IListBlobItem> ListBlobs(this CloudBlobContainer blobContainer, string prefix, bool useFlatBlobListing)
-        {
-            BlobContinuationToken continuationToken = null;
-            List<IListBlobItem> results = new List<IListBlobItem>();
-            do
-            {
-                Task<BlobResultSegment> task = blobContainer.ListBlobsSegmentedAsync(prefix, useFlatBlobListing, BlobListingDetails.None, maxResults: 500, continuationToken, default(BlobRequestOptions), default(OperationContext));
-                task.Wait();
-                continuationToken = task.Result?.ContinuationToken;
-                results.AddRange(
-                    task.Result?.Results
-                );
-            }
-            while (continuationToken != null);
-            return results;
         }
     }
 }

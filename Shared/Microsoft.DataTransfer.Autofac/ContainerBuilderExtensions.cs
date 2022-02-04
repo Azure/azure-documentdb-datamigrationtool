@@ -1,5 +1,6 @@
 ﻿using Autofac.Builder;
 using Autofac.Core;
+using Autofac.LooseNaming;
 using Microsoft.DataTransfer.Basics;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,14 @@ namespace Autofac
     /// </summary>
     public static class ContainerBuilderExtensions
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DataTransferContainerBuilder" />.
+        /// </summary>
+        public static void DataTransferContainerBuilder(this ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterSource(new LooselyNamedRegistrationSource());
+        }
+
         /// <summary>
         /// Registers aggregation decorator (decorator that will broadcast all calls to all decorated instances)
         /// for the services of type <typeparamref name="TService" />.

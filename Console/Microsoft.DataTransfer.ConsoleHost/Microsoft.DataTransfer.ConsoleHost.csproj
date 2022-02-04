@@ -32,7 +32,6 @@
     <ProjectReference Include="..\..\HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj" />
     <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj" />
     <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj" />
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
     <ProjectReference Include="..\..\Sql\Microsoft.DataTransfer.Sql\Microsoft.DataTransfer.Sql.csproj" />
     <ProjectReference Include="..\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj" />

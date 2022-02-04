@@ -12,7 +12,7 @@ namespace Microsoft.DataTransfer.WpfHost
     {
         private void ApplicationStartup(object sender, StartupEventArgs e)
         {
-            var builder = new DataTransferContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.RegisterModule<DefaultRuntimeEnvironment>();
 

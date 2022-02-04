@@ -1,13 +1,13 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Azure.Storage.Blobs;
 
 namespace Microsoft.DataTransfer.Basics.Files.Shared
 {
     sealed class BlobReference
     {
-        public CloudBlobContainer Container { get; private set; }
+        public BlobContainerClient Container { get; private set; }
         public string BlobName { get; private set; }
 
-        public BlobReference(CloudBlobContainer container, string blobName)
+        public BlobReference(BlobContainerClient container, string blobName)
         {
             Guard.NotNull("container", container);
 

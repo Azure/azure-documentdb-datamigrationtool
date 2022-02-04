@@ -7,7 +7,7 @@ namespace Microsoft.DataTransfer.ConsoleHost
     {
         static int Main(string[] args)
         {
-            var builder = new DataTransferContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.RegisterModule(new DefaultRuntimeEnvironment(args));
             builder

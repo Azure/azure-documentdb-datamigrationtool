@@ -49,7 +49,6 @@
     <ProjectReference Include="..\..\MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj" />
     <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb.Wpf\Microsoft.DataTransfer.RavenDb.Wpf.csproj" />
     <ProjectReference Include="..\..\RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj" />
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
     <ProjectReference Include="..\..\Sql\Microsoft.DataTransfer.Sql.Wpf\Microsoft.DataTransfer.Sql.Wpf.csproj" />
     <ProjectReference Include="..\..\Sql\Microsoft.DataTransfer.Sql\Microsoft.DataTransfer.Sql.csproj" />

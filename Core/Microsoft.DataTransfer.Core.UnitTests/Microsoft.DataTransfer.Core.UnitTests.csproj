@@ -36,7 +36,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.TestsCommon\Microsoft.DataTransfer.TestsCommon.csproj" />
     <ProjectReference Include="..\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj" />

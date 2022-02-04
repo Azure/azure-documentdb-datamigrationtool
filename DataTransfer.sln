@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Serv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Autofac", "Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj", "{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Core.UnitTests", "Core\Microsoft.DataTransfer.Core.UnitTests\Microsoft.DataTransfer.Core.UnitTests.csproj", "{E94B085B-0C3F-47AE-84B6-5A39B12BE291}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentDb", "DocumentDb", "{118F328F-C94B-4A46-B82E-A62D3D4D52E7}"
@@ -181,10 +179,6 @@ Global
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Debug|x64.Build.0 = Debug|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Release|x64.ActiveCfg = Release|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Release|x64.Build.0 = Release|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Debug|x64.Build.0 = Debug|Any CPU
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Release|x64.ActiveCfg = Release|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Release|x64.Build.0 = Release|x64
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.Build.0 = Debug|Any CPU
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Release|x64.ActiveCfg = Release|x64
@@ -356,7 +350,6 @@ Global
 		{323766CD-3E2E-42E0-BC6E-CB7785057154} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{B6E28981-4195-4910-B9B9-1CF96674620F} = {C8F9D082-1083-47A9-9061-E5B351334176}
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291} = {C8F9D082-1083-47A9-9061-E5B351334176}
 		{81A18D96-39FC-4165-8C52-4C887DCE4A61} = {118F328F-C94B-4A46-B82E-A62D3D4D52E7}
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
@@ -398,7 +391,7 @@ Global
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA} = {7F83D352-1039-4B8F-B63C-56231421056A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		SolutionGuid = {D06EC8A2-02FC-48D4-BC6B-D86A26FED0CC}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 	EndGlobalSection
 EndGlobal

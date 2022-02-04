@@ -22,7 +22,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics.Files\Microsoft.DataTransfer.Basics.Files.csproj" />
     <ProjectReference Include="..\..\Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj" />
     <ProjectReference Include="..\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj" />
