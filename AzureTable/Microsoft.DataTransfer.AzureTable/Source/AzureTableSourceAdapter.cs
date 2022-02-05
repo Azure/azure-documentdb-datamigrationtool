@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.RetryPolicies;
+using Azure.Data.Tables;
+using Azure.Storage;
+using Azure.Storage.RetryPolicies;
 using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.Extensibility;
 

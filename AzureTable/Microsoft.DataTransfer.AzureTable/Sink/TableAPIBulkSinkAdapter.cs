@@ -1,9 +1,9 @@
 ﻿namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 {
     using Microsoft.Azure.CosmosDB;
-    using Microsoft.Azure.CosmosDB.Table;
-    using Microsoft.Azure.Storage;
-    using Microsoft.Azure.Storage.RetryPolicies;
+    using Azure.Data.Tables;
+    using Azure.Storage;
+    using Azure.Storage.RetryPolicies;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;

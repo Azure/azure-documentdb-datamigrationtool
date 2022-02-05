@@ -1,4 +1,4 @@
-using Microsoft.Azure.CosmosDB.Table;
+using Azure.Data.Tables;
 using Microsoft.DataTransfer.TableAPI.Sink.Bulk;
 using System.Collections.Generic;
 
