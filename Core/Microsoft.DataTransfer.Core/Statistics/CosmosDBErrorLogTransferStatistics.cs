@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
+using Azure.Data.Tables;
+using Azure.Storage;
 using Microsoft.DataTransfer.Core.RemoteLogging;
 using Microsoft.DataTransfer.ServiceModel.Errors;
 

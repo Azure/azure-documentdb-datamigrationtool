@@ -1,5 +1,5 @@
-﻿using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
+﻿using Microsoft.Azure.Cosmos.Table;
+using Azure.Storage;
 using Microsoft.DataTransfer.AzureTable.Shared;
 using System;
 using System.Threading.Tasks;
@@ -17,13 +17,13 @@ namespace Microsoft.DataTransfer.AzureTable.Client
         /// <param name="connectionString">Azure Table storage connection string to use to connect to the account.</param>
         /// <param name="locationMode">Location mode to use when connecting to Azure Table storage.</param>
         /// <returns>Task that represents asynchronous connection operation.</returns>
-        public async Task TestConnection(string connectionString, AzureStorageLocationMode? locationMode)
+        public async Task TestConnection(string connectionString, LocationMode? locationMode)
         {
             if (String.IsNullOrEmpty(connectionString))
                 throw Errors.ConnectionStringMissing();
 
             var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
-            client.DefaultRequestOptions.LocationMode = AzureTableClientHelper.ToSdkLocationMode(locationMode);
+            client.DefaultRequestOptions.LocationMode = locationMode;
 
             var properties = await client.GetServicePropertiesAsync();
             if (properties == null)

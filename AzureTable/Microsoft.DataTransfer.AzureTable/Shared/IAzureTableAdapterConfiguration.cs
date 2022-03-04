@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Azure.Cosmos.Table;
 
 namespace Microsoft.DataTransfer.AzureTable.Shared
 {
@@ -17,6 +18,6 @@ namespace Microsoft.DataTransfer.AzureTable.Shared
         /// Gets the location mode to use when connecting to Azure Storage.
         /// </summary>
         [Display(ResourceType = typeof(DynamicConfigurationResources), Description = "LocationMode")]
-        AzureStorageLocationMode? LocationMode { get; }
+        LocationMode? LocationMode { get; }
     }
 }

@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.CosmosDB;
-using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
+using Azure.Data.Tables;
+using Azure.Storage;
 
 namespace Microsoft.DataTransfer.Core.RemoteLogging
 {

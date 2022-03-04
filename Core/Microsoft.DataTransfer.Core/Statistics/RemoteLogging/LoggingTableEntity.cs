@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.CosmosDB.Table;
+﻿using Azure.Data.Tables;
 
 namespace Microsoft.DataTransfer.Core.RemoteLogging
 {

@@ -42,7 +42,7 @@ namespace Autofac
                 .RegistrationsFor(lookupService)
                 .ToDictionary(
                     r => r.Services.OfType<LooselyNamedService>().First(s => lookupService.Equals(s)).Name,
-                    r => (TService)context.ResolveComponent(r, Enumerable.Empty<Parameter>()));
+                    r => (TService)context.ResolveComponent(r));
         }
     }
 }

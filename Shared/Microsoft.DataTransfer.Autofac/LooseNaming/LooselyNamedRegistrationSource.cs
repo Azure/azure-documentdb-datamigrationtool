@@ -60,5 +60,10 @@ namespace Autofac.LooseNaming
                 type.GetGenericTypeDefinition().Equals(typeof(IReadOnlyDictionary<,>)) &&
                 type.GetGenericArguments()[0].Equals(typeof(string));
         }
+
+        public IEnumerable<IComponentRegistration> RegistrationsFor(Service service, Func<Service, IEnumerable<ServiceRegistration>> registrationAccessor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

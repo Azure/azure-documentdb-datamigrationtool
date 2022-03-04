@@ -1,9 +1,8 @@
-﻿namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
+﻿using Microsoft.Azure.Cosmos.Table;
+using Microsoft.Azure.Cosmos;
+
+namespace Microsoft.DataTransfer.TableAPI.Sink.Bulk
 {
-    using Microsoft.Azure.CosmosDB;
-    using Microsoft.Azure.CosmosDB.Table;
-    using Microsoft.Azure.Storage;
-    using Microsoft.Azure.Storage.RetryPolicies;
     using Microsoft.DataTransfer.AzureTable.Sink.Bulk;
     using Microsoft.DataTransfer.AzureTable.Source;
     using Microsoft.DataTransfer.AzureTable.Utils;
@@ -50,13 +49,7 @@
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
 
-            TableConnectionPolicy connectionPolicy = new TableConnectionPolicy()
-            {
-                UseDirectMode = true,
-                UseTcpProtocol = true,
-            };
-
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient(connectionPolicy: connectionPolicy);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             cloudtable = tableClient.GetTableReference(_tableName);
             requestOptions = new TableRequestOptions()
             {

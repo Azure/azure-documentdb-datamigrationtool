@@ -1,25 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Core", "Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj", "{01631F6D-813C-47D7-9CA7-3A6E493356F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Core", "Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj", "{01631F6D-813C-47D7-9CA7-3A6E493356F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Extensibility", "Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj", "{ACC3B08A-2706-4857-B374-8F6311DB0E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Extensibility", "Core\Microsoft.DataTransfer.Extensibility\Microsoft.DataTransfer.Extensibility.csproj", "{ACC3B08A-2706-4857-B374-8F6311DB0E6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonFile", "JsonFile\Microsoft.DataTransfer.JsonFile\Microsoft.DataTransfer.JsonFile.csproj", "{792B2799-AF90-4F15-B042-7F47F4FA1C78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonFile", "JsonFile\Microsoft.DataTransfer.JsonFile\Microsoft.DataTransfer.JsonFile.csproj", "{792B2799-AF90-4F15-B042-7F47F4FA1C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Basics", "Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj", "{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Basics", "Shared\Microsoft.DataTransfer.Basics\Microsoft.DataTransfer.Basics.csproj", "{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Extensibility.Basics", "Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj", "{83329196-46BE-4CD0-B498-74E9AC463ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Extensibility.Basics", "Core\Microsoft.DataTransfer.Extensibility.Basics\Microsoft.DataTransfer.Extensibility.Basics.csproj", "{83329196-46BE-4CD0-B498-74E9AC463ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonFile.FunctionalTests", "Microsoft.DataTransfer.FunctionalTests\Microsoft.DataTransfer.JsonFile.FunctionalTests.csproj", "{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonFile.FunctionalTests", "Microsoft.DataTransfer.FunctionalTests\Microsoft.DataTransfer.JsonFile.FunctionalTests.csproj", "{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ConsoleHost", "Console\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj", "{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.ConsoleHost", "Console\Microsoft.DataTransfer.ConsoleHost\Microsoft.DataTransfer.ConsoleHost.csproj", "{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ConsoleHost.Extensibility", "Console\Microsoft.DataTransfer.ConsoleHost.Extensibility\Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj", "{323766CD-3E2E-42E0-BC6E-CB7785057154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.ConsoleHost.Extensibility", "Console\Microsoft.DataTransfer.ConsoleHost.Extensibility\Microsoft.DataTransfer.ConsoleHost.Extensibility.csproj", "{323766CD-3E2E-42E0-BC6E-CB7785057154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration", "Console\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj", "{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration", "Console\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration\Microsoft.DataTransfer.ConsoleHost.DynamicConfiguration.csproj", "{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C8F9D082-1083-47A9-9061-E5B351334176}"
 EndProject
@@ -27,74 +27,67 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsonFile", "JsonFile", "{CF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ServiceModel", "Core\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj", "{B6E28981-4195-4910-B9B9-1CF96674620F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.ServiceModel", "Core\Microsoft.DataTransfer.ServiceModel\Microsoft.DataTransfer.ServiceModel.csproj", "{B6E28981-4195-4910-B9B9-1CF96674620F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Autofac", "Shared\Microsoft.DataTransfer.Autofac\Microsoft.DataTransfer.Autofac.csproj", "{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Core.UnitTests", "Core\Microsoft.DataTransfer.Core.UnitTests\Microsoft.DataTransfer.Core.UnitTests.csproj", "{E94B085B-0C3F-47AE-84B6-5A39B12BE291}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5B706031-204A-4155-A3DA-BCFD5A20718C}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.config = .nuget\NuGet.config
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Core.UnitTests", "Core\Microsoft.DataTransfer.Core.UnitTests\Microsoft.DataTransfer.Core.UnitTests.csproj", "{E94B085B-0C3F-47AE-84B6-5A39B12BE291}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentDb", "DocumentDb", "{118F328F-C94B-4A46-B82E-A62D3D4D52E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DocumentDb", "DocumentDb\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj", "{81A18D96-39FC-4165-8C52-4C887DCE4A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DocumentDb", "DocumentDb\Microsoft.DataTransfer.DocumentDb\Microsoft.DataTransfer.DocumentDb.csproj", "{81A18D96-39FC-4165-8C52-4C887DCE4A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonNet", "Shared\Microsoft.DataTransfer.JsonNet\Microsoft.DataTransfer.JsonNet.csproj", "{F00C15AB-FDCB-4E18-9009-E733F74CCE38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonNet", "Shared\Microsoft.DataTransfer.JsonNet\Microsoft.DataTransfer.JsonNet.csproj", "{F00C15AB-FDCB-4E18-9009-E733F74CCE38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.ConsoleHost.UnitTests", "Console\Microsoft.DataTransfer.ConsoleHost.UnitTests\Microsoft.DataTransfer.ConsoleHost.UnitTests.csproj", "{018130D4-F8DF-4C38-B29B-558FB6B60966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.ConsoleHost.UnitTests", "Console\Microsoft.DataTransfer.ConsoleHost.UnitTests\Microsoft.DataTransfer.ConsoleHost.UnitTests.csproj", "{018130D4-F8DF-4C38-B29B-558FB6B60966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DocumentDb.UnitTests", "DocumentDb\Microsoft.DataTransfer.DocumentDb.UnitTests\Microsoft.DataTransfer.DocumentDb.UnitTests.csproj", "{07F41839-4B23-4601-A9EF-67F3EA936D7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DocumentDb.UnitTests", "DocumentDb\Microsoft.DataTransfer.DocumentDb.UnitTests\Microsoft.DataTransfer.DocumentDb.UnitTests.csproj", "{07F41839-4B23-4601-A9EF-67F3EA936D7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.TestsCommon", "Shared\Microsoft.DataTransfer.TestsCommon\Microsoft.DataTransfer.TestsCommon.csproj", "{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.TestsCommon", "Shared\Microsoft.DataTransfer.TestsCommon\Microsoft.DataTransfer.TestsCommon.csproj", "{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{41FA268B-2B95-49E8-89DA-86BD4A8A23AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Sql", "Sql\Microsoft.DataTransfer.Sql\Microsoft.DataTransfer.Sql.csproj", "{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Sql", "Sql\Microsoft.DataTransfer.Sql\Microsoft.DataTransfer.Sql.csproj", "{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongoDb", "MongoDb", "{7F83D352-1039-4B8F-B63C-56231421056A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.MongoDb", "MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj", "{782CE839-40A8-4C47-9998-C3B0B7C3D2A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoDb", "MongoDb\Microsoft.DataTransfer.MongoDb\Microsoft.DataTransfer.MongoDb.csproj", "{782CE839-40A8-4C47-9998-C3B0B7C3D2A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DocumentDb.FunctionalTests", "DocumentDb\Microsoft.DataTransfer.DocumentDb.FunctionalTests\Microsoft.DataTransfer.DocumentDb.FunctionalTests.csproj", "{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DocumentDb.FunctionalTests", "DocumentDb\Microsoft.DataTransfer.DocumentDb.FunctionalTests\Microsoft.DataTransfer.DocumentDb.FunctionalTests.csproj", "{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CsvFile", "CsvFile", "{8CBD6933-1EC6-48A3-B483-D1BAF83BEF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile", "CsvFile\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj", "{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CsvFile", "CsvFile\Microsoft.DataTransfer.CsvFile\Microsoft.DataTransfer.CsvFile.csproj", "{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile.FunctionalTests", "CsvFile\Microsoft.DataTransfer.CsvFile.FunctionalTests\Microsoft.DataTransfer.CsvFile.FunctionalTests.csproj", "{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CsvFile.FunctionalTests", "CsvFile\Microsoft.DataTransfer.CsvFile.FunctionalTests\Microsoft.DataTransfer.CsvFile.FunctionalTests.csproj", "{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.MongoDb.FunctionalTests", "MongoDb\Microsoft.DataTransfer.MongoDb.FunctionalTests\Microsoft.DataTransfer.MongoDb.FunctionalTests.csproj", "{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoDb.FunctionalTests", "MongoDb\Microsoft.DataTransfer.MongoDb.FunctionalTests\Microsoft.DataTransfer.MongoDb.FunctionalTests.csproj", "{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Sql.FunctionalTests", "Sql\Microsoft.DataTransfer.Sql.FunctionalTests\Microsoft.DataTransfer.Sql.FunctionalTests.csproj", "{198D8B0C-A446-4837-AD61-F03DA1939A17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Sql.FunctionalTests", "Sql\Microsoft.DataTransfer.Sql.FunctionalTests\Microsoft.DataTransfer.Sql.FunctionalTests.csproj", "{198D8B0C-A446-4837-AD61-F03DA1939A17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wpf", "Wpf", "{54BF02DB-CF58-4706-98EE-4175B07E36BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost", "Wpf\Microsoft.DataTransfer.WpfHost\Microsoft.DataTransfer.WpfHost.csproj", "{C1527082-8AB7-4DB0-A30C-B0D3416294A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost", "Wpf\Microsoft.DataTransfer.WpfHost\Microsoft.DataTransfer.WpfHost.csproj", "{C1527082-8AB7-4DB0-A30C-B0D3416294A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost.Basics", "Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj", "{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost.Basics", "Wpf\Microsoft.DataTransfer.WpfHost.Basics\Microsoft.DataTransfer.WpfHost.Basics.csproj", "{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost.ServiceModel", "Wpf\Microsoft.DataTransfer.WpfHost.ServiceModel\Microsoft.DataTransfer.WpfHost.ServiceModel.csproj", "{A596C599-4070-493B-85B6-1B3593D92BFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost.ServiceModel", "Wpf\Microsoft.DataTransfer.WpfHost.ServiceModel\Microsoft.DataTransfer.WpfHost.ServiceModel.csproj", "{A596C599-4070-493B-85B6-1B3593D92BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost.Extensibility", "Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj", "{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost.Extensibility", "Wpf\Microsoft.DataTransfer.WpfHost.Extensibility\Microsoft.DataTransfer.WpfHost.Extensibility.csproj", "{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonFile.Wpf", "JsonFile\Microsoft.DataTransfer.JsonFile.Wpf\Microsoft.DataTransfer.JsonFile.Wpf.csproj", "{33093ECF-9DCC-4A89-8ADB-448A25A711C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonFile.Wpf", "JsonFile\Microsoft.DataTransfer.JsonFile.Wpf\Microsoft.DataTransfer.JsonFile.Wpf.csproj", "{33093ECF-9DCC-4A89-8ADB-448A25A711C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost.Extensibility.Basics", "Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj", "{1F2070F3-BD45-45B3-A143-7CE4073D3A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost.Extensibility.Basics", "Wpf\Microsoft.DataTransfer.WpfHost.Extensibility.Basics\Microsoft.DataTransfer.WpfHost.Extensibility.Basics.csproj", "{1F2070F3-BD45-45B3-A143-7CE4073D3A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DocumentDb.Wpf", "DocumentDb\Microsoft.DataTransfer.DocumentDb.Wpf\Microsoft.DataTransfer.DocumentDb.Wpf.csproj", "{2AE27E76-BE49-487B-901F-3D43F36B667B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DocumentDb.Wpf", "DocumentDb\Microsoft.DataTransfer.DocumentDb.Wpf\Microsoft.DataTransfer.DocumentDb.Wpf.csproj", "{2AE27E76-BE49-487B-901F-3D43F36B667B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Sql.Wpf", "Sql\Microsoft.DataTransfer.Sql.Wpf\Microsoft.DataTransfer.Sql.Wpf.csproj", "{5D6C2E17-9676-4BB1-B047-F15089151CB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Sql.Wpf", "Sql\Microsoft.DataTransfer.Sql.Wpf\Microsoft.DataTransfer.Sql.Wpf.csproj", "{5D6C2E17-9676-4BB1-B047-F15089151CB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile.Wpf", "CsvFile\Microsoft.DataTransfer.CsvFile.Wpf\Microsoft.DataTransfer.CsvFile.Wpf.csproj", "{76BC3415-D4A0-43A4-B859-094E7D60F01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CsvFile.Wpf", "CsvFile\Microsoft.DataTransfer.CsvFile.Wpf\Microsoft.DataTransfer.CsvFile.Wpf.csproj", "{76BC3415-D4A0-43A4-B859-094E7D60F01D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.MongoDb.Wpf", "MongoDb\Microsoft.DataTransfer.MongoDb.Wpf\Microsoft.DataTransfer.MongoDb.Wpf.csproj", "{72422FE7-EEFD-4F80-9515-80BB362352D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoDb.Wpf", "MongoDb\Microsoft.DataTransfer.MongoDb.Wpf\Microsoft.DataTransfer.MongoDb.Wpf.csproj", "{72422FE7-EEFD-4F80-9515-80BB362352D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.WpfHost.UnitTests", "Wpf\Microsoft.DataTransfer.WpfHost.UnitTests\Microsoft.DataTransfer.WpfHost.UnitTests.csproj", "{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.WpfHost.UnitTests", "Wpf\Microsoft.DataTransfer.WpfHost.UnitTests\Microsoft.DataTransfer.WpfHost.UnitTests.csproj", "{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B36D31E-D65C-4999-9F73-F6EBA7941A61}"
 	ProjectSection(SolutionItems) = preProject
@@ -104,41 +97,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureTable", "AzureTable", "{7FF55CC5-9069-49E5-B16E-6437AE4892A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable", "AzureTable\Microsoft.DataTransfer.AzureTable\Microsoft.DataTransfer.AzureTable.csproj", "{366BA489-E851-4899-9BA3-2F9C7599D24B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTable", "AzureTable\Microsoft.DataTransfer.AzureTable\Microsoft.DataTransfer.AzureTable.csproj", "{366BA489-E851-4899-9BA3-2F9C7599D24B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable.FunctionalTests", "AzureTable\Microsoft.DataTransfer.AzureTable.FunctionalTests\Microsoft.DataTransfer.AzureTable.FunctionalTests.csproj", "{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTable.FunctionalTests", "AzureTable\Microsoft.DataTransfer.AzureTable.FunctionalTests\Microsoft.DataTransfer.AzureTable.FunctionalTests.csproj", "{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTable.Wpf", "AzureTable\Microsoft.DataTransfer.AzureTable.Wpf\Microsoft.DataTransfer.AzureTable.Wpf.csproj", "{8A191B07-775F-43C8-ACB6-F742073612EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTable.Wpf", "AzureTable\Microsoft.DataTransfer.AzureTable.Wpf\Microsoft.DataTransfer.AzureTable.Wpf.csproj", "{8A191B07-775F-43C8-ACB6-F742073612EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RavenDb", "RavenDb", "{0D63DA64-9090-42C1-A066-172C2700F1D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb", "RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj", "{D505404F-2FC0-453C-86BB-BA3B1AE13919}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.RavenDb", "RavenDb\Microsoft.DataTransfer.RavenDb\Microsoft.DataTransfer.RavenDb.csproj", "{D505404F-2FC0-453C-86BB-BA3B1AE13919}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb.FunctionalTests", "RavenDb\Microsoft.DataTransfer.RavenDb.FunctionalTests\Microsoft.DataTransfer.RavenDb.FunctionalTests.csproj", "{6E25967D-5286-47DB-AB9F-82AA7416D344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.RavenDb.FunctionalTests", "RavenDb\Microsoft.DataTransfer.RavenDb.FunctionalTests\Microsoft.DataTransfer.RavenDb.FunctionalTests.csproj", "{6E25967D-5286-47DB-AB9F-82AA7416D344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.RavenDb.Wpf", "RavenDb\Microsoft.DataTransfer.RavenDb.Wpf\Microsoft.DataTransfer.RavenDb.Wpf.csproj", "{29968BB5-BC00-4976-8B78-1B0244654B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.RavenDb.Wpf", "RavenDb\Microsoft.DataTransfer.RavenDb.Wpf\Microsoft.DataTransfer.RavenDb.Wpf.csproj", "{29968BB5-BC00-4976-8B78-1B0244654B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.CsvFile.UnitTests", "CsvFile\Microsoft.DataTransfer.CsvFile.UnitTests\Microsoft.DataTransfer.CsvFile.UnitTests.csproj", "{F1D74F07-96B2-4150-830F-4DFB2E3A1707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CsvFile.UnitTests", "CsvFile\Microsoft.DataTransfer.CsvFile.UnitTests\Microsoft.DataTransfer.CsvFile.UnitTests.csproj", "{F1D74F07-96B2-4150-830F-4DFB2E3A1707}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamoDb", "DynamoDb", "{2885C0CB-3878-4FB8-BA4B-F7DEAA660366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb", "DynamoDb\Microsoft.DataTransfer.DynamoDb\Microsoft.DataTransfer.DynamoDb.csproj", "{AF2A444F-CABD-45BE-9B9E-9D53501B2041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DynamoDb", "DynamoDb\Microsoft.DataTransfer.DynamoDb\Microsoft.DataTransfer.DynamoDb.csproj", "{AF2A444F-CABD-45BE-9B9E-9D53501B2041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb.FunctionalTests", "DynamoDb\Microsoft.DataTransfer.DynamoDb.FunctionalTests\Microsoft.DataTransfer.DynamoDb.FunctionalTests.csproj", "{B301926E-9833-483D-AF09-E4006FC6E663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DynamoDb.FunctionalTests", "DynamoDb\Microsoft.DataTransfer.DynamoDb.FunctionalTests\Microsoft.DataTransfer.DynamoDb.FunctionalTests.csproj", "{B301926E-9833-483D-AF09-E4006FC6E663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.DynamoDb.Wpf", "DynamoDb\Microsoft.DataTransfer.DynamoDb.Wpf\Microsoft.DataTransfer.DynamoDb.Wpf.csproj", "{6FD86D77-5F97-45EE-ACA9-4E826E288D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.DynamoDb.Wpf", "DynamoDb\Microsoft.DataTransfer.DynamoDb.Wpf\Microsoft.DataTransfer.DynamoDb.Wpf.csproj", "{6FD86D77-5F97-45EE-ACA9-4E826E288D22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HBase", "HBase", "{1BD0D669-8E45-4E7C-A20F-707A1887E8ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase", "HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj", "{AD24DB36-8623-4E11-9995-A6EB5EF50A38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.HBase", "HBase\Microsoft.DataTransfer.HBase\Microsoft.DataTransfer.HBase.csproj", "{AD24DB36-8623-4E11-9995-A6EB5EF50A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase.Wpf", "HBase\Microsoft.DataTransfer.HBase.Wpf\Microsoft.DataTransfer.HBase.Wpf.csproj", "{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.HBase.Wpf", "HBase\Microsoft.DataTransfer.HBase.Wpf\Microsoft.DataTransfer.HBase.Wpf.csproj", "{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.HBase.FunctionalTests", "HBase\Microsoft.DataTransfer.HBase.FunctionalTests\Microsoft.DataTransfer.HBase.FunctionalTests.csproj", "{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.HBase.FunctionalTests", "HBase\Microsoft.DataTransfer.HBase.FunctionalTests\Microsoft.DataTransfer.HBase.FunctionalTests.csproj", "{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.Basics.Files", "Shared\Microsoft.DataTransfer.Basics.Files\Microsoft.DataTransfer.Basics.Files.csproj", "{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Basics.Files", "Shared\Microsoft.DataTransfer.Basics.Files\Microsoft.DataTransfer.Basics.Files.csproj", "{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.MongoDb.UnitTests", "MongoDb\Microsoft.DataTransfer.MongoDb.UnitTests\Microsoft.DataTransfer.MongoDb.UnitTests.csproj", "{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoDb.UnitTests", "MongoDb\Microsoft.DataTransfer.MongoDb.UnitTests\Microsoft.DataTransfer.MongoDb.UnitTests.csproj", "{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,76 +139,72 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Debug|x64.ActiveCfg = Debug|x64
-		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Debug|x64.Build.0 = Debug|x64
+		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Debug|x64.Build.0 = Debug|Any CPU
 		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Release|x64.ActiveCfg = Release|x64
 		{01631F6D-813C-47D7-9CA7-3A6E493356F5}.Release|x64.Build.0 = Release|x64
-		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Debug|x64.ActiveCfg = Debug|x64
-		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Debug|x64.Build.0 = Debug|x64
+		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Debug|x64.Build.0 = Debug|Any CPU
 		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Release|x64.ActiveCfg = Release|x64
 		{ACC3B08A-2706-4857-B374-8F6311DB0E6F}.Release|x64.Build.0 = Release|x64
-		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Debug|x64.ActiveCfg = Debug|x64
-		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Debug|x64.Build.0 = Debug|x64
+		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Debug|x64.Build.0 = Debug|Any CPU
 		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Release|x64.ActiveCfg = Release|x64
 		{792B2799-AF90-4F15-B042-7F47F4FA1C78}.Release|x64.Build.0 = Release|x64
-		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Debug|x64.ActiveCfg = Debug|x64
-		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Debug|x64.Build.0 = Debug|x64
+		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Debug|x64.Build.0 = Debug|Any CPU
 		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Release|x64.ActiveCfg = Release|x64
 		{CCD5F3BD-E95E-46B6-8688-394F592C6A2A}.Release|x64.Build.0 = Release|x64
-		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Debug|x64.ActiveCfg = Debug|x64
-		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Debug|x64.Build.0 = Debug|x64
+		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Debug|x64.Build.0 = Debug|Any CPU
 		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Release|x64.ActiveCfg = Release|x64
 		{83329196-46BE-4CD0-B498-74E9AC463ED9}.Release|x64.Build.0 = Release|x64
-		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Debug|x64.ActiveCfg = Debug|x64
-		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Debug|x64.Build.0 = Debug|x64
+		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Debug|x64.Build.0 = Debug|Any CPU
 		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Release|x64.ActiveCfg = Release|x64
 		{13AD2A59-A692-48AE-A2E7-2C1B2CDE747D}.Release|x64.Build.0 = Release|x64
-		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Debug|x64.ActiveCfg = Debug|x64
-		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Debug|x64.Build.0 = Debug|x64
+		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Debug|x64.Build.0 = Debug|Any CPU
 		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Release|x64.ActiveCfg = Release|x64
 		{B034BCDD-283E-4E35-B617-C21CF4AFF7DE}.Release|x64.Build.0 = Release|x64
-		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Debug|x64.ActiveCfg = Debug|x64
-		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Debug|x64.Build.0 = Debug|x64
+		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Debug|x64.Build.0 = Debug|Any CPU
 		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Release|x64.ActiveCfg = Release|x64
 		{323766CD-3E2E-42E0-BC6E-CB7785057154}.Release|x64.Build.0 = Release|x64
-		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Debug|x64.ActiveCfg = Debug|x64
-		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Debug|x64.Build.0 = Debug|x64
+		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Debug|x64.Build.0 = Debug|Any CPU
 		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Release|x64.ActiveCfg = Release|x64
 		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235}.Release|x64.Build.0 = Release|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Debug|x64.ActiveCfg = Debug|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Debug|x64.Build.0 = Debug|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Release|x64.ActiveCfg = Release|x64
 		{B6E28981-4195-4910-B9B9-1CF96674620F}.Release|x64.Build.0 = Release|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Debug|x64.ActiveCfg = Debug|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Debug|x64.Build.0 = Debug|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Release|x64.ActiveCfg = Release|x64
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5}.Release|x64.Build.0 = Release|x64
-		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.ActiveCfg = Debug|x64
-		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.Build.0 = Debug|x64
+		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Debug|x64.Build.0 = Debug|Any CPU
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Release|x64.ActiveCfg = Release|x64
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291}.Release|x64.Build.0 = Release|x64
-		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Debug|x64.ActiveCfg = Debug|x64
-		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Debug|x64.Build.0 = Debug|x64
+		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Debug|x64.Build.0 = Debug|Any CPU
 		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Release|x64.ActiveCfg = Release|x64
 		{81A18D96-39FC-4165-8C52-4C887DCE4A61}.Release|x64.Build.0 = Release|x64
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38}.Debug|x64.ActiveCfg = Debug|x64
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38}.Debug|x64.Build.0 = Debug|x64
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38}.Release|x64.ActiveCfg = Release|x64
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38}.Release|x64.Build.0 = Release|x64
-		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Debug|x64.ActiveCfg = Debug|x64
-		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Debug|x64.Build.0 = Debug|x64
+		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Debug|x64.Build.0 = Debug|Any CPU
 		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Release|x64.ActiveCfg = Release|x64
 		{018130D4-F8DF-4C38-B29B-558FB6B60966}.Release|x64.Build.0 = Release|x64
 		{07F41839-4B23-4601-A9EF-67F3EA936D7E}.Debug|x64.ActiveCfg = Debug|x64
 		{07F41839-4B23-4601-A9EF-67F3EA936D7E}.Debug|x64.Build.0 = Debug|x64
 		{07F41839-4B23-4601-A9EF-67F3EA936D7E}.Release|x64.ActiveCfg = Release|x64
 		{07F41839-4B23-4601-A9EF-67F3EA936D7E}.Release|x64.Build.0 = Release|x64
-		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Debug|x64.ActiveCfg = Debug|x64
-		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Debug|x64.Build.0 = Debug|x64
+		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Debug|x64.Build.0 = Debug|Any CPU
 		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Release|x64.ActiveCfg = Release|x64
 		{6E3DC3DB-CDC7-47DB-9232-F04B314D9D0B}.Release|x64.Build.0 = Release|x64
-		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Debug|x64.ActiveCfg = Debug|x64
-		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Debug|x64.Build.0 = Debug|x64
+		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Debug|x64.Build.0 = Debug|Any CPU
 		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Release|x64.ActiveCfg = Release|x64
 		{607E5554-C43F-4CE5-AC04-C9CE5EC0773A}.Release|x64.Build.0 = Release|x64
 		{782CE839-40A8-4C47-9998-C3B0B7C3D2A1}.Debug|x64.ActiveCfg = Debug|x64
@@ -226,76 +215,76 @@ Global
 		{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}.Debug|x64.Build.0 = Debug|x64
 		{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}.Release|x64.ActiveCfg = Release|x64
 		{9C4F63CA-B0FD-4A11-8867-CF28528FE6A8}.Release|x64.Build.0 = Release|x64
-		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Debug|x64.ActiveCfg = Debug|x64
-		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Debug|x64.Build.0 = Debug|x64
+		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Debug|x64.Build.0 = Debug|Any CPU
 		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Release|x64.ActiveCfg = Release|x64
 		{D9CD91FE-B6FD-4C1A-9908-A23C57AD8CAC}.Release|x64.Build.0 = Release|x64
-		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Debug|x64.ActiveCfg = Debug|x64
-		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Debug|x64.Build.0 = Debug|x64
+		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Debug|x64.Build.0 = Debug|Any CPU
 		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Release|x64.ActiveCfg = Release|x64
 		{8AB1508D-2B21-4619-B9DB-AF0E3BA4E57D}.Release|x64.Build.0 = Release|x64
 		{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}.Debug|x64.ActiveCfg = Debug|x64
 		{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}.Debug|x64.Build.0 = Debug|x64
 		{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}.Release|x64.ActiveCfg = Release|x64
 		{7FC38F25-9630-4ADD-A59A-9DDF1EFECAA3}.Release|x64.Build.0 = Release|x64
-		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Debug|x64.ActiveCfg = Debug|x64
-		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Debug|x64.Build.0 = Debug|x64
+		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Debug|x64.Build.0 = Debug|Any CPU
 		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Release|x64.ActiveCfg = Release|x64
 		{198D8B0C-A446-4837-AD61-F03DA1939A17}.Release|x64.Build.0 = Release|x64
-		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Debug|x64.ActiveCfg = Debug|x64
-		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Debug|x64.Build.0 = Debug|x64
+		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Debug|x64.Build.0 = Debug|Any CPU
 		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Release|x64.ActiveCfg = Release|x64
 		{C1527082-8AB7-4DB0-A30C-B0D3416294A6}.Release|x64.Build.0 = Release|x64
-		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Debug|x64.ActiveCfg = Debug|x64
-		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Debug|x64.Build.0 = Debug|x64
+		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Debug|x64.Build.0 = Debug|Any CPU
 		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Release|x64.ActiveCfg = Release|x64
 		{DA8EC2B9-B282-4438-98B2-612D6DFEDF73}.Release|x64.Build.0 = Release|x64
-		{A596C599-4070-493B-85B6-1B3593D92BFB}.Debug|x64.ActiveCfg = Debug|x64
-		{A596C599-4070-493B-85B6-1B3593D92BFB}.Debug|x64.Build.0 = Debug|x64
+		{A596C599-4070-493B-85B6-1B3593D92BFB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A596C599-4070-493B-85B6-1B3593D92BFB}.Debug|x64.Build.0 = Debug|Any CPU
 		{A596C599-4070-493B-85B6-1B3593D92BFB}.Release|x64.ActiveCfg = Release|x64
 		{A596C599-4070-493B-85B6-1B3593D92BFB}.Release|x64.Build.0 = Release|x64
-		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Debug|x64.ActiveCfg = Debug|x64
-		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Debug|x64.Build.0 = Debug|x64
+		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Debug|x64.Build.0 = Debug|Any CPU
 		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Release|x64.ActiveCfg = Release|x64
 		{A020FBD4-0F13-4630-ACB9-6CDB894E3B82}.Release|x64.Build.0 = Release|x64
-		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Debug|x64.ActiveCfg = Debug|x64
-		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Debug|x64.Build.0 = Debug|x64
+		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Debug|x64.Build.0 = Debug|Any CPU
 		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Release|x64.ActiveCfg = Release|x64
 		{33093ECF-9DCC-4A89-8ADB-448A25A711C3}.Release|x64.Build.0 = Release|x64
-		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Debug|x64.ActiveCfg = Debug|x64
-		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Debug|x64.Build.0 = Debug|x64
+		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Debug|x64.Build.0 = Debug|Any CPU
 		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Release|x64.ActiveCfg = Release|x64
 		{1F2070F3-BD45-45B3-A143-7CE4073D3A69}.Release|x64.Build.0 = Release|x64
 		{2AE27E76-BE49-487B-901F-3D43F36B667B}.Debug|x64.ActiveCfg = Debug|x64
 		{2AE27E76-BE49-487B-901F-3D43F36B667B}.Debug|x64.Build.0 = Debug|x64
 		{2AE27E76-BE49-487B-901F-3D43F36B667B}.Release|x64.ActiveCfg = Release|x64
 		{2AE27E76-BE49-487B-901F-3D43F36B667B}.Release|x64.Build.0 = Release|x64
-		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Debug|x64.ActiveCfg = Debug|x64
-		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Debug|x64.Build.0 = Debug|x64
+		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Debug|x64.Build.0 = Debug|Any CPU
 		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Release|x64.ActiveCfg = Release|x64
 		{5D6C2E17-9676-4BB1-B047-F15089151CB7}.Release|x64.Build.0 = Release|x64
-		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Debug|x64.ActiveCfg = Debug|x64
-		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Debug|x64.Build.0 = Debug|x64
+		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Debug|x64.Build.0 = Debug|Any CPU
 		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Release|x64.ActiveCfg = Release|x64
 		{76BC3415-D4A0-43A4-B859-094E7D60F01D}.Release|x64.Build.0 = Release|x64
 		{72422FE7-EEFD-4F80-9515-80BB362352D3}.Debug|x64.ActiveCfg = Debug|x64
 		{72422FE7-EEFD-4F80-9515-80BB362352D3}.Debug|x64.Build.0 = Debug|x64
 		{72422FE7-EEFD-4F80-9515-80BB362352D3}.Release|x64.ActiveCfg = Release|x64
 		{72422FE7-EEFD-4F80-9515-80BB362352D3}.Release|x64.Build.0 = Release|x64
-		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|x64.ActiveCfg = Debug|x64
-		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|x64.Build.0 = Debug|x64
+		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Debug|x64.Build.0 = Debug|Any CPU
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Release|x64.ActiveCfg = Release|x64
 		{1E7D6DAB-F9F9-4426-9001-E80ABCB24DDE}.Release|x64.Build.0 = Release|x64
-		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|x64.ActiveCfg = Debug|x64
-		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|x64.Build.0 = Debug|x64
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Debug|x64.Build.0 = Debug|Any CPU
 		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Release|x64.ActiveCfg = Release|x64
 		{366BA489-E851-4899-9BA3-2F9C7599D24B}.Release|x64.Build.0 = Release|x64
-		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|x64.ActiveCfg = Debug|x64
-		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|x64.Build.0 = Debug|x64
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Debug|x64.Build.0 = Debug|Any CPU
 		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Release|x64.ActiveCfg = Release|x64
 		{C23E6A57-2C64-4924-B6C6-BAA511C9DDD3}.Release|x64.Build.0 = Release|x64
-		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|x64.ActiveCfg = Debug|x64
-		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|x64.Build.0 = Debug|x64
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8A191B07-775F-43C8-ACB6-F742073612EA}.Debug|x64.Build.0 = Debug|Any CPU
 		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|x64.ActiveCfg = Release|x64
 		{8A191B07-775F-43C8-ACB6-F742073612EA}.Release|x64.Build.0 = Release|x64
 		{D505404F-2FC0-453C-86BB-BA3B1AE13919}.Debug|x64.ActiveCfg = Debug|x64
@@ -310,36 +299,36 @@ Global
 		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Debug|x64.Build.0 = Debug|x64
 		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Release|x64.ActiveCfg = Release|x64
 		{29968BB5-BC00-4976-8B78-1B0244654B5D}.Release|x64.Build.0 = Release|x64
-		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|x64.ActiveCfg = Debug|x64
-		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|x64.Build.0 = Debug|x64
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Debug|x64.Build.0 = Debug|Any CPU
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|x64.ActiveCfg = Release|x64
 		{F1D74F07-96B2-4150-830F-4DFB2E3A1707}.Release|x64.Build.0 = Release|x64
-		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|x64.ActiveCfg = Debug|x64
-		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|x64.Build.0 = Debug|x64
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Debug|x64.Build.0 = Debug|Any CPU
 		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Release|x64.ActiveCfg = Release|x64
 		{AF2A444F-CABD-45BE-9B9E-9D53501B2041}.Release|x64.Build.0 = Release|x64
-		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|x64.ActiveCfg = Debug|x64
-		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|x64.Build.0 = Debug|x64
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B301926E-9833-483D-AF09-E4006FC6E663}.Debug|x64.Build.0 = Debug|Any CPU
 		{B301926E-9833-483D-AF09-E4006FC6E663}.Release|x64.ActiveCfg = Release|x64
 		{B301926E-9833-483D-AF09-E4006FC6E663}.Release|x64.Build.0 = Release|x64
-		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|x64.ActiveCfg = Debug|x64
-		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|x64.Build.0 = Debug|x64
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Debug|x64.Build.0 = Debug|Any CPU
 		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Release|x64.ActiveCfg = Release|x64
 		{6FD86D77-5F97-45EE-ACA9-4E826E288D22}.Release|x64.Build.0 = Release|x64
-		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|x64.ActiveCfg = Debug|x64
-		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|x64.Build.0 = Debug|x64
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Debug|x64.Build.0 = Debug|Any CPU
 		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Release|x64.ActiveCfg = Release|x64
 		{AD24DB36-8623-4E11-9995-A6EB5EF50A38}.Release|x64.Build.0 = Release|x64
-		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|x64.ActiveCfg = Debug|x64
-		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|x64.Build.0 = Debug|x64
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Debug|x64.Build.0 = Debug|Any CPU
 		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Release|x64.ActiveCfg = Release|x64
 		{98706C69-8F15-4D97-9DD9-D7FD6F5A038F}.Release|x64.Build.0 = Release|x64
-		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|x64.ActiveCfg = Debug|x64
-		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|x64.Build.0 = Debug|x64
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Debug|x64.Build.0 = Debug|Any CPU
 		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Release|x64.ActiveCfg = Release|x64
 		{6544F78F-4EE3-489E-87B7-5FCA9C4D50BD}.Release|x64.Build.0 = Release|x64
-		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|x64.ActiveCfg = Debug|x64
-		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|x64.Build.0 = Debug|x64
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Debug|x64.Build.0 = Debug|Any CPU
 		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Release|x64.ActiveCfg = Release|x64
 		{DA182D5C-79F4-4AF6-BF15-6E4496353A6A}.Release|x64.Build.0 = Release|x64
 		{2AC0E216-9ED4-4D1D-A264-73905A37F6AA}.Debug|x64.ActiveCfg = Debug|x64
@@ -361,7 +350,6 @@ Global
 		{323766CD-3E2E-42E0-BC6E-CB7785057154} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{043A0CB1-09E0-4FCA-B75F-6FA25A1C9235} = {7787B60C-7E3E-4CC3-A01D-2E1458D06ABE}
 		{B6E28981-4195-4910-B9B9-1CF96674620F} = {C8F9D082-1083-47A9-9061-E5B351334176}
-		{E31F1956-78BE-4960-82E9-E1D8A73FA6D5} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}
 		{E94B085B-0C3F-47AE-84B6-5A39B12BE291} = {C8F9D082-1083-47A9-9061-E5B351334176}
 		{81A18D96-39FC-4165-8C52-4C887DCE4A61} = {118F328F-C94B-4A46-B82E-A62D3D4D52E7}
 		{F00C15AB-FDCB-4E18-9009-E733F74CCE38} = {F9CAC1F5-436E-4406-BACC-FC18C8FE36C5}

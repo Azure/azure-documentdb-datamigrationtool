@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.CosmosDB.Table;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.RetryPolicies;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.DataTransfer.AzureTable.Client;
 using Microsoft.DataTransfer.Extensibility;
 
@@ -36,7 +34,7 @@ namespace Microsoft.DataTransfer.AzureTable.Source
             var client = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
             client.DefaultRequestOptions.LocationMode =
-                AzureTableClientHelper.ToSdkLocationMode(configuration.LocationMode);
+                configuration.LocationMode;
 
             table = client.GetTableReference(configuration.Table);
             query = new TableQuery

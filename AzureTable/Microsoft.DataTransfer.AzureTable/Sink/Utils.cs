@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.DataTransfer.AzureTable.Utils
 {
-    using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Cosmos.Table;
     using System;
     using System.Threading.Tasks;
 
