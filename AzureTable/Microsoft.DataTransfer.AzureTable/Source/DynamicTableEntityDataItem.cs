@@ -1,4 +1,4 @@
-﻿using Azure.Data.Tables;
+﻿using Microsoft.Azure.Cosmos.Table;
 using Microsoft.DataTransfer.Basics;
 using Microsoft.DataTransfer.Extensibility;
 using System.Collections.Generic;

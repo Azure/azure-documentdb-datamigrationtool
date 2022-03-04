@@ -1,4 +1,4 @@
-﻿using Azure.Data.Tables;
+﻿using Microsoft.Azure.Cosmos.Table;
 using Azure.Storage;
 using System;
 using System.Collections.Generic;
