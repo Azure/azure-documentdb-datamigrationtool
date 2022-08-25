@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Microsoft.DataTransfer.Core": {
+      "commandName": "Project",
+      "commandLineArgs": "--source json --sink \"cosmos DB\" --SourceSettings:FilePath=c:\\temp\\test-json-in.json"
+    }
+  }
+}

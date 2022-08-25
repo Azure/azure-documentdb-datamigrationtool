@@ -1,0 +1,6 @@
+{
+    "Database":"myDb",
+    "Container":"myContainer",
+    "PartitionKeyPath":"/id",
+    "RecreateContainer": true
+}

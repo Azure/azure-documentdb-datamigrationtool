@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.Configuration;
 using System.Dynamic;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
@@ -7,32 +6,35 @@ using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.DataTransfer.CosmosExtension
 {
-    [Export(typeof(IDataTransferExtension))]
-    public class CosmosDataTransferExtension : IDataTransferExtension
+    [Export(typeof(IDataSinkExtension))]
+    public class CosmosDataSinkExtension : IDataSinkExtension
     {
-        private string? _connectionString;
         public string DisplayName => "Cosmos DB";
-        public IAsyncEnumerable<IDataItem> ReadAsSourceAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task WriteAsSinkAsync(IAsyncEnumerable<IDataItem> dataItems, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
         {
-            var client = new CosmosClient(_connectionString,
+            var settings = config.Get<CosmosSinkSettings>();
+            settings.Validate();
+
+            var client = new CosmosClient(settings.ConnectionString,
                 new CosmosClientOptions
                 {
                     ConnectionMode = ConnectionMode.Gateway,
                     AllowBulkExecution = true
                 });
 
-            var database = client.GetDatabase("myDb");
-            try
+            Database database = await client.CreateDatabaseIfNotExistsAsync(settings.Database, cancellationToken: cancellationToken);
+
+            if (settings.RecreateContainer)
             {
-                await database.GetContainer("myContainer").DeleteContainerAsync(cancellationToken: cancellationToken);
+                try
+                {
+                    await database.GetContainer(settings.Container).DeleteContainerAsync(cancellationToken: cancellationToken);
+                }
+                catch { }
             }
-            catch { }
-            Container? container = await database.CreateContainerIfNotExistsAsync("myContainer", "/id", cancellationToken: cancellationToken);
+
+            Container? container = await database.CreateContainerIfNotExistsAsync(settings.Container, settings.PartitionKeyPath, cancellationToken: cancellationToken);
 
             var createTasks = new List<Task>();
             await foreach (var source in dataItems.WithCancellation(cancellationToken))
@@ -42,12 +44,6 @@ namespace Microsoft.DataTransfer.CosmosExtension
             }
 
             await Task.WhenAll(createTasks);
-        }
-
-        public Task Configure(IConfiguration configuration)
-        {
-            _connectionString = configuration.GetValue<string>("TargetConnectionString");
-            return Task.CompletedTask;
         }
 
         private static async Task<ItemResponse<ExpandoObject>?> InsertItem(Container container, IDataItem? source, CancellationToken cancellationToken)

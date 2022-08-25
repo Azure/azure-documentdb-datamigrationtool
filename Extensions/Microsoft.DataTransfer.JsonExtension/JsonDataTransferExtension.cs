@@ -6,32 +6,28 @@ using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.DataTransfer.JsonExtension
 {
-    [Export(typeof(IDataTransferExtension))]
-    public class JsonDataTransferExtension : IDataTransferExtension
+    [Export(typeof(IDataSourceExtension))]
+    public class JsonDataSourceExtension : IDataSourceExtension
     {
-        private string? _filepath;
         public string DisplayName => "JSON";
-        public async IAsyncEnumerable<IDataItem> ReadAsSourceAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await using var file = File.OpenRead(_filepath);
-            var list = await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(file, cancellationToken: cancellationToken);
+            var settings = config.Get<JsonSourceSettings>();
+            settings.Validate();
 
-            foreach (var listItem in list)
+            if (settings.FilePath != null)
             {
-                yield return new JsonDictionaryDataItem(listItem);
+                await using var file = File.OpenRead(settings.FilePath);
+                var list = await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(file, cancellationToken: cancellationToken);
+
+                if (list != null)
+                {
+                    foreach (var listItem in list)
+                    {
+                        yield return new JsonDictionaryDataItem(listItem);
+                    }
+                }
             }
-        }
-
-        public Task WriteAsSinkAsync(IAsyncEnumerable<IDataItem> dataItems, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Configure(IConfiguration configuration)
-        {
-            _filepath = configuration.GetValue<string>("FileSource");
-
-            return Task.CompletedTask;
         }
     }
 }

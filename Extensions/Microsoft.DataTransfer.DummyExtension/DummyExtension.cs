@@ -5,26 +5,21 @@ using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.DataTransfer.DummyExtension
 {
-    [Export(typeof(IDataTransferExtension))]    
-    public class DummyExtension : IDataTransferExtension
+    [Export(typeof(IDataSourceExtension))]    
+    public class DummyExtension : IDataSourceExtension, IDataSinkExtension
     {
         public string DisplayName => "Dummy System";
-        public async IAsyncEnumerable<IDataItem> ReadAsSourceAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             Console.WriteLine("Dummy Extension ReadAsSource Executed");
 
             yield break;
         }
 
-        public Task WriteAsSinkAsync(IAsyncEnumerable<IDataItem> dataItems, CancellationToken cancellationToken = default)
+        public Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
         {
             Console.WriteLine("Dummy Extension WriteAsSink Executed");
 
-            return Task.CompletedTask;
-        }
-
-        public Task Configure(IConfiguration configuration)
-        {
             return Task.CompletedTask;
         }
     }

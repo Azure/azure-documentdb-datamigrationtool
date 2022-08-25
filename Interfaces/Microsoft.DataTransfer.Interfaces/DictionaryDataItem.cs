@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Microsoft.DataTransfer.Interfaces
+﻿namespace Microsoft.DataTransfer.Interfaces
 {
     public class DictionaryDataItem : IDataItem
     {
