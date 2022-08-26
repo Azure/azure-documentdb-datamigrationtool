@@ -4,7 +4,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests
 {
     public class MockDataItem : IDataItem
     {
-        public MockDataItem() { }
+        public MockDataItem() { this.Data = new Dictionary<string, object>(); }
         public MockDataItem(Dictionary<string, object> data)
         {
             this.Data = data;
