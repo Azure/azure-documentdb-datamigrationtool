@@ -12,7 +12,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
         public string DisplayName => "JSON";
         public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            var settings = config.Get<JsonSourceSettings>();
+            var settings = config.Get<AzureTableAPISourceSettings>();
             settings.Validate();
 
             if (settings.FilePath != null)
@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
                 {
                     foreach (var listItem in list)
                     {
-                        yield return new JsonDictionaryDataItem(listItem);
+                        yield return new AzureTableAPIDictionaryDataItem(listItem);
                     }
                 }
             }

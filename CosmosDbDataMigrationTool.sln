@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Json
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CosmosExtension", "Extensions\Cosmos\Microsoft.DataTransfer.CosmosExtension\Microsoft.DataTransfer.CosmosExtension.csproj", "{688F9479-06FF-4B8F-9294-369D549C78FD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTableAPIExtension", "Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension\Microsoft.DataTransfer.AzureTableAPIExtension.csproj", "{ca03961c-4330-4ed9-963a-3b63fbc08abb}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cosmos", "Cosmos", "{D0475879-F47F-4D12-9A43-812043CFFD22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Json", "Json", "{84E51D21-FA45-4CCB-94BB-6B6066749A4A}"
@@ -45,6 +47,12 @@ Global
 		{688F9479-06FF-4B8F-9294-369D549C78FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{688F9479-06FF-4B8F-9294-369D549C78FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{688F9479-06FF-4B8F-9294-369D549C78FD}.Release|Any CPU.Build.0 = Release|Any CPU
+
+
+		{ca03961c-4330-4ed9-963a-3b63fbc08abb}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ca03961c-4330-4ed9-963a-3b63fbc08abb}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ca03961c-4330-4ed9-963a-3b63fbc08abb}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ca03961c-4330-4ed9-963a-3b63fbc08abb}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{55355690-D898-4C75-818A-72655DB4495A} = {84E51D21-FA45-4CCB-94BB-6B6066749A4A}
 		{688F9479-06FF-4B8F-9294-369D549C78FD} = {D0475879-F47F-4D12-9A43-812043CFFD22}
+		{ca03961c-4330-4ed9-963a-3b63fbc08abb} = {D0475879-F47F-4D12-9A43-812043CFFD22}
 		{D0475879-F47F-4D12-9A43-812043CFFD22} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
 		{84E51D21-FA45-4CCB-94BB-6B6066749A4A} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
 	EndGlobalSection

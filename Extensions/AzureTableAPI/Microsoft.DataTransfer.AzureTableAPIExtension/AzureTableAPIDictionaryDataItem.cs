@@ -47,9 +47,9 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
             return value;
         }
 
-        private static JsonDictionaryDataItem GetChildObject(JsonElement element)
+        private static AzureTableAPIDictionaryDataItem GetChildObject(JsonElement element)
         {
-            return new JsonDictionaryDataItem(element.EnumerateObject().ToDictionary(p => p.Name, p => (object?)p.Value));
+            return new AzureTableAPIDictionaryDataItem(element.EnumerateObject().ToDictionary(p => p.Name, p => (object?)p.Value));
         }
     }
 }
