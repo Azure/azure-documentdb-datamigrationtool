@@ -193,3 +193,7 @@ ModelManifest.xml
 
 # Visual Studio data
 .vs/
+
+
+# macOS .DS_Store
+**/.DS_Store
