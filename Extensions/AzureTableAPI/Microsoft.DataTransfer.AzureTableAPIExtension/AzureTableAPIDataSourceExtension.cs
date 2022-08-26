@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.Composition;
-using System.Runtime.CompilerServices;
-// using System.Text.Json;
+﻿using Azure;
+using Azure.Data.Tables;
+using Microsoft.DataTransfer.AzureTableAPIExtension.Data;
+using Microsoft.DataTransfer.AzureTableAPIExtension.Settings;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Azure;
+using System.ComponentModel.Composition;
+using System.Runtime.CompilerServices;
 
 namespace Microsoft.DataTransfer.AzureTableAPIExtension
 {
@@ -11,6 +13,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
     public class AzureTableAPIDataSourceExtension : IDataSourceExtension
     {
         public string DisplayName => "AzureTableAPI";
+
         public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var settings = config.Get<AzureTableAPISourceSettings>();
@@ -20,31 +23,18 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
             var tableClient = serviceClient.GetTableClient(settings.Table);
 
             //Pageable<TableEntity> queryResultsFilter = tableClient.Query<TableEntity>(filter: $"PartitionKey eq '{partitionKey}'");
-            AsyncPageable<TableEntity> queryResultsFilter;
+            AsyncPageable<TableEntity> queryResults;
             if (string.IsNullOrWhiteSpace(settings.QueryFilter)) {
-                queryResultsFilter = await tableClient.QueryAsync<TableEntity>(filter: settings.QueryFilter);
+                queryResults = tableClient.QueryAsync<TableEntity>(filter: settings.QueryFilter);
             } else {
-                queryResultsFilter = await tableClient.QueryAsync<TableEntity>();
+                queryResults = tableClient.QueryAsync<TableEntity>();
             }
 
-            foreach (TableEntity entity in queryResultsFilter)
+            var enumerator = queryResults.GetAsyncEnumerator();
+            do
             {
-                Console.WriteLine($"{entity.GetString("Product")}: {entity.GetDouble("Price")}");
-            }
-            // if (settings.FilePath != null)
-            // {
-            //     await using var file = File.OpenRead(settings.FilePath);
-            //     var list = await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(file, cancellationToken: cancellationToken);
-
-            //     if (list != null)
-            //     {
-            //         foreach (var listItem in list)
-            //         {
-            //             yield return new AzureTableAPIDictionaryDataItem(listItem);
-            //         }
-            //     }
-            // }
-
+                yield return new AzureTableAPIDataItem(enumerator.Current);
+            } while (await enumerator.MoveNextAsync());
         }
     }
 }
