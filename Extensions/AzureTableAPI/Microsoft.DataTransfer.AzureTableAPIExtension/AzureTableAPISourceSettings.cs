@@ -6,6 +6,11 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
     public class AzureTableAPISourceSettings : IDataExtensionSettings
     {
         [Required]
-        public string? FilePath { get; set; }
+        public string? ConnectionString { get; set; }
+
+        [Required]
+        public string? Table { get; set; }
+
+        public string? QueryFilter { get; set; }
     }
 }
