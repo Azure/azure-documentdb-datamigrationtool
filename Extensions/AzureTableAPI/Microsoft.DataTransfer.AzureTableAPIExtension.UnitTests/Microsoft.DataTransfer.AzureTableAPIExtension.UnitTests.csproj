@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension\Microsoft.DataTransfer.AzureTableAPIExtension.csproj" />
-    <ProjectReference Include="..\Interfaces\Microsoft.DataTransfer.Interfaces\Microsoft.DataTransfer.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension\Microsoft.DataTransfer.AzureTableAPIExtension.csproj" />
+    <ProjectReference Include="..\..\..\Interfaces\Microsoft.DataTransfer.Interfaces\Microsoft.DataTransfer.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
