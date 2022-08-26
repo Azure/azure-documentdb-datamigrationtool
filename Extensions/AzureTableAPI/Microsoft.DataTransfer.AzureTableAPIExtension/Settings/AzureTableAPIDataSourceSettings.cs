@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.AzureTableAPIExtension.Settings
 {
-    public class AzureTableAPISinkSettings : AzureTableAPISettingsBase
+    public class AzureTableAPIDataSinkSettings : AzureTableAPISettingsBase
     {
         [Required]
         public string? PartitionKeyFieldName { get; set; }

@@ -16,7 +16,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
 
         public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            var settings = config.Get<AzureTableAPISourceSettings>();
+            var settings = config.Get<AzureTableAPIDataSourceSettings>();
             settings.Validate();
 
             var serviceClient = new TableServiceClient(settings.ConnectionString);
@@ -33,7 +33,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
             var enumerator = queryResults.GetAsyncEnumerator();
             do
             {
-                yield return new AzureTableAPIDataItem(enumerator.Current);
+                yield return new AzureTableAPIDataItem(enumerator.Current, settings.PartitionKeyFieldName, settings.RowKeyFieldName);
             } while (await enumerator.MoveNextAsync());
         }
     }

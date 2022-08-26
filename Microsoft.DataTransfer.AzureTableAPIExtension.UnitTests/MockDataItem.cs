@@ -1,0 +1,24 @@
+﻿using Microsoft.DataTransfer.Interfaces;
+
+namespace Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests
+{
+    public class MockDataItem : IDataItem
+    {
+        public MockDataItem() { }
+        public MockDataItem(Dictionary<string, object> data)
+        {
+            this.Data = data;
+        }
+        public Dictionary<string, object> Data;
+
+        public IEnumerable<string> GetFieldNames()
+        {
+            return this.Data.Keys;
+        }
+
+        public object? GetValue(string fieldName)
+        {
+            return this.Data.GetValueOrDefault(fieldName);
+        }
+    }
+}

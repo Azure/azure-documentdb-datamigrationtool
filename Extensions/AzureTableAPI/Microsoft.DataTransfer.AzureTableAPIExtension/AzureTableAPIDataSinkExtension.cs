@@ -22,7 +22,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
 
             await foreach(var item in dataItems)
             {
-                var entity = item.ToTableEntity();
+                var entity = item.ToTableEntity(settings.PartitionKeyFieldName, settings.RowKeyFieldName);
                 await tableClient.AddEntityAsync(entity);
             }
         }
