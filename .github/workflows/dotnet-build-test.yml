@@ -5,6 +5,8 @@ on:
     branches: [ "feature/begin-core" ]
   pull_request:
     branches: [ "feature/begin-core" ]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   build:
