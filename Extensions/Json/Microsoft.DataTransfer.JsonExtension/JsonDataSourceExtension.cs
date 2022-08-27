@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Microsoft.DataTransfer.Interfaces;
+using Microsoft.DataTransfer.JsonExtension.Settings;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.DataTransfer.JsonExtension
