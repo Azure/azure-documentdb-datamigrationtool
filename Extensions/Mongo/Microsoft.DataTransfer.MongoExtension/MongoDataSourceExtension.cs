@@ -2,9 +2,8 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.DataTransfer.Interfaces;
-using System.Text.Json;
 using MongoDB.Bson;
-using System.Data;
+using Microsoft.DataTransfer.MongoExtension.Settings;
 
 namespace Microsoft.DataTransfer.MongoExtension;
 [Export(typeof(IDataSourceExtension))]
