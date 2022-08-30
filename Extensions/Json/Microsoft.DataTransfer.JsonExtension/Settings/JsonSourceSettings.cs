@@ -1,7 +1,7 @@
 ﻿using Microsoft.DataTransfer.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace Microsoft.DataTransfer.JsonExtension
+namespace Microsoft.DataTransfer.JsonExtension.Settings
 {
     public class JsonSourceSettings : IDataExtensionSettings
     {
