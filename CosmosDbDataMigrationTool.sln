@@ -23,7 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Json", "Json", "{84E51D21-F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureTableAPI", "AzureTableAPI", "{CB41F880-D0A5-42C1-9571-479CF7E54D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests", "Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests.csproj", "{F31FADBA-BC78-4839-A9F5-8861695EC95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests", "Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests.csproj", "{F31FADBA-BC78-4839-A9F5-8861695EC95E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mongo", "Mongo", "{F18E789A-D32D-48D3-B75F-1196D7215F74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoExtension", "Extensions\Mongo\Microsoft.DataTransfer.MongoExtension\Microsoft.DataTransfer.MongoExtension.csproj", "{F6EAC33B-9F7D-433B-9328-622FB8938C24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonExtension.UnitTests", "Extensions\Json\Microsoft.DataTransfer.JsonExtension.UnitTests\Microsoft.DataTransfer.JsonExtension.UnitTests.csproj", "{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}"
 EndProject
@@ -61,10 +65,10 @@ Global
 		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF19E602-69E2-4F77-95A6-6F76DBB20624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF19E602-69E2-4F77-95A6-6F76DBB20624}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF19E602-69E2-4F77-95A6-6F76DBB20624}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF19E602-69E2-4F77-95A6-6F76DBB20624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +85,8 @@ Global
 		{84E51D21-FA45-4CCB-94BB-6B6066749A4A} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
 		{CB41F880-D0A5-42C1-9571-479CF7E54D82} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
 		{F31FADBA-BC78-4839-A9F5-8861695EC95E} = {CB41F880-D0A5-42C1-9571-479CF7E54D82}
+		{F18E789A-D32D-48D3-B75F-1196D7215F74} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24} = {F18E789A-D32D-48D3-B75F-1196D7215F74}
 		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F} = {84E51D21-FA45-4CCB-94BB-6B6066749A4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
