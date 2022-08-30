@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mongo", "Mongo", "{F18E789A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoExtension", "Extensions\Mongo\Microsoft.DataTransfer.MongoExtension\Microsoft.DataTransfer.MongoExtension.csproj", "{F6EAC33B-9F7D-433B-9328-622FB8938C24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DataTransfer.JsonExtension.UnitTests", "Extensions\Json\Microsoft.DataTransfer.JsonExtension.UnitTests\Microsoft.DataTransfer.JsonExtension.UnitTests.csproj", "{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonExtension.UnitTests", "Extensions\Json\Microsoft.DataTransfer.JsonExtension.UnitTests\Microsoft.DataTransfer.JsonExtension.UnitTests.csproj", "{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

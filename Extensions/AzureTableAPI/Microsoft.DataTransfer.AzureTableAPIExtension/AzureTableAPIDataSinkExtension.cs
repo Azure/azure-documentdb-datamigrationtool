@@ -3,9 +3,11 @@ using Microsoft.DataTransfer.AzureTableAPIExtension.Data;
 using Microsoft.DataTransfer.AzureTableAPIExtension.Settings;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel.Composition;
 
 namespace Microsoft.DataTransfer.AzureTableAPIExtension
 {
+    [Export(typeof(IDataSinkExtension))]
     public class AzureTableAPIDataSinkExtension : IDataSinkExtension
     {
         public string DisplayName => "AzureTableAPI";
@@ -20,11 +22,14 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
 
             await tableClient.CreateIfNotExistsAsync();
 
-            await foreach(var item in dataItems)
+            var createTasks = new List<Task>();
+            await foreach(var item in dataItems.WithCancellation(cancellationToken))
             {
-                var entity = item.ToTableEntity(settings.PartitionKeyFieldName, settings.RowKeyFieldName);
-                await tableClient.AddEntityAsync(entity);
+               var entity = item.ToTableEntity(settings.PartitionKeyFieldName, settings.RowKeyFieldName);
+               createTasks.Add(tableClient.AddEntityAsync(entity));
             }
+
+            await Task.WhenAll(createTasks);
         }
     }
 }
