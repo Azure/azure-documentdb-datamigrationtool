@@ -48,26 +48,48 @@ namespace Microsoft.DataTransfer.JsonExtension
             foreach (string fieldName in item.GetFieldNames())
             {
                 var fieldValue = item.GetValue(fieldName);
-                if (fieldValue == null)
+                WriteFieldValue(writer, fieldName, fieldValue, settings);
+            }
+
+            writer.WriteEndObject();
+        }
+
+        private static void WriteFieldValue(Utf8JsonWriter writer, string fieldName, object? fieldValue, JsonSinkSettings settings)
+        {
+            if (fieldValue == null)
+            {
+                if (settings.IncludeNullFields)
                 {
-                    if (settings.IncludeNullFields)
-                    {
-                        writer.WriteNull(fieldName);
-                    }
-
-                    continue;
+                    writer.WriteNull(fieldName);
                 }
-
+            }
+            else
+            {
                 if (fieldValue is IDataItem child)
                 {
                     WriteDataItem(settings, writer, child, fieldName);
                 }
-                else if (fieldValue is IEnumerable<IDataItem> children)
+                else if (fieldValue is IEnumerable<object> children)
                 {
                     writer.WriteStartArray(fieldName);
-                    foreach (IDataItem arrayItem in children)
+                    foreach (object arrayItem in children)
                     {
-                        WriteDataItem(settings, writer, arrayItem);
+                        if (arrayItem is IDataItem arrayChild)
+                        {
+                            WriteDataItem(settings, writer, arrayChild);
+                        }
+                        else if(TryGetNumber(arrayItem, out var number))
+                        {
+                            writer.WriteNumberValue(number);
+                        }
+                        else if (arrayItem is bool boolean)
+                        {
+                            writer.WriteBooleanValue(boolean);
+                        }
+                        else
+                        {
+                            writer.WriteStringValue(arrayItem.ToString());
+                        }
                     }
                     writer.WriteEndArray();
                 }
@@ -84,8 +106,6 @@ namespace Microsoft.DataTransfer.JsonExtension
                     writer.WriteString(fieldName, fieldValue.ToString());
                 }
             }
-
-            writer.WriteEndObject();
         }
 
         private static bool TryGetNumber(object x, out double number)

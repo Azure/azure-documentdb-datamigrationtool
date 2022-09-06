@@ -9,7 +9,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
     [Export(typeof(IDataSinkExtension))]
     public class CosmosDataSinkExtension : IDataSinkExtension
     {
-        public string DisplayName => "Cosmos DB";
+        public string DisplayName => "Cosmos";
 
         public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
         {
@@ -96,9 +96,16 @@ namespace Microsoft.DataTransfer.CosmosExtension
                 {
                     value = BuildObject(child);
                 }
-                else if (value is IEnumerable<IDataItem> array)
+                else if (value is IEnumerable<object?> array)
                 {
-                    value = array.Select(dataItem => BuildObject(dataItem)).ToArray();
+                    value = array.Select(dataItem =>
+                    {
+                        if (dataItem is IDataItem childObject)
+                        {
+                            return BuildObject(childObject);
+                        }
+                        return dataItem;
+                    }).ToArray();
                 }
 
                 item.TryAdd(field, value);

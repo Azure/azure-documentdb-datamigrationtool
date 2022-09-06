@@ -26,25 +26,30 @@ namespace Microsoft.DataTransfer.JsonExtension
 
             if (value is JsonElement element)
             {
-                JsonValueKind kind = element.ValueKind;
-                switch (kind)
-                {
-                    case JsonValueKind.String:
-                        return element.GetString();
-                    case JsonValueKind.Number:
-                        return element.GetDouble();
-                    case JsonValueKind.True:
-                        return true;
-                    case JsonValueKind.False:
-                        return false;
-                    case JsonValueKind.Object:
-                        return GetChildObject(element);
-                    case JsonValueKind.Array:
-                        return element.EnumerateArray().Select(GetChildObject).ToList();
-                }
-                return element.GetRawText();
+                return GetElementValue(element);
             }
             return value;
+        }
+
+        private static object? GetElementValue(JsonElement element)
+        {
+            JsonValueKind kind = element.ValueKind;
+            switch (kind)
+            {
+                case JsonValueKind.String:
+                    return element.GetString();
+                case JsonValueKind.Number:
+                    return element.GetDouble();
+                case JsonValueKind.True:
+                    return true;
+                case JsonValueKind.False:
+                    return false;
+                case JsonValueKind.Object:
+                    return GetChildObject(element);
+                case JsonValueKind.Array:
+                    return element.EnumerateArray().Select(GetElementValue).ToList();
+            }
+            return element.GetRawText();
         }
 
         private static JsonDictionaryDataItem GetChildObject(JsonElement element)
