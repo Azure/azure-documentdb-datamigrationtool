@@ -7,6 +7,11 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension.Data
     {
         public AzureTableAPIDataItem(TableEntity entity, string? partitionKeyFieldName, string? rowKeyFieldName)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
             this.Entity = entity;
             this.PartitionKeyFieldName = partitionKeyFieldName;
             this.RowKeyFieldName = rowKeyFieldName;
@@ -34,7 +39,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension.Data
                 keys.Add(this.RowKeyFieldName);
             }
 
-            return Entity.Keys;
+            return keys;
         }
 
         public object? GetValue(string fieldName)

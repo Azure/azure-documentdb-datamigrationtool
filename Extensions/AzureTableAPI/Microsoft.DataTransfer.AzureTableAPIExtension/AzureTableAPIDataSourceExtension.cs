@@ -24,17 +24,21 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
 
             //Pageable<TableEntity> queryResultsFilter = tableClient.Query<TableEntity>(filter: $"PartitionKey eq '{partitionKey}'");
             AsyncPageable<TableEntity> queryResults;
-            if (string.IsNullOrWhiteSpace(settings.QueryFilter)) {
+            if (!string.IsNullOrWhiteSpace(settings.QueryFilter)) {
                 queryResults = tableClient.QueryAsync<TableEntity>(filter: settings.QueryFilter);
             } else {
                 queryResults = tableClient.QueryAsync<TableEntity>();
             }
 
             var enumerator = queryResults.GetAsyncEnumerator();
-            do
+            while (await enumerator.MoveNextAsync())
             {
                 yield return new AzureTableAPIDataItem(enumerator.Current, settings.PartitionKeyFieldName, settings.RowKeyFieldName);
-            } while (await enumerator.MoveNextAsync());
+            }
+            //do
+            //{
+            //    yield return new AzureTableAPIDataItem(enumerator.Current, settings.PartitionKeyFieldName, settings.RowKeyFieldName);
+            //} while (await enumerator.MoveNextAsync());
         }
     }
 }

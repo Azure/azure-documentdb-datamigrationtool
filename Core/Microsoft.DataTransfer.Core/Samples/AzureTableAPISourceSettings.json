@@ -1,0 +1,7 @@
+{
+  "ConnectionString": "DefaultEndpointsProtocol=https;AccountName=cosmosmigrationtable;AccountKey=<key>;EndpointSuffix=core.windows.net",
+  "Table": "SourceTable1",
+  "PartitionKeyFieldName": "State",
+  "RowKeyFieldName": "id"
+}
+  
