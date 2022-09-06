@@ -26,7 +26,8 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - uses: actions/upload-artifact@v3
+    - name: Debug Build Artifact
+      uses: actions/upload-artifact@v3
       with:
         name: debug-build
         path: /home/runner/work/azure-documentdb-datamigrationtool/azure-documentdb-datamigrationtool/Core/Microsoft.DataTransfer.Core/bin/Debug/net6.0 #path/to/artifact/ # or path/to/artifact  
