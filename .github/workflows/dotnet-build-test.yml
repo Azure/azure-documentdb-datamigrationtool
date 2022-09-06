@@ -28,5 +28,5 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: build
-        path: /home/runner/work/azure-documentdb-datamigrationtool/azure-documentdb-datamigrationtool #path/to/artifact/ # or path/to/artifact  
+        name: debug-build
+        path: /home/runner/work/azure-documentdb-datamigrationtool/azure-documentdb-datamigrationtool/Core/Microsoft.DataTransfer.Core/bin/Debug/net6.0 #path/to/artifact/ # or path/to/artifact  
