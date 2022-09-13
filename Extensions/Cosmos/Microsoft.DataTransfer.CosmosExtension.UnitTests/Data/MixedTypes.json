@@ -1,0 +1,19 @@
+{
+  "id": 2,
+  "name": "Matt",
+  "otherNames": [
+    "One",
+    "Two",
+    "Three"
+  ],
+  "mixed": [
+    1,
+    true,
+    3,
+    "four",
+    {
+      "letter": "E",
+      "number": 6
+    }
+  ]
+}
