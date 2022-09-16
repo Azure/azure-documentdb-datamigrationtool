@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,10 +38,10 @@ class Program
         Console.WriteLine($"{sources.Count + sinks.Count} Extensions Loaded");
 
         var source = GetExtensionSelection(options.Source, sources, "Source");
-        var sink = GetExtensionSelection(options.Sink, sinks, "Sink");
+        var sourceConfig = BuildSettingsConfiguration(configuration, options.SourceSettingsPath, $"{source.DisplayName}SourceSettings");
 
-        var sourceConfig = BuildSettingsConfiguration(configuration, options.SourceSettingsPath, "SourceSettings");
-        var sinkConfig = BuildSettingsConfiguration(configuration, options.SinkSettingsPath, "SinkSettings");
+        var sink = GetExtensionSelection(options.Sink, sinks, "Sink");
+        var sinkConfig = BuildSettingsConfiguration(configuration, options.SinkSettingsPath, $"{sink.DisplayName}SinkSettings");
 
         var data = source.ReadAsync(sourceConfig);
         await sink.WriteAsync(data, sinkConfig);
@@ -104,9 +105,42 @@ class Program
         {
             configurationBuilder = configurationBuilder.AddJsonFile(settingsPath);
         }
+        else
+        {
+            Console.Write($"Load settings from a file? (y/n):");
+            var response = Console.ReadLine();
+            if (IsYesResponse(response))
+            {
+                Console.Write("Path to file: ");
+                var path = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    configurationBuilder = configurationBuilder.AddJsonFile(path);
+                }
+            }
+            else
+            {
+                Console.Write($"Configuration section to read settings? (default={configSection}):");
+                response = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(response))
+                {
+                    configSection = response;
+                }
+            }
+        }
 
         return configurationBuilder
             .AddConfiguration(configuration.GetSection(configSection))
             .Build();
+    }
+
+    private static bool IsYesResponse(string? response)
+    {
+        if (response?.Equals("y", StringComparison.CurrentCultureIgnoreCase) == true)
+            return true;
+        if (response?.Equals("yes", StringComparison.CurrentCultureIgnoreCase) == true)
+            return true;
+
+        return false;
     }
 }
