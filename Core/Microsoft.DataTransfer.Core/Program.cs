@@ -29,7 +29,7 @@ class Program
         {
             Directory.CreateDirectory("Extensions");
         }
-        catalog.Catalogs.Add(new DirectoryCatalog("Extensions"));
+        catalog.Catalogs.Add(new DirectoryCatalog("Extensions", "*Extension.dll"));
         var container = new CompositionContainer(catalog);
 
         var sources = LoadExtensions<IDataSourceExtension>(container);

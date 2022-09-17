@@ -79,18 +79,20 @@ namespace Microsoft.DataTransfer.CosmosExtension
             if (source == null)
                 return null;
 
-            var fields = source.GetFieldNames();
+            var fields = source.GetFieldNames().ToList();
             var item = new ExpandoObject();
-            if (requireStringId && !fields.Contains("id"))
+            if (requireStringId && !fields.Contains("id", StringComparer.CurrentCultureIgnoreCase))
             {
                 item.TryAdd("id", Guid.NewGuid().ToString());
             }
             foreach (string field in fields)
             {
                 object? value = source.GetValue(field);
+                var fieldName = field;
                 if (string.Equals(field, "id", StringComparison.CurrentCultureIgnoreCase) && requireStringId)
                 {
                     value = value?.ToString();
+                    fieldName = "id";
                 }
                 else if (value is IDataItem child)
                 {
@@ -108,7 +110,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
                     }).ToArray();
                 }
 
-                item.TryAdd(field, value);
+                item.TryAdd(fieldName, value);
             }
 
             return item;

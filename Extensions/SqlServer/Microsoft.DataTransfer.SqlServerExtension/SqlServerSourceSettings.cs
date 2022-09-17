@@ -7,5 +7,9 @@ namespace Microsoft.DataTransfer.SqlServerExtension
     {
         [Required]
         public string? ConnectionString { get; set; }
+
+        [Required]
+        public string? QueryText { get; set; }
+
     }
 }
