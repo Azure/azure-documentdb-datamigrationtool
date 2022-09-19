@@ -15,6 +15,10 @@
     "SqlServer->Cosmos": {
       "commandName": "Project",
       "commandLineArgs": "--source sqlServer --sink cosmos --SourceSettingsPath=c:\\temp\\SqlSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
+    },
+    "JSON->SqlServer": {
+      "commandName": "Project",
+      "commandLineArgs": "--source json --sink sqlServer --JsonSourceSettings:FilePath=c:\\temp\\test-json-sql-in.json --SinkSettingsPath=c:\\temp\\SqlSinkSettings.json"
     }
   }
 }
