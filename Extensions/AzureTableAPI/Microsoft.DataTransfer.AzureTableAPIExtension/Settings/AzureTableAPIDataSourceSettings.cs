@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.AzureTableAPIExtension.Settings
 {
-    public class AzureTableAPIDataSinkSettings : AzureTableAPISettingsBase
+    public class AzureTableAPIDataSourceSettings : AzureTableAPISettingsBase
     {
+        public string? QueryFilter { get; set; }
     }
 }
