@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.DataTransfer.Interfaces;
+﻿using Microsoft.DataTransfer.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.DataTransfer.CosmosExtension

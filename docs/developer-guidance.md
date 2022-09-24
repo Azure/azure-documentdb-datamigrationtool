@@ -59,11 +59,11 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The New Container blade displays with btcdata entered in the Container id field and /id entered in the Partition key field. The OK button is highlighted.](media/cosmosdbemulator_newcontainerform.png "New Container blade")
 
-    >**Note**: When using the Cosmos DB Data Migration tool, the container doesn't have to previously exist, it will be created automatically using /id as the partition key. If a different partition key is desired, create the container beforehand as done in this tutorial.
+    >**Note**: When using the Cosmos DB Data Migration tool, the container doesn't have to previously exist, it will be created automatically using the partition key specified in the sink configuration.
 
 ### Task 2: Prepare JSON source documents
 
-1. Locate the **docs/resources/sample-data.zip** file. Extract the files to any desired folder. These files serve as the JSON data that is migrated to Cosmos DB. This path is now referred to as **Source Path**.
+1. Locate the **docs/resources/sample-data.zip** file. Extract the files to any desired folder. These files serve as the JSON data that is to be migrated to Cosmos DB.
 
 ### Task 3: Setup the data migration configuration
 
@@ -74,18 +74,22 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
     ```json
     {
         "JSONSourceSettings": {
-            "FilePath": "C:\\btcdata"
+            "FilePath": "C:\\btcdata\\simple_json.json"
         },
         "CosmosSinkSettings": {
             "ConnectionString": "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDj...",
             "Database": "datamigration",
             "Container": "btcdata",
+            "PartitionKeyPath": "/id",
+            "RecreateContainer": false,
             "IncludeMetadataFields": false
         }
     }
     ```
 
     ![The Cosmos DB Emulator Quickstart screen displays with the Primary Connection String value highlighted.](media/cosmosemulator_primaryconnectionstring.png "Cosmos DB Emulator Primary Connection String")
+
+    >**NOTE**: Currently the Cosmos DB Data migration tool expects a single JSON file containing an array of objects.
 
 3. Ensure the **Microsoft.DataTransfer.Core** project is set as the startup project then press <kbd>F5</kbd> to run the application.
 
@@ -97,7 +101,9 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The Data migration application displays with a menu prompt for Sink.](media/app_sink_prompt.png "Select Sink")
 
-6. The application then performs the data migration.
+6. The application then performs the data migration. After a few moments the process will indicate **Done.**.
+
+    ![The Data migration application displays with the full output of the migration including the Done message.](media/app_final.png "Data Migration completes")
 
 ## Creating Extensions
 
