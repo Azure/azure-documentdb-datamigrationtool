@@ -9,15 +9,16 @@ Source and sink settings both require a `FilePath` parameter, which should speci
 ### Source
 
 ```json
-{
+"JsonSourceSettings": {
     "FilePath": ""
 }
+
 ```
 
 ### Sink
 
 ```json
-{
+"JsonSinkSettings": {
     "FilePath": "",
     "Indented": true
 }
