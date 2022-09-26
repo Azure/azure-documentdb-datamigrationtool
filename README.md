@@ -27,3 +27,7 @@ The Cosmos DB Data Migration Tool core project is a C# command-line executable. 
 ![The project consists of a core application executable project as well as a shared interface project. Each extension will consist of an extension project plus integration test project. A core unit test project exercises the core application functionality.](media/project_structure.png "Project structure")
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+## Documentation
+
+[Initial usage documentation](docs/developer-guidance.md).

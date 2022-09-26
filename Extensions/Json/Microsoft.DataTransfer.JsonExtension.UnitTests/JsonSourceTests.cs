@@ -1,5 +1,4 @@
 using Microsoft.DataTransfer.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.DataTransfer.JsonExtension.UnitTests
 {

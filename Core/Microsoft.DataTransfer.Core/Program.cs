@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition.Hosting;
-using System.IO;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

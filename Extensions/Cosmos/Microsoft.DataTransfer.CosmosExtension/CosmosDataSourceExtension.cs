@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.DataTransfer.CosmosExtension
 {
