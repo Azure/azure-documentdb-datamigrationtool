@@ -62,6 +62,10 @@ namespace Microsoft.DataTransfer.SqlServerExtension
                                     
                                     if (value != null || mapping.AllowNull)
                                     {
+                                        if (value is IDataItem child)
+                                        {
+                                            value = child.AsJsonString(false, false);
+                                        }
                                         row[column.ColumnName] = value;
                                     }
                                     else
