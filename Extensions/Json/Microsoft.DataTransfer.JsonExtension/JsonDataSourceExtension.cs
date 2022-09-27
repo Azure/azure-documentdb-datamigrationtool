@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.DataTransfer.JsonExtension.Settings;
@@ -18,17 +19,64 @@ namespace Microsoft.DataTransfer.JsonExtension
 
             if (settings.FilePath != null)
             {
-                await using var file = File.OpenRead(settings.FilePath);
-                var list = await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(file, cancellationToken: cancellationToken);
-
-                if (list != null)
+                if (File.Exists(settings.FilePath))
                 {
-                    foreach (var listItem in list)
+                    var list = await ReadFileAsync(cancellationToken, settings.FilePath);
+
+                    if (list != null)
                     {
-                        yield return new JsonDictionaryDataItem(listItem);
+                        foreach (var listItem in list)
+                        {
+                            yield return new JsonDictionaryDataItem(listItem);
+                        }
+                    }
+                }
+                else if (Directory.Exists(settings.FilePath))
+                {
+                    foreach (string filePath in Directory.GetFiles(settings.FilePath, "*.json", SearchOption.AllDirectories).OrderBy(f => f))
+                    {
+                        var list = await ReadFileAsync(cancellationToken, filePath);
+
+                        if (list != null)
+                        {
+                            foreach (var listItem in list)
+                            {
+                                yield return new JsonDictionaryDataItem(listItem);
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        private static async Task<List<Dictionary<string, object?>>?> ReadFileAsync(CancellationToken cancellationToken, string filePath)
+        {
+            var file = await File.ReadAllTextAsync(filePath, cancellationToken);
+            try
+            {
+                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
+                return await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(stream, cancellationToken: cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                // list failed
+            }
+
+            var list = new List<Dictionary<string, object?>>();
+            try
+            {
+                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
+                var item = await JsonSerializer.DeserializeAsync<Dictionary<string, object?>>(stream, cancellationToken: cancellationToken);
+                if (item != null)
+                {
+                    list.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                // single item failed
+            }
+            return list;
         }
     }
 }
