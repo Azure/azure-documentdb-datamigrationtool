@@ -22,7 +22,7 @@ Source supports an optional `IncludeMetadataFields` parameter (`false` by defaul
 }
 ```
 
-Sink requires an additional `PartitionKeyPath` parameter which is used when creating the container if it does not exist. It also supports an optional `RecreateContainer` parameter (`false` by default) to delete and then recreate the container to ensure only newly imported data is present.
+Sink requires an additional `PartitionKeyPath` parameter which is used when creating the container if it does not exist. It also supports an optional `RecreateContainer` parameter (`false` by default) to delete and then recreate the container to ensure only newly imported data is present. The optional `BatchSize` parameter (100 by default) sets the number of items to accumulate before inserting.
 
 ### Sink
 
@@ -32,6 +32,7 @@ Sink requires an additional `PartitionKeyPath` parameter which is used when crea
     "Database":"myDb",
     "Container":"myContainer",
     "PartitionKeyPath":"/id",
-    "RecreateContainer": false
+    "RecreateContainer": false,
+    "BatchSize": 100
 }
 ```

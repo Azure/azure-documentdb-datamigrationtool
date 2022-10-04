@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Dynamic;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Polly;
+using Polly.Retry;
 
 namespace Microsoft.DataTransfer.CosmosExtension
 {
@@ -36,42 +39,65 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
             Container? container = await database.CreateContainerIfNotExistsAsync(settings.Container, settings.PartitionKeyPath, cancellationToken: cancellationToken);
 
-            var createTasks = new List<Task>();
-            await foreach (var source in dataItems.WithCancellation(cancellationToken))
+            int insertCount = 0;
+
+            var timer = Stopwatch.StartNew();
+            void ReportCount(int i)
             {
-                var task = InsertItem(container, source, cancellationToken);
-                createTasks.Add(task);
+                insertCount += i;
+                if (insertCount % 500 == 0)
+                {
+                    Console.WriteLine($"{insertCount} records added after {timer.ElapsedMilliseconds / 1000.0:F2}s");
+                }
             }
 
-            await Task.WhenAll(createTasks);
+            var convertedObjects = dataItems.Select(di => BuildObject(di, true)).Where(o => o != null).OfType<ExpandoObject>();
+            var batches = convertedObjects.Buffer(settings.BatchSize);
+            var retry = GetRetryPolicy();
+            await foreach (var batch in batches.WithCancellation(cancellationToken))
+            {
+                var insertTasks = batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
+
+                var results = await Task.WhenAll(insertTasks);
+                ReportCount(results.Sum());
+            }
+
+            Console.WriteLine($"Added {insertCount} total records in {timer.ElapsedMilliseconds / 1000.0:F2}s");
         }
 
-        private static async Task<ItemResponse<ExpandoObject>?> InsertItem(Container container, IDataItem? source, CancellationToken cancellationToken)
+        private static AsyncRetryPolicy GetRetryPolicy()
         {
-            ExpandoObject? item = BuildObject(source, true);
-            if (item == null)
-                return null;
+            const int retryCount = 5;
+            const int retryDelayBaseMs = 100;
 
-            try
-            {
-                ItemResponse<ExpandoObject> itemResponse = await container.CreateItemAsync(item, cancellationToken: cancellationToken);
-                if (itemResponse.StatusCode != System.Net.HttpStatusCode.OK && itemResponse.StatusCode != System.Net.HttpStatusCode.Created)
+            var jitter = new Random();
+            var retryPolicy = Policy
+                .Handle<CosmosException>(c => c.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+                .WaitAndRetryAsync(retryCount,
+                    retryAttempt => TimeSpan.FromMilliseconds(Math.Pow(2, retryAttempt) * retryDelayBaseMs + jitter.Next(0, retryDelayBaseMs))
+                );
+
+            return retryPolicy;
+        }
+
+        private static Task<int> InsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
+        {
+            var task = retryPolicy.ExecuteAsync(() => container.CreateItemAsync(item, cancellationToken: cancellationToken))
+                .ContinueWith(t =>
                 {
-                    // TODO: report errors
-                }
+                    if (t.IsCompletedSuccessfully)
+                    {
+                        return 1;
+                    }
 
-                return itemResponse;
-            }
-            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Conflict)
-            {
-                // TODO: item already exists, use upsert instead based on config?
-                return null;
-            }
-            catch (Exception ex)
-            {
-                // TODO: report errors
-                return null;
-            }
+                    if (t.IsFaulted)
+                    {
+                        Console.WriteLine($"Error adding record: {t.Exception?.Message}");
+                    }
+
+                    return 0;
+                }, cancellationToken);
+            return task;
         }
 
         private static ExpandoObject? BuildObject(IDataItem? source, bool requireStringId = false)
