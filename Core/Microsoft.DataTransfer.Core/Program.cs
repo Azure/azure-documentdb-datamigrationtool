@@ -28,7 +28,7 @@ class Program
         {
             Directory.CreateDirectory("Extensions");
         }
-        catalog.Catalogs.Add(new DirectoryCatalog("Extensions"));
+        catalog.Catalogs.Add(new DirectoryCatalog("Extensions", "*Extension.dll"));
         var container = new CompositionContainer(catalog);
 
         var sources = LoadExtensions<IDataSourceExtension>(container);
@@ -37,10 +37,10 @@ class Program
         Console.WriteLine($"{sources.Count + sinks.Count} Extensions Loaded");
 
         var source = GetExtensionSelection(options.Source, sources, "Source");
-        var sourceConfig = BuildSettingsConfiguration(configuration, options.SourceSettingsPath, $"{source.DisplayName}SourceSettings");
+        var sourceConfig = BuildSettingsConfiguration(configuration, options.SourceSettingsPath, $"{source.DisplayName}SourceSettings", options.Source == null);
 
         var sink = GetExtensionSelection(options.Sink, sinks, "Sink");
-        var sinkConfig = BuildSettingsConfiguration(configuration, options.SinkSettingsPath, $"{sink.DisplayName}SinkSettings");
+        var sinkConfig = BuildSettingsConfiguration(configuration, options.SinkSettingsPath, $"{sink.DisplayName}SinkSettings", options.Sink == null);
 
         var data = source.ReadAsync(sourceConfig);
         await sink.WriteAsync(data, sinkConfig);
@@ -97,14 +97,14 @@ class Program
         return extensions[input - 1];
     }
 
-    private static IConfiguration BuildSettingsConfiguration(IConfiguration configuration, string? settingsPath, string configSection)
+    private static IConfiguration BuildSettingsConfiguration(IConfiguration configuration, string? settingsPath, string configSection, bool promptForFile)
     {
         IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         if (!string.IsNullOrEmpty(settingsPath))
         {
             configurationBuilder = configurationBuilder.AddJsonFile(settingsPath);
         }
-        else
+        else if (promptForFile)
         {
             Console.Write($"Load settings from a file? (y/n):");
             var response = Console.ReadLine();
