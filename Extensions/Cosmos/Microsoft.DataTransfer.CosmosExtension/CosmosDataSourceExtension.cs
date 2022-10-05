@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Microsoft.DataTransfer.CosmosExtension
 {
@@ -30,6 +31,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
                 requestOptions.PartitionKey = new PartitionKey(settings.PartitionKey);
             }
 
+            Console.WriteLine($"Reading from {settings.Database}.{settings.Container}");
             using FeedIterator<Dictionary<string, object?>> feedIterator = GetFeedIterator<Dictionary<string, object?>>(settings, container, requestOptions);
             while (feedIterator.HasMoreResults)
             {

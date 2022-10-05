@@ -5,6 +5,7 @@ using System.Text.Json;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.DataTransfer.JsonExtension.Settings;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Microsoft.DataTransfer.JsonExtension
 {
@@ -21,6 +22,7 @@ namespace Microsoft.DataTransfer.JsonExtension
             {
                 if (File.Exists(settings.FilePath))
                 {
+                    Console.WriteLine($"Reading file '{settings.FilePath}'");
                     var list = await ReadFileAsync(cancellationToken, settings.FilePath);
 
                     if (list != null)
@@ -33,8 +35,11 @@ namespace Microsoft.DataTransfer.JsonExtension
                 }
                 else if (Directory.Exists(settings.FilePath))
                 {
-                    foreach (string filePath in Directory.GetFiles(settings.FilePath, "*.json", SearchOption.AllDirectories).OrderBy(f => f))
+                    string[] files = Directory.GetFiles(settings.FilePath, "*.json", SearchOption.AllDirectories);
+                    Console.WriteLine($"Reading {files.Length} files from '{settings.FilePath}'");
+                    foreach (string filePath in files.OrderBy(f => f))
                     {
+                        Console.WriteLine($"Reading file '{filePath}'");
                         var list = await ReadFileAsync(cancellationToken, filePath);
 
                         if (list != null)
@@ -46,6 +51,7 @@ namespace Microsoft.DataTransfer.JsonExtension
                         }
                     }
                 }
+                Console.WriteLine($"Completed reading '{settings.FilePath}'");
             }
         }
 
@@ -76,6 +82,12 @@ namespace Microsoft.DataTransfer.JsonExtension
             {
                 // single item failed
             }
+
+            if (!list.Any())
+            {
+                Console.WriteLine($"No records read from '{filePath}'");
+            }
+
             return list;
         }
     }

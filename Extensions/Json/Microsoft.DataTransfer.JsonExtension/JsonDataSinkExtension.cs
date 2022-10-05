@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using System;
 using Microsoft.DataTransfer.JsonExtension.Settings;
 
 namespace Microsoft.DataTransfer.JsonExtension
@@ -18,6 +19,7 @@ namespace Microsoft.DataTransfer.JsonExtension
 
             if (settings.FilePath != null)
             {
+                Console.WriteLine($"Writing to file '{settings.FilePath}'");
                 await using var stream = File.Create(settings.FilePath);
                 await using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions
                 {
@@ -31,6 +33,7 @@ namespace Microsoft.DataTransfer.JsonExtension
                 }
 
                 writer.WriteEndArray();
+                Console.WriteLine($"Completed writing data to file '{settings.FilePath}'");
             }
         }
 
