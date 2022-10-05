@@ -1,0 +1,102 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Core", "Core\Microsoft.DataTransfer.Core\Microsoft.DataTransfer.Core.csproj", "{A164C7E5-E6FB-43B3-85B1-C67FFDFE330A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Interfaces", "Interfaces\Microsoft.DataTransfer.Interfaces\Microsoft.DataTransfer.Interfaces.csproj", "{2A3EE681-C7CD-4062-913B-737E6265CEF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.Core.UnitTests", "Core\Microsoft.DataTransfer.Core.UnitTests\Microsoft.DataTransfer.Core.UnitTests.csproj", "{7339C831-B668-4CF9-951C-E2F4AE951996}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{A8A1CEAB-2D82-460C-9B86-74ABD17CD201}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonExtension", "Extensions\Json\Microsoft.DataTransfer.JsonExtension\Microsoft.DataTransfer.JsonExtension.csproj", "{55355690-D898-4C75-818A-72655DB4495A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CosmosExtension", "Extensions\Cosmos\Microsoft.DataTransfer.CosmosExtension\Microsoft.DataTransfer.CosmosExtension.csproj", "{688F9479-06FF-4B8F-9294-369D549C78FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTableAPIExtension", "Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension\Microsoft.DataTransfer.AzureTableAPIExtension.csproj", "{CA03961C-4330-4ED9-963A-3B63FBC08ABB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cosmos", "Cosmos", "{D0475879-F47F-4D12-9A43-812043CFFD22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Json", "Json", "{84E51D21-FA45-4CCB-94BB-6B6066749A4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureTableAPI", "AzureTableAPI", "{CB41F880-D0A5-42C1-9571-479CF7E54D82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests", "Extensions\AzureTableAPI\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests\Microsoft.DataTransfer.AzureTableAPIExtension.UnitTests.csproj", "{F31FADBA-BC78-4839-A9F5-8861695EC95E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mongo", "Mongo", "{F18E789A-D32D-48D3-B75F-1196D7215F74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.MongoExtension", "Extensions\Mongo\Microsoft.DataTransfer.MongoExtension\Microsoft.DataTransfer.MongoExtension.csproj", "{F6EAC33B-9F7D-433B-9328-622FB8938C24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.JsonExtension.UnitTests", "Extensions\Json\Microsoft.DataTransfer.JsonExtension.UnitTests\Microsoft.DataTransfer.JsonExtension.UnitTests.csproj", "{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DataTransfer.CosmosExtension.UnitTests", "Extensions\Cosmos\Microsoft.DataTransfer.CosmosExtension.UnitTests\Microsoft.DataTransfer.CosmosExtension.UnitTests.csproj", "{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A164C7E5-E6FB-43B3-85B1-C67FFDFE330A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A164C7E5-E6FB-43B3-85B1-C67FFDFE330A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A164C7E5-E6FB-43B3-85B1-C67FFDFE330A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A164C7E5-E6FB-43B3-85B1-C67FFDFE330A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A3EE681-C7CD-4062-913B-737E6265CEF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3EE681-C7CD-4062-913B-737E6265CEF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3EE681-C7CD-4062-913B-737E6265CEF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3EE681-C7CD-4062-913B-737E6265CEF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7339C831-B668-4CF9-951C-E2F4AE951996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7339C831-B668-4CF9-951C-E2F4AE951996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7339C831-B668-4CF9-951C-E2F4AE951996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7339C831-B668-4CF9-951C-E2F4AE951996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55355690-D898-4C75-818A-72655DB4495A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55355690-D898-4C75-818A-72655DB4495A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55355690-D898-4C75-818A-72655DB4495A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55355690-D898-4C75-818A-72655DB4495A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688F9479-06FF-4B8F-9294-369D549C78FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688F9479-06FF-4B8F-9294-369D549C78FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688F9479-06FF-4B8F-9294-369D549C78FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688F9479-06FF-4B8F-9294-369D549C78FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA03961C-4330-4ED9-963A-3B63FBC08ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA03961C-4330-4ED9-963A-3B63FBC08ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA03961C-4330-4ED9-963A-3B63FBC08ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA03961C-4330-4ED9-963A-3B63FBC08ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31FADBA-BC78-4839-A9F5-8861695EC95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55355690-D898-4C75-818A-72655DB4495A} = {84E51D21-FA45-4CCB-94BB-6B6066749A4A}
+		{688F9479-06FF-4B8F-9294-369D549C78FD} = {D0475879-F47F-4D12-9A43-812043CFFD22}
+		{CA03961C-4330-4ED9-963A-3B63FBC08ABB} = {CB41F880-D0A5-42C1-9571-479CF7E54D82}
+		{D0475879-F47F-4D12-9A43-812043CFFD22} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
+		{84E51D21-FA45-4CCB-94BB-6B6066749A4A} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
+		{CB41F880-D0A5-42C1-9571-479CF7E54D82} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
+		{F31FADBA-BC78-4839-A9F5-8861695EC95E} = {CB41F880-D0A5-42C1-9571-479CF7E54D82}
+		{F18E789A-D32D-48D3-B75F-1196D7215F74} = {A8A1CEAB-2D82-460C-9B86-74ABD17CD201}
+		{F6EAC33B-9F7D-433B-9328-622FB8938C24} = {F18E789A-D32D-48D3-B75F-1196D7215F74}
+		{ED1E375E-A5A3-47EA-A7D5-07344C7E152F} = {84E51D21-FA45-4CCB-94BB-6B6066749A4A}
+		{C7A3910D-A7F6-4767-9A7A-19CFA4CCB7A8} = {D0475879-F47F-4D12-9A43-812043CFFD22}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {662B3F27-70D8-45E6-A1C0-1438A9C8A542}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Microsoft.DataTransfer.Core": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
+    "JSON->Cosmos": {
+      "commandName": "Project",
+      "commandLineArgs": "--source json --sink cosmos --SourceSettingsPath=c:\\temp\\JsonSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
+    },
+    "Cosmos->JSON": {
+      "commandName": "Project",
+      "commandLineArgs": "--source cosmos --sink json --SourceSettingsPath=c:\\temp\\CosmosSourceSettings.json --SinkSettingsPath=c:\\temp\\JsonSinkSettings.json"
+    }
+  }
+}

@@ -90,6 +90,9 @@ _ReSharper*/
 # JustCode is a .NET coding addin-in
 .JustCode
 
+# CodeRush is a .NET coding addin-in
+.cr
+
 # TeamCity is a build add-in
 _TeamCity*
 
@@ -193,3 +196,7 @@ ModelManifest.xml
 
 # Visual Studio data
 .vs/
+
+
+# macOS .DS_Store
+**/.DS_Store

@@ -1,0 +1,33 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "feature/begin-core" ]
+  pull_request:
+    branches: [ "feature/begin-core" ]
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Debug Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: debug-build
+        path: /home/runner/work/azure-documentdb-datamigrationtool/azure-documentdb-datamigrationtool/Core/Microsoft.DataTransfer.Core/bin/Debug/net6.0 #path/to/artifact/ # or path/to/artifact  

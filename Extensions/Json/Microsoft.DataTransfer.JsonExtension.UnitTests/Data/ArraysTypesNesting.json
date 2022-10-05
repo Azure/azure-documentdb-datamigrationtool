@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "name": "John",
+        "level2": {
+            "id": 4324,
+            "location": "here"
+        },
+        "itemsNested": [
+            {
+                "number": "one",
+                "count": 3
+            },
+            {
+                "number": "two",
+                "count": 7
+            },
+            {
+                "number": "three",
+                "count": 2
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Matt",
+        "otherNames": [
+            "One",
+            "Two",
+            "Three"
+        ],
+        "mixed": [
+            1,
+            true,
+            3,
+            "four",
+            {
+                "letter": "E",
+                "number": 6
+            }
+        ]
+    },
+    {
+        "noId": 9,
+        "message": "Needs generated id"
+    },
+    {
+        "id": 3,
+        "description": "Hello JSON"
+    }
+]
