@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -12,18 +15,37 @@ namespace Microsoft.DataTransfer.CosmosExtension
     [Export(typeof(IDataSinkExtension))]
     public class CosmosDataSinkExtension : IDataSinkExtension
     {
-        public string DisplayName => "Cosmos";
+        public string DisplayName => "Cosmos-nosql";
 
         public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
         {
             var settings = config.Get<CosmosSinkSettings>();
             settings.Validate();
 
+            // based on:
+            //UserAgentSuffix = String.Format(CultureInfo.InvariantCulture, Resources.CustomUserAgentSuffixFormat,
+            //    entryAssembly == null ? Resources.UnknownEntryAssembly : entryAssembly.GetName().Name,
+            //    Assembly.GetExecutingAssembly().GetName().Version,
+            //    context.SourceName, context.SinkName,
+            //    isShardedImport ? Resources.ShardedImportDesignator : String.Empty)
+
+            var entryAssembly = Assembly.GetEntryAssembly();
+            bool isShardedImport = false;
+            string sourceName = "Unknown"; // TODO: add source as parameter
+            string sinkName = DisplayName;
+            string userAgentString = string.Format(CultureInfo.InvariantCulture, "{0}-{1}-{2}-{3}{4}",
+                                    entryAssembly == null ? "dtr" : entryAssembly.GetName().Name,
+                                    Assembly.GetExecutingAssembly().GetName().Version,
+                                    sourceName, sinkName,
+                                    isShardedImport ? "-Sharded" : string.Empty);
+
             var client = new CosmosClient(settings.ConnectionString,
                 new CosmosClientOptions
                 {
-                    ConnectionMode = ConnectionMode.Gateway,
-                    AllowBulkExecution = true
+                    ConnectionMode = settings.ConnectionMode,
+                    ApplicationName = userAgentString,
+                    AllowBulkExecution = true,
+                    EnableContentResponseOnWrite = false,
                 });
 
             Database database = await client.CreateDatabaseIfNotExistsAsync(settings.Database, cancellationToken: cancellationToken);
@@ -37,7 +59,18 @@ namespace Microsoft.DataTransfer.CosmosExtension
                 catch { }
             }
 
-            Container? container = await database.CreateContainerIfNotExistsAsync(settings.Container, settings.PartitionKeyPath, cancellationToken: cancellationToken);
+            var containerProperties = new ContainerProperties
+            {
+                Id = settings.Container,
+                PartitionKeyDefinitionVersion = PartitionKeyDefinitionVersion.V2,
+                PartitionKeyPath = settings.PartitionKeyPath,
+            };
+
+            ThroughputProperties throughputProperties = settings.UseAutoscaleForCreatedContainer
+                ? ThroughputProperties.CreateAutoscaleThroughput(settings.CreatedContainerMaxThroughput ?? 4000)
+                : ThroughputProperties.CreateManualThroughput(settings.CreatedContainerMaxThroughput ?? 400);
+
+            Container? container = await database.CreateContainerIfNotExistsAsync(containerProperties, throughputProperties, cancellationToken: cancellationToken);
 
             int insertCount = 0;
 
@@ -53,7 +86,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
             var convertedObjects = dataItems.Select(di => BuildObject(di, true)).Where(o => o != null).OfType<ExpandoObject>();
             var batches = convertedObjects.Buffer(settings.BatchSize);
-            var retry = GetRetryPolicy();
+            var retry = GetRetryPolicy(settings.MaxRetryCount, settings.InitialRetryDurationMs);
             await foreach (var batch in batches.WithCancellation(cancellationToken))
             {
                 var insertTasks = batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
@@ -65,15 +98,13 @@ namespace Microsoft.DataTransfer.CosmosExtension
             Console.WriteLine($"Added {insertCount} total records in {timer.ElapsedMilliseconds / 1000.0:F2}s");
         }
 
-        private static AsyncRetryPolicy GetRetryPolicy()
+        private static AsyncRetryPolicy GetRetryPolicy(int maxRetryCount, int initialRetryDuration)
         {
-            const int retryCount = 5;
-            const int retryDelayBaseMs = 100;
-
+            int retryDelayBaseMs = initialRetryDuration / 2;
             var jitter = new Random();
             var retryPolicy = Policy
                 .Handle<CosmosException>(c => c.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                .WaitAndRetryAsync(retryCount,
+                .WaitAndRetryAsync(maxRetryCount,
                     retryAttempt => TimeSpan.FromMilliseconds(Math.Pow(2, retryAttempt) * retryDelayBaseMs + jitter.Next(0, retryDelayBaseMs))
                 );
 
