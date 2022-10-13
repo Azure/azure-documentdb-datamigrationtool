@@ -1,4 +1,5 @@
-﻿using Microsoft.DataTransfer.Interfaces;
+﻿using Microsoft.Azure.Cosmos;
+using Microsoft.DataTransfer.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.DataTransfer.CosmosExtension
@@ -17,5 +18,6 @@ namespace Microsoft.DataTransfer.CosmosExtension
         public string? Query { get; set; }
 
         public bool IncludeMetadataFields { get; set; }
+        public ConnectionMode ConnectionMode { get; set; } = ConnectionMode.Gateway;
     }
 }

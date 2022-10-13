@@ -20,7 +20,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
             var client = new CosmosClient(settings.ConnectionString,
                 new CosmosClientOptions
                 {
-                    ConnectionMode = ConnectionMode.Gateway,
+                    ConnectionMode = settings.ConnectionMode,
                     AllowBulkExecution = true
                 });
 
