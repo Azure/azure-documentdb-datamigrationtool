@@ -10,7 +10,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
     [Export(typeof(IDataSourceExtension))]
     public class CosmosDataSourceExtension : IDataSourceExtension
     {
-        public string DisplayName => "Cosmos";
+        public string DisplayName => "Cosmos-nosql";
 
         public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {

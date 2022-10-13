@@ -6,15 +6,15 @@
     },
     "JSON->Cosmos": {
       "commandName": "Project",
-      "commandLineArgs": "--source json --sink cosmos --SourceSettingsPath=c:\\temp\\JsonSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
+      "commandLineArgs": "--source json --sink cosmos-nosql --SourceSettingsPath=c:\\temp\\JsonSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
     },
     "Cosmos->JSON": {
       "commandName": "Project",
-      "commandLineArgs": "--source cosmos --sink json --SourceSettingsPath=c:\\temp\\CosmosSourceSettings.json --SinkSettingsPath=c:\\temp\\JsonSinkSettings.json"
+      "commandLineArgs": "--source cosmos-nosql --sink json --SourceSettingsPath=c:\\temp\\CosmosSourceSettings.json --SinkSettingsPath=c:\\temp\\JsonSinkSettings.json"
     },
     "SqlServer->Cosmos": {
       "commandName": "Project",
-      "commandLineArgs": "--source sqlServer --sink cosmos --SourceSettingsPath=c:\\temp\\SqlSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
+      "commandLineArgs": "--source sqlServer --sink cosmos-nosql --SourceSettingsPath=c:\\temp\\SqlSourceSettings.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
     },
     "JSON->SqlServer": {
       "commandName": "Project",
