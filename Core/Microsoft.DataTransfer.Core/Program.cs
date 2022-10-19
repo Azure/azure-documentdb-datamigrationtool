@@ -47,8 +47,11 @@ class Program
 
         Console.WriteLine("Done");
 
-        Console.WriteLine("Enter to Quit...");
-        Console.ReadLine();
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Enter to Quit...");
+            Console.ReadLine();
+        }
 
         await host.StopAsync();
         await hostingProcess;
