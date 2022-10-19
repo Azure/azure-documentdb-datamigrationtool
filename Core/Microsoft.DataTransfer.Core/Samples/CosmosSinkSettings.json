@@ -1,6 +1,8 @@
 {
-    "Database":"myDb",
-    "Container":"myContainer",
-    "PartitionKeyPath":"/id",
-    "RecreateContainer": true
+    "ConnectionString": "AccountEndpoint=<YourAccountEndpoint>;AccountKey=<YourAccountKey>",
+    "Database": "myDb",
+    "Container": "myContainer",
+    "PartitionKeyPath": "/id",
+    "RecreateContainer": false,
+    "UpdateExistingDocuments": true
 }
