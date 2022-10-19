@@ -1,5 +1,7 @@
 {
-    "Database":"myDb",
-    "Container":"myContainer",
-    "IncludeMetadataFields": false
+    "ConnectionString": "AccountEndpoint=<YourAccountEndpoint>;AccountKey=<YourAccountKey>",
+    "Database": "myDb",
+    "Container": "myContainer",
+    "IncludeMetadataFields": false,
+    "Query": "select * from ToDos t where t.cost > 9000"
 }

@@ -56,9 +56,11 @@ namespace Microsoft.DataTransfer.CosmosExtension
             var retry = GetRetryPolicy();
             await foreach (var batch in batches.WithCancellation(cancellationToken))
             {
-                var insertTasks = batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
+                var tasks = settings.UpdateExistingDocuments
+                    ? batch.Select(item => UpsertItemAsync(container, item, retry, cancellationToken)).ToList()
+                    : batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
 
-                var results = await Task.WhenAll(insertTasks);
+                var results = await Task.WhenAll(tasks);
                 ReportCount(results.Sum());
             }
 
@@ -93,6 +95,26 @@ namespace Microsoft.DataTransfer.CosmosExtension
                     if (t.IsFaulted)
                     {
                         Console.WriteLine($"Error adding record: {t.Exception?.Message}");
+                    }
+
+                    return 0;
+                }, cancellationToken);
+            return task;
+        }
+
+        private static Task<int> UpsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
+        {
+            var task = retryPolicy.ExecuteAsync(() => container.UpsertItemAsync(item, cancellationToken: cancellationToken))
+                .ContinueWith(t =>
+                {
+                    if (t.IsCompletedSuccessfully)
+                    {
+                        return 1;
+                    }
+
+                    if (t.IsFaulted)
+                    {
+                        Console.WriteLine($"Error adding/replacing record: {t.Exception?.Message}");
                     }
 
                     return 0;
