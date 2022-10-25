@@ -4,9 +4,11 @@ using System.Dynamic;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using System.Text;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
 
@@ -89,7 +91,9 @@ namespace Microsoft.DataTransfer.CosmosExtension
             var retry = GetRetryPolicy(settings.MaxRetryCount, settings.InitialRetryDurationMs);
             await foreach (var batch in batches.WithCancellation(cancellationToken))
             {
-                var insertTasks = batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
+                var insertTasks = settings.InsertStreams
+                    ? batch.Select(item => InsertItemStreamAsync(container, item, settings.PartitionKeyPath, retry, cancellationToken)).ToList()
+                    : batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
 
                 var results = await Task.WhenAll(insertTasks);
                 ReportCount(results.Sum());
@@ -114,6 +118,29 @@ namespace Microsoft.DataTransfer.CosmosExtension
         private static Task<int> InsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
         {
             var task = retryPolicy.ExecuteAsync(() => container.CreateItemAsync(item, cancellationToken: cancellationToken))
+                .ContinueWith(t =>
+                {
+                    if (t.IsCompletedSuccessfully)
+                    {
+                        return 1;
+                    }
+
+                    if (t.IsFaulted)
+                    {
+                        Console.WriteLine($"Error adding record: {t.Exception?.Message}");
+                    }
+
+                    return 0;
+                }, cancellationToken);
+            return task;
+        }
+
+        private static Task<int> InsertItemStreamAsync(Container container, ExpandoObject item, string partitionKeyPath, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
+        {
+            var json = JsonConvert.SerializeObject(item);
+            
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
+            var task = retryPolicy.ExecuteAsync(() => container.CreateItemStreamAsync(ms, new PartitionKey(((IDictionary<string, object?>)item)[partitionKeyPath.TrimStart('/')]?.ToString()), cancellationToken: cancellationToken))
                 .ContinueWith(t =>
                 {
                     if (t.IsCompletedSuccessfully)
