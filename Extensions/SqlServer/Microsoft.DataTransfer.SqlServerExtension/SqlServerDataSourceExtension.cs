@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Data.SqlClient;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.SqlServerExtension
 {
@@ -11,7 +12,7 @@ namespace Microsoft.DataTransfer.SqlServerExtension
     {
         public string DisplayName => "SqlServer";
 
-        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, ILogger logger, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var settings = config.Get<SqlServerSourceSettings>();
             settings.Validate();

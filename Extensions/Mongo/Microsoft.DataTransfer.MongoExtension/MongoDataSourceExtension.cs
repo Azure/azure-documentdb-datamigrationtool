@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.DataTransfer.Interfaces;
 using MongoDB.Bson;
 using Microsoft.DataTransfer.MongoExtension.Settings;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.MongoExtension;
 [Export(typeof(IDataSourceExtension))]
@@ -11,7 +12,7 @@ internal class MongoDataSourceExtension : IDataSourceExtension
 {
     public string DisplayName => "Mongo";
 
-    public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, ILogger logger, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var settings = config.Get<MongoSourceSettings>();
         settings.Validate();

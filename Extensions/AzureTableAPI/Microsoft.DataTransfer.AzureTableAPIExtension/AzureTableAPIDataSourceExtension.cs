@@ -4,6 +4,7 @@ using Microsoft.DataTransfer.AzureTableAPIExtension.Data;
 using Microsoft.DataTransfer.AzureTableAPIExtension.Settings;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 
@@ -14,7 +15,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
     {
         public string DisplayName => "AzureTableAPI";
 
-        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, ILogger logger, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var settings = config.Get<AzureTableAPIDataSourceSettings>();
             settings.Validate();

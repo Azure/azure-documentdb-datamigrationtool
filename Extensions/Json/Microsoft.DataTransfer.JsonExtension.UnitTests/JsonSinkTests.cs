@@ -1,4 +1,5 @@
 using Microsoft.DataTransfer.Interfaces;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 
 namespace Microsoft.DataTransfer.JsonExtension.UnitTests
@@ -35,7 +36,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
                 { "FilePath", outputFile }
             });
 
-            await sink.WriteAsync(data.ToAsyncEnumerable(), config);
+            await sink.WriteAsync(data.ToAsyncEnumerable(), config, new JsonDataSourceExtension(), NullLogger.Instance);
 
             var outputData = JsonConvert.DeserializeObject<List<TestDataObject>>(await File.ReadAllTextAsync(outputFile));
 

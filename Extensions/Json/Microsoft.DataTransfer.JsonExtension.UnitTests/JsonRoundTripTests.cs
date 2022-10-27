@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.DataTransfer.JsonExtension.UnitTests
@@ -24,7 +25,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
                 { "Indented", "true" },
             });
 
-            await output.WriteAsync(input.ReadAsync(sourceConfig), sinkConfig);
+            await output.WriteAsync(input.ReadAsync(sourceConfig, NullLogger.Instance), sinkConfig, input, NullLogger.Instance);
 
             bool areEqual = JToken.DeepEquals(JToken.Parse(await File.ReadAllTextAsync(fileIn)), JToken.Parse(await File.ReadAllTextAsync(fileOut)));
             Assert.IsTrue(areEqual);
@@ -50,7 +51,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
                 { "Indented", "true" },
             });
 
-            await output.WriteAsync(input.ReadAsync(sourceConfig), sinkConfig);
+            await output.WriteAsync(input.ReadAsync(sourceConfig, NullLogger.Instance), sinkConfig, input, NullLogger.Instance);
 
             bool areEqual = JToken.DeepEquals(JToken.Parse(await File.ReadAllTextAsync(fileCompare)), JToken.Parse(await File.ReadAllTextAsync(fileOut)));
             Assert.IsTrue(areEqual);

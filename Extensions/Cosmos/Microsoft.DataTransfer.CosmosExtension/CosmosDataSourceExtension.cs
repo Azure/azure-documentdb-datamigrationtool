@@ -4,6 +4,7 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.CosmosExtension
 {
@@ -12,7 +13,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
     {
         public string DisplayName => "Cosmos-nosql";
 
-        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, ILogger logger, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var settings = config.Get<CosmosSourceSettings>();
             settings.Validate();
@@ -31,7 +32,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
                 requestOptions.PartitionKey = new PartitionKey(settings.PartitionKey);
             }
 
-            Console.WriteLine($"Reading from {settings.Database}.{settings.Container}");
+            logger.LogInformation("Reading from {Database}.{Container}", settings.Database, settings.Container);
             using FeedIterator<Dictionary<string, object?>> feedIterator = GetFeedIterator<Dictionary<string, object?>>(settings, container, requestOptions);
             while (feedIterator.HasMoreResults)
             {

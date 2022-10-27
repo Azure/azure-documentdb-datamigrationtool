@@ -6,6 +6,7 @@ using Microsoft.DataTransfer.Interfaces;
 using Microsoft.DataTransfer.JsonExtension.Settings;
 using Microsoft.Extensions.Configuration;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.JsonExtension
 {
@@ -13,7 +14,7 @@ namespace Microsoft.DataTransfer.JsonExtension
     public class JsonDataSourceExtension : IDataSourceExtension
     {
         public string DisplayName => "JSON";
-        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<IDataItem> ReadAsync(IConfiguration config, ILogger logger, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var settings = config.Get<JsonSourceSettings>();
             settings.Validate();
@@ -22,8 +23,8 @@ namespace Microsoft.DataTransfer.JsonExtension
             {
                 if (File.Exists(settings.FilePath))
                 {
-                    Console.WriteLine($"Reading file '{settings.FilePath}'");
-                    var list = await ReadFileAsync(cancellationToken, settings.FilePath);
+                    logger.LogInformation("Reading file '{FilePath}'", settings.FilePath);
+                    var list = await ReadFileAsync(cancellationToken, settings.FilePath, logger);
 
                     if (list != null)
                     {
@@ -36,11 +37,11 @@ namespace Microsoft.DataTransfer.JsonExtension
                 else if (Directory.Exists(settings.FilePath))
                 {
                     string[] files = Directory.GetFiles(settings.FilePath, "*.json", SearchOption.AllDirectories);
-                    Console.WriteLine($"Reading {files.Length} files from '{settings.FilePath}'");
+                    logger.LogInformation("Reading {FileCount} files from '{Folder}'", files.Length, settings.FilePath);
                     foreach (string filePath in files.OrderBy(f => f))
                     {
-                        Console.WriteLine($"Reading file '{filePath}'");
-                        var list = await ReadFileAsync(cancellationToken, filePath);
+                        logger.LogInformation("Reading file '{FilePath}'", filePath);
+                        var list = await ReadFileAsync(cancellationToken, filePath, logger);
 
                         if (list != null)
                         {
@@ -51,11 +52,11 @@ namespace Microsoft.DataTransfer.JsonExtension
                         }
                     }
                 }
-                Console.WriteLine($"Completed reading '{settings.FilePath}'");
+                logger.LogInformation("Completed reading '{FilePath}'", settings.FilePath);
             }
         }
 
-        private static async Task<List<Dictionary<string, object?>>?> ReadFileAsync(CancellationToken cancellationToken, string filePath)
+        private static async Task<List<Dictionary<string, object?>>?> ReadFileAsync(CancellationToken cancellationToken, string filePath, ILogger logger)
         {
             var file = await File.ReadAllTextAsync(filePath, cancellationToken);
             try
@@ -85,7 +86,7 @@ namespace Microsoft.DataTransfer.JsonExtension
 
             if (!list.Any())
             {
-                Console.WriteLine($"No records read from '{filePath}'");
+                logger.LogWarning("No records read from '{FilePath}'", filePath);
             }
 
             return list;

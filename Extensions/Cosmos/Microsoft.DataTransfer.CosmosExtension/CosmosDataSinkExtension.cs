@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.Azure.Cosmos;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
@@ -19,7 +20,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
     {
         public string DisplayName => "Cosmos-nosql";
 
-        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, IDataSourceExtension dataSource, ILogger logger, CancellationToken cancellationToken = default)
         {
             var settings = config.Get<CosmosSinkSettings>();
             settings.Validate();
@@ -33,7 +34,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
             var entryAssembly = Assembly.GetEntryAssembly();
             bool isShardedImport = false;
-            string sourceName = "Unknown"; // TODO: add source as parameter
+            string sourceName = dataSource.DisplayName;
             string sinkName = DisplayName;
             string userAgentString = string.Format(CultureInfo.InvariantCulture, "{0}-{1}-{2}-{3}{4}",
                                     entryAssembly == null ? "dtr" : entryAssembly.GetName().Name,
@@ -82,7 +83,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
                 insertCount += i;
                 if (insertCount % 500 == 0)
                 {
-                    Console.WriteLine($"{insertCount} records added after {timer.ElapsedMilliseconds / 1000.0:F2}s");
+                    logger.LogInformation("{InsertCount} records added after {TotalSeconds}s", insertCount, $"{timer.ElapsedMilliseconds / 1000.0:F2}");
                 }
             }
 
@@ -92,14 +93,14 @@ namespace Microsoft.DataTransfer.CosmosExtension
             await foreach (var batch in batches.WithCancellation(cancellationToken))
             {
                 var insertTasks = settings.InsertStreams
-                    ? batch.Select(item => InsertItemStreamAsync(container, item, settings.PartitionKeyPath, retry, cancellationToken)).ToList()
-                    : batch.Select(item => InsertItemAsync(container, item, retry, cancellationToken)).ToList();
+                    ? batch.Select(item => InsertItemStreamAsync(container, item, settings.PartitionKeyPath, retry, logger, cancellationToken)).ToList()
+                    : batch.Select(item => InsertItemAsync(container, item, retry, logger, cancellationToken)).ToList();
 
                 var results = await Task.WhenAll(insertTasks);
                 ReportCount(results.Sum());
             }
 
-            Console.WriteLine($"Added {insertCount} total records in {timer.ElapsedMilliseconds / 1000.0:F2}s");
+            logger.LogInformation("Added {InsertCount} total records in {TotalSeconds}s", insertCount, $"{timer.ElapsedMilliseconds / 1000.0:F2}");
         }
 
         private static AsyncRetryPolicy GetRetryPolicy(int maxRetryCount, int initialRetryDuration)
@@ -115,8 +116,9 @@ namespace Microsoft.DataTransfer.CosmosExtension
             return retryPolicy;
         }
 
-        private static Task<int> InsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
+        private static Task<int> InsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, ILogger logger, CancellationToken cancellationToken)
         {
+            logger.LogTrace("Inserting item {Id}", GetPropertyValue(item, "id"));
             var task = retryPolicy.ExecuteAsync(() => container.CreateItemAsync(item, cancellationToken: cancellationToken))
                 .ContinueWith(t =>
                 {
@@ -127,7 +129,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
                     if (t.IsFaulted)
                     {
-                        Console.WriteLine($"Error adding record: {t.Exception?.Message}");
+                        logger.LogWarning(t.Exception, "Error adding record: {ErrorMessage}", t.Exception?.Message);
                     }
 
                     return 0;
@@ -135,12 +137,16 @@ namespace Microsoft.DataTransfer.CosmosExtension
             return task;
         }
 
-        private static Task<int> InsertItemStreamAsync(Container container, ExpandoObject item, string partitionKeyPath, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
+        private static Task<int> InsertItemStreamAsync(Container container, ExpandoObject item, string? partitionKeyPath, AsyncRetryPolicy retryPolicy, ILogger logger, CancellationToken cancellationToken)
         {
+            if (partitionKeyPath == null)
+                throw new ArgumentNullException(nameof(partitionKeyPath));
+
+            logger.LogTrace("Inserting item {Id}", GetPropertyValue(item, "id"));
             var json = JsonConvert.SerializeObject(item);
-            
+
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            var task = retryPolicy.ExecuteAsync(() => container.CreateItemStreamAsync(ms, new PartitionKey(((IDictionary<string, object?>)item)[partitionKeyPath.TrimStart('/')]?.ToString()), cancellationToken: cancellationToken))
+            var task = retryPolicy.ExecuteAsync(() => container.CreateItemStreamAsync(ms, new PartitionKey(GetPropertyValue(item, partitionKeyPath.TrimStart('/'))), cancellationToken: cancellationToken))
                 .ContinueWith(t =>
                 {
                     if (t.IsCompletedSuccessfully)
@@ -150,12 +156,17 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
                     if (t.IsFaulted)
                     {
-                        Console.WriteLine($"Error adding record: {t.Exception?.Message}");
+                        logger.LogWarning(t.Exception, "Error adding record: {ErrorMessage}", t.Exception?.Message);
                     }
 
                     return 0;
                 }, cancellationToken);
             return task;
+        }
+
+        private static string? GetPropertyValue(ExpandoObject item, string propertyName)
+        {
+            return ((IDictionary<string, object?>)item)[propertyName]?.ToString();
         }
 
         private static ExpandoObject? BuildObject(IDataItem? source, bool requireStringId = false)

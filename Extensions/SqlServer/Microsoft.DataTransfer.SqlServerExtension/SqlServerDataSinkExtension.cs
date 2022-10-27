@@ -4,6 +4,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.SqlServerExtension
 {
@@ -12,7 +13,7 @@ namespace Microsoft.DataTransfer.SqlServerExtension
     {
         public string DisplayName => "SqlServer";
 
-        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, IDataSourceExtension dataSource, ILogger logger, CancellationToken cancellationToken = default)
         {
             var settings = config.Get<SqlServerSinkSettings>();
             settings.Validate();

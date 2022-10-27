@@ -1,4 +1,5 @@
 using Microsoft.DataTransfer.Interfaces;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Microsoft.DataTransfer.JsonExtension.UnitTests
 {
@@ -14,7 +15,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
                 { "FilePath", "Data/SimpleIdName.json" }
             });
 
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());
                 Assert.IsNotNull(dataItem.GetValue("id"));
@@ -31,7 +32,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
                 { "FilePath", "Data/NestedObjects.json" }
             });
 
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 if (dataItem.GetValue("child") is IDataItem child)
                 {
@@ -56,7 +57,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
             });
 
             int counter = 0;
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 counter++;
                 CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());
@@ -79,7 +80,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
 
             int counter = 0;
             double lastId = -1;
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 counter++;
                 CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());
@@ -104,7 +105,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
             });
 
             int counter = 0;
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 counter++;
                 CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());
@@ -125,7 +126,7 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
             });
 
             int counter = 0;
-            await foreach (var dataItem in extension.ReadAsync(config))
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
             {
                 counter++;
                 CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());

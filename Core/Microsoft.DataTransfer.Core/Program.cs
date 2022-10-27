@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.Core;
 
@@ -18,6 +19,8 @@ class Program
             .Build();
 
         IConfiguration configuration = host.Services.GetRequiredService<IConfiguration>();
+        var loggerFactory = host.Services.GetRequiredService<ILoggerFactory>();
+        var log = loggerFactory.CreateLogger<Program>();
 
         var options = configuration.Get<DataTransferOptions>();
 
@@ -34,7 +37,7 @@ class Program
         var sources = LoadExtensions<IDataSourceExtension>(container);
         var sinks = LoadExtensions<IDataSinkExtension>(container);
 
-        Console.WriteLine($"{sources.Count + sinks.Count} Extensions Loaded");
+        log.LogInformation("{TotalExtensionCount} Extensions Loaded", sources.Count + sinks.Count);
 
         var source = GetExtensionSelection(options.Source, sources, "Source");
         var sourceConfig = BuildSettingsConfiguration(configuration, options.SourceSettingsPath, $"{source.DisplayName}SourceSettings", options.Source == null);
@@ -42,10 +45,10 @@ class Program
         var sink = GetExtensionSelection(options.Sink, sinks, "Sink");
         var sinkConfig = BuildSettingsConfiguration(configuration, options.SinkSettingsPath, $"{sink.DisplayName}SinkSettings", options.Sink == null);
 
-        var data = source.ReadAsync(sourceConfig);
-        await sink.WriteAsync(data, sinkConfig);
+        var data = source.ReadAsync(sourceConfig, loggerFactory.CreateLogger(source.GetType().Name));
+        await sink.WriteAsync(data, sinkConfig, source, loggerFactory.CreateLogger(sink.GetType().Name));
 
-        Console.WriteLine("Done");
+        log.LogInformation("Done");
 
         Console.WriteLine("Enter to Quit...");
         Console.ReadLine();

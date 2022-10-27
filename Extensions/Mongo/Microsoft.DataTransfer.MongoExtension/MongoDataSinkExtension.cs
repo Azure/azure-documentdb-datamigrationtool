@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.MongoExtension.Settings;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using System.ComponentModel.Composition;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.MongoExtension;
 [Export(typeof(IDataSinkExtension))]
@@ -10,7 +11,7 @@ public class MongoDataSinkExtension : IDataSinkExtension
 {
     public string DisplayName => "Mongo";
 
-    public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
+    public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, IDataSourceExtension dataSource, ILogger logger, CancellationToken cancellationToken = default)
     {
         var settings = config.Get<MongoSinkSettings>();
         settings.Validate();

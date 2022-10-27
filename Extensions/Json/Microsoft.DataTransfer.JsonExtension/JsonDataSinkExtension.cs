@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using System;
 using Microsoft.DataTransfer.JsonExtension.Settings;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.DataTransfer.JsonExtension
 {
@@ -12,14 +13,14 @@ namespace Microsoft.DataTransfer.JsonExtension
     {
         public string DisplayName => "JSON";
 
-        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, IDataSourceExtension dataSource, ILogger logger, CancellationToken cancellationToken = default)
         {
             var settings = config.Get<JsonSinkSettings>();
             settings.Validate();
 
             if (settings.FilePath != null)
             {
-                Console.WriteLine($"Writing to file '{settings.FilePath}'");
+                logger.LogInformation("Writing to file '{FilePath}'", settings.FilePath);
                 await using var stream = File.Create(settings.FilePath);
                 await using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions
                 {
@@ -33,7 +34,7 @@ namespace Microsoft.DataTransfer.JsonExtension
                 }
 
                 writer.WriteEndArray();
-                Console.WriteLine($"Completed writing data to file '{settings.FilePath}'");
+                logger.LogInformation("Completed writing data to file '{FilePath}'", settings.FilePath);
             }
         }
     }

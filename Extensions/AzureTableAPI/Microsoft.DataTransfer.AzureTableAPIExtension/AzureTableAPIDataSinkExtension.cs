@@ -3,6 +3,7 @@ using Microsoft.DataTransfer.AzureTableAPIExtension.Data;
 using Microsoft.DataTransfer.AzureTableAPIExtension.Settings;
 using Microsoft.DataTransfer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.Composition;
 
 namespace Microsoft.DataTransfer.AzureTableAPIExtension
@@ -12,7 +13,7 @@ namespace Microsoft.DataTransfer.AzureTableAPIExtension
     {
         public string DisplayName => "AzureTableAPI";
 
-        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(IAsyncEnumerable<IDataItem> dataItems, IConfiguration config, IDataSourceExtension dataSource, ILogger logger, CancellationToken cancellationToken = default)
         {
             var settings = config.Get<AzureTableAPIDataSinkSettings>();
             settings.Validate();
