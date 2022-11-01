@@ -19,6 +19,10 @@
     "JSON->SqlServer": {
       "commandName": "Project",
       "commandLineArgs": "--source json --sink sqlServer --JsonSourceSettings:FilePath=c:\\temp\\test-json-sql-in.json --SinkSettingsPath=c:\\temp\\SqlSinkSettings.json"
+    },
+    "JSON URI->Cosmos": {
+      "commandName": "Project",
+      "commandLineArgs": "--source json --sink cosmos-nosql --JsonSourceSettings:FilePath=https://raw.githubusercontent.com/Azure/azure-documentdb-datamigrationtool/main/Extensions/Json/Microsoft.DataTransfer.JsonExtension.UnitTests/Data/ArraysTypesNesting.json --SinkSettingsPath=c:\\temp\\CosmosSinkSettings.json"
     }
   }
 }

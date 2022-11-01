@@ -24,7 +24,7 @@ namespace Microsoft.DataTransfer.JsonExtension
                 if (File.Exists(settings.FilePath))
                 {
                     logger.LogInformation("Reading file '{FilePath}'", settings.FilePath);
-                    var list = await ReadFileAsync(cancellationToken, settings.FilePath, logger);
+                    var list = await ReadFileAsync(settings.FilePath, logger, cancellationToken);
 
                     if (list != null)
                     {
@@ -41,7 +41,7 @@ namespace Microsoft.DataTransfer.JsonExtension
                     foreach (string filePath in files.OrderBy(f => f))
                     {
                         logger.LogInformation("Reading file '{FilePath}'", filePath);
-                        var list = await ReadFileAsync(cancellationToken, filePath, logger);
+                        var list = await ReadFileAsync(filePath, logger, cancellationToken);
 
                         if (list != null)
                         {
@@ -52,16 +52,51 @@ namespace Microsoft.DataTransfer.JsonExtension
                         }
                     }
                 }
+                else if (Uri.IsWellFormedUriString(settings.FilePath, UriKind.RelativeOrAbsolute))
+                {
+                    logger.LogInformation("Reading from URI '{FilePath}'", settings.FilePath);
+
+                    HttpClient client = new HttpClient();
+                    var response = await client.GetAsync(settings.FilePath, cancellationToken);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        logger.LogError("Failed to read {FilePath}. Response was: {ResponseCode} {ResponseMessage}", settings.FilePath, response.StatusCode, response.ReasonPhrase);
+                        yield break;
+                    }
+
+                    var json = await response.Content.ReadAsStringAsync(cancellationToken);
+
+                    var list = await ReadJsonItemsAsync(json, logger, cancellationToken);
+
+                    if (list != null)
+                    {
+                        foreach (var listItem in list)
+                        {
+                            yield return new JsonDictionaryDataItem(listItem);
+                        }
+                    }
+                }
+                else
+                {
+                    logger.LogWarning("No content was found at configured path '{FilePath}'", settings.FilePath);
+                    yield break;
+                }
+
                 logger.LogInformation("Completed reading '{FilePath}'", settings.FilePath);
             }
         }
 
-        private static async Task<List<Dictionary<string, object?>>?> ReadFileAsync(CancellationToken cancellationToken, string filePath, ILogger logger)
+        private static async Task<List<Dictionary<string, object?>>?> ReadFileAsync(string filePath, ILogger logger, CancellationToken cancellationToken)
         {
-            var file = await File.ReadAllTextAsync(filePath, cancellationToken);
+            var jsonText = await File.ReadAllTextAsync(filePath, cancellationToken);
+            return await ReadJsonItemsAsync(jsonText, logger, cancellationToken);
+        }
+
+        private static async Task<List<Dictionary<string, object?>>?> ReadJsonItemsAsync(string jsonText, ILogger logger, CancellationToken cancellationToken)
+        {
             try
             {
-                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
+                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonText));
                 return await JsonSerializer.DeserializeAsync<List<Dictionary<string, object?>>>(stream, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
@@ -72,7 +107,7 @@ namespace Microsoft.DataTransfer.JsonExtension
             var list = new List<Dictionary<string, object?>>();
             try
             {
-                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
+                using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonText));
                 var item = await JsonSerializer.DeserializeAsync<Dictionary<string, object?>>(stream, cancellationToken: cancellationToken);
                 if (item != null)
                 {
@@ -86,7 +121,7 @@ namespace Microsoft.DataTransfer.JsonExtension
 
             if (!list.Any())
             {
-                logger.LogWarning("No records read from '{FilePath}'", filePath);
+                logger.LogWarning("No records read from '{Content}'", jsonText);
             }
 
             return list;

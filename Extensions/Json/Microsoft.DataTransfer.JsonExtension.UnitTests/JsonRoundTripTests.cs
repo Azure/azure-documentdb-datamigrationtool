@@ -56,5 +56,31 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
             bool areEqual = JToken.DeepEquals(JToken.Parse(await File.ReadAllTextAsync(fileCompare)), JToken.Parse(await File.ReadAllTextAsync(fileOut)));
             Assert.IsTrue(areEqual);
         }
-    }
+
+        [TestMethod]
+        public async Task WriteAsync_fromReadUriAsync_ProducesIdenticalFile()
+        {
+            var input = new JsonDataSourceExtension();
+            var output = new JsonDataSinkExtension();
+
+            const string urlIn = "https://raw.githubusercontent.com/Azure/azure-documentdb-datamigrationtool/main/Extensions/Json/Microsoft.DataTransfer.JsonExtension.UnitTests/Data/ArraysTypesNesting.json";
+            const string compareFile = "Data/ArraysTypesNesting.json";
+            const string fileOut = $"{nameof(WriteAsync_fromReadAsync_ProducesIdenticalFile)}_out.json";
+            
+            var sourceConfig = TestHelpers.CreateConfig(new Dictionary<string, string>
+            {
+                { "FilePath", urlIn }
+            });
+            var sinkConfig = TestHelpers.CreateConfig(new Dictionary<string, string>
+            {
+                { "FilePath", fileOut },
+                { "Indented", "true" },
+            });
+
+            await output.WriteAsync(input.ReadAsync(sourceConfig, NullLogger.Instance), sinkConfig, input, NullLogger.Instance);
+
+            bool areEqual = JToken.DeepEquals(JToken.Parse(await File.ReadAllTextAsync(compareFile)), JToken.Parse(await File.ReadAllTextAsync(fileOut)));
+            Assert.IsTrue(areEqual);
+        }
+  }
 }

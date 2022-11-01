@@ -137,5 +137,23 @@ namespace Microsoft.DataTransfer.JsonExtension.UnitTests
             Assert.AreEqual(5, counter);
         }
 
+        [TestMethod]
+        public async Task ReadAsync_WithFlatObjects_ReadsValuesFromUrl()
+        {
+            var extension = new JsonDataSourceExtension();
+            var config = TestHelpers.CreateConfig(new Dictionary<string, string>
+            {
+                { "FilePath", "https://raw.githubusercontent.com/Azure/azure-documentdb-datamigrationtool/main/Extensions/Json/Microsoft.DataTransfer.JsonExtension.UnitTests/Data/SimpleIdName.json" }
+            });
+
+            await foreach (var dataItem in extension.ReadAsync(config, NullLogger.Instance))
+            {
+                CollectionAssert.AreEquivalent(new[] { "id", "name" }, dataItem.GetFieldNames().ToArray());
+                Assert.IsNotNull(dataItem.GetValue("id"));
+                Assert.IsNotNull(dataItem.GetValue("name"));
+            }
+        }
+
+
     }
 }
