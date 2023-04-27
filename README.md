@@ -1,8 +1,8 @@
-# Azure Cosmos DB data migration tool
+# Azure Cosmos DB Data Migration Tool
 
 > **PLEASE NOTE**
-> 
-> The Azure Cosmos DB data migration tool is undergoing a full refactor to restructure the project to accomplish the following:
+>
+> The Azure Cosmos DB Data Migration Tool is undergoing a full refactor to restructure the project to accomplish the following:
 >
 > - Provide a base cross-platform CLI that is lightweight and serves as the base (core) executable for hosting extensions
 > - The extensible framework enables the community to add source and destination targets without modifying the core executable
@@ -14,13 +14,13 @@ To access the archived version of the tool, navigate to the [**Archive branch**]
 
 ---
 
-## Cosmos DB data migration tool architecture
+## Cosmos DB Data Migration Tool Architecture
 
 The Cosmos DB Data Migration Tool is a lightweight executable that leverages the [Managed Extensibility Framework (MEF)](https://docs.microsoft.com/en-us/dotnet/framework/mef/). MEF enables decoupled implementation of the core project and its extensions. The core application is a command-line executable responsible for composing the required extensions at runtime by automatically loading them from the Extensions folder of the application. An Extension is a class library that includes the implementation of a System as a Source and (optionally) Sink for data transfer. The core application project does not contain direct references to any extension implementation. Instead, these projects share a common interface.
 
 ![An extensions folder holds multiple extensions implementations.The application loads extensions from the extensions folder and executes functionality based on an interface implementation.](media/application_architecture.png "Application architecture")
 
-## Cosmos DB project structure
+## Cosmos DB Data Migration Tool Project Structure
 
 The Cosmos DB Data Migration Tool core project is a C# command-line executable. The core application serves as the composition container for the required Source and Sink extensions. Therefore, the application user needs to put only the desired Extension class library assembly into the Extensions folder before running the application. In addition, the core project has a unit test project to exercise the application's behavior, whereas extension projects contain concrete integration tests that rely on external systems.
 

@@ -38,7 +38,7 @@ git clone https://github.com/Azure/azure-documentdb-datamigrationtool.git
 
 ## Tutorial: JSON To Cosmos DB Migration
 
-This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON data to Azure Cosmos DB. This tutorial uses the Azure Cosmos DB Emulator.
+This tutorial outlines how to use the Cosmos DB Data Migration Tool to move JSON data to Azure Cosmos DB. This tutorial uses the Azure Cosmos DB Emulator.
 
 ### Task 1: Provision A Sample Database And Container Using The Azure Cosmos Db Emulator As The Destination
 
@@ -64,7 +64,7 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The New Container blade displays with btcdata entered in the Container id field and /id entered in the Partition key field. The OK button is highlighted.](media/cosmosdbemulator_newcontainerform.png "New Container blade")
 
-    >**Note**: When using the Cosmos DB Data Migration tool, the container doesn't have to previously exist, it will be created automatically using the partition key specified in the sink configuration.
+    >**Note**: When using the Cosmos DB Data Migration Tool, the container doesn't have to previously exist, it will be created automatically using the partition key specified in the sink configuration.
 
 ### Task 2: Prepare JSON Source Documents
 
@@ -94,7 +94,7 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The Cosmos DB Emulator Quickstart screen displays with the Primary Connection String value highlighted.](media/cosmosemulator_primaryconnectionstring.png "Cosmos DB Emulator Primary Connection String")
 
-    >**NOTE**: Currently the Cosmos DB Data migration tool expects a single JSON file containing an array of objects.
+    >**NOTE**: Currently the Cosmos DB Data Migration Tool expects a single JSON file containing an array of objects.
 
 3. Ensure the **Microsoft.DataTransfer.Core** project is set as the startup project then press `F5` to run the application.
 
