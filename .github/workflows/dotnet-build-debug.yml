@@ -1,0 +1,50 @@
+name: Build .NET (Debug)
+
+on:
+  workflow_dispatch: # Enable manual trigger to run workflow.
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 0 * * *" # https://crontab.guru/#0_0_*_*_*
+
+jobs:
+  build-debug:
+    name: "Build Debug"
+    defaults:
+      run:
+        shell: bash
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: |
+          dotnet build \
+            ${{ github.workspace }}/CosmosDbDataMigrationTool.sln \
+            --no-restore \
+            --configuration Debug \
+            --framework net6.0 \
+            --maxcpucount:1
+      - name: Test
+        run: |
+          dotnet test \
+          --configuration Debug \
+          --no-build \
+          --verbosity normal
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: debug-build
+          path: ${{ github.workspace }}/Core/Microsoft.DataTransfer.Core/bin/Debug/net6.0

@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.DataTransfer.SqlServerExtension\Microsoft.DataTransfer.SqlServerExtension.csproj" />
+    <ProjectReference
+      Include="..\Microsoft.DataTransfer.SqlServerExtension\Microsoft.DataTransfer.SqlServerExtension.csproj" />
   </ItemGroup>
 
   <ItemGroup>

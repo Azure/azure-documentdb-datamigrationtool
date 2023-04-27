@@ -1,41 +1,46 @@
 # Developer Guidance
 
 - [Developer Guidance](#developer-guidance)
-  - [Software prerequisites](#software-prerequisites)
-  - [Clone the source code repository](#clone-the-source-code-repository)
-  - [Build the solution](#build-the-solution)
-  - [Tutorial: JSON to Cosmos DB migration](#tutorial-json-to-cosmos-db-migration)
-    - [Task 1: Provision a sample database and container using the Azure Cosmos DB Emulator as the destination(sink)](#task-1-provision-a-sample-database-and-container-using-the-azure-cosmos-db-emulator-as-the-destinationsink)
-    - [Task 2: Prepare JSON source documents](#task-2-prepare-json-source-documents)
-    - [Task 3: Setup the data migration configuration](#task-3-setup-the-data-migration-configuration)
+  - [Prerequisites](#prerequisites)
+  - [Clone The Source Code Repository](#clone-the-source-code-repository)
+  - [Build The Solution](#build-the-solution)
+    - [Build Using Command Line / Terminal](#build-using-command-line--terminal)
+  - [Tutorial: JSON To Cosmos DB Migration](#tutorial-json-to-cosmos-db-migration)
+    - [Task 1: Provision A Sample Database And Container Using The Azure Cosmos Db Emulator As The Destination](#task-1-provision-a-sample-database-and-container-using-the-azure-cosmos-db-emulator-as-the-destination)
+    - [Task 2: Prepare JSON Source Documents](#task-2-prepare-json-source-documents)
+    - [Task 3: Setup The Data Migration Configuration](#task-3-setup-the-data-migration-configuration)
   - [Creating Extensions](#creating-extensions)
 
-## Software prerequisites
+## Prerequisites
 
 1. [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
-2. [.NET 6.0 SDK](https://github.com/Azure/azure-documentdb-datamigrationtool)
-3. [Git client](https://github.com/git-guides/install-git)
+2. [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+3. [Git](https://github.com/git-guides/install-git)
 4. [Azure Cosmos DB Emulator](https://learn.microsoft.com/azure/cosmos-db/local-emulator) or Azure Cosmos DB resource.
 
-## Clone the source code repository
+## Clone The Source Code Repository
 
 1. From a command prompt, execute the following command in an empty working folder that will house the source code.
 
 ```shell
-git clone --branch feature/begin-core https://github.com/Azure/azure-documentdb-datamigrationtool.git
+git clone https://github.com/Azure/azure-documentdb-datamigrationtool.git
 ```
 
-## Build the solution
+## Build The Solution
 
 1. Using Visual Studio 2022, open `CosmosDbDataMigrationTool.sln`.
 
-2. Build the project using the keyboard shortcut <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> (<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> on a Mac). This will build all current extension projects as well as the command-line **Core** application. The extension projects build assemblies get written to the **Extensions** folder of the **Core** application build. This way all extension options are available when the application is run.
+2. Build the project using the keyboard shortcut `Ctrl`+`Shift`+`B` (`Cmd`+`Shift`+`B` on macOS). This will build all current extension projects as well as the command-line **Core** application. The extension projects build assemblies get written to the **Extensions** folder of the **Core** application build. All extension options will be available when the application is run.
 
-## Tutorial: JSON to Cosmos DB migration
+### Build Using Command Line / Terminal
 
-This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON data to Azure Cosmos DB. This tutorial uses the Azure Cosmos DB Emulator.
+- See [build-debug.sh](../build-debug.sh) and [build-release.sh](../build-release.sh) scripts.
 
-### Task 1: Provision a sample database and container using the Azure Cosmos DB Emulator as the destination(sink)
+## Tutorial: JSON To Cosmos DB Migration
+
+This tutorial outlines how to use the Cosmos DB Data Migration Tool to move JSON data to Azure Cosmos DB. This tutorial uses the Azure Cosmos DB Emulator.
+
+### Task 1: Provision A Sample Database And Container Using The Azure Cosmos Db Emulator As The Destination
 
 1. Launch the Azure Cosmos DB emulator application and open <https://localhost:8081/_explorer/index.html> in a browser.
 
@@ -59,13 +64,13 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The New Container blade displays with btcdata entered in the Container id field and /id entered in the Partition key field. The OK button is highlighted.](media/cosmosdbemulator_newcontainerform.png "New Container blade")
 
-    >**Note**: When using the Cosmos DB Data Migration tool, the container doesn't have to previously exist, it will be created automatically using the partition key specified in the sink configuration.
+    >**Note**: When using the Cosmos DB Data Migration Tool, the container doesn't have to previously exist, it will be created automatically using the partition key specified in the sink configuration.
 
-### Task 2: Prepare JSON source documents
+### Task 2: Prepare JSON Source Documents
 
 1. Locate the **docs/resources/sample-data.zip** file. Extract the files to any desired folder. These files serve as the JSON data that is to be migrated to Cosmos DB.
 
-### Task 3: Setup the data migration configuration
+### Task 3: Setup The Data Migration Configuration
 
 1. Each extension contains a README document that outlines configuration for the data migration. In this case, locate the configuration for [JSON (Source)](https://github.com/Azure/azure-documentdb-datamigrationtool/tree/feature/begin-core/Extensions/Json/Microsoft.DataTransfer.JsonExtension) and [Cosmos DB (Sink)](https://github.com/Azure/azure-documentdb-datamigrationtool/tree/feature/begin-core/Extensions/Cosmos/Microsoft.DataTransfer.CosmosExtension).
 
@@ -89,39 +94,46 @@ This tutorial outlines how to use the Cosmos DB Data Migration tool to move JSON
 
     ![The Cosmos DB Emulator Quickstart screen displays with the Primary Connection String value highlighted.](media/cosmosemulator_primaryconnectionstring.png "Cosmos DB Emulator Primary Connection String")
 
-    >**NOTE**: Currently the Cosmos DB Data migration tool expects a single JSON file containing an array of objects.
+    >**NOTE**: Currently the Cosmos DB Data Migration Tool expects a single JSON file containing an array of objects.
 
-3. Ensure the **Microsoft.DataTransfer.Core** project is set as the startup project then press <kbd>F5</kbd> to run the application.
+3. Ensure the **Microsoft.DataTransfer.Core** project is set as the startup project then press `F5` to run the application.
 
-4. The application will load the provided extensions, then prompt for a **Source**. Select **JSON**. When prompted to load settings from a file enter `n` and press <kbd>Enter</kbd>. The application provides the ability to configure extensions in a separate file versus having them located in the **appsettings.json** file. When a separate file is not specified, the settings are read from **appsettings.json**. When prompted to provide the Configuration section name, press <kbd>Enter</kbd> to accept the default: **JSONSourceSettings**.
+4. The application will load the provided extensions, then prompt for a **Source**. Select **JSON**. When prompted to load settings from a file enter `n` and press `Enter`. The application provides the ability to configure extensions in a separate file versus having them located in the **appsettings.json** file. When a separate file is not specified, the settings are read from **appsettings.json**. When prompted to provide the Configuration section name, press `Enter` to accept the default: **JSONSourceSettings**.
 
     ![The Data Migration application displays with a menu prompt for Source.](media/app_source_prompt.png "Select Source")
 
-5. The application will then prompt for a **Sink**, choose **Cosmos**. When prompted to load settings from a file enter `n` and press <kbd>Enter</kbd>. The application provides the ability to configure extensions in a separate file versus having them located in the **appsettings.json** file. When a separate file is not specified, the settings are read from **appsettings.json**. When prompted to provide the Configuration section name, press <kbd>Enter</kbd> to accept the default: **CosmosSinkSettings**.
+5. The application will then prompt for a **Sink**, choose **Cosmos**. When prompted to load settings from a file enter `n` and press `Enter`. The application provides the ability to configure extensions in a separate file versus having them located in the **appsettings.json** file. When a separate file is not specified, the settings are read from **appsettings.json**. When prompted to provide the Configuration section name, press `Enter` to accept the default: **CosmosSinkSettings**.
 
     ![The Data migration application displays with a menu prompt for Sink.](media/app_sink_prompt.png "Select Sink")
 
-6. The application then performs the data migration. After a few moments the process will indicate **Done.**.
+6. The application then performs the data migration. After a few moments the process will indicate **Done**.
 
     ![The Data migration application displays with the full output of the migration including the Done message.](media/app_final.png "Data Migration completes")
 
 ## Creating Extensions
 
-1. Add a new folder in the Extensions folder with the name of your extension.
+1. Add a new folder in the `Extensions` folder with the name of your extension.
 
 2. Create the extension project and an accompanying test project.
-    - The naming convention for extension projects is `Microsoft.DataTransfer.<Name>Extension`.
-    - Extension projects should use .NET 6 framework and **Console Application** type. A Program.cs file must be included in order to build the console project. A Console Application Project is required to have the build include NuGet referenced packages.
-  
+    - The naming convention for extension projects is `Microsoft.DataTransfer.<ExtensionName>`.
+    - Extension projects should use .NET 6 framework and **Console Application** type. A `Program.cs` file must be included in order to build the console project. A Console Application Project is required to have the build include NuGet referenced packages.
+
 3. Add the new projects to the `CosmosDbDataMigrationTool` solution.
 
-4. In order to facilitate local debugging the extension build output along with any dependencies needs to be copied into the `Core\Microsoft.DataTransfer.Core\bin\Debug\net6.0\Extensions` folder. To set up the project to automatically copy add the following changes.
-    - Add a Publish Profile to Folder named `LocalDebugFolder` with a Target Location of `..\..\..\Core\Microsoft.DataTransfer.Core\bin\Debug\net6.0\Extensions`
-    - To publish every time the project builds, edit the .csproj file to add a new post-build step:
+4. In order to facilitate local debugging the extension build output along with any dependencies needs to be copied into the `Core\Microsoft.DataTransfer.Core\bin\{Debug,Release}\net6.0\Extensions` folder. To set up the project to automatically copy the extensions, add the following changes.
+
+    - Add a Publish Profile to Folder named `LocalDebugFolder` with a Target Location of `..\..\..\Core\Microsoft.DataTransfer.Core\bin\Debug\net6.0\Extensions`.
+    - Add a Publish Profile to Folder named `LocalReleaseFolder` with a Target Location of `..\..\..\Core\Microsoft.DataTransfer.Core\bin\Release\net6.0\Extensions`.
+    - To publish every time the project builds, edit the `.csproj` file to add a new post-build step:
 
     ```xml
     <Target Name="PublishDebug" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
-       <Exec Command="dotnet publish --no-build -p:PublishProfile=LocalDebugFolder" />
+      <Exec
+        Command="dotnet publish --configuration Debug --no-build -p:PublishProfile=LocalDebugFolder" />
+    </Target>
+    <Target Name="PublishRelease" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
+      <Exec
+        Command="dotnet publish --configuration Release --no-build -p:PublishProfile=LocalReleaseFolder" />
     </Target>
     ```
 
