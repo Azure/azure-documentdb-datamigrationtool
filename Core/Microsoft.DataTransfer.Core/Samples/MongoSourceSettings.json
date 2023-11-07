@@ -1,5 +1,0 @@
-{
-  "ConnectionString": "mongodb://localhost",
-  "DatabaseName": "myDb"
-}
-  
